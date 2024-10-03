@@ -1,0 +1,38 @@
+---
+title: 'Explaining GPU-over-TCP'
+description: 'Before reading further It is worth noting that the instances you interact with through Thunder Compute are at their core on-demand CPU-only instances, exactly like you would find on AWS, GCP, or Azure. Intuitively, the CPU-only instances you interact with on Thunder Compute have all of the functionality of EC2 instances. In fact, many of them are EC2 instances.'
+icon: microchip
+iconType: solid
+mode: wide
+sidebarTitle: Background
+---
+
+Behind the scenes, Thunder Compute connects these CPU-only instances to GPUs with TCP. From your perspective, the resulting instances behave like GPU instances on EC2, without having a GPU physically connected. Here is a rough diagram of what happens behind the scenes:
+<Frame>
+  <img src="/images/66ccd2ce082c56b70ca4ea25_Infographic design PCIE TCP-02 (1).png"/>
+</Frame>
+
+A simple example demonstrates the distinction between our virtual GPU-over-TCP technology and a physical PCIe connection:
+
+Running `$ nvidia-smi` on Thunder Compute behaves exactly as expected with a physical GPU, returning the attached GPU
+<Frame>
+  <img src="/images/66c8df7cb8df2ed091a44867_Screenshot 2024-08-18 111525.png"/>
+</Frame>
+
+Meanwhile, running lspci shows no connected GPUs. 
+<Frame>
+  <img src="/images/66c900e7f603ea2370f30818_Screenshot 2024-08-18 111632.png"/>
+</Frame>
+
+To hammer home the point that there is no GPU, here is the full list of PCIe-connected devices on this Thunder Compute instance.
+<Frame>
+  <img src="/images/66c8dfa65b9cbccf9b43bf9f_Screenshot 2024-08-18 111703.png"/>
+</Frame>
+I hope we have convinced you that there is no GPU physically connected to the machine. Pretty cool, right? You can pip install tnr and run tnr start to try this same demo yourself.
+
+Now that you understand the distinction between a Thunder Compute instance and a GPU instance on EC2, it is worth explaining the limitations of this virtualization approach.
+
+1.  Performance: TCP is slower than PCIe. While this may be obvious, Thunder Compute is optimized to minimize this performance impact. 
+2.  Limited CUDA support: Eventually, our GPUs-over-TCP will have the full functionality of physically attached cards, but today, Thunder Compute lacks official support for some NVIDIA libraries. 
+
+The impact of these drawbacks will vary depending on your specific workload and we continue to improve both over time. Until now, our testing has shown data science workflows to be the most performant and stable. You can find full compatibility details in “Supported Functionality.” Thunder Compute is free to start, so the easiest way to test compatibility with your workflow is to try it yourself.

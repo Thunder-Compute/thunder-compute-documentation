@@ -1,0 +1,51 @@
+---
+title: Using Thunder Compute
+description: Thunder Compute provides managed instances that are optimized for performance. The Thunder Compute CLI contains all of the functionality you need to create, edit, use, and delete these instances.
+icon: bolt
+iconType: solid
+mode: wide
+---
+## Start/create an instance
+
+*   `$ tnr create`
+    *   Creates a new Thunder Compute instance and automatically assigns an instance ID
+*   `$ tnr start [instance_ID]`
+    *   Starts an inactive Thunder Compute instance
+
+## Stop/delete an instance
+
+*   `$ tnr stop [instance_ID]`
+    *   Stops a running Thunder Compute instance
+*   `$ tnr delete [instance_ID]`
+    *   Deletes a Thunder Compute instance
+
+## Connect to a running instance
+
+*   `$ tnr connect [instance_ID]`
+    *   Connects you to a running Thunder Compute instance
+    *   This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
+
+## List instances
+
+*   `$ tnr status`
+    *   Lists all TNR instances and active GPUs associated with your Thunder Compute account
+    *   Any time a GPU is actively running a job you can check on it here
+
+## Attaching and switching GPUs
+
+*   `$ tnr device [device_name]`
+    *   `$ tnr device` without arguments will list current and available devices
+    *   Add `$ [device_name]` to switch to device
+    *   Use `$ device_name=cpu` to switch to CPU
+
+## Payment
+
+We require a $10 deposit to activate accounts. This automatically credits towards future payments and is intended to prevent spam. We also create Stripe subscriptions for each GPU type that bill monthly based off of your usage. When $50 of payment accumulates, your filed payment method is billed mid-cycle.
+
+## Authentication
+
+The Thunder Compute CLI uses the `TNR_API_TOKEN` environment variable for authentication. This saved token is used to authenticate all operations. You can generate these single-use tokens in the [console](https://console.thundercompute.com). Thunder Compute tokens do not expire and you can revoke them at any time. To access Thunder Compute from multiple devices, generate separate tokens for each device.
+
+## Storage
+
+Storage on Thunder Compute instances is persistent. By default, instances have 100GB of storage which can be configured with `$ tnr create`. If you have significant amounts of data in a storage bucket and are constrained to a specific region or cloud provider, contact our support team.

@@ -1,91 +1,81 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "ThunderCompute",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#003fa9",
+    "light": "#166dff",
+    "dark": "#003fa9",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#003fa9",
+      "to": "#166dff"
     }
+  },
+  "modeToggle": {
+    "default": "dark"
+  },
+  "background": { "style": "grid" },
+  "font": {
+    "headings": { "family": "Inter", "weight": 600 },
+    "body": { "family": "Inter" }
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Contact Us",
+      "url": "https://www.thundercompute.com/contact"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Log In",
+    "url": "https://console.thundercompute.com/login",
+    "arrow": false,
+    "style": "roundedRectangle"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "FAQ",
+      "url": "faq"
     }
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "About Us",
+      "icon": "users",
+      "url": "https://www.thundercompute.com/about"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "icon": "discord",
+      "url": "https://discord.gg/nwuETS9jJK"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://www.thundercompute.com/blog"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "docs/quickstart",
+        "docs/introduction",
+        "docs/background",
+        "docs/managed-instances",
+        "docs/bring-your-own-instance",
+        "docs/troubleshooting",
+        "faq/faq"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "facebook": "https://www.facebook.com/profile.php?id=61557446552169",
+    "discord": "https://discord.gg/nwuETS9jJK",
+    "x": "https://twitter.com/thundercompute",
+    "linkedin": "https://www.linkedin.com/company/thundercompute/"
   }
 }
