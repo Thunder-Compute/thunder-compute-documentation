@@ -23,6 +23,8 @@ tnr create
 tnr connect 0
 ```
 
+If you are running linux, you can directly run the following steps on your local machine, with significantly reduced performance.
+
 ## Step 2: install TNR inside the container
 
 Modify your dockerfile to include the following lines:
