@@ -5,7 +5,7 @@ mode: wide
 sidebarTitle: "Using Thunder Compute with Docker"
 ---
 
-### Warning: do not enable GPU passthrough
+### Note: do not enable GPU passthrough
 
 Do not use the --gpus all flag or NVIDIA runtime Docker images (e.g., nvidia/cuda). These require a physical GPU on your machine and can cause errors like:
 
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y python3-pip
 RUN pip3 install tnr
 ```
 
-### Step 2: set the TNR API Token:
+## Step 2: set the TNR API Token:
 
 Replace your_api_token_here with the API token generated from the Thunder Compute console to authenticate requests to TNR.
 
@@ -45,7 +45,7 @@ Alternatively, you can pass the api token at runtime
 docker run -e TNR_API_TOKEN=your_api_token_here your_image
 ```
 
-### Step 3: Use tnr run to Execute Commands
+## Step 3: Use tnr run to Execute Commands
 
 Prefix your commands with tnr run to execute them on a remote GPU:
 
@@ -53,11 +53,11 @@ Prefix your commands with tnr run to execute them on a remote GPU:
 tnr run python3 your_script.py
 ```
 
-### Conclusion
+## Conclusion
 
 By installing tnr inside your Docker container and avoiding GPU passthrough, you can run your applications on remote GPUs provided by Thunder Compute. Use the `TNR_API_TOKEN` environment variable for authentication, and prefix your commands with `tnr run` to execute them on the remote GPU.
 
-#### Full example Dockerfile
+### Example dockerfile
 
 ```
 FROM ubuntu:22.04
@@ -70,7 +70,11 @@ RUN apt-get update && apt-get install -y python3-pip
 
 RUN pip3 install tnr
 
-# Set environment variable
+# Install other packages
+
+RUN pip3 install torch
+
+# Set authentication environment variable
 
 ENV TNR_API_TOKEN=your_api_token_here
 ```
