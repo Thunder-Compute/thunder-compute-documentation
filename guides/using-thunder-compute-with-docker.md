@@ -37,7 +37,7 @@ RUN pip3 install tnr
 
 ## 3. Set the TNR API Token:
 
-Replace <your_api_token_here> with the API token generated from the Thunder Compute console to authenticate requests to TNR.
+Replace `<your_api_token_here>` with the API token generated from the Thunder Compute console to authenticate requests to TNR.
 
 ```
 # Existing dockerfile contents
