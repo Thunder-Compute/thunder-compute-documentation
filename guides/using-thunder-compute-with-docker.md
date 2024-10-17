@@ -15,13 +15,7 @@ Instead, follow this guide to create a dockerfile that supports Thunder Compute.
 
 ## Step 1: connect to a Thunder Compute instance
 
-Follow the instructions in our quickstart guide to create and connect to a Thunder Compute instance. In short, on your local machine run:
-
-```
-pip install tnr
-tnr create
-tnr connect 0
-```
+Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) to create and connect to a Thunder Compute instance.
 
 If you are running linux, you can directly run the following steps on your local machine, with significantly reduced performance.
 
