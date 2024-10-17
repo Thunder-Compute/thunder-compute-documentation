@@ -70,6 +70,10 @@
         "docs/troubleshooting",
         "faq/faq"
       ]
+    },
+    {
+      "group": "Guides",
+      "pages": ["guides/guide1", "guides/guide2", "guides/guide3"]
     }
   ],
   "footerSocials": {
