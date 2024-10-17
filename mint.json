@@ -73,7 +73,10 @@
     },
     {
       "group": "Guides",
-      "pages": ["guides/using-thunder-compute-with-docker"]
+      "pages": [
+        "guides/using-thunder-compute-with-docker",
+        "guides/vscode-integration-for-thunder-compute"
+      ]
     }
   ],
   "footerSocials": {
