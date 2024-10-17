@@ -1,6 +1,6 @@
 ---
 title: "Using Thunder Compute with Docker"
-description: "This guide explains how to use Thunder Compute with Docker"
+description: "This guide explains how to use Thunder Compute with Docker from within a Thunder Compute instance"
 mode: wide
 sidebarTitle: "Using Thunder Compute with Docker"
 ---
@@ -13,7 +13,17 @@ Do not use the --gpus all flag or NVIDIA runtime Docker images (e.g., nvidia/cud
 
 Instead, follow this guide to create a dockerfile that supports Thunder Compute.
 
-## Step 1: install TNR inside the container
+## Step 1: connect to a Thunder Compute instance
+
+Follow the instructions in our quickstart guide to create and connect to a Thunder Compute instance. In short, on your local machine run:
+
+```
+pip install tnr
+tnr create
+tnr connect 0
+```
+
+## Step 2: install TNR inside the container
 
 Modify your dockerfile to include the following lines:
 
@@ -29,28 +39,28 @@ RUN apt-get update && apt-get install -y python3-pip
 RUN pip3 install tnr
 ```
 
-## Step 2: set the TNR API Token:
+## Step 3: set the TNR API Token:
 
-Replace your_api_token_here with the API token generated from the Thunder Compute console to authenticate requests to TNR.
+Replace <your_api_token_here> with the API token generated from the Thunder Compute console to authenticate requests to TNR.
 
 ```
 # Existing dockerfile contents
 
-ENV TNR_API_TOKEN=your_api_token_here
+ENV TNR_API_TOKEN=<your_api_token_here>
 ```
 
 Alternatively, you can pass the api token at runtime
 
 ```
-docker run -e TNR_API_TOKEN=your_api_token_here your_image
+docker run -e TNR_API_TOKEN=<your_api_token_here> <your_image>
 ```
 
-## Step 3: Use tnr run to Execute Commands
+## Step 4: Use tnr run to Execute Commands
 
 Prefix your commands with tnr run to execute them on a remote GPU:
 
 ```
-tnr run python3 your_script.py
+docker run <your_image> tnr run python3 -c "print('GPU setup successful')"
 ```
 
 ## Conclusion
@@ -76,5 +86,5 @@ RUN pip3 install torch
 
 # Set authentication environment variable
 
-ENV TNR_API_TOKEN=your_api_token_here
+ENV TNR_API_TOKEN=<your_api_token_here>
 ```
