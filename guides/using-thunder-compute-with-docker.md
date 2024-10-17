@@ -2,7 +2,7 @@
 title: "Using Thunder Compute with Docker"
 description: "This guide explains how to use Thunder Compute with Docker from within a Thunder Compute instance"
 mode: wide
-sidebarTitle: "Using Thunder Compute with Docker"
+sidebarTitle: "Using Docker"
 ---
 
 ### Note: do not enable GPU passthrough
@@ -13,13 +13,13 @@ Do not use the --gpus all flag or NVIDIA runtime Docker images (e.g., nvidia/cud
 
 Instead, follow this guide to create a dockerfile that supports Thunder Compute.
 
-## Step 1: connect to a Thunder Compute instance
+## 1. Connect to a Thunder Compute instance
 
 Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) to create and connect to a Thunder Compute instance.
 
 If you are running linux, you can directly run the following steps on your local machine, with significantly reduced performance.
 
-## Step 2: install TNR inside the container
+## 2. Install TNR inside the container
 
 Modify your dockerfile to include the following lines:
 
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y python3-pip
 RUN pip3 install tnr
 ```
 
-## Step 3: set the TNR API Token:
+## 3. Set the TNR API Token:
 
 Replace <your_api_token_here> with the API token generated from the Thunder Compute console to authenticate requests to TNR.
 
@@ -51,7 +51,7 @@ Alternatively, you can pass the api token at runtime
 docker run -e TNR_API_TOKEN=<your_api_token_here> <your_image>
 ```
 
-## Step 4: Use tnr run to Execute Commands
+## 4. Use tnr run to Execute Commands
 
 Prefix your commands with tnr run to execute them on a remote GPU:
 
