@@ -73,7 +73,7 @@
     },
     {
       "group": "Guides",
-      "pages": ["guides/guide1", "guides/guide2", "guides/guide3"]
+      "pages": ["guides/using-thunder-compute-with-docker"]
     }
   ],
   "footerSocials": {
