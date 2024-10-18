@@ -3,7 +3,8 @@
   "name": "ThunderCompute",
   "logo": {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/logo/light.svg",
+    "href": "https://thundercompute.com"
   },
   "favicon": "/favicon.png",
   "colors": {
@@ -75,7 +76,8 @@
       "group": "Guides",
       "pages": [
         "guides/using-thunder-compute-with-docker",
-        "guides/vscode-integration-for-thunder-compute"
+        "guides/vscode-integration-for-thunder-compute",
+        "guides/running-jupyter-notebooks-on-thunder-compute"
       ]
     }
   ],
