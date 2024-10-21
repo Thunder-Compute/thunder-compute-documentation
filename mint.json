@@ -68,6 +68,7 @@
         "docs/background",
         "docs/managed-instances",
         "docs/bring-your-own-instance",
+        "docs/compatibility",
         "docs/troubleshooting",
         "faq/faq"
       ]
