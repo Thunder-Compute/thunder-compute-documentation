@@ -35,9 +35,9 @@ To hammer home the point that there is no GPU, here is the full list of PCIe-con
 
 I hope we have convinced you that there is no GPU physically connected to the machine. Pretty cool, right? You can `pip install tnr` and run `tnr start` to try this same demo yourself.
 
-Now that you understand the distinction between a Thunder Compute instance and a GPU instance on EC2, it is worth explaining the limitations of this virtualization approach.
+Now that you understand the distinction between a Thunder Compute instance and a GPU instance on EC2, it is worth explaining the limitations of this virtualized approach.
 
-1. **Performance**: TCP is slower than PCIe. While this may be obvious, Thunder Compute is optimized to minimize this performance impact.
-2. **Limited CUDA support**: Eventually, our GPUs-over-TCP will have the full functionality of physically attached cards, but today, Thunder Compute lacks official support for some NVIDIA libraries.
+1. **Performance**: TCP is slower than PCIe. While this may seem problematic, Thunder Compute is optimized to minimize the resulting performance impact. The real-world slowdown often is not noticeable and minimally impacts common data science tasks.
+2. **Limited Compatibility**: Eventually, our GPUs-over-TCP will have the full functionality of physically attached cards, but today, Thunder Compute lacks official support for some common GPU libraries. If Thunder Compute does not support your particular use case, please reach out and we will add support.
 
-The impact of these drawbacks will vary depending on your specific workload, and we continue to improve both over time. Until now, our testing has shown data science workflows to be the most performant and stable. You can find full compatibility details in “Supported Functionality.” Thunder Compute is free to start, so the easiest way to test compatibility with your workflow is to try it yourself.
+The impact of these drawbacks will vary depending on your specific workload, and we continue to improve both over time. Until now, our testing has shown data science workflows to be the most performant and stable. You can find full compatibility details in “Compatibility.” Thunder Compute is open to the public, so the easiest way to test compatibility with your workflow is to try it yourself.

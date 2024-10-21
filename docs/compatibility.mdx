@@ -6,10 +6,26 @@ iconType: solid
 mode: wide
 ---
 
-## CuPy
+## Supported functionality
 
-The latest versions of CuPy are statically linked to CUDA, which prevents them from recognizing a Thunder Compute virtual GPU. To run CuPy on Thunder Compute, please use an older version (`12.3.0 or earlier`) which is dynamically linked to CUDA.
+The following libraries and tools are known to be supported
 
-Use the following installation command:
+* PyTorch
+* TensorFlow
+* PyTorch Lightning
+* Hugging Face
+
+## Compatibility fixes
+
+The latest versions of CuPy are statically linked to CUDA, which prevents them from recognizing a Thunder Compute virtual GPU. To run CuPy on Thunder Compute, please use an older version (`12.3.0` or earlier) which is dynamically linked to CUDA.
+
+To install a working version of CuPy, please use the following installation command:
 
 `pip install cupy-cuda12x==12.3.0`
+
+## Known incompatibilities
+
+Currently, Thunder Compute lacks support for the following use cases. If you would like to run one of the following on Thunder Compute, please contact us and we will try our best to help!
+
+* Graphics workloads (OpenGL, Vulkan, Blender, others)
+* Multi-node training
