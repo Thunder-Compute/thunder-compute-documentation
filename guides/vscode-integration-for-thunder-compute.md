@@ -37,6 +37,8 @@ The `$ tnr connect` command automatically adds the instance and its keypair to y
 
 This instance should appear in the remote explorer with the name `tnr-<instance_id>`. 
 
+![Thunder Compute Instance in VSCode Remote Explorer](/images/tnr-instance_id.png)
+
 If the instance does not automatically appear, you can click the "plus" icon for "new remote" and use the command `ssh <instance_public_ip>` to connect to the instance. You do not need to configure keys or username, as these are also stored in `.ssh`.
 
 Note: if the instance is stopped it will not appear in Remote Explorer. Use the command `$ tnr start <instance_id>` to start it.
