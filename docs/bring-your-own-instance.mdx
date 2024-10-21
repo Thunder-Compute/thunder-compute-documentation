@@ -1,5 +1,5 @@
 ---
-title: "[Discouraged] directly attaching a GPU to an external instance"
+title: '[Discouraged] directly attaching a GPU to an external instance'
 description: "Thunder Compute provides the flexibility to attach virtual GPUs to your own cloud instances, kubernetes clusters, servers, or even personal computers. While this is even more convenient to set up than our managed instances, performance will be severely limited by the network connection to the virtually attached GPU. Given this unreliability, we discourage use of these features."
 icon: triangle-exclamation
 iconType: solid
@@ -9,8 +9,8 @@ sidebarTitle: Advanced Usage
 
 ## Running from outside of a managed instance
 
-- `$ tnr run`
-  - Outside of a Thunder Compute managed instance, prefix any command with `$ tnr run` to use cloud GPUs
+*   `$ tnr run`
+    *   Outside of a Thunder Compute managed instance, prefix any command with `$ tnr run` to use cloud GPUs
 
 ## Optimizing performance
 
@@ -18,11 +18,11 @@ While we can guarantee strong performance with our managed instances, there are 
 
 ### In the cloud
 
-- Connect as close to the GCP us-central region as possible
-- If possible, upgrade the networking of your instance
+*   Connect as close to the GCP us-central region as possible
+*   If possible, upgrade the networking of your instance
 
 ### On-premises (slower)
 
-- Upgrade your internet service plan
-  - Upload and download speeds are equally important
-- Use an ethernet connection
+*   Upgrade your internet service plan
+    *   Upload and download speeds are equally important
+*   Use an ethernet connection
