@@ -14,14 +14,16 @@ The following libraries and tools are known to be supported
 * TensorFlow
 * PyTorch Lightning
 * Hugging Face
+* CuPy (version `12.3.0` and older, see below)
 
-## Compatibility fixes
+You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system.
 
-The latest versions of CuPy are statically linked to CUDA, which prevents them from recognizing a Thunder Compute virtual GPU. To run CuPy on Thunder Compute, please use an older version (`12.3.0` or earlier) which is dynamically linked to CUDA.
+The following interfaces are officially supported from within a Thunder Compute instance:
 
-To install a working version of CuPy, please use the following installation command:
-
-`pip install cupy-cuda12x==12.3.0`
+* Jupyter Notebooks
+* IPython
+* Anaconda
+* Docker
 
 ## Known incompatibilities
 
@@ -29,3 +31,14 @@ Currently, Thunder Compute lacks support for the following use cases. If you wou
 
 * Graphics workloads (OpenGL, Vulkan, Blender, others)
 * Multi-node training
+* Libraries that are statically linked to CUDA (if possible, find an older version of the same library that is dynamically linked to CUDA)
+
+## Compatibility notes
+
+### CuPy
+
+The latest versions of CuPy are statically linked to CUDA, which prevents them from recognizing a Thunder Compute virtual GPU. To run CuPy on Thunder Compute, please use an older version (`12.3.0` or earlier) which is dynamically linked to CUDA.
+
+To install a working version of CuPy, please use the following installation command:
+
+`pip install cupy-cuda12x==12.3.0`

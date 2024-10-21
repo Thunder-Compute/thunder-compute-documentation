@@ -6,16 +6,27 @@ icon: wrench
 iconType: solid
 ---
 
-### Common solutions
+## Common solutions
 
 1.  Disconnect and reconnect to instance
 2.  `pip install tnr --upgrade` within the instance
 3.  `pip install tnr --upgrade` outside the instance
 
-### Common errors
+## Common errors
+
+### Function not implemented
 
 A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. If you encounter this, please contact us.
 
-### Support
+### GPU not available
+
+Occasionally, you may find an error where a library says that a GPU or GPU driver is not available.
+
+Most frequently, this is because the library is statically linked to CUDA, which prevents it from recognizing a Thunder Compute virtual GPU. To resolve this, try the following steps:
+
+1. Check if the library is statically linked to CUDA. If so, check for an older version of the library that is dynamically linked to CUDA
+2. Contact Thunder Compute support
+
+## Support
 
 The fastest way to get support is to join [our discord](https://discord.gg/nwuETS9jJK). Brian and Carl will personally respond to help you as quickly as possible. When in doubt, we're here to help.
