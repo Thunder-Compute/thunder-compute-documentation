@@ -2,7 +2,7 @@
 title: "Integrating Thunder Compute with VSCode"
 description: "This guide will walk you through integrating Thunder Compute with Visual Studio Code (VSCode), allowing you to develop and manage your projects directly on a Thunder Compute instance from your local IDE."
 mode: wide
-sidebarTitle: "Integrating with VSCode"
+sidebarTitle: "VSCode Integration"
 ---
 
 ## Prerequisites

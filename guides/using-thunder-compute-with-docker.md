@@ -2,7 +2,7 @@
 title: "Using Thunder Compute with Docker"
 description: "This guide explains how to use Thunder Compute with Docker from within a Thunder Compute instance"
 mode: wide
-sidebarTitle: "Using Docker"
+sidebarTitle: "Docker"
 ---
 
 ### Note: do not enable GPU passthrough

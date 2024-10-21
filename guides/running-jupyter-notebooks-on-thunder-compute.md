@@ -2,7 +2,7 @@
 title: "How to use a Jupyter Notebook on Thunder Compute"
 description: "You can run a Jupyter Notebook on Thunder Compute with one command. Follow the steps below to try it yourself."
 mode: wide
-sidebarTitle: "Jupyter Notebook"
+sidebarTitle: "Jupyter Notebooks"
 ---
 
 ### 1. Create and connect to a Thunder Compute instance

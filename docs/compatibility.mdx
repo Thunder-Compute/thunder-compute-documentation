@@ -1,0 +1,15 @@
+---
+title: Compatibility
+description: Below are some notes on Compatibility of different libraries with Thunder Compute
+icon: book-open
+iconType: solid
+mode: wide
+---
+
+## CuPy
+
+The latest versions of CuPy are statically linked to CUDA, which prevents them from recognizing a Thunder Compute virtual GPU. To run CuPy on Thunder Compute, please use an older version (`12.3.0 or earlier`) which is dynamically linked to CUDA.
+
+Use the following installation command:
+
+`pip install cupy-cuda12x==12.3.0`
