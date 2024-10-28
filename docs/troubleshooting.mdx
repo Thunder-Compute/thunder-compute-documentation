@@ -8,9 +8,10 @@ iconType: solid
 
 ## Common solutions
 
-1.  Disconnect and reconnect to instance
+1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>`
 2.  `pip install tnr --upgrade` within the instance
 3.  `pip install tnr --upgrade` outside the instance
+4.  Restart the instance by running `tnr stop <instance_id>` and `tnr start <instance_id>`
 
 ## Common errors
 
@@ -27,6 +28,10 @@ Most frequently, this is because the library is statically linked to CUDA, which
 1. Check if the library is statically linked to CUDA. If so, check for an older version of the library that is dynamically linked to CUDA
 2. Contact Thunder Compute support
 
+### SSH errors
+
+Sometimes, instances will encounter SSH-related errors, such as `Error reading SSH protocol banner`. To resolve these, restart your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`
 ## Support
 
 The fastest way to get support is to join [our discord](https://discord.gg/nwuETS9jJK). Brian and Carl will personally respond to help you as quickly as possible. When in doubt, we're here to help.
+
