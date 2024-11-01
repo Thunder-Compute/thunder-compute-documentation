@@ -6,7 +6,7 @@
     "light": "/logo/light.svg",
     "href": "https://thundercompute.com"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/thunder_favicon.png",
   "colors": {
     "primary": "#003fa9",
     "light": "#166dff",
