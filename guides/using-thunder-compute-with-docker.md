@@ -15,7 +15,7 @@ Instead, follow this guide to create a dockerfile that supports Thunder Compute.
 
 ## 1. Connect to a Thunder Compute instance
 
-Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) to create and connect to a Thunder Compute instance.
+Follow the instructions in our [quickstart guide](https://thundercompute.com/docs/docs/quickstart) to create and connect to a Thunder Compute instance.
 
 If you are running linux, you can directly run the following steps on your local machine, with significantly reduced performance.
 

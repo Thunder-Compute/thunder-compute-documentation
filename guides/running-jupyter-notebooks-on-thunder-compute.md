@@ -7,7 +7,7 @@ sidebarTitle: "Jupyter Notebooks"
 
 ### 1. Create and connect to a Thunder Compute instance
 
-Begin by creating and connecting to a Thunder Compute instance. Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) if you haven't done this before.
+Begin by creating and connecting to a Thunder Compute instance. Follow the instructions in our [quickstart guide](https://thundercompute.com/docs/docs/quickstart) if you haven't done this before.
 
 Note: At this point, select the GPU you want to use in your notebook by running:
 

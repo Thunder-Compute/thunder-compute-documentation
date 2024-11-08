@@ -15,7 +15,7 @@ sidebarTitle: "VSCode Integration"
 
 ### 1. Create a Thunder Compute instance
 
-First, create a Thunder Compute instance by following the steps in the [Quickstart Guide](https://docs.thundercompute.com/docs/quickstart).
+First, create a Thunder Compute instance by following the steps in the [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
 
 ### 2. Install the Remote - SSH extension
 
