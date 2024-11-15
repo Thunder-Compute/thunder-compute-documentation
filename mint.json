@@ -44,19 +44,9 @@
   ],
   "anchors": [
     {
-      "name": "About Us",
-      "icon": "users",
-      "url": "https://www.thundercompute.com/about"
-    },
-    {
       "name": "Community",
       "icon": "discord",
       "url": "https://discord.gg/nwuETS9jJK"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://www.thundercompute.com/blog"
     }
   ],
   "navigation": [
