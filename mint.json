@@ -27,11 +27,11 @@
   "topbarLinks": [
     {
       "name": "Contact Us",
-      "url": "https://www.thundercompute.com/contact"
+      "url": "https://discord.gg/nwuETS9jJK"
     }
   ],
   "topbarCtaButton": {
-    "name": "Log In",
+    "name": "Console",
     "url": "https://console.thundercompute.com/login",
     "arrow": false,
     "style": "roundedRectangle"
