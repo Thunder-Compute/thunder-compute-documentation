@@ -5,47 +5,80 @@ icon: bolt
 iconType: solid
 mode: wide
 ---
-## Start/create an instance
+
+## Local environment vs managed instance
+
+The Thunder Compute CLI is split into two parts. 
+
+1. Your local machine, where you can manage the Thunder Compute instances on your account and perform administrative actions.
+2. Within a Thunder Compute instance, where you can attach/detach GPUs and run code
+
+## Local environment
+
+### Start/create an instance
 
 *   `$ tnr create`
     *   Creates a new Thunder Compute instance and automatically assigns an instance ID
 *   `$ tnr start [instance_ID]`
     *   Starts an inactive Thunder Compute instance
 
-## Stop/delete an instance
+### Stop/delete an instance
 
 *   `$ tnr stop [instance_ID]`
     *   Stops a running Thunder Compute instance
 *   `$ tnr delete [instance_ID]`
     *   Deletes a Thunder Compute instance
 
-## Connect to a running instance
+### Connect to a running instance
 
 *   `$ tnr connect [instance_ID]`
     *   Connects you to a running Thunder Compute instance
     *   This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
 
-## List instances
+### Resize a disk
 
-*   `$ tnr status`
-    *   Lists all TNR instances and active GPUs associated with your Thunder Compute account
-    *   Any time a GPU is actively running a job you can check on it here
+*   `$ tnr resize [instance_ID] [new_size_GB]
+    *   Increases the persistent disk size of an instance to `new_size_GB`
+    *   This is not reversible and persistent disk sizes can only be increased. If you would like a smaller disk, delete your existing instance and create a new one
 
-## Attaching and switching GPUs
+By default, instances have 100GB of persistent storage. If you have significant amounts of data in a storage bucket and are constrained to a specific region or cloud provider, contact our support team.
+
+### Authentication
+
+*   `$ tnr login`
+    *   Logs in to Thunder Compute, prompting you to generate an API token which is saved in `~/.thunder/token`
+*   `$ tnr logout`
+    *   Deletes the Thunder Compute API token file. Does not affect environment variables
+
+When you use `$ tnr connect` to connect to an instance, your local credentials are copied to the remote instance.
+
+If your environment does not suit `$ tnr login`, most commonly when using Docker, you can also set the `TNR_API_TOKEN` environment variable with an API token to authenticate.
+
+If both the TNR_API_TOKEN environment variable and token file exist, the environment variable takes priority.
+
+You can generate and manage single-use API tokens in the [console](https://console.thundercompute.com/settings/tokens). API tokens do not expire and you can revoke them at any time. To access Thunder Compute from multiple devices, generate separate API tokens for each device.
+
+## Within a Thunder Compute instance
+
+### Attaching and switching GPUs
 
 *   `$ tnr device [device_name]`
     *   `$ tnr device` without arguments will list current and available devices
     *   Add `$ [device_name]` to switch to device
     *   Use `$ device_name=cpu` to switch to CPU
 
-## Payment
+## Both
 
-We require a &#36;10 deposit to activate accounts. This automatically credits towards future payments and is intended to prevent spam. We also create Stripe subscriptions for each GPU type that bill monthly based off of your usage. When &#36;50 of payment accumulates, your filed payment method is billed mid-cycle.
+### Status
 
-## Authentication
+*   `$ tnr status`
+    *   On a local machine: Lists all TNR instances associated with your Thunder Compute account
+    *   In a managed instance: Displays which GPUs are currently using processes and their runtime
 
-The Thunder Compute CLI uses the `TNR_API_TOKEN` environment variable for authentication. This saved token is used to authenticate all operations. You can generate these single-use tokens in the [console](https://console.thundercompute.com). Thunder Compute tokens do not expire and you can revoke them at any time. To access Thunder Compute from multiple devices, generate separate tokens for each device.
+### Copy files to/from an instance
 
-## Storage
-
-Storage on Thunder Compute instances is persistent. By default, instances have 100GB of storage which can be configured with `$ tnr create`. If you have significant amounts of data in a storage bucket and are constrained to a specific region or cloud provider, contact our support team.
+*   `$ tnr scp [source_file_path] [destination_file_path]
+    *   Copies the file or directory located at source_file_path to the destination_file_path recursively
+    *   This command automatically determines whether a copy is local-to-remote or vice versa by checking which argument contains an instance ID
+    *   There is a 60 second connection timeout
+    *   SSH key setup, compression, and `~/` expansion are automatically handled
