@@ -9,11 +9,11 @@
   "favicon": "/thunder_favicon.png",
   "colors": {
     "primary": "#003fa9",
-    "light": "#166dff",
+    "light": "#369eff",
     "dark": "#003fa9",
     "anchors": {
       "from": "#003fa9",
-      "to": "#166dff"
+      "to": "#369eff"
     }
   },
   "modeToggle": {
