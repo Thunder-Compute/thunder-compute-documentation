@@ -8,12 +8,12 @@
   },
   "favicon": "/thunder_favicon.png",
   "colors": {
-    "primary": "#003fa9",
+    "primary": "#0a0a0a",
     "light": "#369eff",
-    "dark": "#003fa9",
+    "dark": "#0a0a0a",
     "anchors": {
-      "from": "#003fa9",
-      "to": "#369eff"
+      "from": "#0a0a0a",
+      "to": "#0954a5"
     }
   },
   "modeToggle": {
