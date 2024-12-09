@@ -18,6 +18,8 @@ The Thunder Compute CLI is split into two parts.
 
 *   `$ tnr create`
     *   Creates a new Thunder Compute instance and automatically assigns an instance ID
+*   `$ tnr create --cores {vCPUs}`
+    *   Creates a new Thunder Compute instance with a set number of vCPU cores. Ram scales according to how many vCPUs you have (`4 * vCPU count`)
 *   `$ tnr start [instance_ID]`
     *   Starts an inactive Thunder Compute instance
 
@@ -41,6 +43,7 @@ The Thunder Compute CLI is split into two parts.
     *   This is not reversible and persistent disk sizes can only be increased. If you would like a smaller disk, delete your existing instance and create a new one
 
 By default, instances have 100GB of persistent storage. If you have significant amounts of data in a storage bucket and are constrained to a specific region or cloud provider, contact our support team.
+
 
 ### Authentication
 
