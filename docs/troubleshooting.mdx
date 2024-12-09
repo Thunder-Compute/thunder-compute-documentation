@@ -25,15 +25,6 @@ To avoid path and permissions issues, we recommend using Linux/WSL wherever poss
 
 A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. If you encounter this, please contact us.
 
-### GPU not available
-
-Occasionally, you may find an error where a library says that a GPU or GPU driver is not available.
-
-Most frequently, this is because the library is statically linked to CUDA, which prevents it from recognizing a Thunder Compute virtual GPU. To resolve this, try the following steps:
-
-1. Check if the library is statically linked to CUDA. If so, check for an older version of the library that is dynamically linked to CUDA
-2. Contact Thunder Compute support
-
 ### SSH errors
 
 Sometimes, instances will encounter SSH-related errors, such as `Error reading SSH protocol banner`. To resolve these, restart your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`
