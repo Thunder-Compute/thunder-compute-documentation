@@ -36,6 +36,13 @@ The Thunder Compute CLI is split into two parts.
     *   Connects you to a running Thunder Compute instance
     *   This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
 
+*   `$ tnr connect [instance_ID] -t PORT1 -t PORT2`
+    *   Connects you to a running Thunder Compute instance and sets up port forwarding
+    *   Tunnels specified ports from the remote instance to your local machine
+    *   Can specify multiple ports using -t/--tunnel flag repeatedly
+    *   Example: `$ tnr connect 0 -t 8000 -t 8080` forwards ports 8000 and 8080 to respective ports on your local machine
+    *   Useful for accessing remote web servers, APIs, or other network services running on an instance locally
+
 ### Resize a disk
 
 *   `$ tnr resize [instance_ID] [new_size_GB]`
