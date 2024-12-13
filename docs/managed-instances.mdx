@@ -84,10 +84,15 @@ You can generate and manage single-use API tokens in the [console](https://conso
     *   On a local machine: Lists all TNR instances associated with your Thunder Compute account
     *   In a managed instance: Displays which GPUs are currently using processes and their runtime
 
-### Copy files to/from an instance
+Copy### Copy files to/from an instance
 
-*   `$ tnr scp [source_file_path] [destination_file_path]`
-    *   Copies the file or directory located at source_file_path to the destination_file_path recursively
-    *   This command automatically determines whether a copy is local-to-remote or vice versa by checking which argument contains an instance ID
+*   `$ tnr scp [source_path] [destination_path]`
+    *   Copies files or directories between your local machine and Thunder instances
+    *   For remote paths, use format `instance_id:path` (e.g., `0:/home/user/data`)
+    *   For local paths, use normal file paths (e.g., `./data` or `/home/user/file.txt`)
+    *   Must specify exactly one remote path and one local path
+    *   Examples:
+        *   Upload: `$ tnr scp ./local_file.txt 0:/remote/path/`
+        *   Download: `$ tnr scp 0:/remote/file.txt ./local_path/`
     *   There is a 60 second connection timeout
     *   SSH key setup, compression, and `~/` expansion are automatically handled
