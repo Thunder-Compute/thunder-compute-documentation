@@ -18,10 +18,11 @@ The Thunder Compute CLI is split into two parts.
 
 *   `$ tnr create`
     *   Creates a new Thunder Compute instance and automatically assigns an instance ID
-*   `$ tnr create --cores {vCPUs}`
-    *   Creates a new Thunder Compute instance with a set number of vCPU cores. RAM scales according to how many vCPUs you have (`4 * vCPU count`)
 *   `$ tnr start [instance_ID]`
     *   Starts an inactive Thunder Compute instance
+*   `$ tnr create --cores [core_count]` (not necessary for most use cases)
+    *   For most use cases, we highly recommend using the default 4 core configuration. Additional cores are billed proportionally.
+    *   Creates a new Thunder Compute instance with a set number of cores. RAM scales according to how many cores you have (`4 * core count`)
 
 ### Stop/delete an instance
 
@@ -33,7 +34,7 @@ The Thunder Compute CLI is split into two parts.
 ### Connect to a running instance
 
 *   `$ tnr connect [instance_ID]`
-    *   Connects you to a running Thunder Compute instance
+    *   Connects you to a running Thunder Compute instance (default 0)
     *   This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
 
 *   `$ tnr connect [instance_ID] -t PORT1 -t PORT2`
