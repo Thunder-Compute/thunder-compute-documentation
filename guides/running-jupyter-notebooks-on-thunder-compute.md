@@ -49,11 +49,11 @@ Important: Ensure the URL includes the token parameter for authentication.
 
 Follow the instructions in our [Using Thunder Compute with VSCode](https://docs.thundercompute.com/guides/vscode-integration-for-thunder-compute) to set up your remote instance in VSCode.
 
-Ensure you have the "Jupyter Notebook" VSCode extension.
+Next, ensure you have the "Jupyter Notebook" VSCode extension.
 
-By following steps 1-3 you should have started a `notebook` server within your shell. By default, notebook servers in VSCode exist outside of the TNR environment, so we need to add our server manually.
+By following steps 1-3 of this guide you should have started a `notebook` server within your shell. By default, notebook servers in VSCode exist outside of the TNR environment, so we need to add our server manually.
 
-To do this we want to change the Kernel within our notebook.
+First, we change the python Kernel of our notebook.
 
 ![Change The Notebook Kernel](/images/Change_The_Notebook_Kernel.png)
 
