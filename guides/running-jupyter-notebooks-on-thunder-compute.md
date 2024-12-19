@@ -23,9 +23,9 @@ Once connected to your Thunder Compute instance, start the Jupyter Notebook serv
 
 This command initiates a Jupyter Notebook server on the remote instance and allows you to access this server from your local computer.
 
-### 3. Access the notebook in your browser
+### 3. Access the notebook 
 
-After running the ` command, the output will display a URL similar to:
+After running the `$ notebook` command, the output will display a URL similar to:
 
 ```
 [I 14:10:57.914 NotebookApp] Serving notebooks from local directory: /home/user
@@ -39,9 +39,31 @@ After running the ` command, the output will display a URL similar to:
         http://<ip_address>:8000/tree?token=<your_token_here>
 ```
 
+#### Option 1: View the notebook in your browser
+
 Copy the URL provided and paste it into your web browser.
 
 Important: Ensure the URL includes the token parameter for authentication.
+
+#### Option 2: Access the notebook through VSCode
+
+Follow the instructions in our [Using Thunder Compute with VSCode](https://docs.thundercompute.com/guides/vscode-integration-for-thunder-compute) to set up your remote instance in VSCode.
+
+Ensure you have the "Jupyter Notebook" VSCode extension.
+
+By following steps 1-3 you should have started a `notebook` server within your shell. By default, notebook servers in VSCode exist outside of the TNR environment, so we need to add our server manually.
+
+To do this we want to change the Kernel within our notebook.
+
+![Change The Notebook Kernel](/images/Change_The_Notebook_Kernel.png)
+
+Next, select "Add an Existing Server"
+
+![Select Existing Server](/images/Select_Existing_Server.png)
+
+Last, copy the URL from step 3 and paste it into this field.
+
+![Add Server URL](/images/Add_Server_URL.png)
 
 ### 4. Verify GPU availability in the notebook
 
@@ -63,3 +85,7 @@ Here is what this looks like in the browser:
 ![Checking for a GPU in a Jupyter Notebook](/images/screenshot_torch_cuda.png)
 
 That's it! You are connected to a notebook running in a Thunder Compute instance.
+
+### Optional: Connect to a Jupyter Notebook from VSCode
+
+
