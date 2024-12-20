@@ -86,6 +86,3 @@ Here is what this looks like in the browser:
 
 That's it! You are connected to a notebook running in a Thunder Compute instance.
 
-### Optional: Connect to a Jupyter Notebook from VSCode
-
-
