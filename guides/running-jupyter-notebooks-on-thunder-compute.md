@@ -7,7 +7,9 @@ sidebarTitle: "Jupyter Notebooks"
 
 If you prefer video guides, here is an overview of the following steps:
 
+<div style="position: relative; width: 100%; padding-bottom: 56.25%;">
 <iframe width="100%" src="https://www.youtube.com/embed/cXOl4kDreiQ?si=UOVy7ykvrBwnh4GX" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; allowfullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ### 1. Create and connect to a Thunder Compute instance
 
