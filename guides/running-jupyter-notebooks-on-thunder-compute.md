@@ -5,6 +5,10 @@ mode: wide
 sidebarTitle: "Jupyter Notebooks"
 ---
 
+If you prefer video guides, here is an overview of the following steps:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cXOl4kDreiQ?si=UOVy7ykvrBwnh4GX" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ### 1. Create and connect to a Thunder Compute instance
 
 Begin by creating and connecting to a Thunder Compute instance. Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) if you haven't done this before.
