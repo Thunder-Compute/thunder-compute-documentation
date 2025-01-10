@@ -7,7 +7,7 @@ iconType: solid
 
 ## Use cases
 
-Thunder Compute is optimized for AI development, production inference, and data science. Thunder Compute is the best option for bursty GPU workloads because you never pay for idle GPU time. This is especially beneficial in prototyping workflows with debugging time, or for inference servers that frequently sit idle between requests. That said, Thunder Compute has the full functionality of an EC2 instance and can be used as a complete replacement.
+Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2 instance.
 
 ## Officially supported libraries
 
@@ -20,7 +20,7 @@ The following libraries and tools are officially supported:
 * Hugging Face
 * CuPy
 
-Note: make sure you install the cuda-compatible version of these libraries, just like you would with a physical GPU e.g., `tensorflow[and-cuda]`. The cuda-compatible PyTorch binary is pre-installed on every Thunder Compute instance.
+Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary is pre-installed on every Thunder Compute instance.
 
 You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system. Within a Thunder Compute instance, The following interfaces are officially supported:
 
@@ -38,4 +38,4 @@ Currently, Thunder Compute lacks official support for the following use cases. I
 
 ## Cryptocurrency mining
 
-Mining, staking, or otherwise interacting with cryptocurrency is strictly prohibited on Thunder Compute. If cryptocurrency-related activity is detected, the associated account is immediately banned from Thunder Compute and the monthly billing credit is revoked. The account is then billed for the full amount of usage. 
+Mining, staking, or otherwise interacting with cryptocurrency is strictly prohibited on Thunder Compute. If cryptocurrency-related activity is detected, the associated account is immediately banned from Thunder Compute and any billing credit is revoked. The account is then billed for the full amount of usage. 
