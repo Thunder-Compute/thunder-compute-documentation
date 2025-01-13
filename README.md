@@ -1,32 +1,29 @@
-# Mintlify Starter Kit
+# Thunder Compute Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+This repository contains the official documentation for Thunder Compute, a Y Combinator company building software to virtualize GPUs over TCP. The documentation is hosted at [docs.thundercompute.com](https://docs.thundercompute.com).
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+## Repository Structure
 
-### Development
+- `/docs` - Main documentation content
+- `/guides` - Code examples and integration guides
+- `/images` - Documentation assets and diagrams
+- `/faq` - FAQs about Thunder Compute
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+## Contributing
 
-```
-npm i -g mintlify
-```
+We welcome contributions to improve our documentation. Please feel free to:
+- Submit issues for unclear or missing documentation
+- Propose improvements via pull requests
+- Suggest new examples or use cases
 
-Run the following command at the root of your documentation (where mint.json is)
+## Quick Links
 
-```
-mintlify dev
-```
+- [Getting Started Guide](./docs/quickstart.md)
+- [API Reference](./docs/api/reference.md)
+- [Integration Guides](./docs/guides/)
+- [Main Website](https://thundercompute.com)
+- [Support](https://thundercompute.com/support)
 
-### Publishing Changes
+## License
 
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
-
-#### Troubleshooting
-
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+The documentation in this repository is built on Mintlify and licensed under the MIT License. The Thunder Compute platform itself is proprietary software.
