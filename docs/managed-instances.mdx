@@ -5,14 +5,9 @@ icon: bolt
 iconType: solid
 ---
 
-## The two CLI environments
+## The Thunder Compute CLI (tnr)
 
-The Thunder Compute CLI is split into two parts. 
-
-1. Your local machine, where you can manage the Thunder Compute instances on your account and perform administrative actions.
-2. Within a Thunder Compute instance, where you can attach/detach GPUs and run code
-
-## Local environment
+You install the Thunder Compute CLI on your local machine. From there, you can manage Thunder Compute instances.
 
 ### Start/create an instance
 
@@ -60,24 +55,9 @@ By default, instances have 100GB of persistent storage. If you have significant 
 *   `$ tnr logout`
     *   Deletes the Thunder Compute API token file. Does not affect environment variables
 
-When you use `$ tnr connect` to connect to an instance, your local credentials are copied to the remote instance.
-
-If your environment does not suit `$ tnr login`, most commonly when using Docker, you can also set the `TNR_API_TOKEN` environment variable with an API token to authenticate.
-
-If both the TNR_API_TOKEN environment variable and token file exist, the environment variable takes priority.
+If your environment requires authentication with an environment variable, most commonly when using Docker, you can set the `TNR_API_TOKEN` environment variable.
 
 You can generate and manage single-use API tokens in the [console](https://console.thundercompute.com/settings/tokens). API tokens do not expire and you can revoke them at any time. To access Thunder Compute from multiple devices, generate separate API tokens for each device.
-
-## Within a Thunder Compute instance
-
-### Attaching and switching GPUs
-
-*   `$ tnr device [device_name]`
-    *   `$ tnr device` without arguments will list current and available devices
-    *   Add `$ [device_name]` to switch to device
-    *   Use `$ device_name=cpu` to switch to CPU
-
-## Both environments
 
 ### Status
 

@@ -54,19 +54,10 @@
       "group": "Get Started",
       "pages": [
         "docs/quickstart",
-        "docs/introduction",
         "docs/managed-instances",
         "docs/compatibility",
         "docs/troubleshooting",
         "faq/faq"
-      ]
-    },
-    {
-      "group": "Guides",
-      "pages": [
-        "guides/using-thunder-compute-with-docker",
-        "guides/vscode-integration-for-thunder-compute",
-        "guides/running-jupyter-notebooks-on-thunder-compute"
       ]
     }
   ],
