@@ -11,49 +11,55 @@ You install the Thunder Compute CLI on your local machine. From there, you can m
 
 ### Start/create an instance
 
-*   `$ tnr create`
-    *   Creates a new Thunder Compute instance and automatically assigns an instance ID
-*   `$ tnr start [instance_ID]`
-    *   Starts an inactive Thunder Compute instance
-*   `$ tnr create --cores [core_count]` (not necessary for most use cases)
-    *   For most use cases, we highly recommend using the default 4 core configuration. Additional cores are billed proportionally.
-    *   Creates a new Thunder Compute instance with a set number of cores. RAM scales according to how many cores you have (`4 * core count`)
+- `$ tnr create`
+  - Creates a new Thunder Compute instance and automatically assigns an instance ID
+- `$ tnr start [instance_ID]`
+  - Starts an inactive Thunder Compute instance
+- `$ tnr create --vcpus [vcpu_count]` (not necessary for most use cases)
+  - For most use cases, we highly recommend using the default 4 vCPU configuration. Additional vCPUs are billed proportionally.
+  - Creates a new Thunder Compute instance with a set number of vCPUs. RAM scales according to how many vCPUs you have (`4 * vCPU count`)
+- `$ tnr create --gpu [gpu_type]` (default: `t4`)
+  - Available GPU types:
+    - `t4`: NVIDIA T4 (16GB VRAM) - Best for most ML workloads
+    - `a100`: NVIDIA A100 (80GB VRAM) - For large models and high-performance computing
+  - Each instance comes with one GPU by default
+  - Contact support for multi-GPU configurations
 
 ### Stop/delete an instance
 
-*   `$ tnr stop [instance_ID]`
-    *   Stops a running Thunder Compute instance
-*   `$ tnr delete [instance_ID]`
-    *   Deletes a Thunder Compute instance
+- `$ tnr stop [instance_ID]`
+  - Stops a running Thunder Compute instance
+- `$ tnr delete [instance_ID]`
+  - Deletes a Thunder Compute instance
 
 ### Connect to a running instance
 
-*   `$ tnr connect [instance_ID]`
-    *   Connects you to a running Thunder Compute instance (default 0)
-    *   This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
+- `$ tnr connect [instance_ID]`
 
-*   `$ tnr connect [instance_ID] -t PORT1 -t PORT2`
-    *   Connects you to a running Thunder Compute instance and sets up port forwarding
-    *   Tunnels specified ports from the remote instance to your local machine
-    *   Can specify multiple ports using -t/--tunnel flag repeatedly
-    *   Example: `$ tnr connect 0 -t 8000 -t 8080` forwards ports 8000 and 8080 to respective ports on your local machine
-    *   Useful for accessing remote web servers, APIs, or other network services running on an instance locally
+  - Connects you to a running Thunder Compute instance (default 0)
+  - This is a wrapper on SSHing. You can also manually SSH if desired using the IP displayed in `$ tnr status`
+
+- `$ tnr connect [instance_ID] -t PORT1 -t PORT2`
+  - Connects you to a running Thunder Compute instance and sets up port forwarding
+  - Tunnels specified ports from the remote instance to your local machine
+  - Can specify multiple ports using -t/--tunnel flag repeatedly
+  - Example: `$ tnr connect 0 -t 8000 -t 8080` forwards ports 8000 and 8080 to respective ports on your local machine
+  - Useful for accessing remote web servers, APIs, or other network services running on an instance locally
 
 ### Resize a disk
 
-*   `$ tnr resize [instance_ID] [new_size_GB]`
-    *   Increases the persistent disk size of an instance to `new_size_GB`
-    *   This is not reversible and persistent disk sizes can only be increased. If you would like a smaller disk, delete your existing instance and create a new one
+- `$ tnr resize [instance_ID] [new_size_GB]`
+  - Increases the persistent disk size of an instance to `new_size_GB`
+  - This is not reversible and persistent disk sizes can only be increased. If you would like a smaller disk, delete your existing instance and create a new one
 
 By default, instances have 100GB of persistent storage. If you have significant amounts of data in a storage bucket and are constrained to a specific region or cloud provider, contact our support team.
 
-
 ### Authentication
 
-*   `$ tnr login`
-    *   Logs in to Thunder Compute, prompting you to generate an API token which is saved in `~/.thunder/token`
-*   `$ tnr logout`
-    *   Deletes the Thunder Compute API token file. Does not affect environment variables
+- `$ tnr login`
+  - Logs in to Thunder Compute, prompting you to generate an API token which is saved in `~/.thunder/token`
+- `$ tnr logout`
+  - Deletes the Thunder Compute API token file. Does not affect environment variables
 
 If your environment requires authentication with an environment variable, most commonly when using Docker, you can set the `TNR_API_TOKEN` environment variable.
 
@@ -61,19 +67,19 @@ You can generate and manage single-use API tokens in the [console](https://conso
 
 ### Status
 
-*   `$ tnr status`
-    *   On a local machine: Lists all TNR instances associated with your Thunder Compute account
-    *   In a managed instance: Displays which GPUs are currently using processes and their runtime
+- `$ tnr status`
+  - On a local machine: Lists all TNR instances associated with your Thunder Compute account
+  - In a managed instance: Displays which GPUs are currently using processes and their runtime
 
 ### Copy files to/from an instance
 
-*   `$ tnr scp [source_path] [destination_path]`
-    *   Copies files or directories between your local machine and Thunder instances
-    *   For remote paths, use format `instance_id:path` (e.g., `0:/home/user/data`)
-    *   For local paths, use normal file paths (e.g., `./data` or `/home/user/file.txt`)
-    *   Must specify exactly one remote path and one local path
-    *   Examples:
-        *   Upload: `$ tnr scp ./local_file.txt 0:/remote/path/`
-        *   Download: `$ tnr scp 0:/remote/file.txt ./local_path/`
-    *   There is a 60 second connection timeout
-    *   SSH key setup, compression, and `~/` expansion are automatically handled
+- `$ tnr scp [source_path] [destination_path]`
+  - Copies files or directories between your local machine and Thunder instances
+  - For remote paths, use format `instance_id:path` (e.g., `0:/home/user/data`)
+  - For local paths, use normal file paths (e.g., `./data` or `/home/user/file.txt`)
+  - Must specify exactly one remote path and one local path
+  - Examples:
+    - Upload: `$ tnr scp ./local_file.txt 0:/remote/path/`
+    - Download: `$ tnr scp 0:/remote/file.txt ./local_path/`
+  - There is a 60 second connection timeout
+  - SSH key setup, compression, and `~/` expansion are automatically handled
