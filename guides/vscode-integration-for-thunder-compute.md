@@ -25,15 +25,7 @@ Install the Remote - SSH extension in VSCode. If you are using a different IDE, 
 
 ### 3. Add the Thunder Compute instance to Remote Explorer
 
-Navigate to the Remote Explorer on the left sidebar in VSCode.
-
-To add the Thunder Compute instance to Remote Explorer we must first manually connect to the Thunder Compute instance using the command:
-
-`$ tnr connect <instance_id>`
-
-For your first instance, `<instance_id>` is `0`.
-
-The `$ tnr connect` command automatically adds the instance and its keypair to your `.ssh` file. This instance should appear in the remote explorer with the name `tnr-<instance_id>`. 
+Navigate to the Remote Explorer on the left sidebar in VSCode. You should see your instance listed as `tnr-0`
 
 ![Thunder Compute Instance in VSCode Remote Explorer](/images/tnr-instance_id.png)
 
