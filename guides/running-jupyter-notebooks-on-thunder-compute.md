@@ -13,12 +13,6 @@ If you prefer video guides, here is an overview of the following steps:
 
 Begin by creating and connecting to a Thunder Compute instance. Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) if you haven't done this before.
 
-Note: At this point, select the GPU you want to use in your notebook by running:
-
-`$ tnr device <gpu_name>`
-
-You should replace `<gpu_name>` with the name of the GPU you wish to utilize.
-
 ### 2. Launch the Jupyter Notebook server
 
 Once connected to your Thunder Compute instance, start the Jupyter Notebook server by executing:
@@ -43,8 +37,6 @@ After running the `$ notebook` command, the output will display a URL similar to
         http://<ip_address>:8000/tree?token=<your_token_here>
 ```
 
-#### Option 1: View the notebook in your browser
-
 Copy the URL provided and paste it into your web browser.
 
 Important: Ensure the URL includes the token parameter for authentication.
@@ -55,23 +47,11 @@ Follow the instructions in our [Using Thunder Compute with VSCode](https://docs.
 
 Next, ensure you have the "Jupyter Notebook" VSCode extension.
 
-By following steps 1-3 of this guide you should have started a `notebook` server within your shell. By default, notebook servers in VSCode exist outside of the TNR environment, so we need to add our server manually.
-
-First, we change the python Kernel of our notebook.
-
-![Change The Notebook Kernel](/images/Change_The_Notebook_Kernel.png)
-
-Next, select "Add an Existing Server"
-
-![Select Existing Server](/images/Select_Existing_Server.png)
-
-Last, copy the URL from step 3 and paste it into this field.
-
 ![Add Server URL](/images/Add_Server_URL.png)
 
 ### 4. Verify GPU availability in the notebook
 
-Your Jupyter Notebook is now connected to a Thunder Compute instance with GPU capabilities. To confirm that the GPU is accessible, run the following code in a notebook cell:
+Create a Jupyter Notebook, which is now connected to a Thunder Compute instance with GPU capabilities. To confirm that the GPU is accessible, run the following code in a notebook cell:
 
 ```
 import torch
