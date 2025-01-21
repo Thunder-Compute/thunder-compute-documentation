@@ -51,15 +51,28 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Documentation",
       "pages": [
         "docs/quickstart",
         "docs/managed-instances",
         "docs/compatibility",
         "docs/troubleshooting",
-        "faq/faq"
       ]
-    }
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/running-jupyter-notebooks-on-thunder-compute",
+        "guides/using-thunder-compute-with-docker",
+        "guides/vscode-integration-for-thunder-compute",
+      ]
+    },
+    {
+      "group": "Help",
+      "pages": [
+        "faq/faq",
+      ]
+    },
   ],
   "footerSocials": {
     "facebook": "https://www.facebook.com/profile.php?id=61557446552169",
