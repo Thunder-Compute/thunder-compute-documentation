@@ -8,9 +8,9 @@
   },
   "favicon": "/thunder_favicon.png",
   "colors": {
-    "primary": "#0a0a0a",
+    "primary": "#369eff",
     "light": "#369eff",
-    "dark": "#0a0a0a",
+    "dark": "#369eff",
     "anchors": {
       "from": "#0a0a0a",
       "to": "#0954a5"
@@ -32,7 +32,7 @@
   ],
   "topbarCtaButton": {
     "name": "Console",
-    "url": "https://console.thundercompute.com/login",
+    "url": "https://console.thundercompute.com/",
     "arrow": false,
     "style": "roundedRectangle"
   },
