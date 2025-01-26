@@ -63,7 +63,7 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y python3-pip
 
 # Install your packages
-RUN pip3 install torch
+RUN pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126
 
 ENTRYPOINT ["python3", "-c", "import torch; print(torch.cuda.is_available())"]
 ```
