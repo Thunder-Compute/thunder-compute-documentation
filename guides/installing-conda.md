@@ -9,7 +9,11 @@ Miniforge is the recommended installer for Conda from the conda-forge project. I
 
 ## Installation Steps
 
-### For Linux/MacOS:
+### Create a new instance
+
+1. Create a new instance by following the steps in the [Quickstart Guide](https://docs.thundercompute.com/docs/quickstart).
+
+### Install Miniforge
 
 1. Download the Miniforge installer:
 
