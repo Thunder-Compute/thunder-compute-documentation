@@ -63,7 +63,10 @@
       "group": "Guides",
       "pages": [
         "guides/running-jupyter-notebooks-on-thunder-compute",
-        "guides/vscode-integration-for-thunder-compute"
+        "guides/vscode-integration-for-thunder-compute",
+        "guides/installing-conda",
+        "guides/using-instance-templates",
+        "guides/using-thunder-compute-with-docker"
       ]
     },
     {
