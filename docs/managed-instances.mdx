@@ -24,6 +24,11 @@ You install the Thunder Compute CLI on your local machine. From there, you can m
     - `a100`: NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
   - Each instance comes with one GPU by default
   - Contact support for multi-GPU configurations
+- `$ tnr create --template [template_name]`
+  - Available Templates:
+    - `ollama`: Sets up an Ollama server environment
+    - `comfy-ui`: Configures ComfyUI for AI image generation
+  - To start a template, you must first create an instance with the `--template` flag, then start the server with `<template_name>-start` when in the instance.
 
 ### Stop/delete an instance
 

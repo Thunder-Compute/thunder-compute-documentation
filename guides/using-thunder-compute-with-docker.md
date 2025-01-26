@@ -1,86 +1,72 @@
 ---
-title: "Using Thunder Compute with Docker"
-description: "This guide explains how to use Thunder Compute with Docker from within a Thunder Compute instance"
+title: "Using Docker on Thunder Compute"
+description: "This guide explains how to use Docker from within a Thunder Compute instance"
 mode: wide
 sidebarTitle: "Docker"
 ---
 
-### Note: do not enable GPU passthrough
+Docker containers on Thunder Compute instances now come with GPU support enabled by default. This means you can run Docker containers with GPU access without any additional configuration.
 
-Do not use the --gpus all flag or NVIDIA runtime Docker images (e.g., nvidia/cuda). These require a physical GPU on your machine and can cause errors like:
+## Getting Started
 
-`nvidia-container-cli: initialization error: nvml error: driver not loaded: unknown.`
+1. Connect to a Thunder Compute instance using the [quickstart guide](https://docs.thundercompute.com/docs/quickstart)
 
-Instead, follow this guide to create a dockerfile that supports Thunder Compute.
+2. Run your Docker containers as normal - GPU support is automatically enabled:
 
-## 1. Connect to a Thunder Compute instance
-
-Follow the instructions in our [quickstart guide](https://docs.thundercompute.com/docs/quickstart) to create and connect to a Thunder Compute instance.
-
-If you are running linux, you can directly run the following steps on your local machine, with significantly reduced performance.
-
-## 2. Install TNR inside the container
-
-Modify your dockerfile to include the following lines:
-
+```bash
+# Run a container with GPU support
+docker run ubuntu:22.04 nvidia-smi
+# Run Ollama server
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
+
+{% callout type="warning" %}
+If you get an error that looks like `docker: unexpected EOF`, try running the command again.
+{% /callout %}
+
+## Supported Base Images
+
+Most modern Docker images are supported, with some limitations:
+
+- Ubuntu 22.04 and newer base images are fully supported
+- Ubuntu 20.04 base images are currently not supported
+- Other distributions like Alpine and Debian are supported
+
+## Disabling GPU Support
+
+If you need to run containers without GPU access, or encounter issues with the thunder runtime:
+
+1. Edit the Docker daemon configuration:
+
+```bash
+sudo vi /etc/docker/daemon.json
+```
+
+2. Remove "thunder" as the default runtime
+
+3. Restart the Docker service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+You can manually set the runtime for a container by adding the `--runtime=thunder` flag to the `docker run` command.
+
+## Example Dockerfile
+
+```dockerfile
 FROM ubuntu:22.04
 
 # Install dependencies
-
 RUN apt-get update && apt-get install -y python3-pip
 
-# Install tnr
-
-RUN pip3 install tnr
-```
-
-## 3. Set the TNR API Token:
-
-Replace `<your_api_token_here>` with the API token generated from the Thunder Compute console to authenticate requests to TNR.
-
-```
-# Existing dockerfile contents
-
-ENV TNR_API_TOKEN=<your_api_token_here>
-```
-
-Alternatively, you can pass the api token at runtime
-
-```
-docker run -e TNR_API_TOKEN=<your_api_token_here> <your_image>
-```
-
-## 4. Use tnr run to Execute Commands
-
-Prefix your commands with tnr run to execute them on a remote GPU:
-
-```
-docker run <your_image> tnr run python3 -c "print('GPU setup successful')"
-```
-
-## Conclusion
-
-By installing tnr inside your Docker container and avoiding GPU passthrough, you can run your applications on remote GPUs provided by Thunder Compute. Use the `TNR_API_TOKEN` environment variable for authentication, and prefix your commands with `tnr run` to execute them on the remote GPU.
-
-### Example dockerfile
-
-```
-FROM ubuntu:22.04
-
-# Install dependencies
-
-RUN apt-get update && apt-get install -y python3-pip
-
-# Install tnr
-
-RUN pip3 install tnr
-
-# Install other packages
-
+# Install your packages
 RUN pip3 install torch
 
-# Set authentication environment variable
-
-ENV TNR_API_TOKEN=<your_api_token_here>
+ENTRYPOINT ["python3", "-c", "import torch; print(torch.cuda.is_available())"]
 ```
+
+## Need Help?
+
+If you encounter any issues or have questions about Docker support, please contact our support team.

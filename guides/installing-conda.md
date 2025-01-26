@@ -1,0 +1,37 @@
+---
+title: "Installing Conda on Thunder Compute"
+description: "This guide explains how to install Conda using the Conda-forge installer (Miniforge)"
+mode: wide
+sidebarTitle: "Installing Conda"
+---
+
+Miniforge is the recommended installer for Conda from the conda-forge project. It includes conda, mamba, and their dependencies. On Thunder Compute instances, you **must use Miniforge** as other Conda distributions (like Anaconda or Miniconda) may have compatibility issues with system libraries.
+
+## Installation Steps
+
+### For Linux/MacOS:
+
+1. Download the Miniforge installer:
+
+```bash
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+```
+
+2. Install Miniforge:
+
+```bash
+bash Miniforge3-$(uname)-$(uname -m).sh
+# Accept the license agreement (Enter, Q, Enter)
+# Confirm the installation location (yes)
+# Allow the installer to initialize Miniforge3 (yes)
+```
+
+3. Activate the installation:
+
+```bash
+source ~/.bashrc
+```
+
+## Need Help?
+
+If you encounter any issues with Conda installation or package management, please contact our support team.
