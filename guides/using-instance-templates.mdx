@@ -32,6 +32,12 @@ tnr create --template comfy-ui
 tnr connect 0  # Replace 0 with your instance ID
 ```
 
+<Note>
+  Port forwarding is handled automatically when you connect to a template
+  instance. You don't need to specify port forwarding manually with the `-t`
+  flag.
+</Note>
+
 3. Start the service:
 
 ```bash
@@ -57,12 +63,6 @@ The required ports will be automatically forwarded to your local machine.
 - Automatically forwards port 8188
 - Access the ComfyUI interface at `http://localhost:8188`
 - Includes common ComfyUI nodes and extensions
-
-<Note>
-  Port forwarding is handled automatically when you connect to a template
-  instance. You don't need to specify port forwarding manually with the `-t`
-  flag.
-</Note>
 
 ## Need Help?
 
