@@ -20,9 +20,10 @@ docker run ubuntu:22.04 nvidia-smi
 docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
 
-{% callout type="warning" %}
-If you get an error that looks like `docker: unexpected EOF`, try running the command again.
-{% /callout %}
+<Note>
+  If you get an error that looks like `docker: unexpected EOF`, try running the
+  command again.
+</Note>
 
 ## Supported Base Images
 
