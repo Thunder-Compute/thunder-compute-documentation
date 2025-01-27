@@ -36,12 +36,7 @@
     "arrow": false,
     "style": "roundedRectangle"
   },
-  "tabs": [
-    {
-      "name": "FAQ",
-      "url": "faq"
-    }
-  ],
+  "tabs": [],
   "anchors": [
     {
       "name": "Support",
@@ -67,12 +62,6 @@
         "guides/installing-conda",
         "guides/using-instance-templates",
         "guides/using-docker-on-thundercompute"
-      ]
-    },
-    {
-      "group": "Help",
-      "pages": [
-        "faq/faq"
       ]
     }
   ],
