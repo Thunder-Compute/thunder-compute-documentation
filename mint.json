@@ -49,7 +49,7 @@
       "group": "Documentation",
       "pages": [
         "docs/quickstart",
-        "docs/managed-instances",
+        "docs/cli-reference",
         "docs/compatibility",
         "docs/troubleshooting"
       ]
