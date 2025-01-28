@@ -29,10 +29,9 @@ Configure custom vCPU count:
 tnr create --vcpus <vcpu_count>
 ```
 
-Notes:
-- Default 4 vCPU configuration recommended for most use cases
-- Additional vCPUs are billed proportionally
-- RAM scales at 4GB per vCPU
+<Note>
+The default 4 vCPU configuration is recommended for most use cases. Additional vCPUs are billed proportionally, and RAM scales at 4GB per vCPU.
+</Note>
 
 #### GPU Configuration
 
@@ -46,9 +45,9 @@ Available GPU types:
 - `t4` (default): NVIDIA T4 (16GB VRAM) - Best for most ML workloads
 - `a100`: NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
 
-Notes:
-- One GPU per instance by default
-- Contact support for multi-GPU configurations
+<Note>
+Each instance includes one GPU by default. Contact support for multi-GPU configurations.
+</Note>
 
 #### Template Configuration
 
@@ -62,7 +61,9 @@ Available templates:
 - `ollama`: Ollama server environment
 - `comfy-ui`: ComfyUI for AI image generation
 
-Note: After instance creation, start the server using `<template_name>-start` when connected.
+<Note>
+After instance creation, start the server using `<template_name>-start` when connected.
+</Note>
 
 ### Start an Instance
 
@@ -86,7 +87,9 @@ Stops a running instance.
 tnr delete <instance_ID>
 ```
 
-Permanently removes an instance.
+<Warning>
+This action permanently removes an instance and all associated data.
+</Warning>
 
 ## Connectivity
 
@@ -98,7 +101,9 @@ Basic connection:
 tnr connect <instance_ID>
 ```
 
+<Note>
 Connects to a running instance (default ID: 0). Functions as an SSH wrapper - you can also use standard SSH with the IP shown in `tnr status`.
+</Note>
 
 ### Port Forwarding
 
@@ -108,10 +113,11 @@ Connect with port forwarding:
 tnr connect <instance_ID> -t PORT1 -t PORT2
 ```
 
-Features:
+<Note>
 - Forward multiple ports using repeated -t/--tunnel flags
 - Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
 - Enables local access to remote web servers, APIs, and services
+</Note>
 
 ## Storage Management
 
@@ -123,11 +129,14 @@ Increase persistent storage:
 tnr resize <instance_ID> <new_size_GB>
 ```
 
-Notes:
+<Warning>
+Storage can only be increased, not decreased. For smaller storage needs, create a new instance.
+</Warning>
+
+<Note>
 - Instances start with 100GB persistent storage
-- Storage can only be increased, not decreased
-- For smaller storage needs, create a new instance
 - Contact support for region-specific storage requirements
+</Note>
 
 ## Authentication
 
@@ -148,10 +157,13 @@ tnr logout
 Removes the stored API token.
 
 ### API Token Management
-- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
+
+<Note>
+- Generate and manage tokens in the [console](https://console.thundercompute.com/settings/tokens)
 - Tokens never expire but can be revoked
 - Use unique tokens per device
 - For Docker/environments: set `TNR_API_TOKEN` environment variable
+</Note>
 
 ## Status Commands
 
@@ -179,10 +191,12 @@ Transfer files between local and remote instances:
 tnr scp <source_path> <destination_path>
 ```
 
+<Note>
 Path format:
 - Remote: `instance_id:path` (e.g., `0:/home/user/data`)
 - Local: Standard paths (e.g., `./data` or `/home/user/file.txt`)
 - Must specify exactly one remote and one local path
+</Note>
 
 Examples:
 ```bash
@@ -193,7 +207,8 @@ tnr scp ./local_file.txt 0:/remote/path/
 tnr scp 0:/remote/file.txt ./local_path/
 ```
 
-Notes:
+<Note>
 - 60-second connection timeout
 - Automatic SSH key setup and compression
 - Automatic `~/` expansion
+</Note>
