@@ -5,16 +5,46 @@ icon: rocket
 iconType: solid
 ---
 
+## Getting Started
 
-1.  Run `$ pip install tnr` to install the Thunder Compute CLI
-> Note: Windows users experiencing permissions issues may need to add the `--user` flag and add the Python user scripts directory to their PATH
-2.  Run `$ tnr login` and navigate to the to console to [generate a token](https://console.thundercompute.com/settings/tokens)
-3.  In the console, [add billing information](https://console.thundercompute.com/settings/billing) to start using your account
-4.  Create a new instance with `$ tnr create`
-5.  Connect to this instance with `$ tnr connect 0`
+### 1. Install the CLI
 
-That’s it! Welcome to Thunder Compute.
+```bash
+pip install tnr
+```
 
-Next, learn how to easily [access Thunder Compute from VSCode](https://docs.thundercompute.com/guides/vscode-integration-for-thunder-compute) or [run a Jupyter Notebook](https://docs.thundercompute.com/guides/running-jupyter-notebooks-on-thunder-compute)
+**Windows Users**: If you encounter permissions issues:
+- Add the `--user` flag to the install command
+- Add the Python user scripts directory to your PATH
 
+### 2. Authentication
 
+```bash
+tnr login
+```
+
+After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+
+### 3. Setup Billing
+
+Visit the console to [add billing information](https://console.thundercompute.com/settings/billing) for your account.
+
+### 4. Create Your First Instance
+
+```bash
+tnr create
+```
+
+### 5. Connect to Your Instance
+
+```bash
+tnr connect 0
+```
+
+That's it! You're now ready to use Thunder Compute.
+
+## Next Steps
+
+Learn how to:
+- [Access Thunder Compute from VSCode](https://docs.thundercompute.com/guides/vscode-integration-for-thunder-compute)
+- [Run a Jupyter Notebook](https://docs.thundercompute.com/guides/running-jupyter-notebooks-on-thunder-compute)
