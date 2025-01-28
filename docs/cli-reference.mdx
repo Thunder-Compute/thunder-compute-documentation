@@ -5,13 +5,9 @@ icon: bolt
 iconType: solid
 ---
 
-# Thunder Compute CLI Reference
+## The Thunder Compute CLI (tnr)
 
-Thunder Compute provides managed instances that are optimized for performance. The Thunder Compute CLI contains all of the functionality you need to create, edit, use, and delete these instances.
-
-## Installation
-
-Install the Thunder Compute CLI (tnr) on your local machine to manage Thunder Compute instances.
+The Thunder Compute CLI enables you to manage Thunder Compute instances from your local machine.
 
 ## Instance Management
 
@@ -23,21 +19,24 @@ Create a new Thunder Compute instance:
 tnr create
 ```
 
-This creates a new instance and automatically assigns an instance ID.
+This creates a new instance with default configuration and automatically assigns an instance ID.
 
 #### CPU Configuration
 
-For custom vCPU configuration (not recommended for most use cases):
+Configure custom vCPU count:
 
 ```bash
 tnr create --vcpus <vcpu_count>
 ```
 
-Note: We highly recommend using the default 4 vCPU configuration. Additional vCPUs are billed proportionally. RAM scales according to vCPU count (4GB per vCPU).
+Notes:
+- Default 4 vCPU configuration recommended for most use cases
+- Additional vCPUs are billed proportionally
+- RAM scales at 4GB per vCPU
 
 #### GPU Configuration
 
-Specify a GPU type when creating an instance:
+Specify a GPU type:
 
 ```bash
 tnr create --gpu <gpu_type>
@@ -48,46 +47,46 @@ Available GPU types:
 - `a100`: NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
 
 Notes:
-- Each instance comes with one GPU by default
+- One GPU per instance by default
 - Contact support for multi-GPU configurations
 
 #### Template Configuration
 
-Create an instance with a predefined template:
+Create an instance with a predefined environment:
 
 ```bash
 tnr create --template <template_name>
 ```
 
 Available templates:
-- `ollama`: Sets up an Ollama server environment
-- `comfy-ui`: Configures ComfyUI for AI image generation
+- `ollama`: Ollama server environment
+- `comfy-ui`: ComfyUI for AI image generation
 
-Note: After creating an instance with a template, start the server using `<template_name>-start` when connected to the instance.
+Note: After instance creation, start the server using `<template_name>-start` when connected.
 
 ### Start an Instance
-
-Start an existing inactive instance:
 
 ```bash
 tnr start <instance_ID>
 ```
 
-### Stop an Instance
+Activates an existing inactive instance.
 
-Stop a running instance:
+### Stop an Instance
 
 ```bash
 tnr stop <instance_ID>
 ```
 
-### Delete an Instance
+Stops a running instance.
 
-Remove an instance entirely:
+### Delete an Instance
 
 ```bash
 tnr delete <instance_ID>
 ```
+
+Permanently removes an instance.
 
 ## Connectivity
 
@@ -99,7 +98,7 @@ Basic connection:
 tnr connect <instance_ID>
 ```
 
-This connects you to a running instance (default ID: 0). It's a wrapper for SSH - you can also manually SSH using the IP displayed in the status command.
+Connects to a running instance (default ID: 0). Functions as an SSH wrapper - you can also use standard SSH with the IP shown in `tnr status`.
 
 ### Port Forwarding
 
@@ -110,10 +109,9 @@ tnr connect <instance_ID> -t PORT1 -t PORT2
 ```
 
 Features:
-- Tunnels specified ports from the remote instance to your local machine
-- Specify multiple ports using -t/--tunnel flag repeatedly
-- Example: `tnr connect 0 -t 8000 -t 8080` forwards ports 8000 and 8080
-- Useful for accessing remote web servers, APIs, or other network services locally
+- Forward multiple ports using repeated -t/--tunnel flags
+- Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
+- Enables local access to remote web servers, APIs, and services
 
 ## Storage Management
 
@@ -126,9 +124,9 @@ tnr resize <instance_ID> <new_size_GB>
 ```
 
 Notes:
-- Default storage is 100GB
-- Disk size can only be increased, not decreased
-- For smaller disk needs, create a new instance
+- Instances start with 100GB persistent storage
+- Storage can only be increased, not decreased
+- For smaller storage needs, create a new instance
 - Contact support for region-specific storage requirements
 
 ## Authentication
@@ -139,7 +137,7 @@ Notes:
 tnr login
 ```
 
-This prompts you to generate an API token, saved in `~/.thunder/token`
+Generates and saves an API token to `~/.thunder/token`
 
 ### Logout
 
@@ -147,20 +145,19 @@ This prompts you to generate an API token, saved in `~/.thunder/token`
 tnr logout
 ```
 
-Deletes the API token file without affecting environment variables.
+Removes the stored API token.
 
-### API Tokens
-
-- Generate and manage tokens in the [console](https://console.thundercompute.com/settings/tokens)
-- Tokens don't expire but can be revoked
-- Use separate tokens for different devices
-- For Docker/environments, set the `TNR_API_TOKEN` environment variable
+### API Token Management
+- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
+- Tokens never expire but can be revoked
+- Use unique tokens per device
+- For Docker/environments: set `TNR_API_TOKEN` environment variable
 
 ## Status Commands
 
-### Check Instance Status
+### View Instance Status
 
-View all instances:
+List all instances:
 
 ```bash
 tnr status
@@ -182,22 +179,21 @@ Transfer files between local and remote instances:
 tnr scp <source_path> <destination_path>
 ```
 
-Usage notes:
-- Remote paths: Use `instance_id:path` (e.g., `0:/home/user/data`)
-- Local paths: Use standard format (e.g., `./data` or `/home/user/file.txt`)
-- Must specify one remote path and one local path
+Path format:
+- Remote: `instance_id:path` (e.g., `0:/home/user/data`)
+- Local: Standard paths (e.g., `./data` or `/home/user/file.txt`)
+- Must specify exactly one remote and one local path
 
 Examples:
 ```bash
-# Upload
+# Upload to instance
 tnr scp ./local_file.txt 0:/remote/path/
 
-# Download
+# Download from instance
 tnr scp 0:/remote/file.txt ./local_path/
 ```
 
-Additional details:
-- 60 second connection timeout
-- Automatic SSH key setup
-- Built-in compression
+Notes:
+- 60-second connection timeout
+- Automatic SSH key setup and compression
 - Automatic `~/` expansion
