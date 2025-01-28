@@ -21,8 +21,8 @@
   },
   "background": { "style": "grid" },
   "font": {
-    "headings": { "family": "Inter", "weight": 600 },
-    "body": { "family": "Inter" }
+    "headings": { "family": "Instrument Sans", "weight": 600 },
+    "body": { "family": "Instrument Sans" }
   },
   "topbarLinks": [
     {
