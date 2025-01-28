@@ -30,7 +30,7 @@ tnr create --vcpus <vcpu_count>
 ```
 
 <Note>
-The default 4 vCPU configuration is recommended for most use cases. Additional vCPUs are billed proportionally, and RAM scales at 4GB per vCPU.
+We recommend using the default 4 vCPU configuration for most use cases. Additional vCPUs are billed proportionally, with RAM scaling at 4GB per vCPU.
 </Note>
 
 #### GPU Configuration
@@ -101,9 +101,7 @@ Basic connection:
 tnr connect <instance_ID>
 ```
 
-<Note>
 Connects to a running instance (default ID: 0). Functions as an SSH wrapper - you can also use standard SSH with the IP shown in `tnr status`.
-</Note>
 
 ### Port Forwarding
 
@@ -113,11 +111,10 @@ Connect with port forwarding:
 tnr connect <instance_ID> -t PORT1 -t PORT2
 ```
 
-<Note>
+Features:
 - Forward multiple ports using repeated -t/--tunnel flags
 - Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
 - Enables local access to remote web servers, APIs, and services
-</Note>
 
 ## Storage Management
 
@@ -133,10 +130,7 @@ tnr resize <instance_ID> <new_size_GB>
 Storage can only be increased, not decreased. For smaller storage needs, create a new instance.
 </Warning>
 
-<Note>
-- Instances start with 100GB persistent storage
-- Contact support for region-specific storage requirements
-</Note>
+Default storage allocation is 100GB. Contact support for region-specific storage requirements.
 
 ## Authentication
 
@@ -157,12 +151,12 @@ tnr logout
 Removes the stored API token.
 
 ### API Token Management
-
-<Note>
-- Generate and manage tokens in the [console](https://console.thundercompute.com/settings/tokens)
+- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
 - Tokens never expire but can be revoked
 - Use unique tokens per device
-- For Docker/environments: set `TNR_API_TOKEN` environment variable
+
+<Note>
+For Docker environments, set the `TNR_API_TOKEN` environment variable.
 </Note>
 
 ## Status Commands
@@ -191,12 +185,10 @@ Transfer files between local and remote instances:
 tnr scp <source_path> <destination_path>
 ```
 
-<Note>
 Path format:
 - Remote: `instance_id:path` (e.g., `0:/home/user/data`)
 - Local: Standard paths (e.g., `./data` or `/home/user/file.txt`)
 - Must specify exactly one remote and one local path
-</Note>
 
 Examples:
 ```bash
@@ -208,7 +200,5 @@ tnr scp 0:/remote/file.txt ./local_path/
 ```
 
 <Note>
-- 60-second connection timeout
-- Automatic SSH key setup and compression
-- Automatic `~/` expansion
+File transfers have a 60-second connection timeout. SSH key setup, compression, and `~/` expansion are handled automatically.
 </Note>
