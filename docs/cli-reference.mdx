@@ -30,7 +30,8 @@ tnr create --vcpus <vcpu_count>
 ```
 
 <Note>
-We recommend using the default 4 vCPU configuration for most use cases. Additional vCPUs are billed proportionally, with RAM scaling at 4GB per vCPU.
+  We recommend using the default 4 vCPU configuration for most use cases.
+  Additional vCPUs are billed proportionally, with RAM scaling at 4GB per vCPU.
 </Note>
 
 #### GPU Configuration
@@ -42,11 +43,13 @@ tnr create --gpu <gpu_type>
 ```
 
 Available GPU types:
+
 - `t4` (default): NVIDIA T4 (16GB VRAM) - Best for most ML workloads
 - `a100`: NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
 
 <Note>
-Each instance includes one GPU by default. Contact support for multi-GPU configurations.
+  Each instance includes one GPU by default. Contact support for multi-GPU
+  configurations.
 </Note>
 
 #### Template Configuration
@@ -58,8 +61,10 @@ tnr create --template <template_name>
 ```
 
 Available templates:
+
 - `ollama`: Ollama server environment
 - `comfy-ui`: ComfyUI for AI image generation
+- `webui-forge`: WebUI Forge for Stable Diffusion
 
 <Note>
 After instance creation, start the server using `<template_name>-start` when connected.
@@ -88,7 +93,7 @@ tnr delete <instance_ID>
 ```
 
 <Warning>
-This action permanently removes an instance and all associated data.
+  This action permanently removes an instance and all associated data.
 </Warning>
 
 ## Connectivity
@@ -112,6 +117,7 @@ tnr connect <instance_ID> -t PORT1 -t PORT2
 ```
 
 Features:
+
 - Forward multiple ports using repeated -t/--tunnel flags
 - Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
 - Enables local access to remote web servers, APIs, and services
@@ -127,7 +133,8 @@ tnr resize <instance_ID> <new_size_GB>
 ```
 
 <Warning>
-Storage can only be increased, not decreased. For smaller storage needs, create a new instance.
+  Storage can only be increased, not decreased. For smaller storage needs,
+  create a new instance.
 </Warning>
 
 Default storage allocation is 100GB. Contact support for region-specific storage requirements.
@@ -151,12 +158,13 @@ tnr logout
 Removes the stored API token.
 
 ### API Token Management
+
 - Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
 - Tokens never expire but can be revoked
 - Use unique tokens per device
 
 <Note>
-For Docker environments, set the `TNR_API_TOKEN` environment variable.
+  For Docker environments, set the `TNR_API_TOKEN` environment variable.
 </Note>
 
 ## Status Commands
@@ -186,11 +194,13 @@ tnr scp <source_path> <destination_path>
 ```
 
 Path format:
+
 - Remote: `instance_id:path` (e.g., `0:/home/user/data`)
 - Local: Standard paths (e.g., `./data` or `/home/user/file.txt`)
 - Must specify exactly one remote and one local path
 
 Examples:
+
 ```bash
 # Upload to instance
 tnr scp ./local_file.txt 0:/remote/path/
@@ -200,5 +210,6 @@ tnr scp 0:/remote/file.txt ./local_path/
 ```
 
 <Note>
-File transfers have a 60-second connection timeout. SSH key setup, compression, and `~/` expansion are handled automatically.
+  File transfers have a 60-second connection timeout. SSH key setup,
+  compression, and `~/` expansion are handled automatically.
 </Note>

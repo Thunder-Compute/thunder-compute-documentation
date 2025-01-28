@@ -13,6 +13,7 @@ Currently, Thunder Compute offers the following templates:
 
 - **Ollama**: Sets up an Ollama server for running open-source LLMs
 - **ComfyUI**: Configures ComfyUI for AI image generation workflows
+- **WebUI Forge**: Sets up a WebUI Forge server for running Stable Diffusion WebUI Forge
 
 ## Using Templates
 
@@ -24,7 +25,15 @@ tnr create --template ollama
 
 # For ComfyUI
 tnr create --template comfy-ui
+
+# For WebUI Forge
+tnr create --template webui-forge (--gpu a100)
 ```
+
+<Warning>
+  WebUI Forge comes packaged with Flux-fp8 and Flux-fp4. It's recommended to use
+  an A100 instance for best performance.
+</Warning>
 
 2. Connect to your instance:
 
@@ -46,6 +55,9 @@ start-ollama
 
 # For ComfyUI
 start-comfyui
+
+# For WebUI Forge
+start-webui-forge
 ```
 
 The required ports will be automatically forwarded to your local machine.
@@ -61,8 +73,16 @@ The required ports will be automatically forwarded to your local machine.
 ### ComfyUI Template
 
 - Automatically forwards port 8188
+- Automatically mounts the `ComfyUI` directory from the instance's home directory on Mac and Linux
 - Access the ComfyUI interface at `http://localhost:8188`
 - Includes common ComfyUI nodes and extensions
+
+### WebUI Forge Template
+
+- Automatically forwards port 7860
+- Automatically mounts the `stable-diffusion-webui-forge` directory from the instance's home directory on Mac and Linux
+- Access the WebUI Forge interface at `http://localhost:7860`
+- Includes Flux-fp8 and Flux-fp4 models
 
 ## Need Help?
 
