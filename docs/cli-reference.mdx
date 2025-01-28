@@ -9,7 +9,7 @@ iconType: solid
 
 The Thunder Compute CLI enables you to manage Thunder Compute instances from your local machine.
 
-## Instance Management
+## Instance Operations
 
 ### Create an Instance
 
@@ -96,7 +96,7 @@ tnr delete <instance_ID>
   This action permanently removes an instance and all associated data.
 </Warning>
 
-## Connectivity
+## Remote Access and Transfer
 
 ### Connect to an Instance
 
@@ -121,69 +121,6 @@ Features:
 - Forward multiple ports using repeated -t/--tunnel flags
 - Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
 - Enables local access to remote web servers, APIs, and services
-
-## Storage Management
-
-### Resize Disk
-
-Increase persistent storage:
-
-```bash
-tnr resize <instance_ID> <new_size_GB>
-```
-
-<Warning>
-  Storage can only be increased, not decreased. For smaller storage needs,
-  create a new instance.
-</Warning>
-
-Default storage allocation is 100GB. Contact support for region-specific storage requirements.
-
-## Authentication
-
-### Login
-
-```bash
-tnr login
-```
-
-Generates and saves an API token to `~/.thunder/token`
-
-### Logout
-
-```bash
-tnr logout
-```
-
-Removes the stored API token.
-
-### API Token Management
-
-- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
-- Tokens never expire but can be revoked
-- Use unique tokens per device
-
-<Note>
-  For Docker environments, set the `TNR_API_TOKEN` environment variable.
-</Note>
-
-## Status Commands
-
-### View Instance Status
-
-List all instances:
-
-```bash
-tnr status
-```
-
-Monitor status changes:
-
-```bash
-tnr status --wait
-```
-
-## File Transfer
 
 ### Copy Files
 
@@ -213,3 +150,58 @@ tnr scp 0:/remote/file.txt ./local_path/
   File transfers have a 60-second connection timeout. SSH key setup,
   compression, and `~/` expansion are handled automatically.
 </Note>
+
+## System Management
+
+### Resize Disk
+
+Increase persistent storage:
+
+```bash
+tnr resize <instance_ID> <new_size_GB>
+```
+
+<Warning>
+  Storage can only be increased, not decreased. For smaller storage needs,
+  create a new instance.
+</Warning>
+
+Default storage allocation is 100GB. Stopped instances are still billed for persistent storage.
+
+### View Instance Status
+
+List all instances:
+
+```bash
+tnr status
+```
+
+Monitor status changes:
+
+```bash
+tnr status --wait
+```
+
+## Account Management
+
+### Login
+
+```bash
+tnr login
+```
+
+Generates and saves an API token to `~/.thunder/token`
+
+### Logout
+
+```bash
+tnr logout
+```
+
+Removes the stored API token.
+
+### API Token Management
+
+- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
+- Tokens never expire but can be revoked
+- Use unique tokens per device
