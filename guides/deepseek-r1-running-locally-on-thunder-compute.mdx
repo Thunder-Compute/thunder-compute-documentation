@@ -9,9 +9,8 @@ sidebarTitle: "DeepSeek R1"
 
 In this guide, we'll show you how to run the Deepseek R1 model on Thunder Compute. To get the best performance I recommend using our 80GB A100 GPUs, which support the 70B model variant.
 
-> **Note:** Make sure you’ve already set up your Thunder Compute account. If not, follow the steps in our [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
+> **Note:** Make sure you've already set up your Thunder Compute account. If not, follow the steps in our [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
 
----
 
 If you prefer video guides, here is an overview of the following steps:
 
@@ -25,7 +24,6 @@ Open your CLI and run the following command to create an instance. For best perf
 tnr create --gpu "a100xl" --template "ollama"
 ```
 
----
 
 ## Step 2: Check Status and Connect
 
@@ -44,7 +42,6 @@ Then, connect to your running instance using its ID:
 tnr connect <instance-id>
 ```
 
----
 
 ## Step 3: Start the Ollama Server
 
@@ -58,7 +55,6 @@ Wait around 30 seconds for the web UI to build and load.
 
 ![Ollama server startup](/images/start_ollama.png)
 
----
 
 ## Step 4: Access the Web UI and Load Deepseek R1
 
@@ -66,12 +62,10 @@ Wait around 30 seconds for the web UI to build and load.
    `http://localhost:<YOUR_PORT>`  
    *(Replace `<YOUR_PORT>` with the appropriate port number.)*
 
-2. In the web UI, select the Deepseek R1 model from the dropdown menu. If you’re on an 80GB A100 instance, be sure to pick the 70B variant for optimal performance.
+2. In the web UI, select the Deepseek R1 model from the dropdown menu. If you're on an 80GB A100 instance, be sure to pick the 70B variant for optimal performance.
 
-<!-- Screenshot placeholder: Web UI with model selection -->
 
 ![Web UI with model selection](/images/web_ui_model_selection.png)
----
 
 ## Step 5: Interact with the Deepseek R1 Model
 
@@ -79,11 +73,10 @@ Type your prompt into the web interface. For example, try asking:
 
 > *"What's a non-cringe way to sign off from a YouTube tutorial video?"*
 
-After you submit your query, the model will begin processing. You’ll see its detailed thought process and response generation—note that it might take up to 200 seconds for a full answer to be produced.
+After you submit your query, the model will begin processing. You'll see its detailed thought process and response generation—note that it might take up to 200 seconds for a full answer to be produced.
 
 ![Model response in progress](/images/model_response_in_progress.png)
 
----
 
 ## Conclusion
 
