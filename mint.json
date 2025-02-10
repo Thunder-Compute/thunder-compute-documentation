@@ -61,7 +61,8 @@
         "guides/vscode-integration-for-thunder-compute",
         "guides/installing-conda",
         "guides/using-instance-templates",
-        "guides/using-docker-on-thundercompute"
+        "guides/using-docker-on-thundercompute",
+        "guides/deepseek-r1-running-locally-on-thunder-compute"
       ]
     }
   ],
