@@ -5,7 +5,7 @@ mode: wide
 sidebarTitle: "Docker"
 ---
 
-Docker containers on Thunder Compute instances now come with GPU support enabled by default. This means you can run Docker containers with GPU access without any additional configuration.
+Docker containers on Thunder Compute instances now come with GPU support enabled by default. This means you can run Docker containers with GPU access without any additional configuration. For more information about GPU compatibility, see our [compatibility guide](/docs/compatibility).
 
 ## Getting Started
 
@@ -16,13 +16,13 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 ```bash
 # Run a container with GPU support
 docker run ubuntu:22.04 nvidia-smi
-# Run Ollama server
+# Run Ollama server (see our [Deepseek guide](/guides/deepseek-r1-running-locally-on-thunder-compute) for an example use case)
 docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
 
 <Warning>
   If you get an error that looks like `docker: unexpected EOF`, try running the
-  command again.
+  command again. For more troubleshooting tips, see our [troubleshooting guide](/docs/troubleshooting).
 </Warning>
 
 ## Supported Base Images
@@ -67,6 +67,8 @@ RUN pip3 install --pre torch torchvision torchaudio --index-url https://download
 
 ENTRYPOINT ["python3", "-c", "import torch; print(torch.cuda.is_available())"]
 ```
+
+For more advanced development environments, you might want to check out our guides on [using VSCode](/guides/vscode-integration-for-thunder-compute) or [running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute).
 
 ## Need Help?
 

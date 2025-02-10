@@ -6,7 +6,9 @@ iconType: solid
 sidebarTitle: Background
 ---
 
-Behind the scenes, Thunder Compute connects these CPU-only instances to GPUs with TCP. From your perspective, the resulting instances behave like GPU instances on EC2, without having a GPU physically connected. Here is a rough diagram of what happens behind the scenes:
+Behind the scenes, Thunder Compute connects these CPU-only instances to GPUs with TCP. From your perspective, the resulting instances behave like GPU instances on EC2, without having a GPU physically connected. For detailed instructions on creating and managing instances, see our [CLI reference guide](/docs/cli-reference).
+
+Here is a rough diagram of what happens behind the scenes:
 
 <Frame>
   <img src="/images/66ccd2ce082c56b70ca4ea25_Infographic design PCIE TCP-02 (1).png" alt="Infographic design" />
@@ -14,7 +16,8 @@ Behind the scenes, Thunder Compute connects these CPU-only instances to GPUs wit
 
 Now that you understand the distinction between a Thunder Compute instance and a GPU instance on EC2, it is worth explaining the limitations of this virtualized approach.
 
-1. **Performance**: TCP is slower than PCIe. While this may seem problematic, Thunder Compute is optimized to minimize the resulting performance impact. The real-world slowdown often is not noticeable and minimally impacts common data science tasks.
-2. **Limited Compatibility**: Eventually, our GPUs-over-TCP will have the full functionality of physically attached cards, but today, Thunder Compute lacks official support for some GPU libraries. If Thunder Compute does not support your particular use case, please reach out and we will add support.
+1. **Performance**: TCP is slower than PCIe. While this may seem problematic, Thunder Compute is optimized to minimize the resulting performance impact. The real-world slowdown often is not noticeable and minimally impacts common data science tasks. For advanced performance optimization, see our guide on [bringing your own instance](/docs/bring-your-own-instance#optimizing-performance).
 
-The impact of these drawbacks will vary depending on your specific workload, and we continue to improve both over time. Until now, our testing has shown data science workflows to be the most performant and stable. You can find full compatibility details in “Compatibility.” Thunder Compute is open to the public, so the easiest way to test compatibility with your workflow is to try it yourself.
+2. **Limited Compatibility**: Eventually, our GPUs-over-TCP will have the full functionality of physically attached cards, but today, Thunder Compute lacks official support for some GPU libraries. If Thunder Compute does not support your particular use case, please reach out and we will add support. For a complete list of supported libraries and tools, check our [compatibility guide](/docs/compatibility#officially-supported-libraries).
+
+The impact of these drawbacks will vary depending on your specific workload, and we continue to improve both over time. Until now, our testing has shown data science workflows to be the most performant and stable. You can find full compatibility details in our [compatibility guide](/docs/compatibility). Thunder Compute is open to the public, so the easiest way to test compatibility with your workflow is to try it yourself - just follow our [quickstart guide](/docs/quickstart) to get started.

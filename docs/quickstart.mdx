@@ -14,7 +14,7 @@ pip install tnr
 ```
 
 <Note>
-  **Windows Users**: If you encounter permissions issues, make sure the Python user scripts directory is added to your path.
+  **Windows Users**: If you encounter permissions issues, check our [troubleshooting guide](/docs/troubleshooting#path-or-permissions-issues-common-on-windows) for common solutions.
 </Note>
 
 ### Authenticate the CLI
@@ -23,7 +23,7 @@ pip install tnr
 tnr login
 ```
 
-After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens). For more details about token management, see our [CLI reference guide](/docs/cli-reference#api-token-management).
 
 ### Add a payment method
 
@@ -42,14 +42,19 @@ tnr status --wait
 tnr connect 0
 ```
 
+For more advanced instance configuration options, check our [CLI reference guide](/docs/cli-reference#instance-operations).
+
 <Note>
-  When you finish using your instance, remember to stop it to avoid unwanted charges.
+  When you finish using your instance, remember to stop it to avoid unwanted charges. Learn more about our [instance management](/docs/cli-reference#system-management) features.
 </Note>
 
-That's it! You're now ready to use Thunder Compute.
+That's it! You're now ready to use Thunder Compute. To understand how Thunder Compute works under the hood, check out our [background information](/docs/background).
 
 ## Next Steps
 
 Learn how to:
-- [Access Thunder Compute from VSCode](https://thundercompute.com/docs/guides/vscode-integration-for-thunder-compute)
-- [Run a Jupyter Notebook](https://thundercompute.com/docs/guides/running-jupyter-notebooks-on-thunder-compute)
+- [Access Thunder Compute from VSCode](/guides/vscode-integration-for-thunder-compute)
+- [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)
+- [Run the Deepseek R1 model](/guides/deepseek-r1-running-locally-on-thunder-compute)
+
+For compatibility information and supported libraries, see our [compatibility guide](/docs/compatibility).

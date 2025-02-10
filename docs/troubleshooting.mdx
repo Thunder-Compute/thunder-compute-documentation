@@ -7,13 +7,13 @@ iconType: solid
 
 ## Common solutions
 
-1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>`
+1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>` (see [CLI reference](/docs/cli-reference#connect-to-an-instance) for more connection options)
 2.  Upgrade tnr with `pip install tnr --upgrade` on your local machine
-3.  Restart the instance by running `tnr stop <instance_id>` and `tnr start <instance_id>`
+3.  Restart the instance by running `tnr stop <instance_id>` and `tnr start <instance_id>` (see [instance operations](/docs/cli-reference#instance-operations))
 
 ## Logs
 
-To assist troubleshooting, the GCP/AWS instance logs for each instance are saved to the file `/var/log/syslog`
+To assist troubleshooting, the GCP/AWS instance logs for each instance are saved to the file `/var/log/syslog`. For more information about our infrastructure, see our [background documentation](/docs/background).
 
 ## Common errors
 
@@ -25,13 +25,15 @@ To avoid path and permissions issues, we recommend using Linux/WSL wherever poss
 2. Ensure your user scripts directory is added to path and restart your shell
 3. If all else fails, run your shell as an administrator and `$ pip install tnr`
 
+For a smoother development experience on Windows, consider using our [VSCode integration](/guides/vscode-integration-for-thunder-compute).
+
 ### Function not implemented
 
-A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. If you encounter this, please contact us.
+A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. Check our [compatibility guide](/docs/compatibility) for supported features, and if you encounter this, please contact us.
 
 ### SSH errors
 
-Sometimes, instances will encounter SSH-related errors, such as `Error reading SSH protocol banner`. To resolve these, restart your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`
+Sometimes, instances will encounter SSH-related errors, such as `Error reading SSH protocol banner`. To resolve these, restart your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`. For more advanced connection options, see our [CLI reference](/docs/cli-reference#remote-access-and-transfer).
 
 ## Support
 

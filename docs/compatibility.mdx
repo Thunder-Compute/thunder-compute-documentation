@@ -7,7 +7,7 @@ iconType: solid
 
 ## Use cases
 
-Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2 instance.
+Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2 instance. To understand how this works, check out our [technical background](/docs/background).
 
 ## Officially supported libraries
 
@@ -18,18 +18,20 @@ The following libraries and tools are thoroughly tested:
 * JAX
 * PyTorch Lightning
 * Hugging Face
-* Notebooks
+* Notebooks (see our [Jupyter notebooks guide](/guides/running-jupyter-notebooks-on-thunder-compute))
 * Custom CUDA Kernels (message us on Discord if you encounter errors)
 
 Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary is pre-installed on every Thunder Compute instance.
 
-You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system.
+You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system. See our [CLI reference](/docs/cli-reference) for detailed usage instructions.
 
 ## Known incompatibilities
 
 Currently, Thunder Compute lacks official support for the following use cases. If you would like to run one of the following on Thunder Compute, please contact us and we will try our best to help!
 
 * Graphics workloads (OpenGL, Vulkan, Blender, others)
+
+If you encounter any issues or errors, please check our [troubleshooting guide](/docs/troubleshooting) first. For advanced usage scenarios, you might want to review our guide on [bringing your own instance](/docs/bring-your-own-instance).
 
 ## Cryptocurrency mining
 

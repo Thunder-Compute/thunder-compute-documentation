@@ -7,10 +7,9 @@ sidebarTitle: "DeepSeek R1"
 
 # Running Deepseek R1 Locally on Thunder Compute
 
-In this guide, we'll show you how to run the Deepseek R1 model on Thunder Compute. To get the best performance I recommend using our 80GB A100 GPUs, which support the 70B model variant.
+In this guide, we'll show you how to run the Deepseek R1 model on Thunder Compute. To get the best performance I recommend using our 80GB A100 GPUs, which support the 70B model variant. For more information about GPU compatibility, check out our [compatibility guide](/docs/compatibility).
 
 > **Note:** Make sure you've already set up your Thunder Compute account. If not, follow the steps in our [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
-
 
 If you prefer video guides, here is an overview of the following steps:
 
@@ -18,12 +17,11 @@ If you prefer video guides, here is an overview of the following steps:
 
 ## Step 1: Create Your GPU Instance
 
-Open your CLI and run the following command to create an instance. For best performance, select an 80GB A100 GPU and opt for the 70B model variant.
+Open your CLI and run the following command to create an instance. For best performance, select an 80GB A100 GPU and opt for the 70B model variant. For more details about instance templates, see our [templates guide](/guides/using-instance-templates).
 
 ```bash
 tnr create --gpu "a100xl" --template "ollama"
 ```
-
 
 ## Step 2: Check Status and Connect
 
@@ -34,7 +32,6 @@ tnr status
 ```
 
 ![Instance creation in CLI](/images/instance_creation_cli.png)
-
 
 Then, connect to your running instance using its ID:
 
@@ -49,6 +46,8 @@ Once connected, start the Ollama server (which also launches the web UI) by runn
 ```bash
 start ollama
 ```
+
+If you encounter any issues during startup, check our [troubleshooting guide](/docs/troubleshooting) for common solutions.
 
 Wait around 30 seconds for the web UI to build and load.
 
@@ -75,4 +74,4 @@ After you submit your query, the model will begin processing. You'll see its det
 
 ## Conclusion
 
-That's it! You now have Deepseek R1 running locally on Thunder Compute. Enjoy exploring its detailed reasoning and powerful capabilities. For more in-depth tutorials, check out our other guides, including [using Docker on Thunder Compute](/guides/using-docker-on-thundercompute) and [using Instance Templates](/guides/using-instance-templates).
+That's it! You now have Deepseek R1 running locally on Thunder Compute. Enjoy exploring its detailed reasoning and powerful capabilities. For more in-depth tutorials, check out our other guides, including [using Docker on Thunder Compute](/guides/using-docker-on-thundercompute), [using Instance Templates](/guides/using-instance-templates), and [running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute) for interactive development.
