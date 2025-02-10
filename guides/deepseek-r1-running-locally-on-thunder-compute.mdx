@@ -42,7 +42,6 @@ Then, connect to your running instance using its ID:
 tnr connect <instance-id>
 ```
 
-
 ## Step 3: Start the Ollama Server
 
 Once connected, start the Ollama server (which also launches the web UI) by running:
@@ -55,15 +54,12 @@ Wait around 30 seconds for the web UI to build and load.
 
 ![Ollama server startup](/images/start_ollama.png)
 
-
 ## Step 4: Access the Web UI and Load Deepseek R1
 
 1. Open your web browser and navigate to:  
-   `http://localhost:<YOUR_PORT>`  
-   *(Replace `<YOUR_PORT>` with the appropriate port number.)*
+   `http://localhost:8080`  
 
 2. In the web UI, select the Deepseek R1 model from the dropdown menu. If you're on an 80GB A100 instance, be sure to pick the 70B variant for optimal performance.
-
 
 ![Web UI with model selection](/images/web_ui_model_selection.png)
 
@@ -71,12 +67,11 @@ Wait around 30 seconds for the web UI to build and load.
 
 Type your prompt into the web interface. For example, try asking:
 
-> *"What's a non-cringe way to sign off from a YouTube tutorial video?"*
+> *"If the concepts of rCUDA were applied at scale, overcoming latency, what would it mean for the cost of GPUs on cloud providers?"*
 
 After you submit your query, the model will begin processing. You'll see its detailed thought process and response generation—note that it might take up to 200 seconds for a full answer to be produced.
 
 ![Model response in progress](/images/model_response_in_progress.png)
-
 
 ## Conclusion
 
