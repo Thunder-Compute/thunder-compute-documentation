@@ -62,7 +62,8 @@
         "guides/installing-conda",
         "guides/using-instance-templates",
         "guides/using-docker-on-thundercompute",
-        "guides/deepseek-r1-running-locally-on-thunder-compute"
+        "guides/deepseek-r1-running-locally-on-thunder-compute",
+        "guides/troubleshooting-ssh-errors"
       ]
     }
   ],

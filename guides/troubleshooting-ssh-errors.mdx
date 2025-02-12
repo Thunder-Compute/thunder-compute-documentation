@@ -1,0 +1,119 @@
+---
+title: "Troubleshooting SSH Errors on Thunder Compute"
+description: "Quick fixes for common SSH errors when using tnr connect"
+mode: wide
+sidebarTitle: "SSH Troubleshooting"
+---
+
+# Troubleshooting SSH Errors on Thunder Compute
+
+When you run 'tnr connect', Thunder Compute SSH's you into your instance and manages keys automatically. Sometimes errors occur such as:
+
+- 'Bad permissions. Try removing permissions for user: \OWNER RIGHTS (S-1-3-4) on file C:\Users\<your_username>\.ssh\config.'
+- 'Error reading SSH protocol banner' — this error may appear when your instance is low on memory, preventing a complete SSH handshake.
+- 'Key authentication failed' — indicates that your SSH key may be outdated or misconfigured. 
+
+Follow these steps to resolve the issues:
+
+## 1. Restart Your Instance
+
+Restarting can clear transient issues. In your terminal run:
+
+```bash
+tnr stop
+tnr start
+```
+
+Wait about a minute before reconnecting.
+
+## 2. Test Manual SSH Connection
+
+To get a more detailed error message, try connecting manually:
+
+```bash
+ssh tnr-0
+```
+
+## 3. Fix Common Issues
+
+### A. Out of Memory
+
+If the instance crashes due to low memory—or you encounter errors like "Error reading SSH protocol banner"—wait and retry. For a permanent fix, create an instance with more resources:
+
+```bash
+tnr create --vcpus 8
+```
+
+*Tip:* Consider 16 or 32 vCPUs for increased memory.
+
+### B. Permissions Issues
+
+<CodeGroup>
+
+```powershell Windows
+# Run PowerShell as administrator
+icacls "$env:USERPROFILE\.ssh\config" /reset
+icacls "$env:USERPROFILE\.ssh\config" /inheritance:r
+Rename-Item -Path "$env:USERPROFILE\.ssh\config" -NewName 'config.old'
+```
+
+```bash macOS
+chmod 600 ~/.ssh/config
+chown $(whoami) ~/.ssh/config
+mv ~/.ssh/config ~/.ssh/config.old
+```
+
+```bash Linux/WSL
+chmod 600 ~/.ssh/config
+chown $(whoami) ~/.ssh/config
+mv ~/.ssh/config ~/.ssh/config.old
+```
+
+</CodeGroup>
+
+### C. Bad Configuration
+
+Sometimes removing outdated config files helps.
+
+#### Known Hosts
+
+<CodeGroup>
+
+```powershell Windows
+Rename-Item -Path "$env:USERPROFILE\.ssh\known_hosts" -NewName 'known_hosts.old'
+```
+
+```bash macOS
+mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
+```
+
+```bash Linux/WSL
+mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
+```
+
+</CodeGroup>
+
+#### Thunder Compute Locks & Keys
+
+<CodeGroup>
+
+```powershell Windows
+Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\locks"
+Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\keys"
+```
+
+```bash macOS
+rm -rf ~/.thunder/locks ~/.thunder/keys
+```
+
+```bash Linux/WSL
+rm -rf ~/.thunder/locks ~/.thunder/keys
+```
+
+</CodeGroup>
+
+## 4. Still Having Issues?
+
+If problems persist, please reach out to us on Discord for further assistance.
+
+Happy troubleshooting!
