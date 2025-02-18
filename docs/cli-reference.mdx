@@ -159,7 +159,10 @@ tnr scp 0:/remote/file.txt ./local_path/
 Modify the instance's vCPU & GPU type or disk size:
 
 ```bash
-tnr modify <instance_ID> [--disk-size-gb <new_size_GB>] [--gpu <new_gpu_type>] [--vcpus <new_vcpu_count>]
+tnr modify <instance_ID> \
+  --disk-size-gb <new_size_GB> \
+  --gpu <new_gpu_type> \
+  --vcpus <new_vcpu_count>
 ```
 
 All flags are optional, but at least one change must be provided.
