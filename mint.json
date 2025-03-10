@@ -63,7 +63,8 @@
         "guides/using-instance-templates",
         "guides/using-docker-on-thundercompute",
         "guides/deepseek-r1-running-locally-on-thunder-compute",
-        "guides/troubleshooting-ssh-errors"
+        "guides/troubleshooting-ssh-errors",
+        "guides/fixing-tnr-not-found"
       ]
     }
   ],
