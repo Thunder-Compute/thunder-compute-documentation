@@ -9,32 +9,31 @@ sidebarTitle: "VSCode/Cursor Integration"
 
 - A Thunder Compute account
 - Visual Studio Code installed
-- A Thunder Compute instance created (see Step 1)
 
 ## Steps
 
+### Install the Thunder Compute extension
+
+Install the Thunder Compute extension in VSCode.
+
+![Adding Thunder Compute](/images/Thunder_Compute_Extension.png)
+
 ### Create a Thunder Compute instance
 
-First, create a Thunder Compute instance by following the steps in the [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
+Navigate to the Thunder Compute tab in the sidebar and click the `Create Instance` button, shaped like a plus sign.
 
-### Install the Remote - SSH extension
-
-Install the Remote - SSH extension in VSCode.
-
-![Adding Remote SSH](/images/Remote_SSH_Extension.png)
+![Create Instance](/images/Create_Instance.png)
 
 ### Connect to the Thunder Compute instance
 
-Navigate to the Remote Explorer on the left sidebar in VSCode. You should see your instance listed as `tnr-0`. If you just created your instance, you may have to connect to it with the command `$ tnr connect <instance_id>` to add it to Remote Explorer.
+Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
 
-![Thunder Compute Instance in VSCode Remote Explorer](/images/tnr-instance_id.png)
+![Connect to Instance](/images/Connect_to_Instance.png)
 
-Note: if the instance is stopped it will not appear in Remote Explorer. Use the command `$ tnr start <instance_id>` to start it and wait for it to re-appear.
+### Open the Ubuntu user folder to view the files
 
-In the Remote Explorer, click the arrow to connect to the instance. Once connected, your screen should look like the image below:
+Open the Ubuntu user folder to view the files in your instance.
 
-![Remote Connection](/images/VS_Code_Environment.png)
+![Open User Folder](/images/Open_User_Folder.png)
 
-## Conclusion
-
-You have successfully connected VSCode to your Thunder Compute instance. You can now develop as if you are locally attached to a virtual GPU.
+You have successfully connected VSCode to your Thunder Compute instance. You can now develop as if your compute has a GPU.

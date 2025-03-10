@@ -22,7 +22,8 @@ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 
 <Warning>
   If you get an error that looks like `docker: unexpected EOF`, try running the
-  command again. For more troubleshooting tips, see our [troubleshooting guide](/docs/troubleshooting).
+  command again. For more troubleshooting tips, see our [troubleshooting
+  guide](/docs/troubleshooting).
 </Warning>
 
 ## Supported Base Images
@@ -30,7 +31,7 @@ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 Most modern Docker images are supported, with some limitations:
 
 - Ubuntu 22.04 and newer base images are fully supported
-- Ubuntu 20.04 base images are currently not supported
+- Ubuntu 20.04 base images are supported in beta
 - Other distributions like Alpine and Debian are supported
 
 ## Disabling GPU Support

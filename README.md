@@ -1,6 +1,6 @@
 # Thunder Compute Documentation
 
-This repository contains the official documentation for Thunder Compute, a Y Combinator company building software to virtualize GPUs over TCP. The documentation is hosted at [thundercompute.com/docs](https://thundercompute.com/docs).
+This repository contains the official documentation for Thunder Compute, a Y Combinator-backed company building software to virtualize GPUs over TCP. The documentation is hosted at [thundercompute.com/docs](https://thundercompute.com/docs).
 
 ## Repository Structure
 

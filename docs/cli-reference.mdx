@@ -5,10 +5,6 @@ icon: bolt
 iconType: solid
 ---
 
-## The Thunder Compute CLI (tnr)
-
-The Thunder Compute CLI enables you to manage Thunder Compute instances from your local machine.
-
 ## Instance Operations
 
 ### Create an Instance
@@ -154,20 +150,29 @@ tnr scp 0:/remote/file.txt ./local_path/
 
 ## System Management
 
-### Resize Disk
+### Modify Instance
 
-Increase persistent storage:
+Modify the instance's vCPU & GPU type or disk size:
 
 ```bash
-tnr resize <instance_ID> <new_size_GB>
+tnr modify <instance_ID> \
+  --disk-size-gb <new_size_GB> \
+  --gpu <new_gpu_type> \
+  --vcpus <new_vcpu_count>
 ```
+
+All flags are optional, but at least one change must be provided.
+
+<Note>
+  You can only modify the vCPU & GPU type of the instance while it's stopped.
+  You can resize the disk size regardless of the instance's state. These changes
+  will effect the billing price of the instance.
+</Note>
 
 <Warning>
   Storage can only be increased, not decreased. For smaller storage needs,
   create a new instance.
 </Warning>
-
-Default storage allocation is 100GB. Stopped instances are still billed for persistent storage.
 
 ### View Instance Status
 
