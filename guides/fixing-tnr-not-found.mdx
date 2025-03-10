@@ -1,0 +1,57 @@
+---
+title: "Fixing 'tnr not found' Error"
+description: "Guide to resolving 'tnr not found' by adding Python scripts directory to PATH"
+mode: wide
+sidebarTitle: "Fixing 'tnr not found'"
+---
+
+# Fixing 'tnr not found' Error
+
+If you encounter the error `'tnr not found'`, it usually means your system can't find the `tnr` command because Python's scripts directory isn't in your PATH environment variable.
+
+Follow these simple steps to add Python's scripts directory to your PATH:
+
+<CodeGroup>
+
+```powershell Windows
+# Open PowerShell as administrator and run:
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";" + "$env:USERPROFILE\AppData\Local\Programs\Python\PythonXX\Scripts", [EnvironmentVariableTarget]::User)
+```
+
+Replace `PythonXX` with your Python version (e.g., Python311 for Python 3.11).
+
+Restart your terminal or computer to apply changes.
+
+```bash macOS
+# Open Terminal and run:
+echo 'export PATH="$PATH:$(python3 -m site --user-base)/bin"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Restart your terminal to apply changes.
+
+```bash Linux
+# Open Terminal and run:
+echo 'export PATH="$PATH:$(python3 -m site --user-base)/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Restart your terminal to apply changes.
+
+</CodeGroup>
+
+## Verify the Fix
+
+After updating your PATH, verify the fix by running:
+
+```bash
+tnr --version
+```
+
+If you see the version number, you're all set!
+
+## Still Having Issues?
+
+If problems persist, please reach out to us on Discord for further assistance.
+
+Happy coding! 
