@@ -11,7 +11,9 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 
 1. Connect to a Thunder Compute instance using the [quickstart guide](https://thundercompute.com/docs/docs/quickstart)
 
-2. Run your Docker containers as normal - GPU support is automatically enabled:
+2. Run your Docker containers as normal - GPU support is automatically enabled.
+
+## Example
 
 ```bash
 # Run a container with GPU support
@@ -26,15 +28,17 @@ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
   guide](/docs/troubleshooting).
 </Warning>
 
-## Supported Base Images
+## Additional Info
 
-Most modern Docker images are supported, with some limitations:
+### Supported Base Images
+
+Most modern Docker images are supported:
 
 - Ubuntu 22.04 and newer base images are fully supported
 - Ubuntu 20.04 base images are supported in beta
 - Other distributions like Alpine and Debian are supported
 
-## Disabling GPU Support
+### Disabling GPU Support (unnecessary for 99% of use cases)
 
 If you need to run containers without GPU access, or encounter issues with the thunder runtime:
 
@@ -55,22 +59,8 @@ sudo systemctl restart docker
 
 You can manually set the runtime for a container by adding the `--runtime=thunder` flag to the `docker run` command.
 
-## Example Dockerfile
-
-```dockerfile
-FROM ubuntu:22.04
-
-# Install dependencies
-RUN apt-get update && apt-get install -y python3-pip
-
-# Install your packages
-RUN pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126
-
-ENTRYPOINT ["python3", "-c", "import torch; print(torch.cuda.is_available())"]
-```
-
-For more advanced development environments, you might want to check out our guides on [using VSCode](/guides/vscode-integration-for-thunder-compute) or [running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute).
-
 ## Need Help?
 
 If you encounter any issues or have questions about Docker support, please contact our support team.
+
+For more advanced development environments, you might want to check out our guides on [using VSCode](/guides/vscode-integration-for-thunder-compute) or [running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute).
