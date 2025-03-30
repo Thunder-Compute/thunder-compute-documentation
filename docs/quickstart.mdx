@@ -7,14 +7,64 @@ iconType: solid
 
 ## Getting Started
 
-### Install the CLI
+<Note>
+  **Alternative Installation**: If you prefer using VSCode instead of the CLI,
+  you can install our VSCode extension. See our [VSCode integration
+  guide](/guides/vscode-integration-for-thunder-compute) for detailed
+  instructions.
+</Note>
+
+### Install Thunder Compute
+
+You can install Thunder Compute using either our standalone installers or the pip package, depending on your operating system.
+
+#### Option 1: Standalone Installers (Recommended where available)
+
+**Linux**
+
+```bash
+curl -fsSL https://console.thundercompute.com/install.sh | sh
+```
+
+This script will download and install the latest version of Thunder Compute CLI for Linux. The installer will:
+
+- Verify system compatibility
+- Install the binary to `/usr/local/bin/tnr` (may require sudo permissions)
+- Set appropriate file permissions
+- Verify the installation
+
+**Windows**
+
+1. Download the Windows installer (.exe) from [our downloads page](https://console.thundercompute.com/download)
+2. Run the installer and follow the installation steps
+3. After installation, you can run the commands in PowerShell
+
+#### Option 2: Python Package (pip)
+
+If you prefer using pip or need to install in a Python environment:
+
+**macOS** (currently only supports pip installation)
 
 ```bash
 pip install tnr
 ```
 
+We're currently using the Python package for macOS. Make sure you have Python 3.7+ installed.
+
+**Linux and Windows** (alternative method)
+
+```bash
+pip install tnr
+```
+
+**Requirements**:
+
+- Python 3.7 or later
+- pip package manager
+
 <Note>
-  **Windows Users**: If you encounter permissions issues, check our [troubleshooting guide](/docs/troubleshooting) for common solutions.
+  **Windows Users**: If you encounter permissions issues, check our
+  [troubleshooting guide](/docs/troubleshooting) for common solutions.
 </Note>
 
 ### Authenticate the CLI
@@ -49,6 +99,7 @@ That's it! You're now ready to use Thunder Compute.
 ## Next Steps
 
 Learn how to:
+
 - [Access Thunder Compute from VSCode](/guides/vscode-integration-for-thunder-compute)
 - [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)
 - [Run the Deepseek R1 model](/guides/deepseek-r1-running-locally-on-thunder-compute)
