@@ -1,0 +1,101 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "ThunderCompute",
+  "colors": {
+    "primary": "#369eff",
+    "light": "#369eff",
+    "dark": "#369eff"
+  },
+  "favicon": "/thunder_favicon.png",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Documentation",
+            "pages": [
+              "docs/quickstart",
+              "docs/cli-reference",
+              "docs/compatibility",
+              "docs/troubleshooting"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/vscode-integration-for-thunder-compute",
+              "guides/installing-conda",
+              "guides/using-instance-templates",
+              "guides/using-docker-on-thundercompute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/troubleshooting-ssh-errors",
+              "guides/fixing-tnr-not-found"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Support",
+          "href": "https://discord.gg/nwuETS9jJK",
+          "icon": "discord"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://thundercompute.com"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "background": {
+    "decoration": "grid"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Contact Us",
+        "href": "https://discord.gg/nwuETS9jJK"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Console",
+      "href": "https://console.thundercompute.com/"
+    }
+  },
+  "footer": {
+    "socials": {
+      "discord": "https://discord.gg/nwuETS9jJK",
+      "x": "https://twitter.com/thundercompute",
+      "linkedin": "https://www.linkedin.com/company/thundercompute/"
+    }
+  },
+  "integrations": {
+    "gtm": {
+      "tagId": "G-KCY026LJ4T"
+    },
+    "posthog": {
+      "apiKey": "phc_vxiWTRGpeP8lSlmUU2qU2HTYBO9mM7yd8xXeJDcRTAz",
+      "apiHost": "https://us.i.posthog.com"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Instrument Sans",
+      "weight": 600
+    },
+    "body": {
+      "family": "Instrument Sans"
+    }
+  }
+}
