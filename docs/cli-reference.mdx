@@ -5,7 +5,35 @@ icon: bolt
 iconType: solid
 ---
 
-## Instance Operations
+## Account Management
+
+### Login
+
+Authenticate the CLI, which provides a link to the [console](https://console.thundercompute.com/settings/tokens) where you can generate an API token.
+
+```bash
+tnr login
+```
+
+Under the hood, this generates and saves an API token to `~/.thunder/token`. You can store a token file here to programmatically authenticate, or by setting the `TNR_API_TOKEN` environment variable in your shell.
+
+### Logout
+
+Log out of the CLI with:
+
+```bash
+tnr logout
+```
+
+This deletes the stored API token.
+
+### API Token Management
+
+- Generate/manage tokens in the [console](https://console.thundercompute.com/settings/tokens)
+- Tokens never expire but can be revoked
+- Use unique tokens per device
+
+## Managing Instances
 
 ### Create an Instance
 
@@ -25,9 +53,10 @@ Configure custom vCPU count:
 tnr create --vcpus <vcpu_count>
 ```
 
+Each vCPU comes with 4GB of RAM. For example, a 4 core instance has 16GB of RAM, and an 8 core instance has 32GB of RAM.
+
 <Note>
-  We recommend using the default 4 vCPU configuration for most use cases.
-  Additional vCPUs are billed proportionally, with RAM scaling at 4GB per vCPU.
+By default, 4 vCPUs are included with your instance. Additional vCPUs are billed hourly at the rates shown [here](https://thundercompute.com/pricing)
 </Note>
 
 #### GPU Configuration
@@ -44,15 +73,17 @@ Available GPU types:
 - `a100` (default): NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
 - `a100xl` : NVIDIA A100 (80GB VRAM) - For even larger models, the biggest and the best
 
-<Note>
-  Each instance includes one GPU by default. Contact support for multi-GPU
-  configurations.
-</Note>
+You can use the `--num-gpus` flag to specify multiple GPU configurations:
+
+```bash
+tnr create --gpu <gpu_type> --num-gpus <n>
+```
 
 #### Template Configuration
 
-Create an instance with a predefined environment:
+Templates make it easy to quickly launch common AI tools. Your instance will already be configured with everything you need to get running to generate images, run an LLM, and more.
 
+To use a template, add the `--template` flag when creating an instance:
 ```bash
 tnr create --template <template_name>
 ```
@@ -63,25 +94,29 @@ Available templates:
 - `comfy-ui`: ComfyUI for AI image generation
 - `webui-forge`: WebUI Forge for Stable Diffusion
 
-<Note>
-After instance creation, start the server using `<template_name>-start` when connected.
-</Note>
-
-### Start an Instance
+After instance creation, start the server using `start-<template_name>` when connected. For example:
 
 ```bash
-tnr start <instance_ID>
+start-ollama
 ```
 
-Activates an existing inactive instance.
-
 ### Stop an Instance
+
+Stops a running instance.
 
 ```bash
 tnr stop <instance_ID>
 ```
 
-Stops a running instance.
+<Note>Stopped instances continue to accrue storage cost.</Note>
+
+### Start an Instance
+
+Starts a stopped instance.
+
+```bash
+tnr start <instance_ID>
+```
 
 ### Delete an Instance
 
@@ -93,21 +128,21 @@ tnr delete <instance_ID>
   This action permanently removes an instance and all associated data.
 </Warning>
 
-## Remote Access and Transfer
+## Using instances
 
 ### Connect to an Instance
 
-Basic connection:
+Use the `connect` command to access your instance. This wraps SSH, managing keys while automatically setting up everything you need to get started.
 
 ```bash
 tnr connect <instance_ID>
 ```
 
-Connects to a running instance (default ID: 0). Functions as an SSH wrapper - you can also use standard SSH with the IP shown in `tnr status`.
+The instance must be running before you can connect to it. See if the instance is running and get the instance ID (default `0`) with `tnr status`.
 
 ### Port Forwarding
 
-Connect with port forwarding:
+Connect with port forwarding with the `-t` or `--tunnel` flag:
 
 ```bash
 tnr connect <instance_ID> -t PORT1 -t PORT2
@@ -115,23 +150,26 @@ tnr connect <instance_ID> -t PORT1 -t PORT2
 
 Features:
 
-- Forward multiple ports using repeated -t/--tunnel flags
+- Forward multiple ports using repeated `-t/--tunnel` flags
 - Example: `tnr connect 0 -t 8000 -t 8080` forwards both ports 8000 and 8080
 - Enables local access to remote web servers, APIs, and services
 
 ### Copy Files
 
-Transfer files between local and remote instances:
+Transfer files between local and remote instance with the `scp` command:
 
 ```bash
 tnr scp <source_path> <destination_path>
 ```
+
+You can transfer files in either direction, from your local machine to an instance, or from the instance to your local machine. You indicate the direction of transfer with the path format, shown below.
 
 Path format:
 
 - Remote: `instance_id:path` (e.g., `0:/home/user/data`)
 - Local: Standard paths (e.g., `./data` or `/home/user/file.txt`)
 - Must specify exactly one remote and one local path
+- Paths can be either absolute or relative.
 
 Examples:
 
@@ -152,7 +190,7 @@ tnr scp 0:/remote/file.txt ./local_path/
 
 ### Modify Instance
 
-Modify the instance's vCPU & GPU type or disk size:
+Modify the instance's vCPU count, GPU type, or disk size:
 
 ```bash
 tnr modify <instance_ID> \
@@ -163,51 +201,21 @@ tnr modify <instance_ID> \
 
 All flags are optional, but at least one change must be provided.
 
-<Note>
-  You can only modify the vCPU & GPU type of the instance while it's stopped.
-  You can resize the disk size regardless of the instance's state. These changes
-  will effect the billing price of the instance.
-</Note>
+These changes will affect the billing price of the instance.
+
+Instances must be stopped to modify the vCPU count or GPU type. You can resize disk at any time.
 
 <Warning>
   Storage can only be increased, not decreased. For smaller storage needs,
-  create a new instance.
+  create a new instance and transfer your files.
 </Warning>
 
 ### View Instance Status
 
-List all instances:
+List all instances and details including `instance_ID`, `IP Address`, `Disk Size`, `GPU Type`, `GPU Count`, `vCPU Count`, `RAM`, and `Template`:
 
 ```bash
 tnr status
 ```
 
-Monitor status changes:
-
-```bash
-tnr status
-```
-
-## Account Management
-
-### Login
-
-```bash
-tnr login
-```
-
-Generates and saves an API token to `~/.thunder/token`
-
-### Logout
-
-```bash
-tnr logout
-```
-
-Removes the stored API token.
-
-### API Token Management
-
-- Generate/manage tokens: [console](https://console.thundercompute.com/settings/tokens)
-- Tokens never expire but can be revoked
-- Use unique tokens per device
+use the `--no-wait` flag to disable automatic monitoring for status updates

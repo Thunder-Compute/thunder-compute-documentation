@@ -9,7 +9,7 @@ iconType: solid
   <Tab title="Windows">
     ### Installation
         
-    Download the installer for x64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/arm64/tnr-installer.exe) and run the installer
+    Download the installer for x64 from [here (most common)](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/arm64/tnr-installer.exe) and run the .exe file
     ### Authentication
     
     Run the following command to log in to the CLI
@@ -54,7 +54,7 @@ iconType: solid
     tnr login
     ```
     
-    After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+    To retrieve the token, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
     
     ### Add a Payment Method
     
@@ -115,14 +115,14 @@ iconType: solid
   
   <Tab title="VSCode / Cursor">
     ### Installation
+        
+    Search for `Thunder Compute` in the VSCode extension marketplace or download it [here](https://marketplace.visualstudio.com/items?itemName=ThunderCompute.thunder-compute)
     
-    Install VSCode extension
-    
-    Search for `Thunder Compute` in the extension marketplace
+    ![Adding Thunder Compute](/images/Thunder_Compute_Extension.png)
     
     ### Authentication
     
-    Open the command palette and run **Thunder Compute:Login**
+    Open the command palette with `ctrl + shift + p` and run **Thunder Compute:Login**
     
     ### Add a Payment Method
     
@@ -134,10 +134,19 @@ iconType: solid
     - Create a new instance
     - View instance status
     - Connect to running instances
+
+    ![Create Instance](/images/Create_Instance.png)
+    
+    Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
+    
+    ![Connect to Instance](/images/Connect_to_Instance.png)
+    
+    Open the Ubuntu user folder to view the files in your instance.
+    
+    ![Open User Folder](/images/Open_User_Folder.png)
+
   </Tab>
 </Tabs>
-
-For more advanced instance configuration options, check our [CLI reference guide](/docs/cli-reference).
 
 That's it! You're now ready to use Thunder Compute.
 

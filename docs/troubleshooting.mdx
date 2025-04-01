@@ -8,24 +8,14 @@ iconType: solid
 ## Common solutions
 
 1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>`
-2.  Upgrade tnr with `pip install tnr --upgrade` on your local machine
+2.  Upgrade tnr. Depending on your install method, you may have to use `pip install tnr --upgrade` or re-download the binary from the website
 3.  Restart the instance by running `tnr stop <instance_id>` and `tnr start <instance_id>` (full documentation in [CLI operations](/docs/cli-reference))
 
 ## Logs
 
-To assist troubleshooting, the GCP/AWS instance logs for each instance are saved to the file `/var/log/syslog`. On your local machine, you can view the logs with `cat ~/.thunder/logs`.
+To assist troubleshooting, the GCP/AWS instance logs for each instance are saved to the file `/var/log/syslog`. On your local machine, you can view the CLI logs with `cat ~/.thunder/logs`. Sharing these with our team can help us quickly find a solution for your problem.
 
 ## Common errors
-
-### Path or permissions issues (Common on Windows)
-
-To avoid path and permissions issues, we recommend using WSL instead of Windows. Otherwise, a few steps resolve most issues:
-
-1. Install tnr with the `--user` flag, i.e. `pip install tnr --user`
-2. Ensure your user scripts directory is added to path and restart your shell
-3. If all else fails, run your shell as an administrator and `$ pip install tnr`
-
-If issues persist, consider using WSL or contact our team for support.
 
 ### Function not implemented
 
@@ -33,7 +23,11 @@ A common error you may encounter is some variant of "This function is not implem
 
 ### SSH errors
 
-If you encounter SSH-related errors (like `Error reading SSH protocol banner` or permission issues), see our detailed [SSH Troubleshooting Guide](/guides/troubleshooting-ssh-errors) for step-by-step solutions. For quick fixes, try restarting your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`.
+If you encounter SSH-related errors (like `Error reading SSH protocol banner` or permission issues), first retry the command.
+
+If that fails, see our detailed [SSH Troubleshooting Guide](/guides/troubleshooting-ssh-errors) for step-by-step solutions. 
+
+For quick fixes, try restarting your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`.
 
 ## Recommended Guides
 

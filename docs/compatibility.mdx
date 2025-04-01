@@ -7,20 +7,24 @@ iconType: solid
 
 ## Use cases
 
-Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2 instance. To understand how our virtualization cuts cost by 80% with minimal performance loss, check out our [technical background](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
+Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2-style on-demand GPU cloud instance. To learn more about the virtualization technology we use under the hood, check out this [blog post](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
 
 ## Officially supported libraries
 
 The following libraries and tools are thoroughly tested:
 
 * PyTorch
-* Tensorflow [experimental]
 * PyTorch Lightning
 * Hugging Face
-* Notebooks (see our [Jupyter notebooks guide](/guides/running-jupyter-notebooks-on-thunder-compute))
-* Custom CUDA Kernels (message us on Discord if you encounter errors)
+* Notebooks
+* AI model serving tools like ComfyUI, Ollama, VLLM, and more
+* Tensorflow [experimental]
+* Jax [experimental]
+* Custom CUDA Kernels (message us on Discord if you are profiling and encounter errors)
 
-Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary is pre-installed on every Thunder Compute instance: do not install your own version of PyTorch or the CUDA drivers.
+Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary and latest CUDA drivers are pre-installed on every Thunder Compute instance.
+
+<Warning>Do not install your own version of PyTorch or the CUDA drivers.</Warning>
 
 You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system. See our [CLI reference](/docs/cli-reference) for detailed usage instructions.
 
