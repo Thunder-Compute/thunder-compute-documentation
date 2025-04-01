@@ -5,92 +5,137 @@ icon: rocket
 iconType: solid
 ---
 
-## Getting Started
+<Tabs>
+  <Tab title="Windows">
+    ### Installation
+        
+    Download the installer for x64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/arm64/tnr-installer.exe) and run the installer
+    ### Authentication
+    
+    Run the following command to log in to the CLI
+    ```powershell
+    tnr login
+    ```
+    
+    After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+    
+    ### Add a Payment Method
+    
+    Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+    
+    ### Using Thunder Compute
+    
+    ```powershell
+    # Create an instance
+    tnr create
+    
+    # Check on your instance
+    tnr status
+    
+    # Connect to a running instance
+    tnr connect 0
+    ```
+  </Tab>
+  
+  <Tab title="MacOS">
+    ### Installation
+    
+    Run the following command to install our CLI through pip (requires Python 3.7+)
 
-<Note>
-  **Alternative Installation**: If you prefer using VSCode instead of the CLI,
-  you can install our VSCode extension. See our [VSCode integration
-  guide](/guides/vscode-integration-for-thunder-compute) for detailed
-  instructions.
-</Note>
+    ```bash
+    pip install tnr
+    ```
+    
+    ### Authentication
 
-### Install Thunder Compute
+    Access the login prompt by running this command:
+    
+    ```bash
+    tnr login
+    ```
+    
+    After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+    
+    ### Add a Payment Method
+    
+    Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+    
+    ### Using Thunder Compute
+    
+    ```bash
+    # Create an instance
+    tnr create
+    
+    # Check on your instance
+    tnr status
+    
+    # Connect to a running instance
+    tnr connect 0
+    ```
+  </Tab>
 
-You can install Thunder Compute using either our standalone installers or the pip package, depending on your operating system.
+    <Tab title="Linux">
+    ### Installation
+    
+    ```bash
+    curl -fsSL https://console.thundercompute.com/install.sh | sh
+    ```
+    
+    **Option 2: Python Package (requires Python 3.7+)**
+    ```bash
+    pip install tnr
+    ```
+    
+    ### Authentication
+    
+    ```bash
+    tnr login
+    ```
+    
+    After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
+    
+    ### Add a Payment Method
+    
+    Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+    
+    ### Using Thunder Compute
+    
+    ```bash
+    # Create an instance
+    tnr create
+    
+    # Check on your instance
+    tnr status
+    
+    # Connect to a running instance
+    tnr connect 0
+    ```
+  </Tab>
 
-#### Option 1: Standalone Installers (Recommended where available)
-
-**Linux**
-
-```bash
-curl -fsSL https://console.thundercompute.com/install.sh | sh
-```
-
-This script will download and install the latest version of Thunder Compute CLI for Linux. The installer will:
-
-- Verify system compatibility
-- Install the binary to `/usr/local/bin/tnr` (may require sudo permissions)
-- Set appropriate file permissions
-- Verify the installation
-
-**Windows**
-
-1. Download the Windows installer (.exe) from [our downloads page](https://console.thundercompute.com/download)
-2. Run the installer and follow the installation steps
-3. After installation, you can run `tnr` commands in powershell (or your shell of choice).
-
-#### Option 2: Python Package (pip)
-
-If you prefer using pip or need to install in a Python environment:
-
-**macOS** (currently only supports pip installation)
-
-```bash
-pip install tnr
-```
-
-We're currently using the Python package for macOS. Make sure you have Python 3.7+ installed.
-
-**Linux and Windows** (alternative method)
-
-```bash
-pip install tnr
-```
-
-**Requirements**:
-
-- Python 3.7 or later
-- pip package manager
-
-<Note>
-  **Windows Users**: If you encounter permissions issues, check our
-  [troubleshooting guide](/docs/troubleshooting) for common solutions.
-</Note>
-
-### Authenticate the CLI
-
-```bash
-tnr login
-```
-
-After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
-
-### Add a payment method
-
-Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
-
-### Using Thunder Compute
-
-```bash
-# Create an instance
-tnr create
-
-# Check on your instance
-tnr status
-
-# Connect to a running instance
-tnr connect 0
-```
+  
+  <Tab title="VSCode / Cursor">
+    ### Installation
+    
+    Install VSCode extension
+    
+    Search for `Thunder Compute` in the extension marketplace
+    
+    ### Authentication
+    
+    Open the command palette and run **Thunder Compute:Login**
+    
+    ### Add a Payment Method
+    
+    Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+    
+    ### Using Thunder Compute
+    
+    Use the Thunder Compute panel in VSCode/Cursor to:
+    - Create a new instance
+    - View instance status
+    - Connect to running instances
+  </Tab>
+</Tabs>
 
 For more advanced instance configuration options, check our [CLI reference guide](/docs/cli-reference).
 
@@ -103,5 +148,3 @@ Learn how to:
 - [Access Thunder Compute from VSCode](/guides/vscode-integration-for-thunder-compute)
 - [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)
 - [Run the Deepseek R1 model](/guides/deepseek-r1-running-locally-on-thunder-compute)
-
-For compatibility information and supported libraries, see our [compatibility guide](/docs/compatibility).
