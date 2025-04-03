@@ -56,7 +56,8 @@ tnr create --vcpus <vcpu_count>
 Each vCPU comes with 4GB of RAM. For example, a 4 core instance has 16GB of RAM, and an 8 core instance has 32GB of RAM.
 
 <Note>
-By default, 4 vCPUs are included with your instance. Additional vCPUs are billed hourly at the rates shown [here](https://thundercompute.com/pricing)
+  By default, 4 vCPUs are included with your instance. Additional vCPUs are
+  billed hourly at the rates shown [here](https://thundercompute.com/pricing)
 </Note>
 
 #### GPU Configuration
@@ -84,6 +85,7 @@ tnr create --gpu <gpu_type> --num-gpus <n>
 Templates make it easy to quickly launch common AI tools. Your instance will already be configured with everything you need to get running to generate images, run an LLM, and more.
 
 To use a template, add the `--template` flag when creating an instance:
+
 ```bash
 tnr create --template <template_name>
 ```
@@ -185,6 +187,58 @@ tnr scp 0:/remote/file.txt ./local_path/
   File transfers have a 60-second connection timeout. SSH key setup,
   compression, and `~/` expansion are handled automatically.
 </Note>
+
+## Managing Snapshots
+
+Snapshots capture the state of a stopped instance's disk, allowing you to create new instances from that point in time.
+
+### Create a Snapshot
+
+Create a snapshot from a stopped instance:
+
+```bash
+tnr snapshot <instance_ID> <snapshot_name>
+```
+
+- `<instance_ID>`: The ID of the instance to snapshot. The instance must be stopped.
+- `<snapshot_name>`: A unique name for your snapshot.
+  - Must contain only lowercase letters (a-z), numbers (0-9), and hyphens (-).
+  - Must be between 1 and 62 characters long.
+
+Snapshots are stored compressed to save space. You can view the compressed size using the `--list` command after creation.
+
+<Note>
+  You can use a snapshot as a template to launch new instances. The snapshot
+  defines the initial disk content and size. While you can modify other
+  configuration options (like vCPU count or GPU type) during the `tnr create`
+  command, the new instance's disk size must be equal to or greater than the
+  original instance's disk size. Decreasing the disk size is not supported.
+</Note>
+
+```bash
+tnr create --template <snapshot_name> [--gpu <new_gpu_type>] #etc
+```
+
+### List Snapshots
+
+List all available snapshots and their details, including compressed size:
+
+```bash
+tnr snapshot --list
+```
+
+### Delete a Snapshot
+
+Delete a specific snapshot by name:
+
+```bash
+tnr snapshot --delete <snapshot_name>
+```
+
+<Warning>
+  This action permanently deletes the snapshot. It does not affect instances
+  created from this snapshot.
+</Warning>
 
 ## System Management
 
