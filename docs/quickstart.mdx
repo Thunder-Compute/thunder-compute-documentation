@@ -5,28 +5,12 @@ icon: rocket
 iconType: solid
 mode: wide
 ---
+
+We offer two ways to access your Thunder Compute instances: a CLI tool and a VSCode extension. 
+
+To quickly launch templates, we recommend the CLI. To develop with full access to files on the instance, we recommend the VSCode extension
+
 <Tabs>
-  <Tab title="Browser">
-
-    If you're looking to quickly test out a model with a tool like ComfyUI, Ollama Open WebUI, or Stable Diffusion WebUI Forge, running a template in-browser is the fastest way to get your tool up and running.
-
-    You can start by testing out a model in your browser and later connect to the instance with our CLI or VSCode for deeper customization.
-
-    ### Create an Account
-    
-    Visit the [Thunder Compute Console](https://console.thundercompute.com/signup) to create your account.
-    
-    ### Add a Payment Method
-    
-    Follow the prompts to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
-    
-    ### Launch a Template
-    
-    Navigate to the "Templates" tab in the console to quickly launch a template in-browser.
-    ![Template in browser](/images/template_guide.png)
-
-  </Tab>
-
   <Tab title="CLI">
     <Tabs>
       <Tab title="Windows">
@@ -57,6 +41,9 @@ mode: wide
         
         # Connect to a running instance
         tnr connect 0
+        
+        # (Optional) Start a template within a running instance
+        start-<template-name> # Example: start-ollama
         ```
       </Tab>
       
@@ -94,6 +81,9 @@ mode: wide
         
         # Connect to a running instance
         tnr connect 0
+        
+        # (Optional) Start a template within a running instance
+        start-<template-name> # Example: start-ollama
         ```
       </Tab>
 
@@ -132,6 +122,9 @@ mode: wide
         
         # Connect to a running instance
         tnr connect 0
+
+        # (Optional) Start a template within a running instance
+        start-<template-name> # Example: start-ollama
         ```
       </Tab>
     </Tabs>
