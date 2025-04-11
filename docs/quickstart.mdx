@@ -6,7 +6,7 @@ iconType: solid
 mode: wide
 ---
 
-We offer two ways to access your Thunder Compute instances: a CLI tool and a VSCode extension. 
+We offer two ways to access your Thunder Compute instances: a CLI tool and a VSCode extension.
 
 To quickly launch templates, we recommend the CLI. To develop with full access to files on the instance, we recommend the VSCode extension
 
@@ -16,10 +16,10 @@ To quickly launch templates, we recommend the CLI. To develop with full access t
       <Tab title="Windows">
         ### Installation
             
-        Download the installer for x64 from [here (most common)](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases/windows/arm64/tnr-installer.exe) and run the .exe file
+        Download the installer for x64 from [here (most common)](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/windows/arm64/tnr-installer.exe) and run the .exe file
         ### Authentication
         
-        Run the following command to log in to the CLI
+        Run the following command to log in to the CLI (from powershell)
         ```powershell
         tnr login
         ```
@@ -50,38 +50,33 @@ To quickly launch templates, we recommend the CLI. To develop with full access t
       <Tab title="MacOS">
         ### Installation
         
-        Run the following command to install our CLI through pip (requires Python 3.7+)
-
-        ```bash
-        pip install tnr
-        ```
-        
+        Download the installer for macOS from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/darwin/thunder-cli-installer.pkg) and run the .pkg file
         ### Authentication
 
-        Access the login prompt by running this command:
-        
+        Run the following command to log in to the CLI (from your terminal):
+
         ```bash
         tnr login
         ```
-        
+
         To retrieve the token, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
-        
+
         ### Add a Payment Method
-        
+
         Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
-        
+
         ### Using Thunder Compute
-        
+
         ```bash
         # Create an instance
         tnr create
-        
+
         # Check on your instance
         tnr status
-        
+
         # Connect to a running instance
         tnr connect 0
-        
+
         # (Optional) Start a template within a running instance
         start-<template-name> # Example: start-ollama
         ```
@@ -89,37 +84,37 @@ To quickly launch templates, we recommend the CLI. To develop with full access t
 
       <Tab title="Linux">
         ### Installation
-        
+
         ```bash
         curl -fsSL https://console.thundercompute.com/install.sh | sh
         ```
-        
+
         **Option 2: Python Package (requires Python 3.7+)**
         ```bash
         pip install tnr
         ```
-        
+
         ### Authentication
-        
+
         ```bash
         tnr login
         ```
-        
+
         After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings/tokens).
-        
+
         ### Add a Payment Method
-        
+
         Visit the console to [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
-        
+
         ### Using Thunder Compute
-        
+
         ```bash
         # Create an instance
         tnr create
-        
+
         # Check on your instance
         tnr status
-        
+
         # Connect to a running instance
         tnr connect 0
 
@@ -128,6 +123,7 @@ To quickly launch templates, we recommend the CLI. To develop with full access t
         ```
       </Tab>
     </Tabs>
+
   </Tab>
   
   <Tab title="VSCode / Cursor">
@@ -153,14 +149,15 @@ To quickly launch templates, we recommend the CLI. To develop with full access t
     - Connect to running instances
 
     ![Create Instance](/images/Create_Instance.png)
-    
+
     Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
-    
+
     ![Connect to Instance](/images/Connect_to_Instance.png)
-    
+
     Open the Ubuntu user folder to view the files in your instance.
-    
+
     ![Open User Folder](/images/Open_User_Folder.png)
+
   </Tab>
 </Tabs>
 
