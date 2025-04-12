@@ -91,11 +91,11 @@
   },
   "fonts": {
     "heading": {
-      "family": "Instrument Sans",
+      "family": "Geist",
       "weight": 600
     },
     "body": {
-      "family": "Instrument Sans"
+      "family": "Geist"
     }
   }
 }

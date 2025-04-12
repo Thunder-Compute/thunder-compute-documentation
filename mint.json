@@ -21,8 +21,8 @@
   },
   "background": { "style": "grid" },
   "font": {
-    "headings": { "family": "Instrument Sans", "weight": 600 },
-    "body": { "family": "Instrument Sans" }
+    "headings": { "family": "Geist", "weight": 600 },
+    "body": { "family": "Geist" }
   },
   "topbarLinks": [
     {
