@@ -51,7 +51,8 @@
         "docs/quickstart",
         "docs/cli-reference",
         "docs/compatibility",
-        "docs/troubleshooting"
+        "docs/troubleshooting",
+        "docs/billing"
       ]
     },
     {
