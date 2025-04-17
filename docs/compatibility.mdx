@@ -1,34 +1,38 @@
 ---
-title: Compatibility
-description: Below are some notes on Compatibility of different libraries with Thunder Compute
-icon: check
-iconType: solid
+title: "Compatibility"
+description: "Below are some notes on Compatibility of different libraries with Thunder Compute"
+icon: "check"
+iconType: "solid"
 ---
 
 ## Use cases
 
-Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2-style on-demand GPU cloud instance. To learn more about the virtualization technology we use under the hood, check out this [blog post](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
+Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2-style on-demand GPU cloud instance.
 
 ## Officially supported libraries
 
 The following libraries and tools are thoroughly tested:
 
-* PyTorch
-* PyTorch Lightning
-* Hugging Face
-* Notebooks
-* AI model serving tools like ComfyUI, Ollama, VLLM, and more
-* Tensorflow [experimental]
-* Jax [experimental]
-* Custom CUDA Kernels (message us on Discord if you are profiling and encounter errors)
+- PyTorch
+- PyTorch Lightning
+- Hugging Face
+- Notebooks
+- AI model serving tools like ComfyUI, Ollama, VLLM, and more
+- Tensorflow [experimental]
+- Jax [experimental]
+- Custom CUDA Kernels (message us on Discord if you are profiling and encounter errors)
 
 Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary and latest CUDA drivers are pre-installed on every Thunder Compute instance.
 
-<Warning>Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)</Warning>
+<Warning>
+  Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)
+</Warning>
 
 You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system. See our [CLI reference](/docs/cli-reference) for detailed usage instructions.
 
-## Known incompatibilities
+## Limitations
+
+We use a new kind of virtualization to drive down cost. To learn more about how this works, check out this [blog post](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
 
 Currently, Thunder Compute lacks official support for graphics workloads such as OpenGL and Vulkan. If you'd like to run these, contact us.
 
@@ -46,7 +50,6 @@ Credit can be revoked at our discretion if malicious behavior is detected.
 
 To help you get started with Thunder Compute, we recommend checking out these guides:
 
-* [VSCode/Cursor Integration](/guides/vscode-integration-for-thunder-compute) - Set up your development environment
-* [Running Jupyter Notebooks](/guides/running-jupyter-notebooks-on-thunder-compute) - Use Jupyter for interactive development
-* [Using Instance Templates](/guides/using-instance-templates) - Get started quickly with pre-configured environments
-
+- [VSCode/Cursor Integration](/guides/vscode-integration-for-thunder-compute) - Set up your development environment
+- [Running Jupyter Notebooks](/guides/running-jupyter-notebooks-on-thunder-compute) - Use Jupyter for interactive development
+- [Using Instance Templates](/guides/using-instance-templates) - Get started quickly with pre-configured environments
