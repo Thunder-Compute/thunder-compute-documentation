@@ -1,14 +1,43 @@
 ---
 title: "Quickstart"
-description: "We offer two ways to access your Thunder Compute instances: a CLI tool and a VSCode extension.
-
-To quickly launch templates, we recommend the CLI. To develop with full access to files on the instance, we recommend the VSCode extension"
+description: "We offer two ways to access your Thunder Compute instances: a CLI tool and a VSCode extension. To quickly launch templates, we recommend the CLI. To develop with full access to files on the instance, we recommend the VSCode extension"
 icon: "rocket"
 iconType: "solid"
 mode: "wide"
 ---
 
 <Tabs>
+  <Tab title="VSCode / Cursor">
+    ### Installation
+
+    Search for `Thunder Compute` in the VSCode extension marketplace or download it [here](https://marketplace.visualstudio.com/items?itemName=ThunderCompute.thunder-compute)
+
+    ![Adding Thunder Compute](/images/Thunder_Compute_Extension.png)
+
+    ### Authentication
+
+    Open the command palette with `ctrl + shift + p` and run **Thunder Compute:Login**
+
+    ### Add a Payment Method
+
+    Visit the console to [add a payment method](https://console.thundercompute.com/settings?tab=billing) to your account.
+
+    ### Using Thunder Compute
+
+    Use the Thunder Compute panel in VSCode/Cursor to:
+
+    - Create a new instance
+    - View instance status
+    - Connect to running instances
+
+    ![Create Instance](/images/Create_Instance.png)
+
+    Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
+
+    ![Connect to Instance](/images/Connect_to_Instance.png)
+
+    A new window will open connected to your instance. You can drag files you need into the file explorer, run notebooks, scripts, and more as if they were on your local machine.
+  </Tab>
   <Tab title="CLI">
     <Tabs>
       <Tab title="Windows">
@@ -123,39 +152,6 @@ mode: "wide"
         ```
       </Tab>
     </Tabs>
-  </Tab>
-  <Tab title="VSCode / Cursor">
-    ### Installation
-
-    Search for `Thunder Compute` in the VSCode extension marketplace or download it [here](https://marketplace.visualstudio.com/items?itemName=ThunderCompute.thunder-compute)
-
-    ![Adding Thunder Compute](/images/Thunder_Compute_Extension.png)
-
-    ### Authentication
-
-    Open the command palette with `ctrl + shift + p` and run **Thunder Compute:Login**
-
-    ### Add a Payment Method
-
-    Visit the console to [add a payment method](https://console.thundercompute.com/settings?tab=billing) to your account.
-
-    ### Using Thunder Compute
-
-    Use the Thunder Compute panel in VSCode/Cursor to:
-
-    - Create a new instance
-    - View instance status
-    - Connect to running instances
-
-    ![Create Instance](/images/Create_Instance.png)
-
-    Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
-
-    ![Connect to Instance](/images/Connect_to_Instance.png)
-
-    Open the Ubuntu user folder to view the files in your instance.
-
-    ![Open User Folder](/images/Open_User_Folder.png)
   </Tab>
 </Tabs>
 
