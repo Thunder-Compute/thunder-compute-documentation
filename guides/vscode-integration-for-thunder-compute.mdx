@@ -1,31 +1,36 @@
 ---
-title: "Integrating Thunder Compute with VSCode or Cursor"
-description: "This guide will walk you through integrating Thunder Compute with Visual Studio Code or Cursor, allowing you to develop and manage your projects directly on a Thunder Compute instance from your local IDE."
+title: "Cheap Cloud GPUs for Development: Integrate Thunder Compute with VSCode or Cursor"
+description: "Step-by-step guide for indie devs, researchers, and data scientists to use cheap cloud GPUs in Visual Studio Code or Cursor by linking your local IDE to a Thunder Compute instance."
 mode: "wide"
 sidebarTitle: "VSCode/Cursor Integration"
 ---
 
+Boost your workflow with Thunder Compute’s easy cloud GPUs for development. In a few clicks you can code, train, or render with a full-featured GPU directly inside VSCode or Cursor.
+
 ## Prerequisites
 
-- A Thunder Compute account
-- Visual Studio Code installed
+- An active Thunder Compute account with cloud GPU credits  
+- Visual Studio Code (or Cursor) installed
 
 ## Steps
 
-### Install the Thunder Compute extension
+### 1. Install the Thunder Compute extension
 
-Click the following links to install the Thunder Compute [VSCode extension](vscode:extension/ThunderCompute.thunder-compute) or [Cursor extension](cursor:extension/ThunderCompute.thunder-compute)
+Choose the right marketplace link to add Thunder Compute to your IDE:
 
-### Create a Thunder Compute instance
+- [Thunder Compute VSCode extension](vscode:extension/ThunderCompute.thunder-compute)  
+- [Thunder Compute Cursor extension](cursor:extension/ThunderCompute.thunder-compute)
 
-Navigate to the Thunder Compute tab in the sidebar and click the `Create Instance` button, shaped like a plus sign.
+### 2. Create a cloud GPU instance
 
-![Create Instance](/images/Create_Instance.png)
+Open the **Thunder Compute** tab in the sidebar and press the **Create Instance** button (plus icon) to spin up a cheap cloud GPU for developing.
 
-### Connect to the Thunder Compute instance
+![Create a cheap cloud GPU instance in Thunder Compute](/images/Create_Instance.png)
 
-Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
+### 3. Connect VSCode to your cloud GPU
 
-![Connect to Instance](/images/Connect_to_Instance.png)
+Hit **Connect** next to the instance (double-arrow icon). VSCode now tunnels into the remote GPU so every terminal, debugger, and extension acts like it's running locally.
 
-You have successfully connected VSCode to your Thunder Compute instance. You can now develop as if your compute has a GPU.
+![Connect VSCode to your cloud GPU instance](/images/Connect_to_Instance.png)
+
+You’re all set - develop, test, or fine-tune models with a GPU in the cloud while keeping the familiar feel of your local editor.
