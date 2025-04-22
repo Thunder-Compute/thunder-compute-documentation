@@ -1,31 +1,33 @@
 ---
-title: "DeepSeek R1 running locally on Thunder Compute"
-description: "This guide explains how to run DeepSeek R1 locally on Thunder Compute"
+title: "Cheapest Way to Run DeepSeek R1 on Thunder Compute"
+description: "Learn the cheapest way to try DeepSeek R1 on Thunder Compute, the cloud GPU platform that makes powerful models affordable for indie devs, researchers, and data scientists."
 mode: wide
 sidebarTitle: "DeepSeek R1"
 ---
 
-# Running Deepseek R1 Locally on Thunder Compute
+# Cheapest Way to Run DeepSeek R1 on Thunder Compute
 
-In this guide, we'll show you how to run the Deepseek R1 model on Thunder Compute. To get the best performance I recommend using our 80GB A100 GPUs, which support the 70B model variant. For more information about GPU compatibility, check out our [compatibility guide](/docs/compatibility).
+Looking for the **cheapest way to run DeepSeek R1** or just want to **try DeepSeek R1** without buying hardware? Thunder Compute lets you spin up pay‑per‑minute A100 GPUs so you only pay for the time you use. Follow the steps below to get the model running in minutes.
 
-> **Note:** Make sure you've already set up your Thunder Compute account. If not, follow the steps in our [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
+> **Quick reminder:** Make sure your Thunder Compute account is set up. If not, start with our [Quickstart Guide](https://thundercompute.com/docs/docs/quickstart).
 
-If you prefer video guides, here is an overview of the following steps:
+If you prefer video instructions, watch this overview:
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/EukG6P4s5QI?si=Sx3iWsISL8Ve58Uz" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 
-## Step 1: Create Your GPU Instance
+## Step 1: Create a Cost‑Effective GPU Instance
 
-Open your CLI and run the following command to create an instance. For best performance, select an 80GB A100 GPU and opt for the 70B model variant. For more details about instance templates, see our [templates guide](/guides/using-instance-templates).
+Open your CLI and launch an 80 GB A100 GPU (perfect for the 70B variant):
 
 ```bash
 tnr create --gpu "a100xl" --template "ollama"
 ```
 
+For details on instance templates, see our [templates guide](/guides/using-instance-templates).
+
 ## Step 2: Check Status and Connect
 
-After creating your instance, check its status:
+Verify the instance is running:
 
 ```bash
 tnr status
@@ -33,7 +35,7 @@ tnr status
 
 ![Instance creation in CLI](/images/instance_creation_cli.png)
 
-Then, connect to your running instance using its ID:
+Connect with its ID:
 
 ```bash
 tnr connect <instance-id>
@@ -41,37 +43,41 @@ tnr connect <instance-id>
 
 ## Step 3: Start the Ollama Server
 
-Once connected, start the Ollama server (which also launches the web UI) by running:
+Inside the instance, start Ollama:
 
 ```bash
 start ollama
 ```
 
-If you encounter any issues during startup, check our [troubleshooting guide](/docs/troubleshooting) for common solutions.
+If you hit any hiccups, check our [troubleshooting guide](/docs/troubleshooting).
 
-Wait around 30 seconds for the web UI to build and load.
+Wait about 30 seconds for the web UI to load.
 
 ![Ollama server startup](/images/start_ollama.png)
 
-## Step 4: Access the Web UI and Load Deepseek R1
+## Step 4: Access the Web UI and Load DeepSeek R1
 
-1. Open your web browser and navigate to:  
-   `http://localhost:8080`  
-
-2. In the web UI, select the Deepseek R1 model from the dropdown menu. If you're on an 80GB A100 instance, be sure to pick the 70B variant for optimal performance.
+1. Visit `http://localhost:8080` in your browser.  
+2. Choose **DeepSeek R1** from the dropdown. On an 80 GB A100, pick the **70B** variant for peak performance.
 
 ![Web UI with model selection](/images/web_ui_model_selection.png)
 
-## Step 5: Interact with the Deepseek R1 Model
+## Step 5: Run DeepSeek R1
 
-Type your prompt into the web interface. For example, try asking:
+Type a prompt in the web interface. For example:
 
 > *"If the concepts of rCUDA were applied at scale, overcoming latency, what would it mean for the cost of GPUs on cloud providers?"*
 
-After you submit your query, the model will begin processing. You'll see its detailed thought process and response generation—note that it might take up to 200 seconds for a full answer to be produced.
+The model will think through the answer and respond. A full reply can take up to 200 seconds.
 
 ![Model response in progress](/images/model_response_in_progress.png)
 
 ## Conclusion
 
-That's it! You now have Deepseek R1 running locally on Thunder Compute. Enjoy exploring its detailed reasoning and powerful capabilities. For more in-depth tutorials, check out our other guides, including [using Docker on Thunder Compute](/guides/using-docker-on-thundercompute), [using Instance Templates](/guides/using-instance-templates), and [running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute) for interactive development.
+That’s the **cheapest way to run DeepSeek R1** and a quick way to **try DeepSeek R1** on Thunder Compute. Explore more guides:
+
+- [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)  
+- [Using Instance Templates](/guides/using-instance-templates)  
+- [Running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute)
+
+Happy building!

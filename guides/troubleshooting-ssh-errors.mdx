@@ -1,32 +1,34 @@
 ---
 title: "Troubleshooting SSH Errors on Thunder Compute"
 description: "Quick fixes for common SSH errors when using tnr connect"
-mode: wide
+mode: "wide"
 sidebarTitle: "SSH Troubleshooting"
 ---
 
-When you run 'tnr connect', Thunder Compute SSH's you into your instance and manages keys automatically. Sometimes errors occur such as:
+Thunder Compute gives indie developers, researchers, and data-scientists low-cost cloud GPUs in a few clicks. Our **CLI** (`tnr`) and **VS Code extension** wrap SSH setup, key management, and port-forwarding for you—see the [Quick-Start guide](https://thundercompute.com/docs/docs/quickstart) for a full walkthrough.
 
-- 'Bad permissions. Try removing permissions for user: \OWNER RIGHTS (S-1-3-4) on file C:\Users\<your_username>\.ssh\config.'
-- 'Error reading SSH protocol banner' — this error may appear when your instance is low on memory, preventing a complete SSH handshake.
-- 'Key authentication failed' — indicates that your SSH key may be outdated or misconfigured. 
+When you run `tnr connect`, the tool SSHs into your instance automatically. If something goes wrong, you might see errors such as:
 
-Follow these steps to resolve the issues:
+- **Bad permissions** – _“Try removing permissions for user: \\OWNER RIGHTS (S-1-3-4) on file C:\\Users\<your_username\>.ssh\\config.”_
+- **Error reading SSH protocol banner** (often means the instance is out of memory and the SSH handshake cannot complete).
+- **Key authentication failed** (your SSH key is outdated or misconfigured).
 
-## 1. Restart Your Instance
+Follow the steps below to fix the problem.
 
-Restarting can clear transient issues. In your terminal run:
+## 1. Restart the Instance
+
+A quick restart clears many transient issues:
 
 ```bash
 tnr stop
 tnr start
 ```
 
-Wait about a minute before reconnecting.
+Wait about a minute, then try `tnr connect` again.
 
-## 2. Test Manual SSH Connection
+## 2. Test a Manual SSH Connection
 
-To get a more detailed error message, try connecting manually:
+Get a more detailed error message by bypassing `tnr connect`:
 
 ```bash
 ssh tnr-0
@@ -34,34 +36,36 @@ ssh tnr-0
 
 ## 3. Fix Common Issues
 
-### A. Out of Memory
+### A. Out-of-Memory
 
-If the instance crashes due to low memory—or you encounter errors like "Error reading SSH protocol banner"—wait and retry. For a permanent fix, create an instance with more resources:
+If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources:
 
 ```bash
 tnr create --vcpus 8
 ```
 
-*Tip:* Consider 16 or 32 vCPUs for increased memory.
+_Tip: 16–32 vCPUs generally provide enough memory for most ML workloads._
 
-### B. Permissions Issues
+### B. Permissions Problems
 
 <CodeGroup>
 
-```powershell Windows
-# Run PowerShell as administrator
+```powershell [Windows]
+# Run PowerShell as Administrator
 icacls "$env:USERPROFILE\.ssh\config" /reset
 icacls "$env:USERPROFILE\.ssh\config" /inheritance:r
 Rename-Item -Path "$env:USERPROFILE\.ssh\config" -NewName 'config.old'
 ```
 
-```bash macOS
+
+```bash [macOS]
 chmod 600 ~/.ssh/config
 chown $(whoami) ~/.ssh/config
 mv ~/.ssh/config ~/.ssh/config.old
 ```
 
-```bash Linux/WSL
+
+```bash [Linux/WSL]
 chmod 600 ~/.ssh/config
 chown $(whoami) ~/.ssh/config
 mv ~/.ssh/config ~/.ssh/config.old
@@ -69,23 +73,23 @@ mv ~/.ssh/config ~/.ssh/config.old
 
 </CodeGroup>
 
-### C. Bad Configuration
+### C. Corrupted Known-Hosts or Thunder Compute Locks
 
-Sometimes removing outdated config files helps.
-
-#### Known Hosts
+#### Known-Hosts
 
 <CodeGroup>
 
-```powershell Windows
+```powershell [Windows]
 Rename-Item -Path "$env:USERPROFILE\.ssh\known_hosts" -NewName 'known_hosts.old'
 ```
 
-```bash macOS
+
+```bash [macOS]
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 ```
 
-```bash Linux/WSL
+
+```bash [Linux/WSL]
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 ```
 
@@ -95,23 +99,33 @@ mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 
 <CodeGroup>
 
-```powershell Windows
+```powershell [Windows]
 Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\locks"
 Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\keys"
 ```
 
-```bash macOS
+
+```bash [macOS]
 rm -rf ~/.thunder/locks ~/.thunder/keys
 ```
 
-```bash Linux/WSL
+
+```bash [Linux/WSL]
 rm -rf ~/.thunder/locks ~/.thunder/keys
 ```
 
 </CodeGroup>
 
-## 4. Still Having Issues?
+## 4. Reinstall the Thunder Compute CLI or VS Code Extension
 
-If problems persist, please reach out to us on Discord for further assistance.
+If the steps above do not resolve the error, reinstalling the tooling often does:
 
-Happy troubleshooting!
+1. Remove the existing CLI or extension.
+2. Download the latest installer from [Thunder Compute download](https://console.thundercompute.com/?download).
+3. Re-run `tnr login` followed by `tnr connect`.
+
+## 5. Still Having Issues?
+
+Open a ticket in our [Discord support channel](https://discord.gg/thundercompute) with the exact error output, and we will get you unblocked fast.
+
+Happy troubleshooting\!

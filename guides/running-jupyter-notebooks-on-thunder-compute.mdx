@@ -1,39 +1,39 @@
 ---
-title: "How to use a Jupyter Notebook on Thunder Compute"
-description: "You can run a Jupyter Notebook on Thunder Compute with one command. Follow the steps below to try it yourself."
-mode: wide
+title: "Run a Jupyter Notebook with Cloud GPU on Thunder Compute (Colab Alternative)"
+description: "Spin up a Jupyter Notebook backed by an affordable cloud GPU on Thunder Compute with one command. Ideal for indie devs, researchers, and data scientists seeking a Colab alternative."
+mode: "wide"
 sidebarTitle: "Jupyter Notebooks"
 ---
 
-## Prerequisites
+## Prerequisites for a Jupyter Notebook with Cloud GPU
 
 - VSCode installed
-- The Thunder Compute extension installed in VSCode or Cursor
-- The Jupyter Notebook extension installed in VSCode or Cursor
+- Thunder Compute extension installed in VSCode or Cursor
+- Jupyter Notebook extension installed in VSCode or Cursor
 
-## Steps
+## Steps to Launch Your Notebook
 
-### Connect to a Thunder Compute instance in VSCode
-Follow the instructions in our [Using Thunder Compute with VSCode](https://thundercompute.com/docs/guides/vscode-integration-for-thunder-compute) to set and connect to a remote instance in VSCode.
+### 1. Connect to a Thunder Compute cloud GPU in VSCode
 
-### Install the Jupyter extension in VSCode
+Follow the instructions in our [Using Thunder Compute with VSCode](https://thundercompute.com/docs/guides/vscode-integration-for-thunder-compute) guide to set and connect to a remote instance in VSCode.
 
-Navigate to the extensions store and install the Jupyter extension within your cloud instance
+### 2. Install the Jupyter extension in your cloud workspace
 
-### Verify GPU availability in the notebook
+Open the Extensions panel and install the Jupyter extension inside your Thunder Compute instance.
 
-Create a Jupyter Notebook, which is now connected to a Thunder Compute instance with GPU capabilities. To confirm that the GPU is accessible, run the following code in a notebook cell:
+### 3. Verify GPU availability inside the notebook
+
+Create a Jupyter Notebook, which is now connected to a Thunder Compute instance with GPU capabilities. To confirm that the GPU is accessible, run the following in a notebook cell:
 
 ```
 import torch
 print(torch.cuda.is_available())
 ```
 
-If the setup is correct, the output should be:
+If everything is set up correctly, the output should be:
 
 ```
-true
+True
 ```
 
-That's it! You are connected to a notebook running in a Thunder Compute instance.
-
+You now have a Jupyter Notebook running on a Thunder Compute cloud GPU, a fast and low-cost alternative to Colab for indie developers, researchers, and data scientists.

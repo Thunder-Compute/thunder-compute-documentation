@@ -1,89 +1,86 @@
 ---
-title: "Using Instance Templates"
-description: "Learn how to use Thunder Compute's pre-configured instance templates for popular AI applications"
+title: "Use Instance Templates to Run LLMs & Generate AI Images on Cheap Cloud GPUs"
+description: "Learn how to spin up large language models and AI-image pipelines on Thunder Compute’s low-cost cloud GPUs with pre-configured instance templates."
 mode: wide
 sidebarTitle: "Instance Templates"
 ---
 
-Thunder Compute provides pre-configured instance templates that set up popular AI applications automatically. These templates streamline the deployment process and come with all necessary dependencies pre-installed.
+Thunder Compute gives indie developers, researchers and data scientists instant access to **affordable cloud GPUs**. Our pre-configured **instance templates** set up popular AI stacks automatically, so you can **run LLMs** or **generate AI images** in minutes.
 
-## Available Templates
+## AI Templates on Cheap Cloud GPUs
 
-Currently, Thunder Compute offers the following templates:
+We currently offer:
 
-- **Ollama**: Sets up an Ollama server for running open-source LLMs
-- **ComfyUI**: Configures ComfyUI for AI image generation workflows
-- **WebUI Forge**: Sets up a WebUI Forge server for running Stable Diffusion WebUI Forge
+- **Ollama** – launches an Ollama server for open-source large language models  
+- **ComfyUI** – installs ComfyUI for fast AI-image generation workflows  
+- **WebUI Forge** – deploys Stable Diffusion WebUI Forge with Flux-fp8 and Flux-fp4  
 
-## Using Templates
+## Deploy a Template
 
-1. Create an instance with your chosen template:
+1. **Create an instance**
 
 ```bash
-# For Ollama
+# Launch an Ollama instance
 tnr create --template ollama
 
-# For ComfyUI
+# Launch ComfyUI
 tnr create --template comfy-ui
 
-# For WebUI Forge
-tnr create --template webui-forge (--gpu a100)
+# Launch WebUI Forge (recommended GPU: A100)
+tnr create --template webui-forge --gpu a100
 ```
 
 <Warning>
-  WebUI Forge comes packaged with Flux-fp8 and Flux-fp4. It's recommended to use
-  an A100 instance for best performance.
+  WebUI Forge ships with Flux-fp8 and Flux-fp4. For peak performance choose an A100 GPU.
 </Warning>
 
-2. Connect to your instance:
+2. **Connect to the instance**
 
 ```bash
-tnr connect 0  # Replace 0 with your instance ID
+tnr connect 0   # replace 0 with your instance ID
 ```
 
 <Note>
-  Port forwarding is handled automatically when you connect to a template
-  instance. You don't need to specify port forwarding manually with the `-t`
-  flag.
+  Port forwarding is handled automatically when you connect. The `-t` flag is unnecessary.
 </Note>
 
-3. Start the service:
+3. **Start the service**
 
 ```bash
-# For Ollama
+# Ollama
 start-ollama
 
-# For ComfyUI
+# ComfyUI
 start-comfyui
 
-# For WebUI Forge
+# WebUI Forge
 start-webui-forge
 ```
 
-The required ports will be automatically forwarded to your local machine.
+Required ports forward to your local machine automatically.
 
 ## Template Details
 
 ### Ollama Template
 
-- Automatically forwards port 11434
-- Access the Ollama API at `http://localhost:11434`
-- Ready to use with popular Ollama models
+- Forwards port **11434**  
+- Access the API at `http://localhost:11434`  
+- Ready for popular Ollama models
 
 ### ComfyUI Template
 
-- Automatically forwards port 8188
-- Automatically mounts the `ComfyUI` directory from the instance's home directory on Mac and Linux
-- Access the ComfyUI interface at `http://localhost:8188`
-- Includes common ComfyUI nodes and extensions
+- Forwards port **8188**  
+- Mounts the `ComfyUI` directory to your Mac or Linux host  
+- UI at `http://localhost:8188`  
+- Includes common nodes and extensions
 
 ### WebUI Forge Template
 
-- Automatically forwards port 7860
-- Automatically mounts the `stable-diffusion-webui-forge` directory from the instance's home directory on Mac and Linux
-- Access the WebUI Forge interface at `http://localhost:7860`
+- Forwards port **7860**  
+- Mounts `stable-diffusion-webui-forge` to your host  
+- UI at `http://localhost:7860`  
 - Includes Flux-fp8 and Flux-fp4 models
 
 ## Need Help?
 
-If you encounter any issues with instance templates or need assistance, please contact our support team.
+Encounter problems or have questions? Reach out to our support team any time.
