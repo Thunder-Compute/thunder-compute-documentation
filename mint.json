@@ -65,7 +65,8 @@
         "guides/using-docker-on-thundercompute",
         "guides/deepseek-r1-running-locally-on-thunder-compute",
         "guides/troubleshooting-ssh-errors",
-        "guides/fixing-tnr-not-found"
+        "guides/fixing-tnr-not-found",
+        "guides/mcp-server-for-managing-gpus"
       ]
     }
   ],
