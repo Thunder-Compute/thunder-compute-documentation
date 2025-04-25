@@ -54,7 +54,7 @@
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://thundercompute.com"
+    "href": "https://www.thundercompute.com"
   },
   "appearance": {
     "default": "dark"
