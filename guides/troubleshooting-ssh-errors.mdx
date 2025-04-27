@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting SSH Errors on Thunder Compute"
-description: "Quick fixes for common SSH errors when using tnr connect"
+description: "Resolve common SSH connection errors (bad permissions, protocol banner, key auth) on Thunder Compute. Follow step-by-step fixes for `tnr connect` issues."
 mode: "wide"
 sidebarTitle: "SSH Troubleshooting"
 ---
@@ -9,7 +9,7 @@ Thunder Compute gives indie developers, researchers, and data-scientists low-cos
 
 When you run `tnr connect`, the tool SSHs into your instance automatically. If something goes wrong, you might see errors such as:
 
-- **Bad permissions** – _“Try removing permissions for user: \\OWNER RIGHTS (S-1-3-4) on file C:\\Users\<your_username\>.ssh\\config.”_
+- **Bad permissions** – _"Try removing permissions for user: \\OWNER RIGHTS (S-1-3-4) on file C:\\Users\<your_username\>.ssh\\config."_
 - **Error reading SSH protocol banner** (often means the instance is out of memory and the SSH handshake cannot complete).
 - **Key authentication failed** (your SSH key is outdated or misconfigured).
 

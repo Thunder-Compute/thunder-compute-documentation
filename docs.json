@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "ThunderCompute",
+  "name": "Thunder Compute",
   "colors": {
     "primary": "#369eff",
     "light": "#369eff",
