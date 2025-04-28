@@ -126,3 +126,39 @@ mode: "wide"
         ```bash
         tnr login
         ```
+
+        After running this command, navigate to the console to [generate a token](https://console.thundercompute.com/settings?tab=tokens).
+
+        ### Add a Payment Method
+
+        Visit the console to [add a payment method](https://console.thundercompute.com/settings?tab=billing) to your account.
+
+        ### Using Thunder Compute
+
+        ```bash
+        # Create an instance
+        tnr create
+        
+        # Check on your instance
+        tnr status
+        
+        # Connect to a running instance
+        tnr connect 0
+        
+        # (Optional) Start a template within a running instance
+        start-<template-name> # Example: start-ollama
+        ```
+      </Tab>
+    </Tabs>
+  </Tab>
+</Tabs>
+
+That's it\! You're now ready to use Thunder Compute.
+
+## Next Steps
+
+Learn how to:
+
+- [Access Thunder Compute from VSCode](/guides/vscode-integration-for-thunder-compute)
+- [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)
+- [Run the Deepseek R1 model](/guides/deepseek-r1-running-locally-on-thunder-compute)

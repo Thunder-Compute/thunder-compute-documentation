@@ -48,11 +48,11 @@
     {
       "group": "Documentation",
       "pages": [
-        "docs/quickstart",
-        "docs/cli-reference",
-        "docs/compatibility",
-        "docs/troubleshooting",
-        "docs/billing"
+        "quickstart",
+        "cli-reference",
+        "compatibility",
+        "troubleshooting",
+        "billing"
       ]
     },
     {
