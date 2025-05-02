@@ -25,9 +25,6 @@ The following libraries and tools are thoroughly tested:
 - Hugging Face
 - Notebooks
 - AI model serving tools like ComfyUI, Ollama, VLLM, and more
-- Tensorflow [experimental]
-- Jax [experimental]
-- Custom CUDA Kernels (message us on Discord if you are profiling and encounter errors)
 
 Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary and latest CUDA drivers are pre-installed on every Thunder Compute instance.
 
@@ -35,19 +32,25 @@ Note: make sure you install the cuda-compatible version of these libraries. The 
   Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)
 </Warning>
 
-You can create and manage Thunder Compute instances with the `tnr` command line interface from any major operating system. See our [CLI reference](/docs/cli-reference) for detailed usage instructions.
+## Experimental or unsupported
 
-## Limitations
+The following workloads are less tested, experimental, or unstable:
 
-We use a new kind of virtualization to drive down cost. To learn more about how this works, check out this [blog post](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
+- Tensorflow [experimental]
+- Jax [experimental]
+- Custom CUDA Kernels [unpredictable behavior, particularly with errors and profiling. Message us for details]
 
 Currently, Thunder Compute lacks official support for graphics workloads such as OpenGL and Vulkan. If you'd like to run these, contact us.
-
-If you encounter any issues or errors, please check our [troubleshooting guide](/docs/troubleshooting) first.
 
 ## Cryptocurrency mining
 
 Mining, staking, or otherwise interacting with cryptocurrency is strictly prohibited on Thunder Compute. If cryptocurrency-related activity is detected, the associated account is immediately banned from Thunder Compute and any billing credit is revoked. The account is then billed for the full amount of usage.
+
+## Miscellaneous tips
+
+We use a new kind of virtualization to maximize GPU utilization, reducing your cost. To learn more about how this works, check out this [blog post](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp).
+
+If you encounter any strange issues or errors, please check our [troubleshooting guide](/docs/troubleshooting) or contact us.
 
 ## Recommended Guides
 
