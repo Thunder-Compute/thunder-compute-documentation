@@ -1,0 +1,30 @@
+---
+title: "Storage and Networking"
+description: "Technical specs, data retention policies"
+icon: "server"
+iconType: "solid"
+---
+
+## Networking
+
+- Egress/Ingress: 7-10Gbps
+- IP: dynamic
+- Region: U.S. Central (Iowa)
+- E or N series CPU instances in GCP
+
+## Storage
+### Persistent Disk
+
+By default, all instances use persistent disks. This enables a "stopped" state where data persists but compute usage is paused.
+
+To stop all billing, delete instances that are no longer in use.
+
+We do not guarantee storage performance, but you can generally expect ~100k IOPS and 1200 Mbps Read/Write
+
+## Inactive-Instance Data Retention
+
+Thunder Compute retains the persistent storage associated with an account for 60 days after the last time any instance in that account was running.
+- If no instance has been in the Running state for 60 consecutive days, all attached volumes, snapshots, and other instance-specific data are irreversibly deleted.
+- This retention window applies per account (not per individual instance). Starting or stopping any instance resets the 60-day timer.
+- Deletion is permanent and cannot be undone. Back up any critical data before the retention period ends.
+- Aggregated billing, usage, and audit logs are retained according to our standard privacy policy and are not affected by this rule.
