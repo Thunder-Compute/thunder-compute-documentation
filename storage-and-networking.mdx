@@ -1,0 +1,38 @@
+---
+title: "Storage and Networking"
+description: "Technical specs, data retention policies, and other details about storage and networking of Thunder Compute instances"
+icon: "server"
+iconType: "solid"
+---
+
+## Networking
+
+- Egress/Ingress: 7-10Gbps
+- IP: dynamic
+- Region: U.S. Central (Iowa)
+- E or N series CPU instances in GCP
+
+## Storage
+### Persistent Disk
+
+By default, all instances use persistent disks. This enables a "stopped" state where data persists but compute usage is paused.
+
+To stop all billing, delete instances that are no longer in use.
+
+While we don't provide explicit guarantees, you can generally expect ~100k IOPS and 1200 Mbps Read/Write.
+
+### Snapshots
+
+Snapshots provide a cheaper option for long-term storage, compressed to eliminate unused space.
+
+You can also use snapshots to create new instances with the same data as existing instances.
+
+To take a snapshot, stop your instance and use the snapshot feature in the console or CLI. This process typically takes ~2-3 minutes.
+
+## Inactive-Instance Data Retention
+
+Thunder Compute retains the persistent storage associated with an account for 60 days after the last time any instance in that account was running.
+- If an account has been inactive for 60 consecutive days (defined by no running instances), all attached volumes, snapshots, and other instance-specific data are irreversibly deleted.
+- This retention window applies per account (not per individual instance). Starting or stopping any instance resets the 60-day timer.
+- Deletion is permanent and cannot be undone. Back up any critical data before the retention period ends.
+- Aggregated billing, usage, and audit logs are retained according to our standard privacy policy and are not affected by this rule.
