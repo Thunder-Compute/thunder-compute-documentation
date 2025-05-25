@@ -5,7 +5,7 @@ mode: wide
 sidebarTitle: "Docker"
 ---
 
-Docker containers on Thunder Compute instances now come with GPU support enabled by default. This means you can run Docker containers with GPU access without any additional configuration. For more information about GPU compatibility, see our [compatibility guide](/docs/compatibility).
+Docker containers on Thunder Compute instances now come with GPU support enabled by default through the "thunder" runtime. This means you can run Docker containers with GPU access without any additional configuration. For more information about GPU compatibility, see our [compatibility guide](/docs/compatibility).
 
 ## Getting Started
 
@@ -37,6 +37,15 @@ Most modern Docker images are supported:
 - Ubuntu 22.04 and newer base images are fully supported
 - Ubuntu 20.04 base images are supported in beta
 - Other distributions like Alpine and Debian are supported
+
+### Thunder Runtime
+
+Thunder Compute instances default to the "thunder" runtime for all Docker containers. Key details about the runtime:
+
+- **Default Runtime**: All containers automatically use the "thunder" runtime unless explicitly overridden
+- **Automatic Override**: If you specify the "nvidia" runtime (e.g., `docker run --runtime=nvidia`), Thunder Compute will automatically override this with the "thunder" runtime
+- **Compatibility**: The "thunder" runtime is identical to the nvidia runtime while injecting the required Thunder Compute GPU support and optimizations
+- **Transparent Operation**: You don't need to specify any runtime flags - GPU support works out of the box
 
 ### Disabling GPU Support (unnecessary for 99% of use cases)
 
