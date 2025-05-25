@@ -29,7 +29,6 @@
             "group": "Guides",
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/vscode-integration-for-thunder-compute",
               "guides/installing-conda",
               "guides/using-instance-templates",
               "guides/using-docker-on-thundercompute",
