@@ -11,7 +11,7 @@ iconType: "solid"
 
 Authenticate the CLI, which provides a link to the [console](https://console.thundercompute.com/settings?tab=tokens) where you can generate an API token.
 
-```bash
+```
 tnr login
 ```
 
@@ -21,7 +21,7 @@ Under the hood, this generates and saves an API token to `~/.thunder/token`. You
 
 Log out of the CLI with:
 
-```bash
+```
 tnr logout
 ```
 
@@ -39,7 +39,7 @@ This deletes the stored API token.
 
 Create a new Thunder Compute instance:
 
-```bash
+```
 tnr create
 ```
 
@@ -49,7 +49,7 @@ This creates a new instance with default configuration and automatically assigns
 
 Configure custom vCPU count:
 
-```bash
+```
 tnr create --vcpus <vcpu_count>
 ```
 
@@ -64,7 +64,7 @@ Each vCPU comes with 4GB of RAM. For example, a 4 core instance has 16GB of RAM,
 
 Specify a GPU type:
 
-```bash
+```
 tnr create --gpu <gpu_type>
 ```
 
@@ -76,7 +76,7 @@ Available GPU types:
 
 You can use the `--num-gpus` flag to specify multiple GPU configurations:
 
-```bash
+```
 tnr create --gpu <gpu_type> --num-gpus <n>
 ```
 
@@ -86,7 +86,7 @@ Templates make it easy to quickly launch common AI tools. Your instance will alr
 
 To use a template, add the `--template` flag when creating an instance:
 
-```bash
+```
 tnr create --template <template_name>
 ```
 
@@ -98,7 +98,7 @@ Available templates:
 
 After instance creation, start the server using `start-<template_name>` when connected. For example:
 
-```bash
+```
 start-ollama
 ```
 
@@ -106,7 +106,7 @@ start-ollama
 
 Stops a running instance.
 
-```bash
+```
 tnr stop <instance_ID>
 ```
 
@@ -118,13 +118,13 @@ tnr stop <instance_ID>
 
 Starts a stopped instance.
 
-```bash
+```
 tnr start <instance_ID>
 ```
 
 ### Delete an Instance
 
-```bash
+```
 tnr delete <instance_ID>
 ```
 
@@ -138,7 +138,7 @@ tnr delete <instance_ID>
 
 Use the `connect` command to access your instance. This wraps SSH, managing keys while automatically setting up everything you need to get started.
 
-```bash
+```
 tnr connect <instance_ID>
 ```
 
@@ -148,7 +148,7 @@ The instance must be running before you can connect to it. See if the instance i
 
 Connect with port forwarding with the `-t` or `--tunnel` flag:
 
-```bash
+```
 tnr connect <instance_ID> -t PORT1 -t PORT2
 ```
 
@@ -162,7 +162,7 @@ Features:
 
 Transfer files between local and remote instance with the `scp` command:
 
-```bash
+```
 tnr scp <source_path> <destination_path>
 ```
 
@@ -177,7 +177,7 @@ Path format:
 
 Examples:
 
-```bash
+```
 # Upload to instance
 tnr scp ./local_file.txt 0:/remote/path/
 
@@ -198,7 +198,7 @@ Snapshots capture the state of a stopped instance's disk, allowing you to create
 
 Create a snapshot from a stopped instance:
 
-```bash
+```
 tnr snapshot <instance_ID> <snapshot_name>
 ```
 
@@ -217,7 +217,7 @@ Snapshots are stored compressed to save space. You can view the compressed size 
   original instance's disk size. Decreasing the disk size is not supported.
 </Note>
 
-```bash
+```
 tnr create --template <snapshot_name> [--gpu <new_gpu_type>] #etc
 ```
 
@@ -225,7 +225,7 @@ tnr create --template <snapshot_name> [--gpu <new_gpu_type>] #etc
 
 List all available snapshots and their details, including compressed size:
 
-```bash
+```
 tnr snapshot --list
 ```
 
@@ -233,7 +233,7 @@ tnr snapshot --list
 
 Delete a specific snapshot by name:
 
-```bash
+```
 tnr snapshot --delete <snapshot_name>
 ```
 
@@ -248,7 +248,7 @@ tnr snapshot --delete <snapshot_name>
 
 Modify the instance's vCPU count, GPU type, or disk size:
 
-```bash
+```
 tnr modify <instance_ID> \
   --disk-size-gb <new_size_GB> \
   --gpu <new_gpu_type> \
@@ -270,7 +270,7 @@ Instances must be stopped to modify the vCPU count or GPU type. You can resize d
 
 List all instances and details including `instance_ID`, `IP Address`, `Disk Size`, `GPU Type`, `GPU Count`, `vCPU Count`, `RAM`, and `Template`:
 
-```bash
+```
 tnr status
 ```
 
