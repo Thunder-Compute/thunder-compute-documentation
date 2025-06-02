@@ -33,7 +33,7 @@
               "guides/using-instance-templates",
               "guides/using-docker-on-thundercompute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
-              "guides/troubleshooting-ssh-errors",
+              "guides/ssh-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
               "guides/referral-program"
             ]

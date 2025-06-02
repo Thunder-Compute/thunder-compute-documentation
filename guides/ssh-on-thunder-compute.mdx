@@ -1,11 +1,32 @@
 ---
-title: "Troubleshoot SSH Errors"
-description: "Resolve common SSH connection errors (bad permissions, protocol banner, key auth) on Thunder Compute. Follow step-by-step fixes for `tnr connect` issues."
+title: "SSH on Thunder Compute"
+description: "Learn how to manually SSH into Thunder Compute instances and troubleshoot common SSH connection errors."
 mode: "wide"
-sidebarTitle: "SSH Troubleshooting"
+sidebarTitle: "SSH manually"
 ---
 
 Thunder Compute gives indie developers, researchers, and data-scientists low-cost cloud GPUs in a few clicks. Our **CLI** (`tnr`) and **VS Code extension** wrap SSH setup, key management, and port-forwarding for you—see the [Quick-Start guide](/quickstart) for a full walkthrough.
+
+## 1. Manually SSH into Thunder Compute
+
+To manually SSH into your Thunder Compute instance:
+
+1. **Connect once with the CLI** to set up your SSH configuration:
+   ```bash
+   tnr connect
+   ```
+   This automatically adds your instance as `tnr-0` in your SSH config and sets up the necessary keys.
+
+2. **SSH directly** using the configured alias:
+   ```bash
+   ssh tnr-0
+   ```
+
+3. **Use with other IDEs**: You can also use `tnr-0` with other remote SSH tools like VS Code Remote-SSH, JetBrains Gateway, or any SSH-compatible IDE.
+
+That's it! The CLI handles all the key management and configuration for you.
+
+## 2. Troubleshooting SSH Errors
 
 When you run `tnr connect`, the tool SSHs into your instance automatically. If something goes wrong, you might see errors such as:
 
@@ -15,7 +36,7 @@ When you run `tnr connect`, the tool SSHs into your instance automatically. If s
 
 Follow the steps below to fix the problem.
 
-## 1. Restart the Instance
+### A. Restart the Instance
 
 A quick restart clears many transient issues:
 
@@ -26,7 +47,7 @@ tnr start
 
 Wait about a minute, then try `tnr connect` again.
 
-## 2. Test a Manual SSH Connection
+### B. Test a Manual SSH Connection
 
 Get a more detailed error message by bypassing `tnr connect`:
 
@@ -34,9 +55,9 @@ Get a more detailed error message by bypassing `tnr connect`:
 ssh tnr-0
 ```
 
-## 3. Fix Common Issues
+### C. Fix Common Issues
 
-### A. Out-of-Memory
+#### Out-of-Memory
 
 If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources:
 
@@ -46,26 +67,24 @@ tnr create --vcpus 8
 
 _Tip: 16–32 vCPUs generally provide enough memory for most ML workloads._
 
-### B. Permissions Problems
+#### Permissions Problems
 
 <CodeGroup>
 
-```powershell [Windows]
+```powershell Windows
 # Run PowerShell as Administrator
 icacls "$env:USERPROFILE\.ssh\config" /reset
 icacls "$env:USERPROFILE\.ssh\config" /inheritance:r
 Rename-Item -Path "$env:USERPROFILE\.ssh\config" -NewName 'config.old'
 ```
 
-
-```bash [macOS]
+```bash MacOS
 chmod 600 ~/.ssh/config
 chown $(whoami) ~/.ssh/config
 mv ~/.ssh/config ~/.ssh/config.old
 ```
 
-
-```bash [Linux/WSL]
+```bash Linux/WSL
 chmod 600 ~/.ssh/config
 chown $(whoami) ~/.ssh/config
 mv ~/.ssh/config ~/.ssh/config.old
@@ -73,50 +92,46 @@ mv ~/.ssh/config ~/.ssh/config.old
 
 </CodeGroup>
 
-### C. Corrupted Known-Hosts or Thunder Compute Locks
+#### Corrupted Known-Hosts or Thunder Compute Locks
 
-#### Known-Hosts
+**Known-Hosts**
 
 <CodeGroup>
 
-```powershell [Windows]
+```powershell Windows
 Rename-Item -Path "$env:USERPROFILE\.ssh\known_hosts" -NewName 'known_hosts.old'
 ```
 
-
-```bash [macOS]
+```bash MacOS
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 ```
 
-
-```bash [Linux/WSL]
+```bash Linux/WSL
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 ```
 
 </CodeGroup>
 
-#### Thunder Compute Locks & Keys
+**Thunder Compute Locks & Keys**
 
 <CodeGroup>
 
-```powershell [Windows]
+```powershell Windows
 Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\locks"
 Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\keys"
 ```
 
-
-```bash [macOS]
+```bash MacOS
 rm -rf ~/.thunder/locks ~/.thunder/keys
 ```
 
-
-```bash [Linux/WSL]
+```bash Linux/WSL
 rm -rf ~/.thunder/locks ~/.thunder/keys
 ```
 
 </CodeGroup>
 
-## 4. Reinstall the Thunder Compute CLI or VS Code Extension
+### D. Reinstall the Thunder Compute CLI or VS Code Extension
 
 If the steps above do not resolve the error, reinstalling the tooling often does:
 
@@ -124,8 +139,8 @@ If the steps above do not resolve the error, reinstalling the tooling often does
 2. Download the latest installer from [Thunder Compute download](https://console.thundercompute.com/?download).
 3. Re-run `tnr login` followed by `tnr connect`.
 
-## 5. Still Having Issues?
+### E. Still Having Issues?
 
 Open a ticket in our [Discord support channel](https://discord.gg/thundercompute) with the exact error output, and we will get you unblocked fast.
 
-Happy troubleshooting\!
+Happy troubleshooting! 
