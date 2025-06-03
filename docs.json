@@ -37,6 +37,10 @@
               "guides/mcp-server-for-managing-gpus",
               "guides/referral-program"
             ]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
           }
         ]
       }
