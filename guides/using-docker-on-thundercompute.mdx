@@ -19,22 +19,39 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 2. Run your Docker containers as normal - GPU support is automatically enabled.
 
 <Info>
-  If you don't need GPU capabilities in the docker container at all, it makes more sense to run with docker's default `runc` runtime.
-  
-  You can accomplish that by adding the `--runtime=runc` flag to your `docker run` command:
-
-  ```bash
-  docker run --runtime=runc ubuntu:latest
-  ```
+  If you don't need GPU capabilities in the docker container at all, it makes more sense to run with docker's `runc` runtime.
+  No need to add the --runtime flag in this case, `runc` is set as the default runtime.
 </Info>
 
 ## Example
 
 ```bash
 # Run a container with GPU support
-docker run ubuntu:22.04 nvidia-smi
+docker run --runtime=nvidia ubuntu:22.04 nvidia-smi
 # Run Ollama server (see our [Deepseek guide](/guides/deepseek-r1-running-locally-on-thunder-compute) for an example use case)
-docker run -d -v ollama:/root/.ollama -p 11434:11434 --runtime=nvidia --name ollama ollama/ollama
+docker run --runtime=nvidia -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+```
+
+In a docker-compose file, that would look like this:
+
+```yaml
+services:
+  ollama:
+    image: ollama/ollama
+    runtime: nvidia
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    restart: unless-stopped
+
+  gpu-test:
+    image: ubuntu:22.04
+    runtime: nvidia
+    command: nvidia-smi
+
+volumes:
+  ollama:
 ```
 
 <Warning>
@@ -55,33 +72,8 @@ Most modern Docker images are supported:
 
 ### Thunder Runtime
 
-Thunder Compute instances default to the "thunder" runtime for all Docker containers. Key details about the runtime:
-
-- **Default Runtime**: All containers automatically use the "thunder" runtime unless explicitly overridden
-- **Automatic Override**: If you specify the "nvidia" runtime (e.g., `docker run --runtime=nvidia`), Thunder Compute will automatically override this with the "thunder" runtime
-- **Compatibility**: The "thunder" runtime is identical to the nvidia runtime while injecting the required Thunder Compute GPU support and optimizations
-- **Transparent Operation**: You don't need to specify any runtime flags - GPU support works out of the box
-
-### Disabling GPU Support Entirely (unnecessary for 99% of use cases)
-
-If you need to run containers without GPU access, or encounter issues with the thunder runtime:
-
-1. Edit the Docker daemon configuration:
-
-```bash
-sudo vi /etc/docker/daemon.json
-```
-
-2. Remove "thunder" as the default runtime
-
-3. Restart the Docker service:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-
-You can manually set the runtime for a container by adding the `--runtime=thunder` flag to the `docker run` command.
+Thunder Compute instances repalce the  `nvidia` runtime with the `thunder` runtime for all Docker containers. 
+The "thunder" runtime is identical to the nvidia runtime while injecting requirements needed for Thunder Compute GPU support.
 
 ## Need Help?
 
