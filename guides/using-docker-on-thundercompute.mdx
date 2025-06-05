@@ -34,7 +34,7 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 # Run a container with GPU support
 docker run ubuntu:22.04 nvidia-smi
 # Run Ollama server (see our [Deepseek guide](/guides/deepseek-r1-running-locally-on-thunder-compute) for an example use case)
-docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --runtime=nvidia --name ollama ollama/ollama
 ```
 
 <Warning>
