@@ -9,6 +9,15 @@ iconType: "solid"
 
 Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2-style on-demand GPU cloud instance.
 
+## CUDA versioning
+
+- CUDA version 12.1 or greater
+- CUDNN version 9.0 or greater
+
+<Warning>
+  Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)
+</Warning>
+
 ## Officially supported libraries
 
 The following libraries and tools are thoroughly tested:
@@ -21,9 +30,12 @@ The following libraries and tools are thoroughly tested:
 
 Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary and latest CUDA drivers are pre-installed on every Thunder Compute instance.
 
-<Warning>
-  Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)
-</Warning>
+## Pre-installed libraries
+
+- CUDA toolkit
+- Docker (see [Docker on Thunder Compute](/guides/using-docker-on-thundercompute))
+- PyTorch (and derivatives), Numpy, Pandas
+- Jupyterlab
 
 ## Technical specs
 
