@@ -53,10 +53,10 @@ Configure custom vCPU count:
 tnr create --vcpus <vcpu_count>
 ```
 
-Each vCPU comes with 4GB of RAM. For example, a 4 core instance has 16GB of RAM, and an 8 core instance has 32GB of RAM.
+Each vCPU comes with 8GB of RAM. For example, a 4 core instance has 32GB of RAM, and an 8 core instance has 64GB of RAM.
 
 <Note>
-  By default, 4 vCPUs are included with your instance. Additional vCPUs are
+  By default, 4 vCPUs and 32GB of memory are included with your instance. Additional vCPUs are
   billed hourly at the rates shown [here](https://www.thundercompute.com/pricing)
 </Note>
 
@@ -246,7 +246,7 @@ tnr snapshot --delete <snapshot_name>
 
 ### Modify Instance
 
-Modify the instance's vCPU count, GPU type, or disk size:
+Modify the instance's vCPU count (and RAM), GPU type, or disk size:
 
 ```
 tnr modify <instance_ID> \
@@ -259,7 +259,9 @@ All flags are optional, but at least one change must be provided.
 
 These changes will affect the billing price of the instance.
 
-Instances must be stopped to modify the vCPU count or GPU type. You can resize disk at any time.
+Instances must be stopped to modify the vCPU count/RAM or GPU type. You can resize disk at any time.
+
+Each additional vCPU adds 8GB of RAM to your instance.
 
 <Warning>
   Storage can only be increased, not decreased. For smaller storage needs,
