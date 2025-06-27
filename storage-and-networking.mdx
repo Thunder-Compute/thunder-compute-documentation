@@ -14,11 +14,19 @@ iconType: "solid"
 
 ### Accessing Ports
 
-If you’re using the CLI, you can tunnel ports with the connect modifier -t. Using port 6006 as an example, you could run: `tnr connect <instance ID> -t 6006` 
+If you're using the CLI, you can tunnel ports with the `connect` command and the `-t` flag. For example, to tunnel port 6006, run:
 
-Then access on your browser at http://localhost:6006/ use something like cloudflared: `cloudflared tunnel --url http://localhost:6006`
+```
+cloudflared tunnel --url http://localhost:6006 
+```
 
-If you’re using the vscode extension, you can forward ports once you have connected to an instance. To do this, use the bottom tab of vscode under “ports,” shown [here](https://code.visualstudio.com/docs/debugtest/port-forwarding).
+Then, to access it in your browser, use a tool like Cloudflared:
+
+```
+cloudflared tunnel --url http://localhost:6006
+```
+
+If you're using the VS Code extension, you can forward ports after connecting to an instance. To do this, use the “Ports” tab at the bottom of the VS Code window, as shown [here](https://code.visualstudio.com/docs/debugtest/port-forwarding).
 
 ## Storage
 
