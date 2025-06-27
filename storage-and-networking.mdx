@@ -12,7 +12,16 @@ iconType: "solid"
 - Region: U.S. Central (Iowa)
 - E or N series CPU instances in GCP
 
+### Accessing Ports
+
+If you’re using the CLI, you can tunnel ports with the connect modifier -t. Using port 6006 as an example, you could run: `tnr connect <instance ID> -t 6006` 
+
+Then access on your browser at http://localhost:6006/ use something like cloudflared: `cloudflared tunnel --url http://localhost:6006`
+
+If you’re using the vscode extension, you can forward ports once you have connected to an instance. To do this, use the bottom tab of vscode under “ports,” shown [here](https://code.visualstudio.com/docs/debugtest/port-forwarding).
+
 ## Storage
+
 ### Persistent Disk
 
 By default, all instances use persistent disks. This enables a "stopped" state where data persists but compute usage is paused.
@@ -32,6 +41,7 @@ To take a snapshot, stop your instance and use the snapshot feature in the conso
 ## Inactive-Instance Data Retention
 
 Thunder Compute retains the persistent storage associated with an account for 60 days after the last time any instance in that account was running.
+
 - If an account has been inactive for 60 consecutive days (defined by no running instances), all attached volumes, snapshots, and other instance-specific data are irreversibly deleted.
 - This retention window applies per account (not per individual instance). Starting or stopping any instance resets the 60-day timer.
 - Deletion is permanent and cannot be undone. Back up any critical data before the retention period ends.
