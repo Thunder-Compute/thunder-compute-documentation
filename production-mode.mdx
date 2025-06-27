@@ -1,0 +1,28 @@
+---
+title: "Production Mode"
+description: "Premium VM instances with maximum compatibility and predictable performance for production workloads"
+icon: "rocket"
+iconType: "solid"
+mode: "wide"
+---
+
+Production mode provisions a standard virtual machine (VM) on Thunder Compute with all low-level execution optimizations disabled. While this results in a higher hourly cost than the Prototyping tier, it guarantees maximum compatibility, predictable performance, and uninterrupted runtime.
+
+## When to choose Production mode
+
+- Long-running training jobs
+- High-availability inference services
+- Multi-GPU workloads
+- Workloads that rely on graphics, custom kernels, or other components that are incompatible with the Prototyping tier
+
+## Resources
+
+Each Production instance is allocated **24 vCPUs** and **220 GiB RAM** per attached GPU. Currently, we offer A100 80GB GPUs in production mode.
+
+## Switching between tiers
+
+1. Stop the instance.
+2. Select the desired tier in the CLI (`thunder instance modify --mode production`), the web console, or the VS Code extension.
+3. Start the instance.
+
+The operation takes a few seconds and does not affect data stored on attached volumes. You can switch back at any time.

@@ -102,6 +102,18 @@ After instance creation, start the server using `start-<template_name>` when con
 start-ollama
 ```
 
+#### Mode Configuration
+
+Choose between prototyping and production modes:
+
+```
+tnr create --mode <mode>
+```
+
+Available modes:
+- `prototyping` (default): Development mode optimized for intermittent workloads
+- `production`: Premium instance with maximum compatibility, stability, and reliability for production workloads
+
 ### Stop an Instance
 
 Stops a running instance.
@@ -252,16 +264,21 @@ Modify the instance's vCPU count (and RAM), GPU type, or disk size:
 tnr modify <instance_ID> \
   --disk-size-gb <new_size_GB> \
   --gpu <new_gpu_type> \
-  --vcpus <new_vcpu_count>
+  --vcpus <new_vcpu_count> \
+  --mode <mode>
 ```
 
 All flags are optional, but at least one change must be provided.
 
 These changes will affect the billing price of the instance.
 
-Instances must be stopped to modify the vCPU count/RAM or GPU type. You can resize disk at any time.
+Instances must be stopped to modify the vCPU count/RAM, GPU type, or mode. You can resize disk at any time.
 
 Each additional vCPU adds 8GB of RAM to your instance.
+
+Available modes:
+- `prototyping` (default): Optimized for cost-effective development
+- `production`: Premium instances with maximum compatibility, stability, and reliability
 
 <Warning>
   Storage can only be increased, not decreased. For smaller storage needs,

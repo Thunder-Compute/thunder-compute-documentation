@@ -22,7 +22,8 @@
               "compatibility",
               "storage-and-networking",
               "troubleshooting",
-              "billing"
+              "billing",
+              "production-mode"
             ]
           },
           {

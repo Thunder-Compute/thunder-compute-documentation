@@ -51,9 +51,17 @@ The following workloads are less tested, experimental, or unstable:
 - Jax [experimental]
 - Custom CUDA Kernels [unpredictable behavior, particularly with errors and profiling. Message us for details]
 
+<Note>
+  If you encounter compatibility issues with these experimental workloads, consider switching to [Production mode](/docs/production-mode) for maximum compatibility and predictable performance.
+</Note>
+
 ## Unsupported
 
 Currently, Thunder Compute lacks official support for graphics workloads such as OpenGL, Vulkan, and FFMPEG. If you'd like to run these, contact us.
+
+<Tip>
+  For workloads requiring graphics support, custom kernels, or components incompatible with the prototyping tier, use [Production mode](/docs/production-mode) which provides maximum stability and reliability with all optimizations disabled.
+</Tip>
 
 ## Cryptocurrency mining
 

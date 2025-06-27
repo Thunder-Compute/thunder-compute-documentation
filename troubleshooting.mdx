@@ -37,6 +37,17 @@ To help prevent common issues and get the most out of Thunder Compute, we recomm
 * [Installing Conda](/guides/installing-conda) - Proper setup of Conda environments to avoid dependency conflicts
 * [Using Instance Templates](/guides/using-instance-templates) - Use pre-configured environments to minimize setup issues
 
+## Production mode as a last resort
+
+If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to [Production mode](/docs/production-mode). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the prototyping tier.
+
+To switch to production mode:
+```
+tnr modify <instance_id> --mode production
+```
+
+Note that production mode has a higher hourly cost but guarantees predictable performance and compatibility.
+
 ## Support
 
 The fastest way to get support is to join [our discord](https://discord.gg/nwuETS9jJK). Our founding team will personally respond to help you as quickly as possible.
