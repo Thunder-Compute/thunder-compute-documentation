@@ -5,7 +5,7 @@ mode: wide
 sidebarTitle: "Docker"
 ---
 
-Docker containers on Thunder Compute instances now come with GPU support enabled by default through the "thunder" runtime. This means you can run Docker containers with GPU access without any additional configuration. For more information about GPU compatibility, see our [compatibility guide](/docs/compatibility).
+Docker containers on Thunder Compute instances now come with GPU support enabled through the "thunder" runtime. This means you can run Docker containers with GPU access without any additional configuration. For more information about GPU compatibility, see our [compatibility guide](/docs/compatibility).
 
 <Warning>
   Thunder compute is incompatible with the base `nvidia-container-toolkit`.
@@ -16,7 +16,7 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 
 1. Connect to a Thunder Compute instance using the [quickstart guide](/quickstart)
 
-2. Run your Docker containers as normal - GPU support is automatically enabled.
+2. Run your Docker containers as you would on a normal GPU instance: with `--runtime=nvidia` or `--gpus=all` if you need GPU support, otherwise without.
 
 <Info>
   If you don't need GPU capabilities in the docker container at all, it makes more sense to run with docker's `runc` runtime.
@@ -30,6 +30,8 @@ Docker containers on Thunder Compute instances now come with GPU support enabled
 docker run --runtime=nvidia ubuntu:22.04 nvidia-smi
 # Run Ollama server (see our [Deepseek guide](/guides/deepseek-r1-running-locally-on-thunder-compute) for an example use case)
 docker run --runtime=nvidia -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+# Run a normal container with the `runc` runtime
+docker run ubuntu:22.04
 ```
 
 In a docker-compose file, that would look like this:
@@ -72,7 +74,7 @@ Most modern Docker images are supported:
 
 ### Thunder Runtime
 
-Thunder Compute instances repalce the  `nvidia` runtime with the `thunder` runtime for all Docker containers. 
+Thunder Compute instances replace the  `nvidia` runtime with the `thunder` runtime for all Docker containers. 
 The "thunder" runtime is identical to the nvidia runtime while injecting requirements needed for Thunder Compute GPU support.
 
 ## Need Help?
