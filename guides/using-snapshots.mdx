@@ -5,6 +5,8 @@ description: "Learn how to use Snapshots to save the state of your instance's di
 
 Snapshots allow you to save the state of a stopped instance's disk, which you can then use as a template to create new instances. This is useful for saving a configured environment, so you can quickly launch new instances with the same setup.
 
+Conveniently, snapshots also compress your data and place it on cheaper HDDs vs standard SSD storage. This cuts cost by about 75% for long-term storage.
+
 ## Creating a Snapshot
 
 You can create a snapshot from any stopped instance using either the Thunder Compute Console or the CLI.
@@ -13,8 +15,7 @@ You can create a snapshot from any stopped instance using either the Thunder Com
 
 1.  Navigate to the [Thunder Compute Console](https://console.thundercompute.com/).
 2.  Find the instance you want to snapshot. The instance must be in a `STOPPED` state.
-3.  Click the "Snapshot" button next to the stopped instance.
-4.  Provide a name for your snapshot.
+3.  Check the box next to the instance, and click the "Snapshot" button in the action bar.
 
 ### Using the CLI
 
@@ -28,8 +29,6 @@ tnr snapshot <instance_ID> <snapshot_name>
 - `<snapshot_name>`: A unique name for your snapshot.
   - Must contain only lowercase letters (a-z), numbers (0-9), and hyphens (-).
   - Must be between 1 and 62 characters long.
-
-Snapshots are stored compressed to save space.
 
 ## Creating an Instance from a Snapshot
 
