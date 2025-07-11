@@ -1,6 +1,6 @@
 ---
 title: "Compatibility"
-description: "Learn about Thunder Compute's technical specs, supported AI/ML libraries (PyTorch, Hugging Face), limitations, and strengths"
+description: "Learn about Thunder Compute's supported AI/ML libraries (PyTorch, Hugging Face), workload limitations, and strengths"
 icon: "check"
 iconType: "solid"
 ---
@@ -9,38 +9,22 @@ iconType: "solid"
 
 Thunder Compute is optimized for AI/ML development workflows. That said, Thunder Compute has the full functionality of an EC2-style on-demand GPU cloud instance.
 
-## CUDA versioning
+## Supported Software
 
-- CUDA version 12.0 or greater (version 12.9 installed)
-- CUDNN version 9.0 or greater
+The following software is tested and supported on Thunder Compute. For a list of pre-installed libraries and their exact versions, see our [Instance Details guide](/instance-details).
+
+### Core Environment
+- **CUDA**: We support version 12.0 or greater.
+- **CUDNN**: We support version 9.0 or greater.
 
 <Warning>
-  Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you almost always are better off upgrading your other dependencies (e.g., PyTorch)
+  Do not attempt to reinstall CUDA. If it seems like you need an older CUDA driver, you are almost always better off upgrading your other dependencies (e.g., PyTorch).
 </Warning>
 
-## Officially supported libraries
-
-The following libraries and tools are thoroughly tested:
-
-- PyTorch (version 2.7.1 installed)
-- Notebooks
-- AI model serving tools like ComfyUI, Ollama, VLLM, Unsloth, and more
-
-Note: make sure you install the cuda-compatible version of these libraries. The cuda-compatible PyTorch binary and latest CUDA drivers are pre-installed on every Thunder Compute instance.
-
-## Pre-installed libraries
-
-- CUDA toolkit
-- Docker (see [Docker on Thunder Compute](/guides/using-docker-on-thundercompute))
-- PyTorch (and derivatives), Numpy, Pandas
-- Jupyterlab
-
-## Technical specs
-
-- Egress/Ingress: 7Gbps
-- IP: dynamic
-- Location: U.S. (region varies)
-- E series CPU instances in Azure
+### AI/ML Libraries
+- **PyTorch**: We include version 2.7.1, downgrading can cause issues.
+- **Notebooks**: JupyterLab and Jupyter Notebooks are supported.
+- **Other Tools**: AI model serving tools like ComfyUI, Ollama, VLLM, and Unsloth are well-tested.
 
 ## Experimental (less stable)
 

@@ -204,55 +204,16 @@ tnr scp 0:/remote/file.txt ./local_path/
 
 ## Managing Snapshots
 
-Snapshots capture the state of a stopped instance's disk, allowing you to create new instances from that point in time.
+Snapshots capture the state of a stopped instance's disk, allowing you to create new instances from that point in time. For a detailed guide on using snapshots, including how to create them from the console, see our [Using Snapshots guide](/guides/using-snapshots).
 
-### Create a Snapshot
+### CLI Commands
 
-Create a snapshot from a stopped instance:
+- **Create a snapshot:** `tnr snapshot <instance_ID> <snapshot_name>`
+- **List snapshots:** `tnr snapshot --list`
+- **Delete a snapshot:** `tnr snapshot --delete <snapshot_name>`
 
-```
-tnr snapshot <instance_ID> <snapshot_name>
-```
-
-- `<instance_ID>`: The ID of the instance to snapshot. The instance must be stopped.
-- `<snapshot_name>`: A unique name for your snapshot.
-  - Must contain only lowercase letters (a-z), numbers (0-9), and hyphens (-).
-  - Must be between 1 and 62 characters long.
-
-Snapshots are stored compressed to save space. You can view the compressed size using the `--list` command after creation.
-
-<Note>
-  You can use a snapshot as a template to launch new instances. The snapshot
-  defines the initial disk content and size. While you can modify other
-  configuration options (like vCPU count or GPU type) during the `tnr create`
-  command, the new instance's disk size must be equal to or greater than the
-  original instance's disk size. Decreasing the disk size is not supported.
-</Note>
-
-```
-tnr create --template <snapshot_name> [--gpu <new_gpu_type>] #etc
-```
-
-### List Snapshots
-
-List all available snapshots and their details, including compressed size:
-
-```
-tnr snapshot --list
-```
-
-### Delete a Snapshot
-
-Delete a specific snapshot by name:
-
-```
-tnr snapshot --delete <snapshot_name>
-```
-
-<Warning>
-  This action permanently deletes the snapshot. It does not affect instances
-  created from this snapshot.
-</Warning>
+To create an instance from a snapshot, use the `--template` flag with the snapshot name:
+`tnr create --template <snapshot_name>`
 
 ## System Management
 

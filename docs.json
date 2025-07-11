@@ -19,6 +19,7 @@
             "pages": [
               "quickstart",
               "cli-reference",
+              "instance-details",
               "compatibility",
               "storage-and-networking",
               "troubleshooting",
@@ -30,12 +31,13 @@
             "group": "Guides",
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/installing-conda",
               "guides/using-instance-templates",
+              "guides/using-snapshots",
               "guides/using-docker-on-thundercompute",
+              "guides/installing-conda",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
-              "guides/ssh-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
+              "guides/ssh-on-thunder-compute",
               "guides/referral-program"
             ]
           },

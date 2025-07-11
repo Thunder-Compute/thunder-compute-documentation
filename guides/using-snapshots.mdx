@@ -1,0 +1,86 @@
+---
+title: "Using Snapshots"
+description: "Learn how to use Snapshots to save the state of your instance's disk and create new instances from it."
+---
+
+Snapshots allow you to save the state of a stopped instance's disk, which you can then use as a template to create new instances. This is useful for saving a configured environment, so you can quickly launch new instances with the same setup.
+
+## Creating a Snapshot
+
+You can create a snapshot from any stopped instance using either the Thunder Compute Console or the CLI.
+
+### Using the Console
+
+1.  Navigate to the [Thunder Compute Console](https://console.thundercompute.com/).
+2.  Find the instance you want to snapshot. The instance must be in a `STOPPED` state.
+3.  Click the "Snapshot" button next to the stopped instance.
+4.  Provide a name for your snapshot.
+
+### Using the CLI
+
+To create a snapshot with the CLI, use the `tnr snapshot` command:
+
+```
+tnr snapshot <instance_ID> <snapshot_name>
+```
+
+- `<instance_ID>`: The ID of the instance to snapshot. The instance must be stopped. You can find the instance ID by running `tnr status`.
+- `<snapshot_name>`: A unique name for your snapshot.
+  - Must contain only lowercase letters (a-z), numbers (0-9), and hyphens (-).
+  - Must be between 1 and 62 characters long.
+
+Snapshots are stored compressed to save space.
+
+## Creating an Instance from a Snapshot
+
+Once you've created a snapshot, you can use it to launch new instances.
+
+### Using the Console
+
+1.  Navigate to the "Snapshots" tab in the [Thunder Compute Console](https://console.thundercompute.com/).
+2.  Find the snapshot you want to use.
+3.  Click the "Create Instance" button.
+4.  Configure your new instance as desired. The new instance's disk size must be equal to or greater than the snapshot's disk size.
+
+### Using the CLI
+
+You can use a snapshot as a template when creating a new instance with the `tnr create` command. The snapshot defines the initial disk content and size.
+
+```
+tnr create --template <snapshot_name>
+```
+
+While the snapshot defines the disk, you can modify other configuration options like the vCPU count or GPU type.
+
+<Note>
+The new instance's disk size must be equal to or greater than the original instance's disk size. Decreasing the disk size is not supported.
+</Note>
+
+For example, to create a new instance from a snapshot with a different GPU:
+```
+tnr create --template <snapshot_name> --gpu t4
+```
+
+## Managing Snapshots
+
+You can list and delete your snapshots using the CLI.
+
+### List Snapshots
+
+To see all your available snapshots and their details, including their compressed size:
+
+```
+tnr snapshot --list
+```
+
+### Delete a Snapshot
+
+To delete a snapshot by name:
+
+```
+tnr snapshot --delete <snapshot_name>
+```
+
+<Warning>
+  This action permanently deletes the snapshot. It does not affect any instances that were created from this snapshot.
+</Warning> 
