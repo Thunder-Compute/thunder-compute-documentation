@@ -1,0 +1,103 @@
+---
+title: "Prototyping Mode"
+description: "Development-focused GPU access at rock-bottom prices"
+icon: "flask"
+iconType: "solid"
+---
+
+<Note>
+  Prototyping mode is currently in beta and exclusively available on Thunder Compute.
+</Note>
+
+## Overview
+
+Prototyping mode leverages CUDA-level optimizations to maximize GPU utilization, significantly reducing costs for AI/ML development workflows. While in beta, you may encounter compatibility issues with certain workloads. For maximum compatibility, you can start on Prototyping mode and easily switch to [Production mode](/docs/production-mode) at any time.
+
+## How it works
+
+Thunder Compute's prototyping mode applies optimizations at the CUDA level to maximize GPU utilization. This results in:
+
+- **Higher GPU utilization**: More efficient use of available compute resources
+- **Lower costs**: Pay less for the same computational power
+- **Quick iteration**: Ideal for development and experimentation
+
+## Mode switching
+
+We've designed Thunder Compute to make switching between modes simple:
+
+- **Prototyping mode**: Default mode with optimizations enabled for cost efficiency
+- **Production mode**: Disables optimizations for full compatibility at standard pricing
+
+You can switch modes at any time based on your workload requirements. If you encounter issues in prototyping mode, simply switch to production mode for guaranteed compatibility.
+
+## Mode-Specific Configuration
+
+Prototyping mode uses the same [infrastructure specifications](/docs/technical-specs#instance-infrastructure) as Production mode, with CUDA-level optimizations enabled for cost efficiency.
+
+<Note>
+  For detailed hardware specifications, networking, and pre-installed software, see the [Technical Specifications](/docs/technical-specs) documentation.
+</Note>
+
+## Supported Software
+
+The following software is tested and supported in prototyping mode. Exact version numbers for common pre-installed libraries are listed below.
+
+### Prototyping Mode Compatibility
+
+The following software has been specifically tested and validated for prototyping mode:
+
+- **PyTorch**: Fully supported (downgrading from pre-installed version may cause issues)
+- **Notebooks**: JupyterLab and Jupyter Notebooks work seamlessly
+- **Model Serving**: ComfyUI, Ollama, VLLM, and Unsloth are well-tested
+
+## Experimental Support
+
+The following workloads have limited testing in prototyping mode:
+
+- TensorFlow [experimental]
+- PyTorch Lightning [experimental]
+- JAX [experimental]
+- Custom CUDA Kernels [unpredictable behavior, particularly with errors and profiling]
+
+<Note>
+  If you encounter issues with experimental workloads, switch to [Production mode](/docs/production-mode) for maximum compatibility.
+</Note>
+
+## Unsupported Workloads
+
+Currently, prototyping mode lacks official support for:
+- Graphics workloads (OpenGL, Vulkan, FFMPEG)
+- Certain low-level CUDA operations
+- Hardware-specific profiling tools
+
+<Tip>
+  For unsupported workloads, use [Production mode](/docs/production-mode) which provides full compatibility with all optimizations disabled.
+</Tip>
+
+## Benchmarking Considerations
+
+When benchmarking in prototyping mode, note that:
+- Temperature, wattage, and utilization metrics may not be representative
+- Model performance (iterations/second) provides the most accurate comparison
+- For hardware benchmarking, use production mode instances
+
+## Best Practices
+
+1. **Start with prototyping mode** for development and experimentation
+2. **Test compatibility early** with your specific workloads
+3. **Switch to production mode** if you encounter issues or need guaranteed compatibility
+4. **Monitor performance** using application-level metrics rather than hardware metrics
+
+## Troubleshooting
+
+If you experience compatibility issues:
+
+1. Check if your workload is in the experimental or unsupported categories
+2. Try switching to production mode
+3. Consult our [troubleshooting guide](/docs/troubleshooting)
+4. Contact support with specific error messages
+
+## Learn More
+
+- [Production Mode](/docs/production-mode) - Full compatibility mode
+- [How Thunder Compute Works](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp) - Technical deep dive

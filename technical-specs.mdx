@@ -1,0 +1,60 @@
+---
+title: "Technical Specifications"
+description: "Hardware specifications, networking details, storage options, and pre-installed software for Thunder Compute instances"
+icon: "server"
+iconType: "solid"
+---
+
+## Instance Infrastructure
+
+### Hardware Specifications
+- **CPU**: E series CPU instances (Azure)
+- **GPU Options**: 
+  - A100 80GB (default for both modes)
+  - T4 16GB (available via CLI)
+  - A100 40GB (available via CLI)
+- **Memory**: 24 vCPUs and 220 GiB RAM per GPU (Production mode, Prototyping is fully customizeable)
+- **Location**: United States (region varies)
+
+### Pre-installed Software
+- **CUDA**: Version 12.9
+- **CUDNN**: Version 9.0
+- **PyTorch**: Version 2.7.1
+- **JupyterLab**: Pre-installed
+- **Docker**: Available (see "Docker on Thunder Compute" guide)
+- Additional scientific Python libraries (NumPy, Pandas, etc.)
+
+<Warning>
+  Do not attempt to reinstall CUDA. If compatibility issues arise, upgrade your other dependencies (e.g., PyTorch) rather than downgrading CUDA.
+</Warning>
+
+## Networking
+
+- **Egress/Ingress**: 7 Gbps
+- **IP Address**: Dynamic
+- **Firewall**: All ports open by default
+
+### Port Access
+
+- **CLI**: Use `tnr connect <instance_id> -t <port>` to tunnel ports
+- **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature
+- **External access**: Use Cloudflared: `cloudflared tunnel --url http://localhost:<port>`
+
+## Storage
+
+### Persistent Disk
+
+- All instances use persistent disks by default
+- Data persists when instances are stopped (storage charges continue)
+- Performance: ~100k IOPS and 1200 Mbps Read/Write
+
+### Snapshots
+
+Save instance state for long-term storage at ~75% lower cost. See our [Using Snapshots guide](/guides/using-snapshots) for details.
+
+## Data Retention
+
+- **Inactive accounts**: All storage deleted after 60 days of no running instances
+- **Scope**: Per account (not per instance)
+- **Reset**: Starting any instance resets the 60-day timer
+- **Permanent**: Deletions cannot be undone

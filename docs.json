@@ -18,13 +18,13 @@
             "group": "Documentation",
             "pages": [
               "quickstart",
+              "prototyping-mode",
+              "production-mode",
+              "technical-specs",
               "cli-reference",
-              "instance-details",
-              "compatibility",
-              "storage-and-networking",
               "troubleshooting",
               "billing",
-              "production-mode"
+              "restrictions"
             ]
           },
           {

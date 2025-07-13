@@ -1,6 +1,6 @@
 ---
 title: "Production Mode"
-description: "Premium VM instances with maximum compatibility and predictable performance for production workloads"
+description: "Premium GPU access with maximum compatibility and predictable performance for production workloads"
 icon: "rocket"
 iconType: "solid"
 mode: "wide"
@@ -15,9 +15,20 @@ Production mode provisions a standard virtual machine (VM) on Thunder Compute wi
 - Multi-GPU workloads
 - Workloads that rely on graphics, custom kernels, or other components that are incompatible with the Prototyping tier
 
-## Resources
+## Mode-Specific Configuration
 
-Each Production instance is allocated **24 vCPUs** and **220 GiB RAM** per attached GPU. Currently, we offer A100 80GB GPUs in production mode.
+Production mode uses the same [infrastructure specifications](/docs/technical-specs#instance-infrastructure) as Prototyping mode, but with all low-level optimizations disabled for maximum compatibility.
+
+<Note>
+  For detailed hardware specifications, networking, and pre-installed software, see the [Technical Specifications](/docs/technical-specs) documentation.
+</Note>
+
+## Production Mode Benefits
+
+- **Full compatibility**: All CUDA operations and libraries work as expected
+- **Predictable performance**: No performance variability from optimizations
+- **Hardware metrics**: Accurate temperature, wattage, and utilization reporting
+- **Graphics support**: Full support for OpenGL, Vulkan, and FFMPEG
 
 ## Switching between tiers
 

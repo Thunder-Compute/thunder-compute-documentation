@@ -19,15 +19,15 @@ To assist troubleshooting, the GCP/AWS instance logs for each instance are saved
 
 ### Function not implemented
 
-A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. Check our [compatibility guide](/docs/compatibility) for supported features, and if you encounter this, please contact us.
+A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. Check our [prototyping mode guide](/docs/prototyping-mode) for supported features, and if you encounter this, please contact us.
 
 ### SSH errors
 
 If you encounter SSH-related errors (like `Error reading SSH protocol banner` or permission issues), first retry the command.
 
-If that fails, see our detailed [SSH Troubleshooting Guide](/guides/troubleshooting-ssh-errors) for step-by-step solutions. 
-
 For quick fixes, try restarting your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`.
+
+For persistent SSH issues, see our [SSH on Thunder Compute guide](/guides/ssh-on-thunder-compute) for alternative connection methods.
 
 ## Recommended Guides
 
