@@ -1,5 +1,5 @@
 ---
-title: "SSH on Thunder Compute"
+title: "Manually SSH into a Thunder Compute instance"
 description: "Learn how to manually SSH into Thunder Compute instances and troubleshoot common SSH connection errors."
 mode: "wide"
 sidebarTitle: "SSH manually"
@@ -14,7 +14,7 @@ sidebarTitle: "SSH manually"
 
 Some custom setups may require direct SSH access, for example, setting up remote-ssh in an unsupported editor. If this describes your use, read on. 
 
-## 1. Manually SSH into Thunder Compute
+# 1. How to SSH into a Thunder Compute instance
 
 To manually SSH into your Thunder Compute instance:
 
@@ -33,6 +33,8 @@ To manually SSH into your Thunder Compute instance:
 
 That's it! The CLI handles all the key management and configuration for you.
 
+If you need to manually add an SSH key, you can add it to the authorized keys folder within your instance.
+
 ## 2. Troubleshooting SSH Errors
 
 When you run `tnr connect`, the tool SSHs into your instance automatically. If something goes wrong, you might see errors such as:
@@ -40,6 +42,7 @@ When you run `tnr connect`, the tool SSHs into your instance automatically. If s
 - **Bad permissions** – _"Try removing permissions for user: \\OWNER RIGHTS (S-1-3-4) on file C:\\Users\<your_username\>.ssh\\config."_
 - **Error reading SSH protocol banner** (often means the instance is out of memory and the SSH handshake cannot complete).
 - **Key authentication failed** (your SSH key is outdated or misconfigured).
+- **Invalid config** Your local ~/.ssh/config file is malformed. Delete this file and retry `tnr connect`.
 
 Follow the steps below to fix the problem.
 
@@ -66,13 +69,9 @@ ssh tnr-0
 
 #### Out-of-Memory
 
-If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources:
+If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources.
 
-```bash
-tnr create --vcpus 8
-```
-
-_Tip: 16–32 vCPUs generally provide enough memory for most ML workloads._
+_Tip: 8-16 vCPUs generally provide enough memory for most ML workloads._
 
 #### Permissions Problems
 
