@@ -8,9 +8,7 @@ sidebarTitle: "Docker"
 Docker containers on Thunder Compute instances now come with GPU support enabled through the "thunder" runtime. This means you can run Docker containers with GPU access without any additional configuration. For information about usage restrictions and limitations, see our [restrictions guide](/docs/restrictions).
 
 <Warning>
-  GPU support will not work out of the box on Production instances. Because prototyping instances are incompatible with the base `nvidia-container-toolkit` , it is not installed by default. 
-
-  To use docker in a production instance, you will need to disable the /etc/docker/daemon.json override which activates the "thunder" runtime and install the standard nvidia container toolkit.
+  Production instances require some configuration to enable GPU support. See below for details.
 </Warning>
 
 ## Getting Started
@@ -75,7 +73,16 @@ Most modern Docker images are supported:
 ### Thunder Runtime
 
 Thunder Compute instances replace the  `nvidia` runtime with the `thunder` runtime for all Docker containers.
+
 The "thunder" runtime is identical to the nvidia runtime while injecting requirements needed for Thunder Compute GPU support.
+
+### Production Mode
+
+To enable GPU support in production mode:
+
+- Modify `/etc/docker/daemon.json` to disable the `thunder` and `nvidia` runtime overrides
+- Fully uninstall the nvidia container toolkit
+- Reinstall the [nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ## Need Help?
 
