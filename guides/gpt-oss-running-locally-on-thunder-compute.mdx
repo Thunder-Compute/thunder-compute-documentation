@@ -1,80 +1,94 @@
 ---
-title: "Run GPT-OSS 120B on Thunder Compute"
-description: "A Guide on how to setup and run gpt-oss 120b, affordably on Thunder Compute"
+title: "Run GPT‑OSS 120B on Thunder Compute"
+description: "A guide to setting up and running GPT‑OSS 120B affordably on Thunder Compute."
 mode: "wide"
-sidebarTitle: "GPT-OSS 120B"
+sidebarTitle: "GPT‑OSS 120B"
 ---
 
-# Run gpt-oss-120b on Thunder Compute
+# Run GPT‑OSS 120B on Thunder Compute
 
-Looking for the **cheapest way to self-host and run gpt-oss-120b** or just want to **try gpt-oss-120b** without buying hardware? Thunder Compute lets you spin up pay‑per‑minute A100 GPUs so you only pay for the time you use. Follow the steps below to get the model running in minutes.
+Looking for the **cheapest way to self‑host GPT‑OSS 120B** or just want to **try it out** without buying hardware? Thunder Compute lets you spin up pay‑per‑minute NVIDIA A100 GPUs, so you only pay for what you use. Follow the steps below to get the model running in minutes.
 
-> **Quick reminder:** Make sure your Thunder Compute account is set up. If not, start with our [Quickstart Guide](/quickstart).
+> **Prerequisite:** Ensure your Thunder Compute account is ready. If not, start with our [Quickstart Guide](/quickstart).
 
-## Step 1: Create a Cost‑Effective prototyping mode GPU Instance
+## Step 1 — Create a Cost‑Effective Prototyping‑Mode GPU Instance
 
-Open your CLI and launch an 80GB A100 GPU, with 80Gb of video ram it is large enough to host the full 120B model:
+Launch an 80 GB A100 instance (large enough to host the full 120 B model):
 
 ```bash
-tnr create --gpu a100xl --vcpus 4 --mode prototyping --disk-size-gb 200 --template "ollama"
+tnr create \
+  --gpu a100xl \
+  --vcpus 4 \
+  --mode prototyping \
+  --disk-size-gb 200 \
+  --template "ollama"
 ```
 
-This will create one of our lower cost [prototyping mode](/prototyping-mode) instances with an A100 GPU, 4 vCPUs, and 200GB of storage, based off of our Ollama template.
-This will generally be the most cost effective of self-hosting and running the gpt-oss-120b on Thunder Compute.
+This command starts a lower‑cost [prototyping‑mode](/prototyping-mode) instance with:
 
-For more details on instance templates, see our [templates guide](/guides/using-instance-templates).
+* **GPU:** A100 80 GB
+* **vCPUs:** 4
+* **Storage:** 200 GB (from the *Ollama* template)
 
-## Step 2: Check Status and Connect
+> The GPU, vCPU Count, and Mode ([Prototyping](/prototyping-mode) / [Production](/production-mode)), can be changed later if your requirements change, and the amount of storage can be increased if needed.
 
-Verify the instance is running:
+For details on templates, see the [Instance Templates guide](/guides/using-instance-templates).
+
+## Step 2 — Check Status and Connect
+
+Verify that the instance is running, it can take a minute to spin up:
 
 ```bash
 tnr status
 ```
 
-<img src="/images/InstanceStatus_v2.png" width="750" alt="Instance Status Result" />
+<img src="/images/InstanceStatus_v2.png" width="750" alt="Instance status output" />
+
+Connect to the instance:
 
 ```bash
-tnr connect <instance-id>
+tnr connect <instance‑id>
 ```
 
-## Step 3: Start the Ollama Server & download the model:
+## Step 3 — Start Ollama and Download the Model
 
-Inside the instance, start Ollama, this will start the Ollama server, as well as OpenWebUI, and a cloudflare tunnel to access the website on your local machine.
+Inside the instance, start Ollama (this also launches OpenWebUI and a Cloudflare tunnel):
 
 ```bash
 start-ollama
 ```
 
-This can take a bit of time to spin up the web ui: we can start downloading the models early:
+While the UI is initializing, download the model, here we are downloading the 120B variant of GPT‑OSS, but any models can be downloaded from the [Ollama Model Library](https://ollama.com/library):
 
 ```bash
 ollama pull gpt-oss:120b
 ```
 
-If you hit any hiccups, check our [troubleshooting guide](/docs/troubleshooting).
+> **Tip:** If you encounter issues, consult the [troubleshooting guide](/docs/troubleshooting).
 
-Wait about 60 seconds for the web UI to load.
+Give the UI about 60 seconds to finish loading.
 
-<img src="/images/Ollama_Status.png" width="750" alt="Ollama Status Result" />
+<img src="/images/Ollama_Status.png" width="750" alt="Ollama status output" />
 
-## Step 4: Access the Web UI and Load gpt-oss:120b
+## Step 4 — Access the Web UI and Select the Model
 
-1. Visit `http://localhost:8080` in your browser.
-2. Choose **gpt-oss:120b** from the dropdown.
+1. Open `http://localhost:8080` in your browser.
+2. Choose **gpt-oss:120b** from the model dropdown.
 
-## Step 5: Run gpt-oss:120b
+<img src="/images/OpenWebUI_ModelSelect.png" width="650" alt="OpenWebUI model selection" />
 
-Type a prompt in the web interface. For example:
+## Step 5 — Run GPT‑OSS 120B
 
-> _"Tell a tale of a seaman who found the treasure of the clouds by following the sound of thunder."_
+Enter a prompt in the web interface, for example:
+
+> *“Tell a tale of a seaman who found the treasure of the clouds by following the sound of thunder.”*
 
 ## Conclusion
 
-That's the **cheapest way to run gpt-oss:120b** and a quick way to **try gpt-oss:120b** on Thunder Compute. Explore more guides:
+That's it—the **cheapest way to run GPT‑OSS 120B** on Thunder Compute. For more, check out:
 
-- [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)
-- [Using Instance Templates](/guides/using-instance-templates)
-- [Running Jupyter notebooks](/guides/running-jupyter-notebooks-on-thunder-compute)
+* [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)
+* [Using Instance Templates](/guides/using-instance-templates)
+* [Running Jupyter Notebooks](/guides/running-jupyter-notebooks-on-thunder-compute)
 
-Happy building\!
+Happy building!
