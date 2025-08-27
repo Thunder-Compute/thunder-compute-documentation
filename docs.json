@@ -35,6 +35,7 @@
               "guides/using-snapshots",
               "guides/using-docker-on-thundercompute",
               "guides/installing-conda",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
               "guides/ssh-on-thunder-compute",
