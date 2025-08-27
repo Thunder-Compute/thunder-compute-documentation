@@ -38,7 +38,8 @@
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
               "guides/ssh-on-thunder-compute",
-              "guides/referral-program"
+              "guides/referral-program",
+              "guides/data-processing-addendum"
             ]
           },
           {
