@@ -1,89 +1,11 @@
 ---
 title: "Using Docker"
-description: "Learn how to use Docker with automatic GPU support on Thunder Compute instances. Run containers, manage images, and troubleshoot common Docker issues."
-mode: "wide"
+description: "Docker is currently unsupported on Thunder Compute."
+mode: wide
 sidebarTitle: "Docker"
 ---
 
-Docker containers on Thunder Compute instances now come with GPU support enabled through the "thunder" runtime. This means you can run Docker containers with GPU access without any additional configuration. For information about usage restrictions and limitations, see our [restrictions guide](/docs/restrictions).
+Docker is not yet supported on Thunder Compute.  
+We’re working on enabling direct container deployment as instances.  
 
-<Warning>
-  Production instances require some configuration to enable GPU support. See below for details.
-</Warning>
-
-## Getting Started
-
-1. Connect to a Thunder Compute instance using the [quickstart guide](/quickstart)
-2. Run your Docker containers as you would on a normal GPU instance: with `--runtime=nvidia` or `--gpus=all` if you need GPU support, otherwise without.
-
-<Info>
-  If you don't need GPU capabilities in the docker container at all, it makes more sense to run with docker's `runc` runtime.
-  No need to add the --runtime flag in this case, `runc` is set as the default runtime.
-</Info>
-
-## Example
-
-```bash
-# Run a container with GPU support
-docker run --runtime=nvidia ubuntu:22.04 nvidia-smi
-# Run Ollama server (see our [Deepseek guide](/guides/deepseek-r1-running-locally-on-thunder-compute) for an example use case)
-docker run --runtime=nvidia -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-# Run a normal container with the `runc` runtime
-docker run ubuntu:22.04
-```
-
-In a docker-compose file, that would look like this:
-
-```yaml
-services:
-  ollama:
-    image: ollama/ollama
-    runtime: nvidia
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama:/root/.ollama
-    restart: unless-stopped
-
-  gpu-test:
-    image: ubuntu:22.04
-    runtime: nvidia
-    command: nvidia-smi
-
-volumes:
-  ollama:
-```
-
-<Warning>
-  If you get an error that looks like `docker: unexpected EOF`, try running the
-  command again. For more troubleshooting tips, see our [troubleshooting
-  guide](/docs/troubleshooting).
-</Warning>
-
-## Additional Info
-
-### Supported Base Images
-
-Most modern Docker images are supported:
-
-- Ubuntu 22.04 and newer base images are fully supported
-- Ubuntu 20.04 base images are supported in beta
-- Other distributions like Alpine and Debian are supported
-
-### Thunder Runtime
-
-Thunder Compute instances replace the  `nvidia` runtime with the `thunder` runtime for all Docker containers.
-
-The "thunder" runtime is identical to the nvidia runtime while injecting requirements needed for Thunder Compute GPU support.
-
-### Production Mode
-
-To enable GPU support in production mode:
-
-- Modify `/etc/docker/daemon.json` to disable the `thunder` and `nvidia` runtime overrides
-- Fully uninstall the nvidia container toolkit
-- Reinstall the [nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-
-## Need Help?
-
-If you encounter any issues or have questions about Docker support, please contact our support team.
+If you run into issues, please [contact us](/support).

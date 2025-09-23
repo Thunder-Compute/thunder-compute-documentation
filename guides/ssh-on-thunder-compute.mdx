@@ -1,5 +1,5 @@
 ---
-title: "Manually SSH into a Thunder Compute instance"
+title: "SSH on Thunder Compute"
 description: "Learn how to manually SSH into Thunder Compute instances and troubleshoot common SSH connection errors."
 mode: "wide"
 sidebarTitle: "SSH manually"
@@ -14,26 +14,25 @@ sidebarTitle: "SSH manually"
 
 Some custom setups may require direct SSH access, for example, setting up remote-ssh in an unsupported editor. If this describes your use, read on. 
 
-# 1. How to SSH into a Thunder Compute instance
+## 1. Manually SSH into Thunder Compute
 
 To manually SSH into your Thunder Compute instance:
 
 1. **Connect once with the CLI** to set up your SSH configuration:
+
    ```bash
    tnr connect
    ```
-   This automatically adds your instance as `tnr-0` in your SSH config and sets up the necessary keys.
 
+   This automatically adds your instance as `tnr-0` in your SSH config and sets up the necessary keys.
 2. **SSH directly** using the configured alias:
+
    ```bash
    ssh tnr-0
    ```
-
 3. **Use with other IDEs**: You can also use `tnr-0` with other remote SSH tools like VS Code Remote-SSH, JetBrains Gateway, or any SSH-compatible IDE.
 
-That's it! The CLI handles all the key management and configuration for you.
-
-If you need to manually add an SSH key, you can add it to the authorized keys folder within your instance.
+That's it\! The CLI handles all the key management and configuration for you.
 
 ## 2. Troubleshooting SSH Errors
 
@@ -42,7 +41,6 @@ When you run `tnr connect`, the tool SSHs into your instance automatically. If s
 - **Bad permissions** – _"Try removing permissions for user: \\OWNER RIGHTS (S-1-3-4) on file C:\\Users\<your_username\>.ssh\\config."_
 - **Error reading SSH protocol banner** (often means the instance is out of memory and the SSH handshake cannot complete).
 - **Key authentication failed** (your SSH key is outdated or misconfigured).
-- **Invalid config** Your local ~/.ssh/config file is malformed. Delete this file and retry `tnr connect`.
 
 Follow the steps below to fix the problem.
 
@@ -69,9 +67,13 @@ ssh tnr-0
 
 #### Out-of-Memory
 
-If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources.
+If you see **Error reading SSH protocol banner**, the instance may have run out of RAM. Wait a few seconds and retry. For a permanent fix, launch an instance with more resources:
 
-_Tip: 8-16 vCPUs generally provide enough memory for most ML workloads._
+```bash
+tnr create --vcpus 8
+```
+
+_Tip: 16–32 vCPUs generally provide enough memory for most ML workloads._
 
 #### Permissions Problems
 
@@ -84,11 +86,13 @@ icacls "$env:USERPROFILE\.ssh\config" /inheritance:r
 Rename-Item -Path "$env:USERPROFILE\.ssh\config" -NewName 'config.old'
 ```
 
+
 ```bash MacOS
 chmod 600 ~/.ssh/config
 chown $(whoami) ~/.ssh/config
 mv ~/.ssh/config ~/.ssh/config.old
 ```
+
 
 ```bash Linux/WSL
 chmod 600 ~/.ssh/config
@@ -108,9 +112,11 @@ mv ~/.ssh/config ~/.ssh/config.old
 Rename-Item -Path "$env:USERPROFILE\.ssh\known_hosts" -NewName 'known_hosts.old'
 ```
 
+
 ```bash MacOS
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
 ```
+
 
 ```bash Linux/WSL
 mv ~/.ssh/known_hosts ~/.ssh/known_hosts.old
@@ -127,9 +133,11 @@ Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\locks"
 Remove-Item -Recurse -Force "$env:USERPROFILE\.thunder\keys"
 ```
 
+
 ```bash MacOS
 rm -rf ~/.thunder/locks ~/.thunder/keys
 ```
+
 
 ```bash Linux/WSL
 rm -rf ~/.thunder/locks ~/.thunder/keys
@@ -149,4 +157,4 @@ If the steps above do not resolve the error, reinstalling the tooling often does
 
 Open a ticket in our [Discord support channel](https://discord.gg/thundercompute) with the exact error output, and we will get you unblocked fast.
 
-Happy troubleshooting! 
+Happy troubleshooting\!
