@@ -30,6 +30,7 @@
           {
             "group": "Guides",
             "pages": [
+              "guides/migrating-to-v2",
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
               "guides/using-snapshots",
