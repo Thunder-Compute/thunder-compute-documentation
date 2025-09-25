@@ -58,8 +58,8 @@ For large datasets, you can transfer directly between instances (bypassing your 
 
    ```bash
    tnr connect <old-id>
-   curl -fsSL https://tnr.dev/install.sh | bash
-   source ~/.bashrc  # or restart your shell
+   curl -fsSL https://console.thundercompute.com/install.sh | sh
+   source ~/.bashrc
    ```
 
 2. **Connect to the new instance from the old instance**
@@ -88,7 +88,11 @@ This method uses the direct network connection between instances, which is typic
    tnr snapshot delete <old-snapshot-id>
    ```
 
+## Compatibility
+
+Please note that Docker and systemd are not currently supported on Thunder Compute v2. We plan to release functionality to directly deploy containers as instances in the near future.
+
 ## Need help?
 
-Our team can assist end‑to‑end. If you get stuck, ping us and we’ll help—or do the migration for you.
+Our team can assist end‑to‑end. If you get stuck, ping us and we'll help—or do the migration for you.
 
