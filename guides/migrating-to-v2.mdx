@@ -31,7 +31,7 @@ tnr connect <new-id>
 Then use `rsync` from your local machine to transfer directly between the two instances. This resumes partial transfers and shows progress:
 
 ```bash
-rsync -avhz --partial --inplace --progress tnr-<old-id>:~/ tnr-<new-id>:~/
+rsync -avhz --progress tnr-<old-id>:~/ tnr-<new-id>:~/
 ```
 
 Notes:
