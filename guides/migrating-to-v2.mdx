@@ -1,7 +1,7 @@
 ---
 title: "Migrating legacy instances to Thunder Compute v2"
 description: "Quick steps to move your files and workflows to Thunder Compute v2."
-mode: wide
+mode: "wide"
 sidebarTitle: "Migrate to v2"
 ---
 
@@ -15,11 +15,11 @@ We’re officially on **v2** of Thunder Compute’s infrastructure 🎉 🚀
 
 ## Migrate in 3 steps
 
-1) **Create a new instance**
+1. **Create a new instance**
 
 With the browser, CLI, or VS Code extension, create a new instance. All new instances are automatically on v2.
 
-2) **Copy files from your old instance**
+2. **Copy files from your old instance**
 
 First, create SSH aliases for both instances (this happens on first connect):
 
@@ -40,53 +40,13 @@ Notes:
 - Run the command from your local computer; the `tnr-<id>` SSH configs are created on first connect.
 - To mirror exactly (including deletions), add `--delete` (use with care).
 
-3) **Delete old instances and snapshots** (after verifying the new instance)
+3. **Delete old instances and snapshots** (after verifying the new instance)
 
 ```bash
 tnr stop <old-id>
 tnr delete <old-id>
 tnr snapshot delete <old-snapshot-id>
 ```
-
-## Advanced: Faster transfer
-
-For large datasets, you can transfer directly between instances (bypassing your local machine) for better performance:
-
-1. **Set up tnr CLI on the old instance**
-
-   Connect to your old instance and install the tnr CLI:
-
-   ```bash
-   tnr connect <old-id>
-   curl -fsSL https://console.thundercompute.com/install.sh | sh
-   source ~/.bashrc
-   ```
-
-2. **Connect to the new instance from the old instance**
-
-   While still on the old instance, connect to the new instance to create the SSH alias:
-
-   ```bash
-   tnr connect <new-id>
-   ```
-
-3. **Transfer directly**
-
-   Now run the transfer from the old instance:
-
-   ```bash
-   rsync -avhz --partial --inplace --progress ~/ tnr-<new-id>:~/
-   ```
-
-This method uses the direct network connection between instances, which is typically faster than routing through your local machine.
-
-4. **Delete old instances and snapshots** (after verifying the new instance)
-
-   ```bash
-   tnr stop <old-id>
-   tnr delete <old-id>
-   tnr snapshot delete <old-snapshot-id>
-   ```
 
 ## Compatibility
 
@@ -95,4 +55,3 @@ Please note that Docker and systemd are not currently supported on Thunder Compu
 ## Need help?
 
 Our team can assist end‑to‑end. If you get stuck, ping us and we'll help—or do the migration for you.
-
