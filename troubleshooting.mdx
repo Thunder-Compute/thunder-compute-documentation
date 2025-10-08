@@ -41,12 +41,7 @@ To help prevent common issues and get the most out of Thunder Compute, we recomm
 
 If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to [Production mode](/docs/production-mode). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the prototyping tier.
 
-To switch to production mode:
-```
-tnr modify <instance_id> --mode production
-```
-
-Note that production mode has a higher hourly cost but guarantees predictable performance and compatibility.
+Instances cannot be converted to production mode after creation. Back up your data, create a new production tier instance, and restore your environment there. Production mode has a higher hourly cost but guarantees predictable performance and compatibility.
 
 ## Support
 

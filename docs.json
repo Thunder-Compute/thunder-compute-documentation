@@ -32,7 +32,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/using-snapshots",
               "guides/using-ephemeral-storage",
               "guides/using-docker-on-thundercompute",
               "guides/installing-conda",

@@ -1,6 +1,6 @@
 ---
 title: "CLI Reference"
-description: "Comprehensive reference for the Thunder Compute CLI. Manage instances (create, delete), configure GPUs/CPUs, handle files, and use snapshots."
+description: "Comprehensive reference for the Thunder Compute CLI. Manage instances (create, delete), configure GPUs/CPUs, and handle files."
 icon: "bolt"
 iconType: "solid"
 ---
@@ -46,7 +46,7 @@ tnr create
 This creates a new instance with default configuration and automatically assigns an instance ID.
 
 <Note>
-  Instance storage is ephemeral. Back up important data externally or create a snapshot before you delete an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
+  Instance storage is ephemeral. Back up important data externally before you delete an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
 </Note>
 
 #### CPU Configuration
@@ -186,47 +186,9 @@ tnr scp 0:/remote/file.txt ./local_path/
   compression, and `~/` expansion are handled automatically.
 </Note>
 
-## Managing Snapshots
+## Instance Lifecycle
 
-Snapshots capture the state of an instance's disk so you can create new instances from that point in time. For a detailed guide on using snapshots, including how to create them from the console, see our [Using Snapshots guide](/guides/using-snapshots).
-
-### CLI Commands
-
-- **Create a snapshot:** `tnr snapshot <instance_ID> <snapshot_name>`
-- **List snapshots:** `tnr snapshot --list`
-- **Delete a snapshot:** `tnr snapshot --delete <snapshot_name>`
-
-To create an instance from a snapshot, use the `--template` flag with the snapshot name:
-`tnr create --template <snapshot_name>`
-
-## System Management
-
-### Modify Instance
-
-Modify the instance's vCPU count (and RAM), GPU type, or disk size:
-
-```
-tnr modify <instance_ID> \
-  --disk-size-gb <new_size_GB> \
-  --gpu <new_gpu_type> \
-  --vcpus <new_vcpu_count> \
-  --mode <mode>
-```
-
-All flags are optional, but at least one change must be provided.
-
-These changes will affect the billing price of the instance.
-
-Each additional vCPU adds 8GB of RAM to your instance.
-
-Available modes:
-- `prototyping` (default): Optimized for cost-effective development
-- `production`: Premium instances with maximum compatibility, stability, and reliability
-
-<Warning>
-  Storage can only be increased, not decreased. For smaller storage needs,
-  create a new instance and transfer your files before deleting the original.
-</Warning>
+Instances cannot be modified after creation. To change configuration (GPU, vCPU, disk size, or mode), create a new instance with the desired settings and migrate your data before deleting the original.
 
 ### View Instance Status
 
