@@ -32,7 +32,7 @@ You can switch between options or use both by saving a payment method later even
 
 ## Our rates
 
-All compute resources are billed per minute only while your instances run. This includes time spent starting, stopping, or deleting. Storage incurs charges even when instances are stopped. Rates and promotions are subject to change without notice. For current rates, see our [pricing page](https://www.thundercompute.com/pricing).
+All compute resources are billed per minute only while your instances run. Instances can be created and deleted—there is no stopped state—and storage is fully ephemeral. Back up anything important before deleting an instance, as all data is removed. Rates and promotions are subject to change without notice. For current rates, see our [pricing page](https://www.thundercompute.com/pricing).
 
 ## Credit terms
 
@@ -44,9 +44,9 @@ All compute resources are billed per minute only while your instances run. This 
 
 While Thunder Compute is already the cheapest GPU cloud platform, there are a few strategies we recommend to reduce your bill:
 
-- Turn off instances when you're done.
-- Right‑size with `tnr modify` to match your workload.
-- Delete instances you no longer need.
-- Use snapshots to compress long‑term data.
+- Delete instances as soon as you're done with them (after backing up anything you need to keep).
+- Right‑size new workloads with `tnr create --gpu`, `--vcpus`, and related flags so you only pay for what you use.
+- Use snapshots to capture reusable environments before you delete an instance.
+- Follow our [Using Ephemeral Storage guide](/guides/using-ephemeral-storage) for backup best practices.
 
 We think this balances a smooth experience with strong verification—but if you have feedback or questions, please hop into our [Discord](https://discord.com/invite/nwuETS9jJK). We're always happy to improve\!

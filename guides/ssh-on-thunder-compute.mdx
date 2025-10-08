@@ -44,16 +44,9 @@ When you run `tnr connect`, the tool SSHs into your instance automatically. If s
 
 Follow the steps below to fix the problem.
 
-### A. Restart the Instance
+### A. Recreate the Instance
 
-A quick restart clears many transient issues:
-
-```bash
-tnr stop
-tnr start
-```
-
-Wait about a minute, then try `tnr connect` again.
+Because Thunder Compute instances use [ephemeral storage](/guides/using-ephemeral-storage), the quickest fix is often to back up any critical files, delete the instance, and create a new one. This gives you a fresh environment without lingering SSH state.
 
 ### B. Test a Manual SSH Connection
 

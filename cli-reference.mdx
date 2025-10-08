@@ -1,6 +1,6 @@
 ---
 title: "CLI Reference"
-description: "Comprehensive reference for the Thunder Compute CLI. Manage instances (create, start, stop, delete), configure GPUs/CPUs, handle files, and use snapshots."
+description: "Comprehensive reference for the Thunder Compute CLI. Manage instances (create, delete), configure GPUs/CPUs, handle files, and use snapshots."
 icon: "bolt"
 iconType: "solid"
 ---
@@ -44,6 +44,10 @@ tnr create
 ```
 
 This creates a new instance with default configuration and automatically assigns an instance ID.
+
+<Note>
+  Instance storage is ephemeral. Back up important data externally or create a snapshot before you delete an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
+</Note>
 
 #### CPU Configuration
 
@@ -114,26 +118,6 @@ Available modes:
 - `prototyping` (default): Development mode optimized for intermittent workloads
 - `production`: Premium instance with maximum compatibility, stability, and reliability for production workloads
 
-### Stop an Instance
-
-Stops a running instance.
-
-```
-tnr stop <instance_ID>
-```
-
-<Note>
-  Stopped instances continue to accrue storage cost.
-</Note>
-
-### Start an Instance
-
-Starts a stopped instance.
-
-```
-tnr start <instance_ID>
-```
-
 ### Delete an Instance
 
 ```
@@ -154,7 +138,7 @@ Use the `connect` command to access your instance. This wraps SSH, managing keys
 tnr connect <instance_ID>
 ```
 
-The instance must be running before you can connect to it. See if the instance is running and get the instance ID (default `0`) with `tnr status`.
+Instances cannot be restarted once deleted, so always back up important data before destroying them. Use `tnr status` to see instance IDs (default `0`).
 
 ### Port Forwarding
 
@@ -204,7 +188,7 @@ tnr scp 0:/remote/file.txt ./local_path/
 
 ## Managing Snapshots
 
-Snapshots capture the state of a stopped instance's disk, allowing you to create new instances from that point in time. For a detailed guide on using snapshots, including how to create them from the console, see our [Using Snapshots guide](/guides/using-snapshots).
+Snapshots capture the state of an instance's disk so you can create new instances from that point in time. For a detailed guide on using snapshots, including how to create them from the console, see our [Using Snapshots guide](/guides/using-snapshots).
 
 ### CLI Commands
 
@@ -233,8 +217,6 @@ All flags are optional, but at least one change must be provided.
 
 These changes will affect the billing price of the instance.
 
-Instances must be stopped to modify the vCPU count/RAM, GPU type, or mode. You can resize disk at any time.
-
 Each additional vCPU adds 8GB of RAM to your instance.
 
 Available modes:
@@ -243,7 +225,7 @@ Available modes:
 
 <Warning>
   Storage can only be increased, not decreased. For smaller storage needs,
-  create a new instance and transfer your files.
+  create a new instance and transfer your files before deleting the original.
 </Warning>
 
 ### View Instance Status

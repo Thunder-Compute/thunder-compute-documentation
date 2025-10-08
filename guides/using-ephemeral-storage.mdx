@@ -16,7 +16,7 @@ This change enables several important benefits:
 - **Access to new GPU types**, including H100s and 8-GPU nodes
 - **Faster instance creation** and deletion
 
-While we plan to reintroduce persistent storage in a more scalable form in the future, we recommend using external backup solutions to preserve your important data.
+Because Thunder Compute no longer offers persistent storage, we recommend using external backup solutions to preserve your important data.
 
 ## Recommended Backup Solutions
 
@@ -47,13 +47,13 @@ The simplest approach - just download large files to your local machine when you
 
 #### Option B: Use Cloud Object Storage
 
-If local storage isn't practical, cloud services are much cheaper than our legacy persistent storage:
+If local storage isn't practical, cloud services are much cheaper than keeping large files on GPU instances:
 
 - **[Cloudflare R2](https://www.cloudflare.com/products/r2/)** - S3-compatible storage with zero egress fees (10GB free)
 - **[Google Drive](https://www.google.com/drive/)** - Simple and familiar interface (15GB free)
 
 <Note>
-  These cloud storage options cost significantly less than Thunder Compute's legacy persistent storage and prevent you from accidentally leaving instances running and getting surprise bills.
+  These cloud storage options cost significantly less than leaving data on compute nodes and prevent you from accidentally leaving instances running and getting surprise bills.
 </Note>
 
 ## Setting Up Backups
@@ -159,4 +159,3 @@ If you run into any issues setting up your backup workflow or have questions abo
 - Email us at support@thundercompute.com
 
 We're here to help you transition smoothly to ephemeral storage!
-

@@ -3,7 +3,11 @@ title: "Using Snapshots"
 description: "Learn how to use Snapshots to save the state of your instance's disk and create new instances from it."
 ---
 
-Snapshots allow you to save the state of a stopped instance's disk, which you can then use as a template to create new instances. This is useful for saving a configured environment, so you can quickly launch new instances with the same setup.
+Snapshots allow you to save the state of an instance's disk before you delete it, which you can then use as a template to create new instances. This is useful for saving a configured environment, so you can quickly launch new instances with the same setup.
+
+<Note>
+  Instance storage is ephemeral. Create a snapshot or back up your data before deleting an instance if you need to reuse its environment. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for more strategies.
+</Note>
 
 Conveniently, snapshots also compress your data and place it on cheaper HDDs vs standard SSD storage. This cuts cost by about 75% for long-term storage.
 
@@ -13,12 +17,12 @@ Conveniently, snapshots also compress your data and place it on cheaper HDDs vs 
 
 ## Creating a Snapshot
 
-You can create a snapshot from any stopped instance using either the Thunder Compute Console or the CLI.
+You can create a snapshot using either the Thunder Compute Console or the CLI before you delete the instance.
 
 ### Using the Console
 
 1.  Navigate to the [Thunder Compute Console](https://console.thundercompute.com/).
-2.  Find the instance you want to snapshot. The instance must be in a `STOPPED` state.
+2.  Find the instance you want to snapshot. The console handles any required preparation automatically.
 3.  Check the box next to the instance, and click the "Snapshot" button in the action bar.
 
 ### Using the CLI
@@ -29,7 +33,7 @@ To create a snapshot with the CLI, use the `tnr snapshot` command:
 tnr snapshot <instance_ID> <snapshot_name>
 ```
 
-- `<instance_ID>`: The ID of the instance to snapshot. The instance must be stopped. You can find the instance ID by running `tnr status`.
+- `<instance_ID>`: The ID of the instance to snapshot. You can find the instance ID by running `tnr status`.
 - `<snapshot_name>`: A unique name for your snapshot.
   - Must contain only lowercase letters (a-z), numbers (0-9), and hyphens (-).
   - Must be between 1 and 62 characters long.

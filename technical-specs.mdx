@@ -1,6 +1,6 @@
 ---
 title: "Technical Specifications"
-description: "Hardware specifications, networking details, storage options, and pre-installed software for Thunder Compute instances"
+description: "Hardware specifications, networking details, ephemeral storage behavior, and pre-installed software for Thunder Compute instances"
 icon: "server"
 iconType: "solid"
 ---
@@ -41,19 +41,18 @@ iconType: "solid"
 
 ## Storage
 
-### Persistent Disk
+### Ephemeral Disk
 
-- All instances use persistent disks by default
-- Data persists when instances are stopped (storage charges continue)
-- Performance: ~100k IOPS and 1200 Mbps Read/Write
+- All instances use ephemeral storage
+- Deleting an instance permanently removes all data on its disk
+- Back up important files before deleting an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
 
 ### Snapshots
 
-Save instance state for long-term storage at ~75% lower cost. See our [Using Snapshots guide](/guides/using-snapshots) for details.
+Snapshots let you capture an instance's disk so you can recreate the same environment later. See our [Using Snapshots guide](/guides/using-snapshots) for details on creating, listing, and restoring snapshots.
 
 ## Data Retention
 
-- **Inactive accounts**: All storage deleted after 60 days of no running instances
-- **Scope**: Per account (not per instance)
-- **Reset**: Starting any instance resets the 60-day timer
-- **Permanent**: Deletions cannot be undone
+- **Ephemeral by default**: Instance storage exists only while the instance is active
+- **Backups required**: Copy critical data off the instance or create a snapshot before deleting it
+- **Permanent**: Deleting an instance or snapshot cannot be undone

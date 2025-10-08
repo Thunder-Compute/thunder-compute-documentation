@@ -9,7 +9,7 @@ iconType: solid
 
 1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>`
 2.  Upgrade tnr. Depending on your install method, you may have to use `pip install tnr --upgrade` or re-download the binary from the website
-3.  Restart the instance by running `tnr stop <instance_id>` and `tnr start <instance_id>` (full documentation in [CLI operations](/docs/cli-reference))
+3.  Back up any important data, then delete and recreate the instance. Instances use [ephemeral storage](/guides/using-ephemeral-storage), so deleting them permanently removes their data.
 
 ## Logs
 
@@ -25,7 +25,7 @@ A common error you may encounter is some variant of "This function is not implem
 
 If you encounter SSH-related errors (like `Error reading SSH protocol banner` or permission issues), first retry the command.
 
-For quick fixes, try restarting your instance with `tnr stop <instance_id>` and `tnr start <instance_id>`.
+For quick fixes, back up critical data and recreate the instance. Instances cannot be stopped or restarted.
 
 For persistent SSH issues, see our [SSH on Thunder Compute guide](/guides/ssh-on-thunder-compute) for alternative connection methods.
 
@@ -51,4 +51,3 @@ Note that production mode has a higher hourly cost but guarantees predictable pe
 ## Support
 
 The fastest way to get support is to join [our discord](https://discord.gg/nwuETS9jJK). Our founding team will personally respond to help you as quickly as possible.
-
