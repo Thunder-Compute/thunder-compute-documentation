@@ -1,0 +1,75 @@
+---
+title: "Migrating legacy instances to Thunder Compute v2"
+description: "Quick steps to move your files and workflows to Thunder Compute v2."
+mode: "wide"
+sidebarTitle: "Migrate to v2"
+---
+
+We’re officially on **v2** of Thunder Compute’s infrastructure 🎉 🚀
+
+**What’s new**
+
+- **Faster** CPUs, networking, and GPUs (often by large margins)
+- **More reliable** start/stop/connect operations
+- **Coming soon**: H100s, 8× GPU nodes, and more GPU types
+
+## Migrate in 3 steps
+
+1. **Create a new instance**
+
+With the browser, CLI, or VS Code extension, create a new instance. All new instances are automatically on v2.
+
+```bash
+tnr create
+```
+
+2. **Copy files from your old instance**
+
+First, connect to the old instance:
+
+```bash
+tnr connect <old-id>
+```
+
+Then, install the thunder CLI within your old instance.
+
+```bash
+curl -fsSL https://console.thundercompute.com/install.sh | sh
+```
+
+From within the old instance, connect to the new instance.
+```bash
+tnr connect <new-id>
+```
+
+Exit from the new instance, staying in the old instance.
+
+```bash
+
+3. **Use rsync to transfer files**
+
+```bash
+rsync -avhz --progress tnr-<old-id>:~/ tnr-<new-id>:~/
+```
+
+Notes:
+
+- You can scope to specific directories, e.g., `tnr-<old-id>:~/project/` to `tnr-<new-id>:~/project/`.
+- Run the command from your local computer; the `tnr-<id>` SSH configs are created on first connect.
+- To mirror exactly (including deletions), add `--delete` (use with care).
+
+3. **Delete old instances and snapshots** (after verifying the new instance)
+
+```bash
+tnr stop <old-id>
+tnr delete <old-id>
+tnr snapshot delete <old-snapshot-id>
+```
+
+## Compatibility
+
+Please note that Docker and systemd are not currently supported on Thunder Compute v2. We plan to release functionality to directly deploy containers as instances in the near future.
+
+## Need help?
+
+Our team can assist end‑to‑end. If you get stuck, ping us and we'll help—or do the migration for you.
