@@ -4,8 +4,8 @@
   "name": "Thunder Compute",
   "colors": {
     "primary": "#95c5ea",
-    "light": "#4476a8",
-    "dark": "#95c5ea"
+    "light": "#95c5ea",
+    "dark": "#4476a8"
   },
   "favicon": "/thunder_favicon.png",
   "navigation": {
