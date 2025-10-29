@@ -68,9 +68,6 @@
   "appearance": {
     "default": "dark"
   },
-  "background": {
-    "decoration": "grid"
-  },
   "navbar": {
     "links": [
       {
