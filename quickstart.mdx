@@ -28,23 +28,26 @@ mode: "wide"
 
     You can create instances through the [console](https://console.thundercompute.com) or directly through the extension like so:
 
-    ![Create Instance](/images/Create_Instance.png)
+    ![Create Instance](/images/VSCode_Create_Instance.png)
 
     Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
 
-    ![Connect to Instance](/images/Connect_to_Instance.png)
+    ![Connect to Instance](/images/VSCode_Connect_Instance.png)
 
     <Note>
       If connecting to the instance fails, check that you have the remote-ssh extension installed on your editor.
     </Note>
     A new window will open connected to your instance. You can drag files you need into the file explorer, run notebooks, scripts, and more as if they were on your local machine.
+
+    ![SSH View](/images/VSCode_SSH.png)
+
   </Tab>
   <Tab title="CLI">
     <Tabs>
       <Tab title="Windows">
         ### Installation
 
-        Download the installer for x64 from [here (most common)](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/windows/x64/tnr-installer.exe) or for ARM64 from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/windows/arm64/tnr-installer.exe) and run the .exe file
+        Download the installer for x64 from [here (most common)](https://gettnr.com/tnr/releases/latest/windows/tnr_windows_amd64.msi) or for ARM64 from [here](https://gettnr.com/tnr/releases/latest/windows/tnr_windows_arm64.msi) and run the .msi file.
 
         ### Authentication
 
@@ -65,13 +68,13 @@ mode: "wide"
         ```powershell
         # Create an instance
         tnr create
-        
+
         # Check on your instance
         tnr status
-        
+
         # Connect to a running instance
         tnr connect 0
-        
+
         # (Optional) Start a template within a running instance
         start-<template-name> # Example: start-ollama
         ```
@@ -79,7 +82,7 @@ mode: "wide"
       <Tab title="MacOS">
         ### Installation
 
-        Download the installer for macOS from [here](https://storage.cloud.google.com/thunder-cli-executable/signed-releases-v2/darwin/thunder-cli-installer.pkg) and run the .pkg file
+        Download the installer for Apple Silicon (ARM64) from [here (most common)](https://gettnr.com/tnr/releases/latest/macos/tnr_darwin_arm64.pkg) or the Intel x64 from [here](https://gettnr.com/tnr/releases/latest/macos/tnr_darwin_amd64.pkg) and run the .pkg file.
 
         ### Authentication
 
@@ -100,13 +103,13 @@ mode: "wide"
         ```bash
         # Create an instance
         tnr create
-        
+
         # Check on your instance
         tnr status
-        
+
         # Connect to a running instance
         tnr connect 0
-        
+
         # (Optional) Start a template within a running instance
         start-<template-name> # Example: start-ollama
         ```
@@ -141,18 +144,19 @@ mode: "wide"
         ```bash
         # Create an instance
         tnr create
-        
+
         # Check on your instance
         tnr status
-        
+
         # Connect to a running instance
         tnr connect 0
-        
+
         # (Optional) Start a template within a running instance
         start-<template-name> # Example: start-ollama
         ```
       </Tab>
     </Tabs>
+
   </Tab>
 </Tabs>
 
