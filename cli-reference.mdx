@@ -43,33 +43,52 @@ Create a new Thunder Compute instance:
 tnr create
 ```
 
-This creates a new instance with default configuration and automatically assigns an instance ID.
+This will open an interactive menu where you can manually configure your new instance.
 
-<Note>
-  Instance storage is ephemeral. Back up important data externally before you delete an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
-</Note>
-
-#### CPU Configuration
-
-Configure custom vCPU count:
+Alternatively, you can start an instance in one command using:
 
 ```
-tnr create --vcpus <vcpu_count>
+tnr create --mode prototyping --gpu t4 --vcpus 8 --template base --disk-size-gb 100
 ```
 
-Each vCPU comes with 8GB of RAM. For example, a 4 core instance has 32GB of RAM, and an 8 core instance has 64GB of RAM.
+### Flags
+
+Below are the flags you need to configure if you are not using the standard create command:
+
+| Flag           | Description                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
+| --mode         | prototyping or production                                                                                    |
+| --gpu          | t4 or a100 (prototyping only), a100 or h100 (production only)                                                |
+| --num-gpus     | 1, 2, or 4 (production only)                                                                                 |
+| --vcpus        | CPU cores (prototyping only): 4, 8, 16, or 32, RAM: 8GB per vCPU. Production: 18 per GPU, RAM: 144GB per GPU |
+| --template     | base, comfy-ui, comfy-ui-wan, ollama, webui-forge                                                            |
+| --disk-size-gb | 100-400 GB (prototyping), 100-1000 GB (production)                                                           |
 
 <Note>
-  By default, 4 vCPUs and 32GB of memory are included with your instance. Additional vCPUs are
-  billed hourly at the rates shown [here](https://www.thundercompute.com/pricing)
+  Instance storage is ephemeral. Back up important data externally before you
+  delete an instance. See [Using Ephemeral
+  Storage](/guides/using-ephemeral-storage) for recommended workflows.
 </Note>
+
+#### Mode Configuration
+
+Choose between prototyping and production modes:
+
+```
+tnr create --mode <mode> ...
+```
+
+Available modes:
+
+- `prototyping` (default): Development mode optimized for intermittent workloads
+- `production`: Premium instance with maximum compatibility, stability, and reliability for production workloads
 
 #### GPU Configuration
 
 Specify a GPU type:
 
 ```
-tnr create --gpu <gpu_type>
+tnr create ... --gpu <gpu_type> ...
 ```
 
 Available GPU types:
@@ -77,12 +96,37 @@ Available GPU types:
 - `t4`: NVIDIA T4 (16GB VRAM) - Best for most ML workloads
 - `a100` (default): NVIDIA A100 (40GB VRAM) - For large models and high-performance computing
 - `a100xl` : NVIDIA A100 (80GB VRAM) - For even larger models, the biggest and the best
+- `h100` : NVIDIA H100 (80GB VRAM) - Latest generation GPU for cutting-edge AI and production workloads
 
-You can use the `--num-gpus` flag to specify multiple GPU configurations:
+#### GPU Count
+
+This flag can only be used when creating a **Production instance**. To set the GPU count, simply add:
 
 ```
-tnr create --gpu <gpu_type> --num-gpus <n>
+tnr create ... --num-gpus <gpu_count> ...
 ```
+
+vCPU and RAM count scales with the number of GPUs. This is detailed [here](#production-vcpu-ram).
+
+#### CPU Configuration
+
+<span id="production-vcpu-ram"></span>
+
+This flag can only be used when creating a **Prototyping instance**. To configure custom vCPU count:
+
+```
+tnr create ... --vcpus <vcpu_count> ...
+```
+
+Each vCPU comes with 8GB of RAM. For example, a 4 core instance has 32GB of RAM, and an 8 core instance has 64GB of RAM.
+
+By default, Production instances are set to 18 vCPUs and 144 GB RAM for both A100s and H100s, and this scales with GPU Count. For example, 2 GPUs equates to 36 vCPUs and 288 GB RAM
+
+<Note>
+  By default, 4 vCPUs and 32GB of memory are included with your instance.
+  Additional vCPUs are billed hourly at the rates shown
+  [here](https://www.thundercompute.com/pricing)
+</Note>
 
 #### Template Configuration
 
@@ -91,13 +135,15 @@ Templates make it easy to quickly launch common AI tools. Your instance will alr
 To use a template, add the `--template` flag when creating an instance:
 
 ```
-tnr create --template <template_name>
+tnr create ... --template <template_name> ...
 ```
 
 Available templates:
 
+- `base`: Ubuntu instance with PyTorch + CUDA
 - `ollama`: Ollama server environment
 - `comfy-ui`: ComfyUI for AI image generation
+- `comfy-ui-wan`: ComfyUI with Wan2.1 pre-installed
 - `webui-forge`: WebUI Forge for Stable Diffusion
 
 After instance creation, start the server using `start-<template_name>` when connected. For example:
@@ -106,26 +152,25 @@ After instance creation, start the server using `start-<template_name>` when con
 start-ollama
 ```
 
-#### Mode Configuration
-
-Choose between prototyping and production modes:
-
-```
-tnr create --mode <mode>
-```
-
-Available modes:
-- `prototyping` (default): Development mode optimized for intermittent workloads
-- `production`: Premium instance with maximum compatibility, stability, and reliability for production workloads
-
 ### Delete an Instance
+
+To run the interactive delete menu, run the following command:
+
+```
+tnr delete
+```
+
+This will display all your current instances (if any exist) and will make you confirm before deleting a specific instance.
+
+However, the command below allows for instant delete as long as you provide a proper **instance_ID**. Most likely, your instance_ID will be '0'.
 
 ```
 tnr delete <instance_ID>
 ```
 
 <Warning>
-  This action permanently removes an instance and all associated data.
+  This action permanently removes an instance and all associated data. This
+  guide on [Weights & Biases] shows how to set up external checkpoints.
 </Warning>
 
 ## Using instances
@@ -133,6 +178,14 @@ tnr delete <instance_ID>
 ### Connect to an Instance
 
 Use the `connect` command to access your instance. This wraps SSH, managing keys while automatically setting up everything you need to get started.
+
+You can run the following command to launch the interactive connect menu:
+
+```
+tnr connect
+```
+
+Alternatively, you can run the command below:
 
 ```
 tnr connect <instance_ID>
@@ -145,7 +198,7 @@ Instances cannot be restarted once deleted, so always back up important data bef
 Connect with port forwarding with the `-t` or `--tunnel` flag:
 
 ```
-tnr connect <instance_ID> -t PORT1 -t PORT2
+tnr connect <instance_ID> -t <port_1> -t <port_2>
 ```
 
 Features:
