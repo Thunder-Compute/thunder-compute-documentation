@@ -252,3 +252,54 @@ tnr status
 ```
 
 use the `--no-wait` flag to disable automatic monitoring for status updates
+
+## Snapshots
+
+Snapshots let you save the state of a running instance and restore it later. For detailed usage, see [Using Snapshots](/guides/using-snapshots).
+
+### Create a Snapshot
+
+```
+tnr snapshot create
+```
+
+This opens an interactive menu to select a running instance and name your snapshot. You can also use flags:
+
+```
+tnr snapshot create --instance-id 0 --name my-snapshot
+```
+
+<Note>
+  Snapshots can only be created from instances in RUNNING state.
+</Note>
+
+### List Snapshots
+
+```
+tnr snapshot list
+```
+
+### Delete a Snapshot
+
+```
+tnr snapshot delete
+```
+
+Or delete by name directly:
+
+```
+tnr snapshot delete my-snapshot
+```
+
+### Restore from a Snapshot
+
+When creating a new instance, your snapshots appear alongside templates in the selection menu. Choose a snapshot to create an instance with your saved state.
+
+```
+tnr create
+# Select your snapshot in the "Templates" step
+```
+
+<Note>
+  Restoring from a snapshot may take about 10 minutes per 100GB of data.
+</Note>
