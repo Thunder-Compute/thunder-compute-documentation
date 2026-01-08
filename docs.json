@@ -47,7 +47,7 @@
           },
           {
             "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/swagger/doc.json"
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
           }
         ]
       }
