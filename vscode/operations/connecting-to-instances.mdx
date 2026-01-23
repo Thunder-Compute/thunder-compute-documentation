@@ -1,6 +1,6 @@
 ---
 title: "Connecting to Instances"
-description: "SSH into your Thunder Compute instances and set up port forwarding"
+description: "SSH into your Thunder Compute instances"
 icon: "plug"
 iconType: "solid"
 ---
@@ -28,17 +28,9 @@ A new VSCode window opens connected to your instance. You can browse files, edit
   If connecting fails, make sure you have the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension installed.
 </Note>
 
-### Port Forwarding
+### Exposing Services
 
-Once connected, VSCode automatically detects services running on common ports and offers to forward them.
-
-To manually forward a port:
-
-1. Open the Command Palette (`Ctrl + Shift + P` / `Cmd + Shift + P`)
-2. Run **Remote-SSH: Forward Port**
-3. Enter the port number
-
-Or use the **Ports** panel in the bottom bar to manage forwarded ports.
+To expose web servers, Jupyter notebooks, or other services running on your instance, use a [Cloudflare Tunnel](/technical-specs#port-access).
 
 ## Using Standard SSH
 

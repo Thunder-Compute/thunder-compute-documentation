@@ -24,9 +24,11 @@ Run the following command to authenticate the CLI:
 tnr login
 ```
 
-This opens a link to the [console](https://console.thundercompute.com/settings?tab=tokens) where you can generate an API token. Paste the token back into your terminal to complete authentication.
+Your browser will open automatically to complete authentication via OAuth.
 
-Under the hood, this saves your token to `~/.thunder/token`.
+To use a token instead, press `T` during login to enter a token generated from the [console](https://console.thundercompute.com/settings?tab=tokens).
+
+Your credentials are saved to `~/.thunder/token`.
 
 ### Log Out
 
@@ -42,8 +44,8 @@ This deletes the token file from your machine.
 
 For scripts and automation, you can authenticate without the interactive flow:
 
-1. **Token file**: Save your API token to `~/.thunder/token`
-2. **Environment variable**: Set `TNR_API_TOKEN` in your shell
+1. **Environment variable**: Set `TNR_API_TOKEN` in your shell (takes precedence)
+2. **Token file**: Save your API token to `~/.thunder/token`
 
 ```bash
 export TNR_API_TOKEN=your_token_here

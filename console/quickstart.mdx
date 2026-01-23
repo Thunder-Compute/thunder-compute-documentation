@@ -33,19 +33,13 @@ In the console, [add a payment method](https://console.thundercompute.com/settin
 
 ### Connect to Your Instance
 
-The console displays connection information for your instances. Copy the SSH command and run it in your local terminal:
+Use the CLI or VSCode extension for the best connection experience with automatic key management:
 
-```bash
-ssh user@<instance-ip>
-```
-
-For easier access with automatic key management, use the [CLI](/cli/quickstart) or [VSCode extension](/vscode/quickstart).
-
-That's it\! You're now ready to use Thunder Compute.
-
-## Next Steps
-
-- Learn about [Prototyping vs Production](/prototyping-vs-production) to choose the right mode for your workload
-- Explore [Technical Specifications](/technical-specs) for hardware, networking, and storage details
-- Learn how to [create snapshots](/console/operations/snapshots) and more in the Operations section
-- Learn how to [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)
+<CardGroup cols={2}>
+  <Card title="Connect via CLI" icon="terminal" href="/cli/operations/connecting-to-instances">
+    Single command SSH access
+  </Card>
+  <Card title="Connect via VSCode" icon="window" href="/vscode/operations/connecting-to-instances">
+    One-click remote development
+  </Card>
+</CardGroup>

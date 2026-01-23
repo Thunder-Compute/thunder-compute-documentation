@@ -1,6 +1,6 @@
 ---
 title: "Connecting to Instances"
-description: "SSH into your Thunder Compute instances and set up port forwarding"
+description: "SSH into your Thunder Compute instances"
 icon: "plug"
 iconType: "solid"
 ---
@@ -36,29 +36,9 @@ tnr connect 0
 
 Use `tnr status` to see instance IDs. The default ID is `0`.
 
-### Port Forwarding
+### Exposing Services
 
-Forward ports from your instance to your local machine with the `-t` or `--tunnel` flag:
-
-```bash
-tnr connect 0 -t 8000
-```
-
-Forward multiple ports by repeating the flag:
-
-```bash
-tnr connect 0 -t 8000 -t 8080 -t 3000
-```
-
-This lets you access web servers, Jupyter notebooks, and other services running on your instance through `localhost`.
-
-**Example**: If you run a Jupyter notebook on port 8888:
-
-```bash
-tnr connect 0 -t 8888
-```
-
-Then open `http://localhost:8888` in your browser.
+To expose web servers, Jupyter notebooks, or other services running on your instance, use a [Cloudflare Tunnel](/technical-specs#port-access).
 
 ## Using Standard SSH
 
