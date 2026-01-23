@@ -56,6 +56,10 @@
               "billing",
               "restrictions"
             ]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
           }
         ]
       },
