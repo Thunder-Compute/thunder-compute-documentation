@@ -1,0 +1,38 @@
+---
+title: "Modifying Instances"
+description: "Change the resources of a running Thunder Compute instance"
+icon: "sliders"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/operations/modifying-instances">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/operations/modifying-instances">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" href="/console/operations/modifying-instances">
+    Web interface
+  </Card>
+</Columns>
+
+Modify the resources of a running instance without creating a new one. This allows you to scale up or down based on your workload needs.
+
+### Modify an Instance
+
+1. Open the Thunder Compute sidebar panel
+2. Right-click on a running instance
+3. Select **Modify Instance**
+4. Adjust the resources in the dialog
+
+## What Can Be Modified
+
+| Resource    | Can Modify? | Notes                                           |
+|-------------|-------------|-------------------------------------------------|
+| GPU Type    | Yes         |                                                 |
+| vCPUs       | Yes         |                                                 |
+| RAM         | Yes         |                                                 |
+| Mode        | Yes         | Switch between prototyping and production       |
+| Disk Size   | Increase only | Cannot shrink disk                            |
+| GPU Count   | No          | Requires new instance                           |

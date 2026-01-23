@@ -1,6 +1,6 @@
 ---
 title: "Technical Specifications"
-description: "Hardware specifications, networking details, ephemeral storage behavior, and pre-installed software for Thunder Compute instances"
+description: "Hardware specifications, networking details, and pre-installed software for Thunder Compute instances"
 icon: "server"
 iconType: "solid"
 ---
@@ -8,13 +8,12 @@ iconType: "solid"
 ## Instance Infrastructure
 
 ### Hardware Specifications
-- **CPU**: E series CPU instances (Azure)
-- **GPU Options**: 
-  - A100 80GB (default for both modes)
-  - T4 16GB (available via CLI)
-  - A100 40GB (available via CLI)
-- **Memory**: 18 vCPUs and 144GB RAM per GPU (Production mode, Prototyping is fully customizeable)
-- **Location**: United States (region varies)
+- **GPU Options**:
+  - T4 16GB (Prototyping only)
+  - A100 80GB (Both modes)
+  - H100 80GB (Both modes)
+- **Memory**: 18 vCPUs and 90GB RAM per GPU (Production mode, Prototyping is fully customizable)
+- **Location**: Canada (Quebec)
 
 ### Pre-installed Software
 - **CUDA**: Version 12.9
@@ -38,16 +37,3 @@ iconType: "solid"
 - **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature
 - **External access**: Use Cloudflared: `cloudflared tunnel --url http://localhost:<port>`
 
-## Storage
-
-### Ephemeral Disk
-
-- All instances use ephemeral storage
-- Deleting an instance permanently removes all data on its disk
-- Back up important files before deleting an instance. See [Using Ephemeral Storage](/guides/using-ephemeral-storage) for recommended workflows.
-
-## Data Retention
-
-- **Ephemeral by default**: Instance storage exists only while the instance is active
-- **Backups required**: Copy critical data off the instance before deleting it
-- **Permanent**: Deleting an instance cannot be undone

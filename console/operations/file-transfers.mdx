@@ -1,0 +1,48 @@
+---
+title: "File Transfers"
+description: "Copy files between your local machine and Thunder Compute instances"
+icon: "file-import"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/file-transfers">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/operations/file-transfers">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" color="#4476a8" href="/console/operations/file-transfers">
+    Web interface
+  </Card>
+</Columns>
+
+The console does not currently support direct file transfers. Use the [CLI](/cli/operations/file-transfers) or [VSCode extension](/vscode/operations/file-transfers) for file operations.
+
+## Alternative Methods
+
+### Cloud Storage
+
+For large datasets, use cloud storage services and download directly to your instance:
+
+- **Google Drive**: Download using `gdown` or the Google Drive API
+- **Dropbox**: Use the Dropbox CLI or API
+- **S3-compatible storage**: Use `aws s3 cp` or similar tools (e.g., Cloudflare R2)
+
+### Direct SSH/SCP
+
+If you have SSH access configured, use standard `scp` commands:
+
+```bash
+# Upload to instance
+scp ./local_file.txt user@<instance-ip>:/home/user/
+
+# Download from instance
+scp user@<instance-ip>:/home/user/results.csv ./downloads/
+```
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance
+- **Back up important outputs**: Always download critical results before deleting an instance

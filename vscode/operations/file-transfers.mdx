@@ -1,0 +1,40 @@
+---
+title: "File Transfers"
+description: "Copy files between your local machine and Thunder Compute instances"
+icon: "file-import"
+iconType: "solid"
+---
+
+<Columns cols={2}>
+  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/operations/file-transfers">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/operations/file-transfers">
+    Command line
+  </Card>
+</Columns>
+
+Transfer files between your local machine and Thunder Compute instances using the built-in file explorer.
+
+When connected to an instance via the Remote-SSH extension, you can transfer files using the built-in file explorer.
+
+### Upload Files
+
+1. Connect to your instance using the Connect button
+2. In the new window, open the file explorer (sidebar)
+3. Drag and drop files from your local machine into the explorer
+
+### Download Files
+
+1. Right-click on a file in the remote file explorer
+2. Select **Download** to save it locally
+
+### Alternative: Integrated Terminal
+
+You can also use `scp` directly in the integrated terminal if you have the CLI installed locally.
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance
+- **Back up important outputs**: Always download critical results before deleting an instance

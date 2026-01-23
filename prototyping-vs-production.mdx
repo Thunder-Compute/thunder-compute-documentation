@@ -11,8 +11,8 @@ Thunder Compute offers two modes for running instances.
 |---------|-------------|------------|
 | Cost | Lower | Higher |
 | Compatibility | Most ML workloads | Full CUDA compatibility |
-| GPUs | T4, A100 | A100, A100 XL, H100 |
-| Multi-GPU | No | Up to 4 GPUs |
+| GPUs | T4, A100, H100 | A100, H100 |
+| Multi-GPU | No | Up to 8 GPUs |
 | Graphics (OpenGL, Vulkan) | No | Yes |
 
 ## Prototyping Mode
@@ -46,7 +46,7 @@ Prototyping mode applies CUDA-level optimizations to maximize GPU utilization, s
 
 | Option | Values |
 |--------|--------|
-| GPU | T4, A100 |
+| GPU | T4, A100, H100 |
 | vCPUs | 4, 8, 16, 32 |
 | RAM | 8GB per vCPU |
 | Disk | 100-400 GB |
@@ -58,7 +58,7 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 ### When to Choose Production
 
 - Long-running training jobs
-- Multi-GPU workloads (up to 4 GPUs)
+- Multi-GPU workloads (up to 8 GPUs)
 - Graphics workloads (OpenGL, Vulkan, FFMPEG)
 - Custom CUDA kernels
 - Workloads requiring accurate hardware metrics
@@ -67,10 +67,10 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 
 | Option | Values |
 |--------|--------|
-| GPU | A100, A100 XL, H100 |
-| GPU Count | 1, 2, 4 |
+| GPU | A100, H100 |
+| GPU Count | 1, 2, 4, 8 |
 | vCPUs | 18 per GPU |
-| RAM | 144GB per GPU |
+| RAM | 90GB per GPU |
 | Disk | 100-1000 GB |
 
 ## Switching Between Modes
