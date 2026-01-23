@@ -9,22 +9,29 @@
   },
   "favicon": "/thunder_favicon.png",
   "navigation": {
-    "anchors": [
+    "versions": [
       {
-        "anchor": "Documentation",
-        "icon": "book-open",
+        "version": "VS Code extension",
         "groups": [
           {
-            "group": "Documentation",
+            "group": "Getting Started",
             "pages": [
-              "quickstart",
-              "prototyping-mode",
-              "production-mode",
-              "technical-specs",
-              "cli-reference",
-              "troubleshooting",
-              "billing",
-              "restrictions"
+              "vscode/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "vscode/operations/authentication",
+              "vscode/operations/creating-instances",
+              "vscode/operations/connecting-to-instances",
+              "vscode/operations/monitoring-instances",
+              "vscode/operations/file-transfers",
+              "vscode/operations/modifying-instances",
+              "vscode/operations/snapshots",
+              "vscode/operations/deleting-instances"
             ]
           },
           {
@@ -32,10 +39,7 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/using-snapshots",
-              "guides/using-ephemeral-storage",
-              "guides/using-docker-on-thundercompute",
-              "guides/installing-conda",
+                            "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
@@ -46,8 +50,114 @@
             ]
           },
           {
+            "group": "Reference",
+            "pages": [
+              "troubleshooting",
+              "billing",
+              "restrictions"
+            ]
+          },
+          {
             "group": "API Reference",
             "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      },
+      {
+        "version": "CLI",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "cli/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "cli/operations/authentication",
+              "cli/operations/creating-instances",
+              "cli/operations/connecting-to-instances",
+              "cli/operations/monitoring-instances",
+              "cli/operations/file-transfers",
+              "cli/operations/modifying-instances",
+              "cli/operations/snapshots",
+              "cli/operations/deleting-instances"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+                            "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/mcp-server-for-managing-gpus",
+              "guides/ssh-on-thunder-compute",
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "troubleshooting",
+              "billing",
+              "restrictions"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "Console",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "console/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "console/operations/authentication",
+              "console/operations/creating-instances",
+              "console/operations/connecting-to-instances",
+              "console/operations/monitoring-instances",
+              "console/operations/file-transfers",
+              "console/operations/modifying-instances",
+              "console/operations/snapshots",
+              "console/operations/deleting-instances"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+                            "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/mcp-server-for-managing-gpus",
+              "guides/ssh-on-thunder-compute",
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "troubleshooting",
+              "billing",
+              "restrictions"
+            ]
           }
         ]
       }

@@ -1,0 +1,67 @@
+---
+title: "Connecting to Instances"
+description: "SSH into your Thunder Compute instances and set up port forwarding"
+icon: "plug"
+iconType: "solid"
+---
+
+<Columns cols={2}>
+  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/connecting-to-instances">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" color="#4476a8" href="/cli/operations/connecting-to-instances">
+    Command line
+  </Card>
+</Columns>
+
+Connect to your running instances via SSH. Thunder Compute handles key management automatically, so you can connect with a single command.
+
+### Interactive Connection
+
+Run the connect command to see a list of your instances:
+
+```bash
+tnr connect
+```
+
+Select an instance from the menu to connect.
+
+### Direct Connection
+
+Connect directly using the instance ID:
+
+```bash
+tnr connect 0
+```
+
+Use `tnr status` to see instance IDs. The default ID is `0`.
+
+### Port Forwarding
+
+Forward ports from your instance to your local machine with the `-t` or `--tunnel` flag:
+
+```bash
+tnr connect 0 -t 8000
+```
+
+Forward multiple ports by repeating the flag:
+
+```bash
+tnr connect 0 -t 8000 -t 8080 -t 3000
+```
+
+This lets you access web servers, Jupyter notebooks, and other services running on your instance through `localhost`.
+
+**Example**: If you run a Jupyter notebook on port 8888:
+
+```bash
+tnr connect 0 -t 8888
+```
+
+Then open `http://localhost:8888` in your browser.
+
+## Using Standard SSH
+
+If you prefer using your own SSH client, Thunder Compute is compatible with standard SSH tools. The CLI configures your `~/.ssh/config` automatically when you first connect.
+
+See [SSH on Thunder Compute](/guides/ssh-on-thunder-compute) for advanced SSH configuration.

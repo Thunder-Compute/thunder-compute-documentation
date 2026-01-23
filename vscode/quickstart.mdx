@@ -1,0 +1,67 @@
+---
+title: "Quickstart"
+description: "Get started with Thunder Compute using VSCode, Cursor, or Windsurf"
+icon: "rocket"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/quickstart">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/quickstart">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" href="/console/quickstart">
+    Web interface
+  </Card>
+</Columns>
+
+### Installation
+
+Click the following links to access the Thunder Compute extension:
+
+- [VSCode extension](vscode:extension/ThunderCompute.thunder-compute)
+- [Cursor extension](cursor:extension/ThunderCompute.thunder-compute)
+- [Windsurf extension](windsurf:extension/ThunderCompute.thunder-compute)
+
+You must have the editor installed for these links to work.
+
+### Authentication
+
+You may be automatically prompted to login.
+
+If not, open the command palette with `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS) and run `Thunder Compute: Login`
+
+Following the prompts, navigate to the [console](https://console.thundercompute.com/signup) and generate a login token.
+
+### Add a Payment Method
+
+In the console, [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+
+### Using The Extension
+
+You can create instances through the [console](https://console.thundercompute.com) or directly through the extension like so:
+
+![Create Instance](/images/VSCode_Create_Instance.png)
+
+Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
+
+![Connect to Instance](/images/VSCode_Connect_Instance.png)
+
+<Note>
+  If connecting to the instance fails, check that you have the remote-ssh extension installed on your editor.
+</Note>
+
+A new window will open connected to your instance. You can drag files you need into the file explorer, run notebooks, scripts, and more as if they were on your local machine.
+
+![SSH View](/images/VSCode_SSH.png)
+
+That's it\! You're now ready to use Thunder Compute.
+
+## Next Steps
+
+- Learn about [Prototyping vs Production](/prototyping-vs-production) to choose the right mode for your workload
+- Explore [Technical Specifications](/technical-specs) for hardware, networking, and storage details
+- Learn how to [transfer files](/vscode/operations/file-transfers), [create snapshots](/vscode/operations/snapshots), and more in the Operations section
+- Learn how to [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)

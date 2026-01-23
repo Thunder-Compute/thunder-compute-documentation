@@ -1,0 +1,110 @@
+---
+title: "Snapshots"
+description: "Save and restore the state of your Thunder Compute instances"
+icon: "camera"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/snapshots">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" color="#4476a8" href="/cli/operations/snapshots">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" href="/console/operations/snapshots">
+    Web interface
+  </Card>
+</Columns>
+
+Snapshots capture the full disk state of a running instance, letting you restore your environment later without reinstalling dependencies or re-downloading models. You can also use snapshots to change instance specifications by restoring to a new instance with different GPU or CPU settings.
+
+<Note>
+  Snapshots are currently in beta. Share feedback on [Discord](https://discord.gg/nwuETS9jJK) or email support@thundercompute.com.
+</Note>
+
+## Why Use Snapshots?
+
+- **Save your environment**: Capture installed packages, models, and configurations
+- **Faster setup**: Spin up new instances from a known-good state
+- **Change specs**: Create a new instance with different GPU/CPU while keeping your data
+
+### Create a Snapshot
+
+Use the interactive menu:
+
+```bash
+tnr snapshot create
+```
+
+Or specify the instance and name directly:
+
+```bash
+tnr snapshot create --instance-id 0 --name my-environment
+```
+
+<Note>
+  Snapshots can only be created from instances in `RUNNING` state.
+</Note>
+
+### List Snapshots
+
+View all your snapshots with their status, size, and creation date:
+
+```bash
+tnr snapshot list
+```
+
+Status values:
+- **READY**: Snapshot is complete and can be used
+- **CREATING**: Snapshot is still being created
+- **FAILED**: Snapshot creation failed
+
+### Delete a Snapshot
+
+Remove snapshots you no longer need:
+
+```bash
+# Interactive selection
+tnr snapshot delete
+
+# Delete by name
+tnr snapshot delete my-environment
+```
+
+<Warning>
+  Deleting a snapshot is permanent and cannot be undone.
+</Warning>
+
+### Restore from a Snapshot
+
+When creating a new instance, your snapshots appear alongside templates:
+
+```bash
+tnr create
+# Select your snapshot in the "Templates" step
+```
+
+The new instance's disk size must be at least as large as the snapshot. The CLI enforces this automatically.
+
+<Note>
+  Restoring from a snapshot takes about 10 minutes per 100GB of data. The instance shows as `RESTORING` during this time.
+</Note>
+
+## Best Practices
+
+1. **Name snapshots descriptively**: Include the project, date, or purpose (e.g., `llama-finetuned-jan2026`)
+
+2. **Snapshot before major changes**: Create a snapshot before installing new packages or modifying your environment
+
+3. **Clean up unused snapshots**: Snapshots count toward your storage. Delete old ones you no longer need
+
+4. **Keep snapshots small**: Remove large temporary files before creating a snapshot to speed up creation and restoration
+
+## Snapshots vs External Backups
+
+Snapshots are great for quickly restoring your environment, but they're tied to Thunder Compute. For long-term data preservation, also use:
+
+- **GitHub** for code and configuration
+- **Local downloads** for important outputs
+- **Cloud storage** (R2, Google Drive) for large files

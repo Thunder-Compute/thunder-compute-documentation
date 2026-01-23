@@ -1,0 +1,49 @@
+---
+title: "Monitoring Instances"
+description: "View the status of your Thunder Compute instances"
+icon: "chart-line"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/operations/monitoring-instances">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/operations/monitoring-instances">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" href="/console/operations/monitoring-instances">
+    Web interface
+  </Card>
+</Columns>
+
+Monitor your instances to see their status, configuration, and resource allocation.
+
+### View Instances
+
+Open the Thunder Compute sidebar panel to see all your instances. Each instance shows:
+
+- Status indicator (running, creating, etc.)
+- GPU type and count
+- Instance ID
+
+Click on an instance to see more details or connect to it.
+
+### Refresh Status
+
+Click the refresh button at the top of the panel to update the instance list.
+
+## Instance States
+
+| Status      | Description                                      |
+|-------------|--------------------------------------------------|
+| `RUNNING`   | Instance is active and ready to use              |
+| `CREATING`  | Instance is being provisioned                    |
+| `RESTORING` | Instance is being restored from a snapshot       |
+| `DELETING`  | Instance is being removed                        |
+
+## Benchmarking Notes
+
+When measuring performance in **prototyping mode**, note that hardware-level metrics (temperature, wattage, utilization) may not be accurate due to CUDA-level optimizations. Use application-level metrics like iterations per second for reliable comparisons.
+
+For accurate hardware metrics, use **production mode** instances.
