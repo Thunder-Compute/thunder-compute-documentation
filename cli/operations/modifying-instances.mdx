@@ -6,13 +6,13 @@ iconType: "solid"
 ---
 
 <Columns cols={3}>
-  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/modifying-instances">
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/modifying-instances">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" color="#4476a8" href="/cli/operations/modifying-instances">
+  <Card title="CLI" icon="terminal" color="#95c5ea" href="/cli/operations/modifying-instances">
     Command line
   </Card>
-  <Card title="Console" icon="browser" href="/console/operations/modifying-instances">
+  <Card title="Console" icon="browser" color="#3a6289" href="/console/operations/modifying-instances">
     Web interface
   </Card>
 </Columns>
@@ -32,8 +32,7 @@ tnr modify <instance_id> [options]
 | Option       | Description                              |
 |--------------|------------------------------------------|
 | `--gpu`      | GPU type (e.g., `t4`, `a100`, `h100`)    |
-| `--vcpus`    | Number of virtual CPUs                   |
-| `--ram`      | Amount of RAM                            |
+| `--vcpus`    | Number of virtual CPUs (prototyping mode) |
 | `--disk-size-gb` | Disk size (can only be increased)    |
 | `--mode`     | Switch between `prototyping` and `production` |
 
@@ -43,8 +42,8 @@ tnr modify <instance_id> [options]
 # Switch to a different GPU
 tnr modify 0 --gpu a100
 
-# Scale up CPUs and RAM
-tnr modify 0 --vcpus 16 --ram 128
+# Scale up CPUs (RAM scales automatically at 8GB per vCPU)
+tnr modify 0 --vcpus 16
 
 # Increase disk size
 tnr modify 0 --disk-size-gb 300
@@ -62,8 +61,14 @@ tnr modify 0 --mode production
 | Resource    | Can Modify? | Notes                                           |
 |-------------|-------------|-------------------------------------------------|
 | GPU Type    | Yes         |                                                 |
-| vCPUs       | Yes         |                                                 |
-| RAM         | Yes         |                                                 |
+| GPU Count   | Yes         |                                                 |
+| vCPUs       | Yes         | Prototyping mode only                           |
+| RAM         | Yes         | Scales with vCPUs (prototyping) or GPUs (production) |
 | Mode        | Yes         | Switch between prototyping and production       |
 | Disk Size   | Increase only | Cannot shrink disk                            |
-| GPU Count   | No          | Requires new instance                           |
+
+<Note>
+  RAM is automatically determined based on your configuration:
+  - **Prototyping mode**: 8GB per vCPU
+  - **Production mode**: 90GB per GPU
+</Note>

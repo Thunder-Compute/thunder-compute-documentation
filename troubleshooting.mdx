@@ -11,10 +11,6 @@ iconType: solid
 2.  Upgrade tnr. Depending on your install method, you may have to use `pip install tnr --upgrade` or re-download the binary from the website
 3.  Back up any important data, then delete and recreate the instance.
 
-## Logs
-
-To assist troubleshooting, the GCP/AWS instance logs for each instance are saved to the file `/var/log/syslog`. On your local machine, you can view the CLI logs with `cat ~/.thunder/logs`. Sharing these with our team can help us quickly find a solution for your problem.
-
 ## Common errors
 
 ### Function not implemented
@@ -39,9 +35,7 @@ To help prevent common issues and get the most out of Thunder Compute, we recomm
 
 ## Production mode as a last resort
 
-If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to [Production mode](/prototyping-vs-production#production-mode). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the prototyping tier.
-
-Instances cannot be converted to production mode after creation. Back up your data, create a new production tier instance, and restore your environment there. Production mode has a higher hourly cost but guarantees predictable performance and compatibility.
+If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to production mode with [modify](/operations/modifying-instances). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the prototyping tier.
 
 ## Support
 

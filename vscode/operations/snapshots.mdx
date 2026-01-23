@@ -6,45 +6,41 @@ iconType: "solid"
 ---
 
 <Columns cols={3}>
-  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/operations/snapshots">
+  <Card title="VSCode / Cursor" icon="window" color="#95c5ea" href="/vscode/operations/snapshots">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" href="/cli/operations/snapshots">
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/snapshots">
     Command line
   </Card>
-  <Card title="Console" icon="browser" href="/console/operations/snapshots">
+  <Card title="Console" icon="browser" color="#3a6289" href="/console/operations/snapshots">
     Web interface
   </Card>
 </Columns>
 
 Snapshots capture the full disk state of a running instance, letting you restore your environment later without reinstalling dependencies or re-downloading models. You can also use snapshots to change instance specifications by restoring to a new instance with different GPU or CPU settings.
 
-<Note>
-  Snapshots are currently in beta. Share feedback on [Discord](https://discord.gg/nwuETS9jJK) or email support@thundercompute.com.
-</Note>
-
-## Why Use Snapshots?
-
-- **Save your environment**: Capture installed packages, models, and configurations
-- **Faster setup**: Spin up new instances from a known-good state
-- **Change specs**: Create a new instance with different GPU/CPU while keeping your data
-
-### Create a Snapshot
+## Create a Snapshot
 
 1. Open the Thunder Compute sidebar panel
 2. Find your running instance
 3. Click the snapshot icon (camera) next to the instance
 4. Enter a name for your snapshot
 
-### View Snapshots
+Snapshotting happens in the background—you can continue using your instance immediately. The snapshot captures the exact state at the moment you initiated it.
+
+## View Snapshots
 
 Your snapshots appear in the Thunder Compute panel below your instances.
 
-### Restore from a Snapshot
+## Restore from a Snapshot
 
-When creating a new instance, select your snapshot from the template dropdown instead of a base template.
+When creating a new instance, select your snapshot from the template dropdown instead of a template.
 
-### Delete a Snapshot
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data.
+</Note>
+
+## Delete a Snapshot
 
 Right-click on a snapshot in the panel and select **Delete**.
 

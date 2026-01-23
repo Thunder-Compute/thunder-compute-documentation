@@ -6,13 +6,13 @@ iconType: "solid"
 ---
 
 <Columns cols={3}>
-  <Card title="VSCode / Cursor" icon="window" color="#4476a8" href="/vscode/operations/deleting-instances">
+  <Card title="VSCode / Cursor" icon="window" color="#95c5ea" href="/vscode/operations/deleting-instances">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" href="/cli/operations/deleting-instances">
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/deleting-instances">
     Command line
   </Card>
-  <Card title="Console" icon="browser" href="/console/operations/deleting-instances">
+  <Card title="Console" icon="browser" color="#3a6289" href="/console/operations/deleting-instances">
     Web interface
   </Card>
 </Columns>
@@ -20,7 +20,7 @@ iconType: "solid"
 Delete instances you no longer need to stop billing. Make sure to back up any important data before deleting.
 
 <Warning>
-  Deleting an instance permanently removes it and all associated data. This action cannot be undone.
+  Deleting an instance permanently removes it and all associated data. This action cannot be undone. Consider [creating a snapshot](/vscode/operations/snapshots) first to back up your environment.
 </Warning>
 
 ### Delete an Instance

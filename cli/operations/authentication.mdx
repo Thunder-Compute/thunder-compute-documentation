@@ -6,10 +6,10 @@ iconType: "solid"
 ---
 
 <Columns cols={2}>
-  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/authentication">
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/authentication">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" color="#4476a8" href="/cli/operations/authentication">
+  <Card title="CLI" icon="terminal" color="#95c5ea" href="/cli/operations/authentication">
     Command line
   </Card>
 </Columns>
@@ -28,8 +28,6 @@ Your browser will open automatically to complete authentication via OAuth.
 
 To use a token instead, press `T` during login to enter a token generated from the [console](https://console.thundercompute.com/settings?tab=tokens).
 
-Your credentials are saved to `~/.thunder/token`.
-
 ### Log Out
 
 To remove your stored credentials:
@@ -42,10 +40,7 @@ This deletes the token file from your machine.
 
 ### Programmatic Authentication
 
-For scripts and automation, you can authenticate without the interactive flow:
-
-1. **Environment variable**: Set `TNR_API_TOKEN` in your shell (takes precedence)
-2. **Token file**: Save your API token to `~/.thunder/token`
+For scripts and automation, set the `TNR_API_TOKEN` environment variable:
 
 ```bash
 export TNR_API_TOKEN=your_token_here

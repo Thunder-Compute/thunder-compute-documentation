@@ -1,46 +1,20 @@
 ---
 title: "Connecting to Instances"
-description: "SSH into your Thunder Compute instances"
+description: "Connect to your Thunder Compute instances"
 icon: "plug"
 iconType: "solid"
 ---
 
 <Columns cols={3}>
-  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/connecting-to-instances">
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/connecting-to-instances">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" href="/cli/operations/connecting-to-instances">
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/connecting-to-instances">
     Command line
   </Card>
-  <Card title="Console" icon="browser" color="#4476a8" href="/console/operations/connecting-to-instances">
+  <Card title="Console" icon="browser" color="#95c5ea" href="/console/operations/connecting-to-instances">
     Web interface
   </Card>
 </Columns>
 
-The console displays connection information for your instances but does not provide a built-in terminal.
-
-### Connect to an Instance
-
-Copy the SSH command from the console and run it in your local terminal:
-
-```bash
-ssh user@<instance-ip>
-```
-
-For easier access with automatic key management, use the [CLI](/cli/operations/connecting-to-instances) or [VSCode extension](/vscode/operations/connecting-to-instances).
-
-### Port Forwarding
-
-To forward ports when using SSH directly, use the `-L` flag:
-
-```bash
-ssh -L 8888:localhost:8888 user@<instance-ip>
-```
-
-This lets you access web servers, Jupyter notebooks, and other services running on your instance through `localhost`.
-
-## Using Standard SSH
-
-Thunder Compute is compatible with standard SSH tools.
-
-See [SSH on Thunder Compute](/guides/ssh-on-thunder-compute) for advanced SSH configuration.
+The console displays your instances but does not provide a built-in terminal. To connect to an instance, use the [CLI](/cli/operations/connecting-to-instances) or [VSCode extension](/vscode/operations/connecting-to-instances).

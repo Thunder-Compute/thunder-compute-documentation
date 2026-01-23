@@ -39,17 +39,8 @@ Prototyping mode applies CUDA-level optimizations to maximize GPU utilization, s
 - Hardware-specific profiling tools
 
 <Tip>
-  If you encounter issues with an unsupported workload, switch to production mode for full compatibility.
+  If you encounter issues with an unsupported workload, switch to production mode with [modify](/operations/modifying-instances) for full compatibility.
 </Tip>
-
-### Configuration Options
-
-| Option | Values |
-|--------|--------|
-| GPU | T4, A100, H100 |
-| vCPUs | 4, 8, 16, 32 |
-| RAM | 8GB per vCPU |
-| Disk | 100-400 GB |
 
 ## Production Mode
 
@@ -62,16 +53,6 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 - Graphics workloads (OpenGL, Vulkan, FFMPEG)
 - Custom CUDA kernels
 - Workloads requiring accurate hardware metrics
-
-### Configuration Options
-
-| Option | Values |
-|--------|--------|
-| GPU | A100, H100 |
-| GPU Count | 1, 2, 4, 8 |
-| vCPUs | 18 per GPU |
-| RAM | 90GB per GPU |
-| Disk | 100-1000 GB |
 
 ## Switching Between Modes
 

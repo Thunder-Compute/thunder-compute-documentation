@@ -6,46 +6,44 @@ iconType: "solid"
 ---
 
 <Columns cols={3}>
-  <Card title="VSCode / Cursor" icon="window" href="/vscode/operations/snapshots">
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/snapshots">
     Editor extension
   </Card>
-  <Card title="CLI" icon="terminal" href="/cli/operations/snapshots">
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/snapshots">
     Command line
   </Card>
-  <Card title="Console" icon="browser" color="#4476a8" href="/console/operations/snapshots">
+  <Card title="Console" icon="browser" color="#95c5ea" href="/console/operations/snapshots">
     Web interface
   </Card>
 </Columns>
 
 Snapshots capture the full disk state of a running instance, letting you restore your environment later without reinstalling dependencies or re-downloading models. You can also use snapshots to change instance specifications by restoring to a new instance with different GPU or CPU settings.
 
-<Note>
-  Snapshots are currently in beta. Share feedback on [Discord](https://discord.gg/nwuETS9jJK) or email support@thundercompute.com.
-</Note>
+## Create a Snapshot
 
-## Why Use Snapshots?
+On the main [Instances page](https://console.thundercompute.com):
 
-- **Save your environment**: Capture installed packages, models, and configurations
-- **Faster setup**: Spin up new instances from a known-good state
-- **Change specs**: Create a new instance with different GPU/CPU while keeping your data
-
-### Create a Snapshot
-
-1. Find your running instance on the dashboard
-2. Click the **Snapshot** button
+1. Select your running instance using the checkbox
+2. Click **Snapshot** in the actions bar
 3. Enter a name for your snapshot
 
-### View Snapshots
+Snapshotting happens in the background—you can continue using your instance immediately. The snapshot captures the exact state at the moment you initiated it.
+
+## View Snapshots
 
 Navigate to the Snapshots section to see all your saved snapshots with their status, size, and creation date.
 
-### Restore from a Snapshot
+## Restore from a Snapshot
 
 When creating a new instance, select your snapshot from the template options.
 
-### Delete a Snapshot
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data.
+</Note>
 
-Click the delete button next to a snapshot to remove it.
+## Delete a Snapshot
+
+Navigate to the [Snapshots page](https://console.thundercompute.com/snapshots) to view all your snapshots and their status. Select a snapshot using the checkbox and click **Delete** in the actions bar to remove it.
 
 ## Best Practices
 
