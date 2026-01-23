@@ -15,16 +15,24 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Documentation",
+            "group": "Getting Started",
             "pages": [
               "quickstart",
-              "prototyping-mode",
-              "production-mode",
-              "technical-specs",
-              "cli-reference",
-              "troubleshooting",
-              "billing",
-              "restrictions"
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "operations/authentication",
+              "operations/creating-instances",
+              "operations/connecting-to-instances",
+              "operations/monitoring-instances",
+              "operations/file-transfers",
+              "operations/modifying-instances",
+              "operations/snapshots",
+              "operations/deleting-instances"
             ]
           },
           {
@@ -32,7 +40,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/using-snapshots",
               "guides/using-ephemeral-storage",
               "guides/using-docker-on-thundercompute",
               "guides/installing-conda",
@@ -46,8 +53,12 @@
             ]
           },
           {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+            "group": "Reference",
+            "pages": [
+              "troubleshooting",
+              "billing",
+              "restrictions"
+            ]
           }
         ]
       }

@@ -1,0 +1,83 @@
+---
+title: "Prototyping vs Production"
+description: "Choose between optimized development pricing and full compatibility for your workloads"
+icon: "scale-balanced"
+iconType: "solid"
+---
+
+Thunder Compute offers two modes for running instances.
+
+| Feature | Prototyping | Production |
+|---------|-------------|------------|
+| Cost | Lower | Higher |
+| Compatibility | Most ML workloads | Full CUDA compatibility |
+| GPUs | T4, A100 | A100, A100 XL, H100 |
+| Multi-GPU | No | Up to 4 GPUs |
+| Graphics (OpenGL, Vulkan) | No | Yes |
+
+## Prototyping Mode
+
+<Note>
+  Prototyping mode is currently in beta and exclusively available on Thunder Compute.
+</Note>
+
+Prototyping mode applies CUDA-level optimizations to maximize GPU utilization, significantly reducing costs for AI/ML development workflows.
+
+### Supported Software
+
+- **PyTorch**: Fully supported (downgrading from the pre-installed version may cause issues)
+- **TensorFlow**
+- **JAX**
+- **Jupyter Notebooks**
+- **Model Serving**: ComfyUI, Ollama, VLLM, and others
+- **Fine Tuning**: Unsloth and others
+
+### Unsupported Workloads
+
+- Graphics workloads (OpenGL, Vulkan, FFMPEG)
+- Custom CUDA kernels (may exhibit unpredictable behavior)
+- Hardware-specific profiling tools
+
+<Tip>
+  If you encounter issues with an unsupported workload, switch to production mode for full compatibility.
+</Tip>
+
+### Configuration Options
+
+| Option | Values |
+|--------|--------|
+| GPU | T4, A100 |
+| vCPUs | 4, 8, 16, 32 |
+| RAM | 8GB per vCPU |
+| Disk | 100-400 GB |
+
+## Production Mode
+
+Production mode provisions a standard virtual machine with full CUDA compatibility and predictable performance.
+
+### When to Choose Production
+
+- Long-running training jobs
+- Multi-GPU workloads (up to 4 GPUs)
+- Graphics workloads (OpenGL, Vulkan, FFMPEG)
+- Custom CUDA kernels
+- Workloads requiring accurate hardware metrics
+
+### Configuration Options
+
+| Option | Values |
+|--------|--------|
+| GPU | A100, A100 XL, H100 |
+| GPU Count | 1, 2, 4 |
+| vCPUs | 18 per GPU |
+| RAM | 144GB per GPU |
+| Disk | 100-1000 GB |
+
+## Switching Between Modes
+
+Use the [modify command](/operations/modifying-instances) to switch between prototyping and production mode on an existing instance. Modify also lets you change GPU type, vCPUs, and RAM. Storage can be expanded but not reduced.
+
+## Learn More
+
+- [How Thunder Compute Works](https://www.thundercompute.com/blog/how-thunder-compute-works-gpu-over-tcp) - Technical deep dive into our CUDA-level optimizations
+- [Technical Specifications](/technical-specs) - Hardware, networking, and storage details

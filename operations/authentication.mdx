@@ -1,0 +1,96 @@
+---
+title: "Authentication"
+description: "Log in to Thunder Compute and manage your API tokens"
+icon: "key"
+iconType: "solid"
+---
+
+Before using Thunder Compute, you need to authenticate your account. This page covers how to log in and manage API tokens across the CLI, VSCode extension, and console.
+
+<Tabs>
+  <Tab title="CLI">
+    ### Log In
+
+    Run the following command to authenticate the CLI:
+
+    ```bash
+    tnr login
+    ```
+
+    This opens a link to the [console](https://console.thundercompute.com/settings?tab=tokens) where you can generate an API token. Paste the token back into your terminal to complete authentication.
+
+    Under the hood, this saves your token to `~/.thunder/token`.
+
+    ### Log Out
+
+    To remove your stored credentials:
+
+    ```bash
+    tnr logout
+    ```
+
+    This deletes the token file from your machine.
+
+    ### Programmatic Authentication
+
+    For scripts and automation, you can authenticate without the interactive flow:
+
+    1. **Token file**: Save your API token to `~/.thunder/token`
+    2. **Environment variable**: Set `TNR_API_TOKEN` in your shell
+
+    ```bash
+    export TNR_API_TOKEN=your_token_here
+    ```
+
+  </Tab>
+  <Tab title="VSCode / Cursor / Windsurf">
+    ### Log In
+
+    The extension may prompt you to log in automatically when you first install it.
+
+    If not, open the command palette with `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS) and run:
+
+    ```
+    Thunder Compute: Login
+    ```
+
+    Follow the prompts to navigate to the [console](https://console.thundercompute.com/signup) and generate a login token.
+
+    {/* TODO: Add screenshot of login prompt in VSCode */}
+
+    ### Log Out
+
+    Open the command palette and run:
+
+    ```
+    Thunder Compute: Logout
+    ```
+
+    {/* TODO: Add screenshot of logout command in VSCode */}
+
+  </Tab>
+  <Tab title="Console">
+    The [console](https://console.thundercompute.com) uses browser-based authentication. Sign up or log in with your email to access your account.
+
+    {/* TODO: Add screenshot of console login page */}
+
+  </Tab>
+</Tabs>
+
+## Managing API Tokens
+
+API tokens authenticate your CLI and extension access. You can manage them in the [console](https://console.thundercompute.com/settings?tab=tokens).
+
+- **Generate tokens**: Create new tokens for each device or use case
+- **Revoke tokens**: Remove access for specific tokens without affecting others
+- **Token persistence**: Tokens never expire unless manually revoked
+
+<Note>
+  Use unique tokens for each device so you can revoke access individually if needed.
+</Note>
+
+## Adding a Payment Method
+
+Before creating instances, you need a payment method on file. Visit the [billing settings](https://console.thundercompute.com/settings/billing) to add a credit card.
+
+{/* TODO: Add screenshot of billing settings page */}
