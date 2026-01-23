@@ -213,5 +213,12 @@
     "body": {
       "family": "Geist"
     }
-  }
+  },
+  "redirects": [
+    { "source": "/cli-reference", "destination": "/cli/operations/authentication" },
+    { "source": "/prototyping-mode", "destination": "/prototyping-vs-production" },
+    { "source": "/production-mode", "destination": "/prototyping-vs-production" },
+    { "source": "/guides/using-snapshots", "destination": "/cli/operations/snapshots" },
+    { "source": "/quickstart", "destination": "/vscode/quickstart" }
+  ]
 }
