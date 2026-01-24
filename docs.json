@@ -45,10 +45,7 @@
               "guides/mcp-server-for-managing-gpus",
               "guides/ssh-on-thunder-compute",
               "guides/referral-program",
-              {
-                "title": "Data Processing",
-                "path": "guides/data-processing-addendum"
-              },
+              "guides/data-processing-addendum",
               "guides/weights-and-biases"
             ]
           },
@@ -97,10 +94,7 @@
               "guides/mcp-server-for-managing-gpus",
               "guides/ssh-on-thunder-compute",
               "guides/referral-program",
-              {
-                "title": "Data Processing",
-                "path": "guides/data-processing-addendum"
-              },
+              "guides/data-processing-addendum",
               "guides/weights-and-biases"
             ]
           },
@@ -149,10 +143,7 @@
               "guides/mcp-server-for-managing-gpus",
               "guides/ssh-on-thunder-compute",
               "guides/referral-program",
-              {
-                "title": "Data Processing",
-                "path": "guides/data-processing-addendum"
-              },
+              "guides/data-processing-addendum",
               "guides/weights-and-biases"
             ]
           },
