@@ -34,7 +34,7 @@ This walks you through selecting your instance configuration step by step.
 Specify all options in a single command:
 
 ```bash
-tnr create --mode prototyping --gpu t4 --vcpus 8 --template base --disk-size-gb 100
+tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --disk-size-gb 100
 ```
 
 ### Configuration Options
@@ -42,7 +42,7 @@ tnr create --mode prototyping --gpu t4 --vcpus 8 --template base --disk-size-gb 
 | Flag           | Description                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------------------------------------ |
 | `--mode`       | `prototyping` or `production`                                                                                |
-| `--gpu`        | `t4`, `a100`, or `h100` (prototyping), `a100` or `h100` (production)                                         |
+| `--gpu`        | `a6000`, `a100`, or `h100` (prototyping), `a100` or `h100` (production)                                      |
 | `--num-gpus`   | `1`, `2`, `4`, or `8` (production only)                                                                      |
 | `--vcpus`      | CPU cores: `4`, `8`, `16`, or `32` (prototyping only). RAM: 8GB per vCPU                                     |
 | `--template`   | `base`, `comfy-ui`, `comfy-ui-wan`, `ollama`, `webui-forge`, or a snapshot name                              |
@@ -61,7 +61,7 @@ See [Prototyping vs Production](/prototyping-vs-production) for details on each 
 
 | GPU       | VRAM  | Availability         |
 |-----------|-------|----------------------|
-| T4        | 16GB  | Prototyping only     |
+| A6000     | 48GB  | Prototyping only     |
 | A100      | 80GB  | Both modes           |
 | H100      | 80GB  | Both modes           |
 
