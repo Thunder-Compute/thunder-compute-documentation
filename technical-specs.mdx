@@ -33,7 +33,7 @@ iconType: "solid"
 
 ### Port Access
 
-- **CLI**: Use `tnr connect <instance_id> -t <port>` to tunnel ports
+- **Public URLs (CLI)**: Use `tnr ports forward` to expose HTTP services at `https://<uuid>-<port>.thundercompute.net` with automatic HTTPS and DDoS protection. See [Port Forwarding](/cli/operations/port-forwarding) for details.
+- **Local tunneling (CLI)**: Use `tnr connect <instance_id> -t <port>` to tunnel ports to your local machine
 - **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature
-- **External access**: Use Cloudflared: `cloudflared tunnel --url http://localhost:<port>`
 
