@@ -29,6 +29,7 @@
               "vscode/operations/connecting-to-instances",
               "vscode/operations/monitoring-instances",
               "vscode/operations/file-transfers",
+              "vscode/operations/port-forwarding",
               "vscode/operations/modifying-instances",
               "vscode/operations/snapshots",
               "vscode/operations/deleting-instances"
@@ -82,6 +83,7 @@
               "cli/operations/connecting-to-instances",
               "cli/operations/monitoring-instances",
               "cli/operations/file-transfers",
+              "cli/operations/port-forwarding",
               "cli/operations/modifying-instances",
               "cli/operations/snapshots",
               "cli/operations/deleting-instances"
@@ -135,6 +137,7 @@
               "console/operations/connecting-to-instances",
               "console/operations/monitoring-instances",
               "console/operations/file-transfers",
+              "console/operations/port-forwarding",
               "console/operations/modifying-instances",
               "console/operations/snapshots",
               "console/operations/deleting-instances"
