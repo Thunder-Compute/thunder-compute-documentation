@@ -1,0 +1,42 @@
+---
+title: "Connecting to Instances"
+description: "SSH into your Thunder Compute instances"
+icon: "plug"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#95c5ea" href="/vscode/operations/connecting-to-instances">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/connecting-to-instances">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" color="#3a6289" href="/console/operations/connecting-to-instances">
+    Web interface
+  </Card>
+</Columns>
+
+Connect to your running instances via SSH. Thunder Compute handles key management automatically.
+
+### Connect to an Instance
+
+1. Open the Thunder Compute sidebar panel
+2. Find your running instance in the list
+3. Click the **Connect** button (the icon with two arrows pointing toward each other)
+
+A new VSCode window opens connected to your instance. You can browse files, edit code, and run terminals as if working locally.
+
+<Note>
+  If connecting fails, make sure you have the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension installed.
+</Note>
+
+### Exposing Services
+
+To expose web servers, Jupyter notebooks, or other services running on your instance, use a [Cloudflare Tunnel](/technical-specs#port-access).
+
+## Using Standard SSH
+
+If you prefer using your own SSH client, Thunder Compute is compatible with standard SSH tools.
+
+See [SSH on Thunder Compute](/guides/ssh-on-thunder-compute) for advanced SSH configuration.

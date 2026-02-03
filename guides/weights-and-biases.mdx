@@ -1,0 +1,666 @@
+---
+title: "Weights & Biases"
+description: "Track, debug, and optimize GPU-heavy workloads on Thunder Compute instances using Weights & Biases (wandb)."
+sidebarTitle: "Weights & Biases"
+---
+
+Weights & Biases (wandb) is an experiment tracking and model management platform that’s particularly useful when training large models on Cloud GPUs. It helps you:
+
+- Track training runs, hyperparameters, and metrics
+- Monitor GPU/CPU utilization in real time
+- Version datasets and model checkpoints
+- Run large-scale hyperparameter sweeps across many GPU instances
+
+On Thunder Compute, wandb helps you monitor GPU utilization, identify bottlenecks, and track training metrics.
+
+---
+
+## Prerequisites
+
+- A Thunder Compute GPU instance created and connected
+- Python environment set up on your instance
+- A Weights & Biases account (https://wandb.ai)
+
+---
+
+## Installation
+
+Install wandb on your Thunder Compute instance:
+
+```bash
+pip install wandb
+```
+
+Or add to a `requirements.txt`:
+
+```bash
+echo "wandb" >> requirements.txt
+pip install -r requirements.txt
+```
+
+---
+
+## Authentication
+
+Authenticate with:
+
+```bash
+wandb login
+```
+
+Or via environment variable:
+
+```bash
+export WANDB_API_KEY="your_api_key"
+wandb login --relogin
+```
+
+You will see the following below:
+
+```
+wandb: Logging into wandb.ai. (Learn how to deploy a W&B server locally: https://wandb.me/wandb-server)
+wandb: You can find your API key in your browser here: https://wandb.ai/authorize?ref=models
+wandb: Paste an API key from your profile and hit enter, or press ctrl+c to quit:
+```
+
+Enter your API key which can be found on the homepage of wandb.ai after you create an account, once entered you will see:
+
+```
+wandb: No netrc file found, creating one.
+wandb: Appending key for api.wandb.ai to your netrc file: /home/ubuntu/.netrc
+wandb: Currently logged in as: username (entity-name) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+```
+
+<Note>
+  For shared or production Thunder instances, environment variables or secret
+  managers are preferred over pasting API keys directly.
+</Note>
+
+---
+
+## Getting Started
+
+Follow these steps to run your first wandb experiment on your Thunder Compute instance.
+
+### Step 1 — Create a Training File
+
+Create a new Python file on your instance:
+
+```bash
+nano train.py
+```
+
+Or create a new file within your IDE connected over SSH.
+
+### Step 2 — Paste Minimal Working Example
+
+Copy this minimal example into your `train.py` file:
+
+```python
+import wandb
+import time
+
+# Initialize wandb
+wandb.init(
+    project="thunder-resnet",
+    name="quick-test",
+    config={
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "epochs": 5,
+    },
+)
+
+# Simple training loop simulation
+for epoch in range(5):
+    # Simulate training metrics
+    train_loss = 1.0 / (epoch + 1)
+    train_acc = 0.5 + epoch * 0.1
+
+    # Log metrics to wandb
+    wandb.log({
+        "epoch": epoch,
+        "train/loss": train_loss,
+        "train/accuracy": train_acc,
+    })
+
+    time.sleep(0.5)  # Simulate work
+
+wandb.finish()
+```
+
+### Step 3 — Run the Script
+
+Execute your training script:
+
+```bash
+python train.py
+```
+
+### Step 4 — Expected Output
+
+You should see output similar to:
+
+```
+wandb: Currently logged in as: your-username (entity-name) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.23.0
+wandb: Run data is saved locally in /home/ubuntu/wandb/run-20251120_135726-abcd
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run quick-test
+wandb: ⭐️ View project at https://wandb.ai/entity-name/thunder-resnet
+wandb: 🚀 View run at https://wandb.ai/entity-name/thunder-resnet/runs/abcd
+wandb:
+wandb: Run history:
+wandb:          epoch ▁▃▅▆█
+wandb: train/accuracy ▁▃▅▆█
+wandb:     train/loss █▄▂▁▁
+wandb:
+wandb: Run summary:
+wandb:          epoch 4
+wandb: train/accuracy 0.9
+wandb:     train/loss 0.2
+wandb:
+wandb: 🚀 View run quick-test at: https://wandb.ai/entity-name/thunder-resnet/runs/abcd
+wandb: ⭐️ View project at: https://wandb.ai/entity-name/thunder-resnet
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20251120_135726-abcd/logs
+```
+
+### Step 5 — View Your Results
+
+1. **View your dashboard**: Click the link in the output or visit https://wandb.ai and navigate to your project
+2. **View in Table view**: Go to **(Project Name)** > **Projects** > **thunder-resnet** > **Table** to see all your runs in a tabular format
+3. **Compare runs**: Run the script multiple times with different configurations to compare results
+4. **Add artifacts**: See the [Model Checkpointing with Weights & Biases Artifacts](#model-checkpointing-with-weights--biases-artifacts) section to version checkpoints and datasets
+5. **Scale to multi-GPU**: Check out [Distributed Training](#distributed-training-ddp-lightning-deepspeed) for multi-GPU setups
+6. **Run sweeps**: Use [Hyperparameter Sweeps](#hyperparameter-sweeps-multi‑gpu-multi‑instance) for automated hyperparameter search
+
+---
+
+## Viewing Results
+
+1. Visit https://wandb.ai
+2. Select your project
+3. Explore:
+   - Metrics charts
+   - GPU utilization
+   - Model checkpoints
+   - Dataset artifacts
+   - Sweep dashboards
+
+---
+
+## Core Concepts for Cloud GPU Workloads
+
+When using remote GPUs, these wandb features matter most:
+
+1. **Run tracking** — metrics, hyperparameters, logs
+2. **GPU/system monitoring** — GPU utilization, power, memory, CPU load
+3. **Artifacts** — versioned checkpoints and datasets
+4. **Sweeps** — distributed hyperparameter search
+5. **Groups & jobs** — organize multi-GPU/distributed training
+
+---
+
+## Basic Usage
+
+### Initialize a Run
+
+```python
+import wandb
+
+wandb.init(
+    project="my-thunder-project",
+    name="baseline-resnet50",
+    config={
+        "learning_rate": 3e-4,
+        "batch_size": 64,
+        "epochs": 20,
+        "optimizer": "adamw",
+        "precision": "fp16",
+    },
+)
+```
+
+### Log Metrics
+
+```python
+wandb.log({
+    "train/loss": loss,
+    "train/accuracy": acc,
+    "step": step,
+})
+```
+
+### Best Logging Practices
+
+- Log every **N steps** (e.g., 10–50) to minimize overhead
+- Avoid logging huge tensors every step
+- Use artifacts for large files
+
+---
+
+## GPU & System Monitoring
+
+Wandb automatically collects:
+
+- GPU utilization
+- GPU memory usage
+- GPU temperature and power
+- CPU usage
+- RAM usage
+- Disk and network I/O
+
+Use these graphs to diagnose:
+
+- **GPU-bound** workloads
+- **Data-bound** workloads
+- **Bottlenecks** due to I/O or preprocessing
+- **Too-small batch sizes**
+
+### Improving GPU Utilization
+
+- Increase batch size until GPU memory is near capacity
+- Use **mixed precision** (`torch.cuda.amp`)
+- Increase dataloader workers
+- Preload/augment data on the GPU
+- Reduce unnecessary synchronizations
+
+---
+
+## Model Checkpointing with Weights & Biases Artifacts
+
+When you train on Thunder Compute GPU instances, it's important that your model checkpoints are **not** tied to a single machine. Weights & Biases Artifacts provide a simple way to:
+
+- Persist checkpoints even if the instance is deleted
+- Move checkpoints between different Thunder instances (or GPU types)
+- Share models with your team
+- Reproduce and resume long-running training jobs
+
+This section provides a walkthrough of how to do checkpointing with wandb.
+
+---
+
+### Why use Artifacts for checkpoints?
+
+Saving checkpoints only to the local filesystem is risky:
+
+- Thunder instances may be stopped or recreated
+- You may want to resume training on a _different_ GPU (A100 → H100)
+- Your team may need to reuse your model
+- You may want versioned, reproducible training history
+
+Artifacts solve this by storing checkpoints in W&B's managed, versioned storage.
+
+---
+
+### Step 1 — Save a checkpoint locally during training
+
+Inside your real training loop, periodically save a checkpoint.  
+For real projects (PyTorch):
+
+```python
+import torch
+
+# ... inside your training loop ...
+if (epoch + 1) % 5 == 0:
+    ckpt_path = f"checkpoints/model_epoch_{epoch+1}.pt"
+    torch.save(model.state_dict(), ckpt_path)
+```
+
+> It is best practice to save checkpoints inside a dedicated `checkpoints/` folder.
+
+---
+
+### Step 2 — Log the checkpoint as a W&B Artifact
+
+Right after saving your file:
+
+```python
+import wandb
+
+artifact = wandb.Artifact(
+    name=f"resnet50-epoch-{epoch+1}",
+    type="model",
+    metadata={
+        "epoch": epoch + 1,
+        "val_loss": float(val_loss),
+        "val_accuracy": float(val_acc),
+    },
+)
+
+artifact.add_file(ckpt_path)
+wandb.log_artifact(artifact)
+```
+
+This uploads your checkpoint to W&B and keeps a permanent copy.
+
+---
+
+### Step 3 — View & manage checkpoints in the W&B UI
+
+1. Go to your wandb project
+2. Open the **Artifacts** tab
+3. Click your model artifact
+4. You can now:
+   - View version history (v0, v1, v2…)
+   - Open the metrics/metadata
+   - Download the checkpoint
+   - Use it as an input for new runs
+
+---
+
+### Step 4 — Restore a checkpoint on another Thunder instance
+
+On a fresh machine:
+
+```python
+import wandb
+import torch
+
+run = wandb.init(project="my-thunder-project", job_type="restore")
+
+artifact = run.use_artifact(
+    "wato/my-thunder-project/resnet50-epoch-10:latest",
+    type="model",
+)
+artifact_dir = artifact.download()
+
+checkpoint = torch.load(f"{artifact_dir}/model_epoch_10.pt", map_location="cuda")
+model.load_state_dict(checkpoint)
+model.to("cuda")
+```
+
+You now have the exact model weights from your previous run — even if the original instance is gone.
+
+---
+
+### Step 5 — Resume training
+
+```python
+model.load_state_dict(checkpoint)
+model.to("cuda")
+
+optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
+
+start_epoch = 10
+for epoch in range(start_epoch, config.epochs):
+    train_one_epoch(...)
+    validate(...)
+    wandb.log({"epoch": epoch})
+```
+
+---
+
+### Example: Adding Checkpointing to a Minimal `train.py`
+
+Here is a working example using the simple training script from the Getting Started section.
+
+This example simulates a checkpoint file (JSON), but the workflow is identical for real model weights.
+
+```python
+import wandb
+import time
+import json
+import os
+
+# Initialize wandb
+wandb.init(
+    project="thunder-resnet",
+    name="quick-test",
+    config={
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "epochs": 5,
+    },
+)
+
+os.makedirs("checkpoints", exist_ok=True)
+
+for epoch in range(5):
+    # Simulate training metrics
+    train_loss = 1.0 / (epoch + 1)
+    train_acc = 0.5 + epoch * 0.1
+
+    # Log metrics to wandb
+    wandb.log({
+        "epoch": epoch,
+        "train/loss": train_loss,
+        "train/accuracy": train_acc,
+    })
+
+    # ---- Checkpointing Example ----
+    # In a real project this would be torch.save(model.state_dict(), ...)
+    checkpoint_path = f"checkpoints/epoch_{epoch}.json"
+    with open(checkpoint_path, "w") as f:
+        json.dump({
+            "epoch": epoch,
+            "train_loss": train_loss,
+            "train_accuracy": train_acc,
+        }, f)
+
+    # Log checkpoint as an artifact
+    artifact = wandb.Artifact(
+        name=f"quick-test-epoch-{epoch}",
+        type="model",
+        metadata={
+            "epoch": epoch,
+            "train_loss": train_loss,
+            "train_accuracy": train_acc
+        },
+    )
+    artifact.add_file(checkpoint_path)
+    wandb.log_artifact(artifact)
+    # --------------------------------
+
+    time.sleep(0.5)
+
+wandb.finish()
+```
+
+This example demonstrates:
+
+- how checkpoint files are created
+- how they are logged as Artifacts
+- how each epoch becomes a tracked, versioned checkpoint
+
+These appear in the **Artifacts** tab of your project.
+
+---
+
+### Quick Reference: Other Artifact Types
+
+Artifacts aren't just for model checkpoints. You can also version datasets:
+
+```python
+# Logging a Dataset
+dataset = wandb.Artifact("imagenet-subset", type="dataset")
+dataset.add_dir("data/imagenet_subset")
+wandb.log_artifact(dataset)
+```
+
+---
+
+## Hyperparameter Sweeps (Multi‑GPU, Multi‑Instance)
+
+Sweeps allow large-scale hyperparameter search across many Thunder Compute instances.
+
+### Step 1 — Create `sweep.yaml`
+
+```yaml
+program: train.py
+project: thunder-resnet
+method: bayes
+
+metric:
+  name: val/accuracy
+  goal: maximize
+
+parameters:
+  learning_rate:
+    min: 0.00001
+    max: 0.001
+  batch_size:
+    values: [32, 64, 128]
+  weight_decay:
+    min: 0.0
+    max: 0.1
+  augment:
+    values: ["none", "light", "heavy"]
+```
+
+Output:
+
+```
+wandb: Creating sweep from: sweep.yaml
+wandb: Creating sweep with ID: fgbkmk3q
+wandb: View sweep at: https://wandb.ai/entity-name/thunder-resnet/sweeps/fgbkmk3q
+wandb: Run sweep agent with: wandb agent entity-name/thunder-resnet/fgbkmk3q
+```
+
+### Step 2 — Initialize the sweep:
+
+```bash
+wandb sweep sweep.yaml
+```
+
+### Step 3 — Run agents on Thunder GPU instances:
+
+```bash
+wandb agent <entity>/<project>/<sweep_id>
+```
+
+Each agent pulls new hyperparameters and launches a run automatically.
+
+---
+
+## Distributed Training (DDP, Lightning, DeepSpeed)
+
+### PyTorch DDP Example
+
+```python
+wandb.init(
+    project="thunder-ddp",
+    group="llama7b-a100x4",
+    job_type="training",
+)
+```
+
+Set run names per rank:
+
+```python
+wandb.run.name = f"gpu-{rank}"
+```
+
+### PyTorch Lightning Example
+
+```python
+from lightning.pytorch import Trainer
+from lightning.pytorch.loggers import WandbLogger
+
+wandb_logger = WandbLogger(project="thunder-lightning-demo")
+
+trainer = Trainer(
+    logger=wandb_logger,
+    accelerator="gpu",
+    devices=4,
+    strategy="ddp",
+    max_epochs=50,
+)
+
+trainer.fit(model)
+```
+
+Lightning automatically:
+
+- Logs metrics and gradients
+- Tracks checkpoints
+- Handles multi-GPU logging
+
+---
+
+## Offline Mode (Air‑Gapped or Firewalled Environments)
+
+Thunder instances may have intermittent or restricted internet access.
+
+### Run in offline mode:
+
+```bash
+export WANDB_MODE=offline
+python train.py
+```
+
+### Sync later:
+
+```bash
+wandb sync /path/to/wandb/run-folder
+```
+
+### Fully disable wandb:
+
+```bash
+export WANDB_MODE=disabled
+```
+
+---
+
+## Best Practices for Thunder Compute GPU Instances
+
+### Run Management
+
+- Use meaningful run names that include dataset + model + GPU type
+- Log all hyperparameters in `wandb.config`
+- Track system metrics to diagnose bottlenecks
+- Organize multi-GPU runs using `group`
+- Reduce logging overhead by batching logs
+
+### Artifacts & Checkpointing
+
+- Use meaningful artifact names (e.g. `llama7b-a100-epoch20`)
+- Attach useful metadata (epoch, val metrics, dataset version)
+- Log fewer but higher-quality checkpoints
+- Always use artifacts for long or expensive runs
+- Use `use_artifact(...).download()` to restore weights anywhere
+- Use artifacts for datasets and checkpoints
+
+### Experimentation
+
+- Use sweeps for expensive experiments
+- Compare runs systematically using the dashboard
+- Monitor GPU utilization to optimize batch sizes
+
+---
+
+## Troubleshooting
+
+### Authentication Issues
+
+```bash
+wandb login --relogin
+```
+
+### GPU Metrics Not Showing
+
+- Ensure `nvidia-smi` works inside the environment
+- Use GPU-enabled containers (`--gpus all`)
+- Call `wandb.init()` early
+
+### Connection Issues
+
+- Verify outbound internet access
+- Firewalls must allow connections to `*.wandb.ai`
+- Use offline mode if required
+
+### Large File Uploads
+
+- Always use artifacts for multi-GB files
+- Compress large checkpoints
+- Prune old versions
+
+---
+
+## Need Help?
+
+- W&B Docs: https://docs.wandb.ai
+- Thunder Compute Discord: https://discord.gg/nwuETS9jJK
+- Email support: `support@thundercompute.com`

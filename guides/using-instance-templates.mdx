@@ -1,0 +1,86 @@
+---
+title: "Use Instance Templates for AI"
+description: "Quickly deploy LLMs (Ollama) and AI image generators (ComfyUI, WebUI Forge) on Thunder Compute using pre-configured instance templates. Get started fast."
+mode: wide
+sidebarTitle: "Instance Templates"
+---
+
+Thunder Compute gives indie developers, researchers and data scientists instant access to **affordable cloud GPUs**. Our pre-configured **instance templates** set up popular AI stacks automatically, so you can **run LLMs** or **generate AI images** in minutes.
+
+## AI Templates on Cheap Cloud GPUs
+
+We currently offer:
+
+- **Ollama** – launches an Ollama server for open-source large language models  
+- **ComfyUI** – installs ComfyUI for fast AI-image generation workflows  
+- **WebUI Forge** – deploys Stable Diffusion WebUI Forge with Flux-fp8 and Flux-fp4  
+
+## Deploy a Template
+
+1. **Create an instance**
+
+```bash
+# Launch an Ollama instance
+tnr create --template ollama
+
+# Launch ComfyUI
+tnr create --template comfy-ui
+
+# Launch WebUI Forge (recommended GPU: A100)
+tnr create --template webui-forge --gpu a100
+```
+
+<Warning>
+  WebUI Forge ships with Flux-fp8 and Flux-fp4. For peak performance choose an A100 GPU.
+</Warning>
+
+2. **Connect to the instance**
+
+```bash
+tnr connect 0   # replace 0 with your instance ID
+```
+
+<Note>
+  Port forwarding is handled automatically when you connect. The `-t` flag is unnecessary.
+</Note>
+
+3. **Start the service**
+
+```bash
+# Ollama
+start-ollama
+
+# ComfyUI
+start-comfyui
+
+# WebUI Forge
+start-webui-forge
+```
+
+Required ports forward to your local machine automatically.
+
+## Template Details
+
+### Ollama Template
+
+- Forwards port **11434**  
+- Access the API at `http://localhost:11434`  
+- Ready for popular Ollama models
+
+### ComfyUI Template
+
+- Forwards port **8188**  
+- Mounts the `ComfyUI` directory to your Mac or Linux host  
+- UI at `http://localhost:8188`  
+- Includes common nodes and extensions
+
+### WebUI Forge Template
+
+- Forwards port **7860**  
+- Mounts `stable-diffusion-webui-forge` to your host  
+- UI at `http://localhost:7860`  
+- Includes Flux-fp8 and Flux-fp4 models
+
+## Need Help?
+
+Encounter problems or have questions? Reach out to our support team any time.

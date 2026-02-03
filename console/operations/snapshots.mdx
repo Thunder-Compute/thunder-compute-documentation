@@ -1,0 +1,64 @@
+---
+title: "Snapshots"
+description: "Save and restore the state of your Thunder Compute instances"
+icon: "camera"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/snapshots">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" color="#3a6289" href="/cli/operations/snapshots">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" color="#95c5ea" href="/console/operations/snapshots">
+    Web interface
+  </Card>
+</Columns>
+
+Snapshots capture the full disk state of a running instance, letting you restore your environment later without reinstalling dependencies or re-downloading models. You can also use snapshots to change instance specifications by restoring to a new instance with different GPU or CPU settings.
+
+## Create a Snapshot
+
+On the main [Instances page](https://console.thundercompute.com):
+
+1. Select your running instance using the checkbox
+2. Click **Snapshot** in the actions bar
+3. Enter a name for your snapshot
+
+Snapshotting happens in the background—you can continue using your instance immediately. The snapshot captures the exact state at the moment you initiated it.
+
+## View Snapshots
+
+Navigate to the Snapshots section to see all your saved snapshots with their status, size, and creation date.
+
+## Restore from a Snapshot
+
+When creating a new instance, select your snapshot from the template options.
+
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data.
+</Note>
+
+## Delete a Snapshot
+
+Navigate to the [Snapshots page](https://console.thundercompute.com/snapshots) to view all your snapshots and their status. Select a snapshot using the checkbox and click **Delete** in the actions bar to remove it.
+
+## Best Practices
+
+1. **Name snapshots descriptively**: Include the project, date, or purpose (e.g., `llama-finetuned-jan2026`)
+
+2. **Snapshot before major changes**: Create a snapshot before installing new packages or modifying your environment
+
+3. **Clean up unused snapshots**: Snapshots count toward your storage. Delete old ones you no longer need
+
+4. **Keep snapshots small**: Remove large temporary files before creating a snapshot to speed up creation and restoration
+
+## Snapshots vs External Backups
+
+Snapshots are great for quickly restoring your environment, but they're tied to Thunder Compute. For long-term data preservation, also use:
+
+- **GitHub** for code and configuration
+- **Local downloads** for important outputs
+- **Cloud storage** (R2, Google Drive) for large files

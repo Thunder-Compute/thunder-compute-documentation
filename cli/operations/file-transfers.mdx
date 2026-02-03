@@ -1,0 +1,45 @@
+---
+title: "File Transfers"
+description: "Copy files between your local machine and Thunder Compute instances"
+icon: "file-import"
+iconType: "solid"
+---
+
+<Columns cols={3}>
+  <Card title="VSCode / Cursor" icon="window" color="#3a6289" href="/vscode/operations/file-transfers">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" color="#95c5ea" href="/cli/operations/file-transfers">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" color="#3a6289" href="/console/operations/file-transfers">
+    Web interface
+  </Card>
+</Columns>
+
+```bash
+tnr scp <source> <destination>
+```
+
+Prefix a path with `instance_id:` to indicate it's remote.
+
+```bash
+# Upload: local → remote
+tnr scp ./data.csv 0:/home/user/
+
+# Download: remote → local
+tnr scp 0:/home/user/results.csv ./
+```
+
+<Info>
+  Directories are transferred recursively. SSH keys and `~/` expansion are handled automatically.
+</Info>
+
+<Note>
+  Uses `rsync` on Linux and macOS for better performance and progress display. Falls back to `scp` if rsync is unavailable. On Windows/WSL, uses `scp`.
+</Note>
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance

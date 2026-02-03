@@ -1,0 +1,42 @@
+---
+title: Troubleshooting
+description: "Troubleshoot common Thunder Compute errors. Find solutions for connection issues, function errors, SSH problems, and access logs. Get support via Discord."
+icon: wrench
+iconType: solid
+---
+
+## Common solutions
+
+1.  Reconnect to the instance with `ctrl + d` and `tnr connect <instance_id>`
+2.  Upgrade tnr. Depending on your install method, you may have to use `pip install tnr --upgrade` or re-download the binary from the website
+3.  Back up any important data, then delete and recreate the instance.
+
+## Common errors
+
+### Function not implemented
+
+A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. Check our [Prototyping vs Production](/prototyping-vs-production) guide for supported features, and if you encounter this, please contact us.
+
+### SSH errors
+
+If you encounter SSH-related errors (like `Error reading SSH protocol banner` or permission issues), first retry the command.
+
+For quick fixes, back up critical data and recreate the instance. Instances cannot be stopped or restarted.
+
+For persistent SSH issues, see our [SSH on Thunder Compute guide](/guides/ssh-on-thunder-compute) for alternative connection methods.
+
+## Recommended Guides
+
+To help prevent common issues and get the most out of Thunder Compute, we recommend these guides:
+
+* [Using Docker](/guides/using-docker-on-thundercompute) - Learn about GPU-enabled containers and troubleshooting Docker issues
+* [Installing Conda](/guides/installing-conda) - Proper setup of Conda environments to avoid dependency conflicts
+* [Using Instance Templates](/guides/using-instance-templates) - Use pre-configured environments to minimize setup issues
+
+## Production mode as a last resort
+
+If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to production mode with [modify](/operations/modifying-instances). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the prototyping tier.
+
+## Support
+
+The fastest way to get support is to join [our discord](https://discord.gg/nwuETS9jJK). Our founding team will personally respond to help you as quickly as possible.
