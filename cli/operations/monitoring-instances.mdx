@@ -1,0 +1,81 @@
+---
+title: "Monitoring Instances"
+description: "View the status of your Thunder Compute instances"
+icon: "chart-line"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/monitoring-instances">
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/monitoring-instances" selected={true}>
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/monitoring-instances">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## View Instance Status
+
+List all your instances with their details:
+
+```bash
+tnr status
+```
+
+This displays:
+- **Instance ID**: The identifier used for other commands (e.g., `0`)
+- **Status**: `RUNNING`, `CREATING`, `RESTORING`, etc.
+- **IP Address**: The public IP for SSH access
+- **GPU Type**: A6000, A100, or H100
+- **GPU Count**: Number of GPUs (production only)
+- **vCPU Count**: Number of virtual CPUs
+- **RAM**: Total memory
+- **Disk Size**: Storage capacity
+- **Template**: The template or snapshot used
+
+### Disable Auto-Refresh
+
+By default, `tnr status` monitors for status changes. Use the `--no-wait` flag to get a single snapshot:
+
+```bash
+tnr status --no-wait
+```
+
+## Instance States
+
+| Status      | Description                                      |
+|-------------|--------------------------------------------------|
+| `RUNNING`   | Instance is active and ready to use              |
+| `CREATING`  | Instance is being provisioned                    |
+| `RESTORING` | Instance is being restored from a snapshot       |
+| `DELETING`  | Instance is being removed                        |
+
+## Benchmarking Notes
+
+When measuring performance in **prototyping mode**, note that hardware-level metrics (temperature, wattage, utilization) may not be accurate due to CUDA-level optimizations. Use application-level metrics like iterations per second for reliable comparisons.
+
+For accurate hardware metrics, use **production mode** instances.

@@ -1,0 +1,64 @@
+---
+title: "Deleting Instances"
+description: "Remove Thunder Compute instances and free up resources"
+icon: "trash"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/deleting-instances" selected={true}>
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/deleting-instances">
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/deleting-instances">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## Delete an Instance
+
+<Warning>
+  Deleting an instance permanently removes it and all associated data. This action cannot be undone. Consider [creating a snapshot](/vscode/operations/snapshots) first to back up your environment.
+</Warning>
+
+1. Open the Thunder Compute sidebar panel
+2. Find the instance you want to delete
+3. Click the delete button (trash icon) next to the instance
+4. Confirm the deletion in the dialog
+
+## Before Deleting
+
+Before deleting an instance, make sure to:
+
+1. **Download important files**: Use the VSCode file explorer to save any outputs, models, or data you need
+2. **Create a snapshot**: If you want to restore your environment later, [create a snapshot](/vscode/operations/snapshots) first
+3. **Push code to GitHub**: Commit and push any code changes to a remote repository
+
+## Billing
+
+Billing stops immediately when an instance is deleted. You are charged only for the time the instance was running.
+
+Check your usage and billing details in the [console billing settings](https://console.thundercompute.com/settings/billing).

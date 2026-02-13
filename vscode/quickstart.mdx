@@ -1,0 +1,86 @@
+---
+title: "Quickstart"
+description: "Get started with Thunder Compute using VSCode, Cursor, or Windsurf"
+icon: "rocket"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/quickstart" selected={true}>
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/quickstart">
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/quickstart">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## Installation
+
+Click the following links to access the Thunder Compute extension:
+
+- [VSCode extension](vscode:extension/ThunderCompute.thunder-compute)
+- [Cursor extension](cursor:extension/ThunderCompute.thunder-compute)
+- [Windsurf extension](windsurf:extension/ThunderCompute.thunder-compute)
+
+You must have already installed the corresponding editor for each link to work.
+
+## Authentication
+
+You may be automatically prompted to login. If not, open the command palette with `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS) and run `Thunder Compute: Login`.
+
+Your browser will open automatically to complete authentication.
+
+## Add a Payment Method
+
+In the console, [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
+
+## Using The Extension
+
+You can create instances through the [console](https://console.thundercompute.com) or directly through the extension like so:
+
+![Create Instance](/images/VSCode_Create_Instance.png)
+
+Click on the `Connect` button next to your instance, shaped like two arrows pointing towards each other.
+
+![Connect to Instance](/images/VSCode_Connect_Instance.png)
+
+<Note>
+  If connecting to the instance fails, check that you have the remote-ssh extension installed on your editor.
+</Note>
+
+A new window will open connected to your instance. You can drag files you need into the file explorer, run notebooks, scripts, and more as if they were on your local machine.
+
+![SSH View](/images/VSCode_SSH.png)
+
+That's it\! You're now ready to use Thunder Compute.
+
+## Next Steps
+
+- Learn about [Prototyping vs Production](/prototyping-vs-production) to choose the right mode for your workload
+- Explore [Technical Specifications](/technical-specs) for hardware, networking, and storage details
+- Learn how to [transfer files](/vscode/operations/file-transfers), [create snapshots](/vscode/operations/snapshots), and more in the Operations section
+- Learn how to [Run a Jupyter Notebook](/guides/running-jupyter-notebooks-on-thunder-compute)

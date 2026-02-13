@@ -1,0 +1,39 @@
+---
+title: "Jupyter Notebooks"
+description: "Launch notebooks on cloud GPUs. Develop locally."
+mode: "wide"
+sidebarTitle: "Jupyter Notebooks"
+---
+
+## Prerequisites for a Jupyter Notebook with Cloud GPU
+
+- VSCode installed
+- Thunder Compute extension installed in VSCode, Cursor, or Windsurf
+- Jupyter Notebook extension installed in VSCode, Cursor, or Windsurf
+
+## Steps to Launch Your Notebook
+
+### 1. Connect to a Thunder Compute cloud GPU in VSCode
+
+Follow the instructions in our [quickstart](/quickstart) guide to set and connect to a remote instance in VSCode.
+
+### 2. Install the Jupyter extension in your cloud workspace
+
+Open the Extensions panel and install the Jupyter extension inside your Thunder Compute instance.
+
+### 3. Verify GPU availability inside the notebook
+
+Create a Jupyter Notebook, which is now connected to a Thunder Compute instance with GPU capabilities. To confirm that the GPU is accessible, run the following in a notebook cell:
+
+```
+import torch
+print(torch.cuda.is_available())
+```
+
+If everything is set up correctly, the output should be:
+
+```
+True
+```
+
+You now have a Jupyter Notebook running on a Thunder Compute cloud GPU, a fast and low-cost alternative to Colab for indie developers, researchers, and data scientists.

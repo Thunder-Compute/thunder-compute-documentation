@@ -1,0 +1,60 @@
+---
+title: "File Transfers"
+description: "Copy files between your local machine and Thunder Compute instances"
+icon: "file-import"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/file-transfers" selected={true}>
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/file-transfers">
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/file-transfers">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## Upload Files
+
+1. Connect to your instance using the Connect button
+2. In the new window, open the file explorer (sidebar)
+3. Drag and drop files from your local machine into the explorer
+
+## Download Files
+
+1. Right-click on a file in the remote file explorer
+2. Select **Download** to save it locally
+
+## Alternative: Integrated Terminal
+
+You can also use `scp` directly in the integrated terminal if you have the CLI installed locally.
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance
+- **Back up important outputs**: Always download critical results before deleting an instance

@@ -1,0 +1,39 @@
+---
+title: "Technical Specifications"
+description: "Hardware specifications, networking details, and pre-installed software for Thunder Compute instances"
+icon: "server"
+iconType: "solid"
+---
+
+## Instance Infrastructure
+
+### Hardware Specifications
+- **GPU Options**:
+  - A6000 48GB (Prototyping only)
+  - A100 80GB (Both modes)
+  - H100 80GB (Both modes)
+- **Memory**: 18 vCPUs and 90GB RAM per GPU (Production mode, Prototyping is fully customizable)
+- **Location**: Canada (Quebec)
+
+### Pre-installed Software
+- **CUDA**: Version 13.0
+- **CUDA Driver**: Version 580
+- **PyTorch**: Version 2.9.0+cu128
+- **JupyterLab**: Pre-installed
+- Additional scientific Python libraries (NumPy, Pandas, etc.)
+
+<Warning>
+  Do not attempt to reinstall CUDA. If compatibility issues arise, upgrade your other dependencies (e.g., PyTorch) rather than downgrading CUDA.
+</Warning>
+
+## Networking
+
+- **Egress/Ingress**: 7 Gbps
+- **IP Address**: Dynamic
+
+### Port Access
+
+- **Public URLs (CLI)**: Use `tnr ports forward` to expose HTTP services at `https://<uuid>-<port>.thundercompute.net` with automatic HTTPS and DDoS protection. See [Port Forwarding](/cli/operations/port-forwarding) for details.
+- **Local tunneling (CLI)**: Use `tnr connect <instance_id> -t <port>` to tunnel ports to your local machine
+- **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature
+

@@ -1,0 +1,52 @@
+---
+title: "SSH on Thunder Compute"
+description: "Use saved SSH keys to sign in to Thunder Compute instances when you need manual SSH access."
+mode: "wide"
+sidebarTitle: "SSH manually"
+---
+
+<Warning>
+  Manually SSHing is an advanced escape hatch. Thunder Compute already handles SSH, port forwarding, and key rotation through the **CLI**, **VS Code extension**, and **console**. Stick to the standard connect flows unless you have existing infrastructure that relies on raw SSH.
+</Warning>
+
+## Save an SSH key once
+
+- **Console:** open [Authentication → SSH Keys (Advanced)](https://console.thundercompute.com/settings/ssh) to add or remove organization keys.
+- **CLI:** run `tnr ssh-keys add` to launch the interactive picker. The CLI autodetects keys in `~/.ssh/*.pub`, so you just confirm the one you want. Use `tnr ssh-keys list` anytime to verify what is saved.
+
+Saved keys live at the org level, so everyone on your team can reuse them when creating instances.
+
+## Use saved keys when you create instances
+
+- **CLI:** pass `--ssh-keys <name>` to `tnr create`. The CLI links your local private key for your reference, but `tnr connect` does not reuse these keys.
+- **VS Code:** the create-instance dialog now lets you pick any key from your saved list; new windows reuse it automatically.
+- **Console:** launching from the web UI lets you choose a saved key during creation.
+
+Instances include the selected public key in `authorized_keys` at boot. You can add keys later by manually connecting with `ssh` or by using the [Add SSH key to instance](http://localhost:3000/api-reference/instances/add-ssh-key-to-instance) API reference. These saved keys are separate from the credentials Thunder Compute uses for `tnr connect`, which maintains its own managed access.
+
+## SSH manually
+
+1. Find the instance IP and SSH port from either the console details pane (click the instance row) or the table output of `tnr status`.
+
+   ```bash
+   tnr status
+   ```
+
+   Instance IPs stay the same for the life of the VM, but confirm the SSH port each time you reconnect.
+
+2. From your local machine, run SSH with the private key that matches the saved public key, the reported port, and the `ubuntu` user:
+
+   ```bash
+   ssh -i ~/.ssh/id_ed25519 -p <port> ubuntu@<instance-ip>
+   ```
+
+   Replace `~/.ssh/id_ed25519` with the private key path you selected earlier. Substitute `<port>` with the value from instance details. Most images use the `ubuntu` user; check your template if it differs.
+
+3. Optional: copy the command into editors such as JetBrains Gateway or any remote-SSH client.
+
+## Quick troubleshooting
+
+- **Permission denied:** make sure you are connecting as `ubuntu`, using the `-p <port>` from instance details, and that the matching private key exists locally (the CLI will warn if it cannot link it).
+- **Connection timed out:** re-check that you copied the correct port; the IP stays stable, but the exposed port can change if the instance is cycled.
+- **Host verification failed:** remove the old entry from `~/.ssh/known_hosts` and retry. New IPs will change fingerprints.
+- **Still stuck?** Double-check the IP, port, and key, or send a message in [Discord](https://discord.gg/thundercompute) with the SSH output.
