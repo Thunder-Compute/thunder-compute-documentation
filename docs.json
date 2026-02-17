@@ -177,7 +177,7 @@
       "anchors": [
         {
           "anchor": "Support",
-          "href": "https://discord.gg/nwuETS9jJK",
+          "href": "https://discord.com/invite/nwuETS9jJK",
           "icon": "discord"
         }
       ]
@@ -195,7 +195,7 @@
     "links": [
       {
         "label": "Contact Us",
-        "href": "https://discord.gg/nwuETS9jJK"
+        "href": "https://discord.com/invite/nwuETS9jJK"
       }
     ],
     "primary": {
@@ -206,7 +206,7 @@
   },
   "footer": {
     "socials": {
-      "discord": "https://discord.gg/nwuETS9jJK",
+      "discord": "https://discord.com/invite/nwuETS9jJK",
       "x": "https://twitter.com/thundercompute",
       "linkedin": "https://www.linkedin.com/company/thundercompute/"
     }
