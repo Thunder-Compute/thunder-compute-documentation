@@ -1,0 +1,49 @@
+---
+title: "Stopping Instances"
+description: "Pause your work and save costs using the snapshot workaround."
+mode: "wide"
+sidebarTitle: "Stopping Instances"
+---
+
+## The Workflow
+
+Thunder Compute does not have a native "Stop" feature for instances. Fortunately, you can achieve the same result by using snapshots. 
+
+To "stop" an instance, follow these three steps:
+
+1. **Create a snapshot:** This saves the current state of the running instance.
+
+2. **Delete the instance:** Once snapshot creation is underway, you can safely delete the running instance.
+
+3. **Restore the snapshot:** Create a new instance by using your saved Snapshot as the template.
+
+### 1. Create a Snapshot
+First, capture the current state of your running instance. You can trigger this through any of our supported interfaces:
+
+
+**Guides:** [VS Code](https://www.thundercompute.com/docs/vscode/operations/snapshots#create-a-snapshot) | [CLI](https://www.thundercompute.com/docs/cli/operations/snapshots#create-a-snapshot) | [Console](https://www.thundercompute.com/docs/console/operations/snapshots#create-a-snapshot)
+
+### 2. Delete the Running Instance
+Once the snapshot is initiated, delete the instance.
+
+**Guides:** [VS Code](/vscode/operations/deleting-instances#delete-an-instance) | [CLI](/cli/operations/deleting-instances#delete-an-instance) | [Console](/console/operations/deleting-instances#delete-an-instance)
+
+<Tip>
+  You can delete your instance immediately after triggering the snapshot.
+</Tip>
+
+### 3. Restore from Snapshot
+When you are ready to resume, create a new instance using your snapshot as the base.
+
+**Guides:** [VS Code](/vscode/operations/snapshots#restore-from-a-snapshot) | [CLI](/cli/operations/snapshots#restore-from-a-snapshot) | [Console](/console/operations/snapshots#restore-from-a-snapshot)
+
+---
+
+## Important Notes
+
+<Warning>
+The time required to create and restore snapshots varies based on the size of the snapshot.
+</Warning>
+
+* **Cost Efficiency:** You only pay for the snapshot storage while the instance is deleted; significantly cheaper than keeping an instance running.
+* **IP Addresses:** Recreating an instance from a snapshot will likely result in a new IP address. Remember to update your connection settings accordingly.
