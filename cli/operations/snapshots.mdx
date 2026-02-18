@@ -106,15 +106,11 @@ The new instance's disk size must be at least as large as the snapshot. The CLI 
 
 1. **Name snapshots descriptively**: Include the project, date, or purpose (e.g., `llama-finetuned-jan2026`)
 
-2. **Snapshot before major changes**: Create a snapshot before installing new packages or modifying your environment
-
-3. **Clean up unused snapshots**: Snapshots count toward your storage. Delete old ones you no longer need
-
-4. **Keep snapshots small**: Remove large temporary files before creating a snapshot to speed up creation and restoration
+2. **Clean up unused snapshots**: To minimize your bill, remove snapshots you no longer need.
 
 ## Snapshots vs External Backups
 
-Snapshots are great for quickly restoring your environment, but they're tied to Thunder Compute. For long-term data preservation, also use:
+Snapshots are great for quickly restoring your environment, but they’re meant for convenience rather than long-term data security. We do not provide explicit guarantees about snapshot durability. For long-term data preservation, consider using:
 
 - **GitHub** for code and configuration
 - **Local downloads** for important outputs
