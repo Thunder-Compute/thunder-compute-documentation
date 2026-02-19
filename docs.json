@@ -40,7 +40,8 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-                            "guides/using-docker-on-thundercompute",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
@@ -94,7 +95,8 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-                            "guides/using-docker-on-thundercompute",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
@@ -148,7 +150,8 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-                            "guides/using-docker-on-thundercompute",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
               "guides/deepseek-r1-running-locally-on-thunder-compute",
               "guides/mcp-server-for-managing-gpus",
