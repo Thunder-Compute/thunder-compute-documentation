@@ -1,0 +1,33 @@
+---
+title: "Speeding Up Snapshots"
+description: "Optimizing snapshot creation and restoration."
+mode: "wide"
+sidebarTitle: "Speeding Up Snapshots"
+---
+
+The size of your instance's disk directly affects how long snapshots take to create and restore.
+
+## .thunderignore Files for Exclusion
+
+Often, you may want to exclude certain heavy files, cache directories, or generated files from a snapshot. You can do this using a `.thunderignore` file. This will help speed up snapshot creation and restoration.
+
+1. Create a `.thunderignore` file in the `/` directory of your instance.
+2. Add all paths you would like to ignore (absolute paths or relative to `/`). Patterns are supported - the syntax for these is the same as [`filepath.Match`](https://pkg.go.dev/path/filepath#Match) in Go. Patterns are matched against paths, not just basenames, so use `/` to anchor from the root (for example, `/data/*.parquet`). `*` and `?` are supported; `**` is not special and is treated literally. Blank lines are ignored, and lines starting with `#` are treated as comments.
+3. Create your snapshot. The `.thunderignore` file is included in the snapshot so your exclusions persist on restore.
+
+Example `.thunderignore`:
+
+```
+# Caches and build artifacts
+.cache/*
+*.tmp
+
+# Large data
+/data/*.parquet
+/models/*.pt
+
+# Common language build outputs
+/node_modules/*
+/dist/*
+/target/*
+```

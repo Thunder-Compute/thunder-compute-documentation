@@ -1,0 +1,50 @@
+---
+title: "Billing"
+description: "Understand Thunder Compute's usage-based billing, payment methods, billing alerts, current rates, and tips for saving on GPU cloud costs."
+sidebarTitle: "Billing"
+mode: "wide"
+icon: "wallet"
+---
+
+## Payment Options
+
+There are **two ways to pay** for Thunder Compute:
+
+### Option 1: Auto-Pay
+
+Set up auto-pay by saving a credit card in the Stripe customer portal. Open it from [console.thundercompute.com/settings/billing](https://console.thundercompute.com/settings/billing) by clicking "manage billing".
+
+### Option 2: Preload Credit
+
+Add credit directly to your account as an alternative to auto-pay. This credit never expires and will be used before any saved payment method.
+
+**Order of payment**
+
+1. Any preloaded credit you've added
+2. Charges to your saved payment method
+
+You can switch between options or use both—set up auto-pay anytime, even if you started with preloaded credit.
+
+## Billing Alerts
+
+- **Instance reminders:** We'll email you about any running instances so you're never caught off guard.
+- **Threshold charges:** As your usage grows, we'll bill your card at preset checkpoints (which rise over time) to prevent runaway bills.
+
+## Our rates
+
+All compute resources are billed per minute only while your instances run. Rates and promotions are subject to change without notice. For current rates, see our [pricing page](https://www.thundercompute.com/pricing).
+
+## Credit Terms
+
+- **Preloaded credit** does not expire and will be used before charging your saved card.
+- **Promotional credit** can be revoked at our discretion.
+- **Refunds:** Credit is non-refundable.
+
+## Money-Saving Tips
+
+While Thunder Compute is already the cheapest GPU cloud platform, there are a few strategies we recommend to reduce your bill:
+
+- Delete instances when you're done with them to stop billing.
+- Right‑size new workloads with `tnr create --gpu`, `--vcpus`, and related flags so you only pay for what you use.
+
+We think this balances a smooth experience with strong verification—but if you have feedback or questions, please hop into our [Discord](https://discord.com/invite/nwuETS9jJK). We're always happy to improve\!
