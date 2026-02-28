@@ -1,0 +1,31 @@
+---
+title: "Using Docker"
+description: "Experimental Docker support on Thunder Compute."
+mode: wide
+sidebarTitle: "Docker"
+---
+
+## Disclaimer: Docker support is experimental
+
+Docker has experimental support inside Thunder Compute instances. Because Thunder Compute instances
+are themselves containers, running Docker on Thunder Compute is like running Docker inside of
+Docker. To get this to work, our instances come with a modified version of `dockerd`, and there are
+certain situations when it might not work exactly like the official Docker (eg, advanced
+networking features).
+
+# Installing and running Docker
+
+1. `apt update`
+2. `apt install docker.io`
+3. Start `dockerd` in the background: `nohup dockerd &`
+4. Start your container with the `--device nvidia.com/gpu=all` flag in order to expose GPUs. For example: `docker run -it --rm --device nvidia.com/gpu=all ubuntu:latest`.
+
+   Some tutorials will tell you to use `--runtime=nvidia` or `--gpus=all`. These are outdated options and are not supported in Thunder Compute. `--device nvidia.com/gpu=all` is the only supported way to add a GPU to a docker container.
+
+# Known issues
+
++ Docker Compose does not work.
++ The container network is not isolated. This means that even ports you don't list with `-p` will be available, and could potentially conflict with other processes or containers.
++ Sometimes when the container is destroyed, the processes in it will not be properly killed. This can cause e.g. port conflicts if you then try to start the same container again. You can use standard tools like `ps aux` and `kill` to find and stop any remaining container processes.
+
+If you run into issues, please [contact us](/support).

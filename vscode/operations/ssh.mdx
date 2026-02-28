@@ -1,0 +1,77 @@
+---
+title: "SSH on Thunder Compute"
+description: "Use saved SSH keys to sign in to Thunder Compute instances when you need manual SSH access."
+icon: "key"
+iconType: "solid"
+sidebarTitle: "SSH manually"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block', marginBottom: '0.75rem' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/ssh" selected={true}>
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/ssh">
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/ssh">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+<Warning>
+  Manually SSHing is an advanced escape hatch. Thunder Compute already handles SSH, port forwarding, and key rotation through the **CLI**, **VS Code extension**, and **console**. Stick to the standard connect flows unless you have existing infrastructure that relies on raw SSH.
+</Warning>
+
+## Save an SSH key
+
+The VS Code extension uses the same saved keys as the console. Open [Authentication → SSH Keys (Advanced)](https://console.thundercompute.com/settings/ssh) in the console to add or remove organization keys.
+
+Saved keys live at the org level, so everyone on your team can reuse them when creating instances.
+
+## Attach a key when creating an instance
+
+The create-instance dialog in the VS Code extension lets you pick any key from your saved list. New windows reuse it automatically.
+
+Instances include the selected public key in `authorized_keys` at boot. You can add keys later via the [Add SSH key to instance](/api-reference/instances/add-ssh-key-to-instance) API endpoint.
+
+## SSH manually
+
+1. Find the instance IP and SSH port from the instance details in the Thunder Compute sidebar, or run `tnr status` in a terminal.
+
+2. From your local machine, run SSH with the private key that matches the saved public key, the reported port, and the `ubuntu` user:
+
+   ```bash
+   ssh -i ~/.ssh/id_ed25519 -p <port> ubuntu@<instance-ip>
+   ```
+
+   Replace `~/.ssh/id_ed25519` with your private key path. Substitute `<port>` with the value from instance details. Most images use the `ubuntu` user; check your template if it differs.
+
+3. Optional: use the command with JetBrains Gateway or any remote-SSH client.
+
+## Quick troubleshooting
+
+- **Permission denied:** make sure you are connecting as `ubuntu`, using the `-p <port>` from instance details, and that the matching private key exists locally.
+- **Connection timed out:** re-check that you copied the correct port; the IP stays stable, but the exposed port can change if the instance is cycled.
+- **Host verification failed:** remove the old entry from `~/.ssh/known_hosts` and retry. New IPs will change fingerprints.
+- **Still stuck?** Double-check the IP, port, and key, or send a message in [Discord](https://discord.gg/thundercompute) with the SSH output.
