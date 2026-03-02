@@ -41,6 +41,7 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
+              "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
@@ -96,6 +97,7 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
+              "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
@@ -151,6 +153,7 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
+              "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
               "guides/gpt-oss-running-locally-on-thunder-compute",
