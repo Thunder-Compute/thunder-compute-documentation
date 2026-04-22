@@ -1,0 +1,311 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "palm",
+  "name": "Thunder Compute",
+  "colors": {
+    "primary": "#4476a8",
+    "light": "#95c5ea",
+    "dark": "#4476a8"
+  },
+  "favicon": "/thunder_favicon.png",
+  "navigation": {
+    "versions": [
+      {
+        "version": "Agents",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "agents/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "agents/operations/authentication",
+              "agents/operations/creating-instances",
+              "agents/operations/connecting-to-instances",
+              "agents/operations/monitoring-instances",
+              "agents/operations/file-transfers",
+              "agents/operations/port-forwarding",
+              "agents/operations/modifying-instances",
+              "agents/operations/snapshots",
+              "agents/operations/deleting-instances",
+              "agents/operations/ssh"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+              "guides/ephemeral-storage",
+              "guides/speeding-up-snapshots",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases",
+              "guides/mcp-server"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["troubleshooting", "billing", "restrictions"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      },
+      {
+        "version": "VS Code extension",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "vscode/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "vscode/operations/authentication",
+              "vscode/operations/creating-instances",
+              "vscode/operations/connecting-to-instances",
+              "vscode/operations/monitoring-instances",
+              "vscode/operations/file-transfers",
+              "vscode/operations/port-forwarding",
+              "vscode/operations/modifying-instances",
+              "vscode/operations/snapshots",
+              "vscode/operations/deleting-instances",
+              "vscode/operations/ssh"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+              "guides/ephemeral-storage",
+              "guides/speeding-up-snapshots",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases",
+              "guides/mcp-server"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["troubleshooting", "billing", "restrictions"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      },
+      {
+        "version": "CLI",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "cli/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "cli/operations/authentication",
+              "cli/operations/creating-instances",
+              "cli/operations/connecting-to-instances",
+              "cli/operations/monitoring-instances",
+              "cli/operations/file-transfers",
+              "cli/operations/port-forwarding",
+              "cli/operations/modifying-instances",
+              "cli/operations/snapshots",
+              "cli/operations/deleting-instances",
+              "cli/operations/ssh"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+              "guides/ephemeral-storage",
+              "guides/speeding-up-snapshots",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases",
+              "guides/mcp-server"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["troubleshooting", "billing", "restrictions"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      },
+      {
+        "version": "Console",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "console/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "console/operations/authentication",
+              "console/operations/creating-instances",
+              "console/operations/connecting-to-instances",
+              "console/operations/monitoring-instances",
+              "console/operations/file-transfers",
+              "console/operations/port-forwarding",
+              "console/operations/modifying-instances",
+              "console/operations/snapshots",
+              "console/operations/deleting-instances",
+              "console/operations/ssh"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+              "guides/ephemeral-storage",
+              "guides/speeding-up-snapshots",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
+              "guides/gpt-oss-running-locally-on-thunder-compute",
+              "guides/deepseek-r1-running-locally-on-thunder-compute",
+
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases",
+              "guides/mcp-server"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["troubleshooting", "billing", "restrictions"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Support",
+          "href": "https://discord.com/invite/nwuETS9jJK",
+          "icon": "discord"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://www.thundercompute.com"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Contact Us",
+        "href": "https://discord.com/invite/nwuETS9jJK"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Console",
+      "href": "https://console.thundercompute.com/"
+    }
+  },
+  "footer": {
+    "socials": {
+      "discord": "https://discord.com/invite/nwuETS9jJK",
+      "x": "https://twitter.com/thundercompute",
+      "linkedin": "https://www.linkedin.com/company/thundercompute/"
+    }
+  },
+  "integrations": {
+    "gtm": {
+      "tagId": "G-KCY026LJ4T"
+    },
+    "posthog": {
+      "apiKey": "phc_vxiWTRGpeP8lSlmUU2qU2HTYBO9mM7yd8xXeJDcRTAz",
+      "apiHost": "https://us.i.posthog.com"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Geist",
+      "weight": 600
+    },
+    "body": {
+      "family": "Geist"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "view", "claude", "chatgpt", "cursor"],
+    "display": "header"
+  },
+  "redirects": [
+    {
+      "source": "/cli-reference",
+      "destination": "/cli/operations/authentication"
+    },
+    {
+      "source": "/prototyping-mode",
+      "destination": "/prototyping-vs-production"
+    },
+    {
+      "source": "/production-mode",
+      "destination": "/prototyping-vs-production"
+    },
+    {
+      "source": "/guides/using-snapshots",
+      "destination": "/cli/operations/snapshots"
+    },
+    { "source": "/quickstart", "destination": "/agents/quickstart" },
+    {
+      "source": "/guides/ssh-on-thunder-compute",
+      "destination": "/cli/operations/ssh"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+---
+title: "Speeding Up Snapshots"
+description: 'Accelerate snapshot creation and restoration on Thunder Compute. technical optimizations to reduce backup latency and improve data speed.'
+mode: "wide"
+sidebarTitle: "Speeding Up Snapshots"
+---
+
+The size of your instance's disk directly affects how long snapshots take to create and restore.
+
+This guide focuses on simple, high-impact steps to reduce snapshot size and speed up restores. We’ll expand this guide as more snapshot features ship.
+
+## Quick Wins
+
+1. **Keep your instance disk lean**: Remove large, transient files before snapshotting.
+2. **Exclude non-essential data**: Use `.thunderignore` to skip caches, build outputs, and generated assets.
+
+## .thunderignore Files for Exclusion
+
+Often, you may want to exclude certain heavy files, cache directories, or generated files from a snapshot. You can do this using a `.thunderignore` file. This will help speed up snapshot creation and restoration.
+
+1. Create a `.thunderignore` file in the `/` directory of your instance.
+2. Add all paths you would like to ignore (absolute paths or relative to `/`). Patterns are supported - the syntax for these is the same as [`filepath.Match`](https://pkg.go.dev/path/filepath#Match) in Go. Patterns are matched against paths, not just basenames, so use `/` to anchor from the root (for example, `/data/*.parquet`). `*` and `?` are supported; `**` is not special and is treated literally. Blank lines are ignored, and lines starting with `#` are treated as comments.
+3. Create your snapshot. The `.thunderignore` file is included in the snapshot so your exclusions persist on restore.
+
+<Tip>
+  Start by excluding caches, build outputs, and temporary files. You’ll usually see the biggest size reductions there.
+</Tip>
+
+<Note>
+  Make sure you don’t exclude anything required to run your workloads after restore, such as model weights or datasets you actually need.
+</Note>
+
+Example `.thunderignore`:
+
+```
+# Caches and build artifacts
+.cache/*
+*.tmp
+
+# Large data
+/data/*.parquet
+/models/*.pt
+
+# Common language build outputs
+/node_modules/*
+/dist/*
+/target/*
+```

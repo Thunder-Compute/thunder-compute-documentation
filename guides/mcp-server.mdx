@@ -1,0 +1,292 @@
+---
+title: "MCP Server"
+description: "Use Thunder Compute with AI coding agents like Claude Code, Cursor, Windsurf, and Codex via the Model Context Protocol (MCP)."
+sidebarTitle: "MCP Server (AI Agents)"
+---
+
+Thunder Compute provides an MCP (Model Context Protocol) server that lets AI coding agents manage GPU instances on your behalf. Create, monitor, modify, and tear down instances without leaving your agent workflow.
+
+## Prerequisites
+
+1. A Thunder Compute account
+2. An AI agent that supports remote MCP servers (Claude Code, Cursor, Codex, etc.)
+
+No local installation or API tokens required — authentication is handled via OAuth in your browser.
+
+## Setup
+
+<Tabs>
+  <Tab title="Claude Code">
+    Run this in your terminal:
+
+    ```bash
+    claude mcp add --transport http thunder-compute https://www.thundercompute.com/mcp
+    ```
+
+    Then start Claude Code and run `/mcp` to authenticate. A browser window will open for you to log in and authorize access.
+
+    <Accordion title="Manual setup">
+      Alternatively, add to `~/.claude.json` (global) or `.claude.json` in your project root:
+
+      ```json
+      {
+        "mcpServers": {
+          "thunder-compute": {
+            "url": "https://www.thundercompute.com/mcp"
+          }
+        }
+      }
+      ```
+    </Accordion>
+  </Tab>
+  <Tab title="Codex">
+    Run this in your terminal:
+
+    ```bash
+    codex mcp add thunder-compute --url https://www.thundercompute.com/mcp
+    ```
+
+    Codex will prompt you to authenticate via OAuth when you first use a Thunder Compute tool.
+  </Tab>
+  <Tab title="Cursor">
+    Add to `.cursor/mcp.json` in your project root (or `~/.cursor/mcp.json` for global access):
+
+    ```json
+    {
+      "mcpServers": {
+        "thunder-compute": {
+          "type": "http",
+          "url": "https://www.thundercompute.com/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Windsurf">
+    Add to your MCP configuration:
+
+    ```json
+    {
+      "mcpServers": {
+        "thunder-compute": {
+          "serverUrl": "https://www.thundercompute.com/mcp",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="OpenCode">
+    <Steps>
+      <Step title="Add the MCP server">
+        Run the interactive setup:
+
+        ```bash
+        opencode mcp add
+        ```
+
+        When prompted:
+        - **Server name:** `thunder-compute`
+        - **Server type:** `Remote`
+        - **URL:** `https://www.thundercompute.com/mcp`
+        - **Requires OAuth:** `Yes`
+        - **Pre-registered client ID:** `No`
+      </Step>
+
+      <Step title="Authenticate">
+        ```bash
+        opencode mcp auth thunder-compute
+        ```
+
+        A browser window will open for you to log in and authorize access.
+      </Step>
+
+      <Step title="Start coding">
+        ```bash
+        opencode
+        ```
+
+        The Thunder Compute tools are now available in your session.
+      </Step>
+    </Steps>
+
+    <Accordion title="Manual setup">
+      Alternatively, add to `~/.config/opencode/opencode.json`:
+
+      ```json
+      {
+        "$schema": "https://opencode.ai/config.json",
+        "mcp": {
+          "thunder-compute": {
+            "type": "remote",
+            "url": "https://www.thundercompute.com/mcp",
+            "oauth": {}
+          }
+        }
+      }
+      ```
+
+      Then run `opencode mcp auth thunder-compute` to authenticate.
+    </Accordion>
+  </Tab>
+  <Tab title="Smithery">
+    If you use an MCP client that supports [Smithery](https://smithery.ai), you can install directly:
+
+    ```bash
+    npx @smithery/cli install @thunder-compute/thunder-compute
+    ```
+
+    Or browse the [Thunder Compute listing on Smithery](https://smithery.ai/server/@thunder-compute/thunder-compute) and click **Install** for your client.
+  </Tab>
+  <Tab title="Direct HTTP">
+    For custom integrations, the MCP server uses [Streamable HTTP transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http) at a single endpoint. Authentication is via OAuth 2.0 with standard MCP discovery.
+
+    **Endpoint:** `https://www.thundercompute.com/mcp`
+
+    ```bash
+    curl -X POST https://www.thundercompute.com/mcp \
+      -H "Authorization: Bearer <access-token>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": { "name": "my-agent", "version": "1.0.0" }
+        },
+        "id": 1
+      }'
+    ```
+  </Tab>
+</Tabs>
+
+## Authentication
+
+No API tokens or environment variables needed. When you first connect, a browser window opens for you to log in with your Thunder Compute account and authorize access. Tokens refresh automatically, so you only authenticate once per session.
+
+
+## Available Tools
+
+### Instance Management
+
+| Tool | Description |
+|------|-------------|
+| `list_instances` | List all GPU instances with status, IP, and configuration |
+| `create_instance` | Create a new GPU instance (specify GPU type, template, mode, etc.) |
+| `delete_instance` | Delete an instance (irreversible) |
+| `modify_instance` | Change instance config (GPU type, vCPUs, disk, mode) |
+| `run_command` | Execute a shell command on a running instance and return stdout, stderr, and exit code |
+
+### Information
+
+| Tool | Description |
+|------|-------------|
+| `get_specs` | Get available GPU specs (VRAM, vCPU options, storage ranges) |
+| `get_availability` | Get current GPU availability status for each spec |
+| `get_pricing` | Get current per-hour GPU pricing |
+| `list_templates` | List available OS templates (Ubuntu, PyTorch, etc.) |
+
+### Snapshots
+
+| Tool | Description |
+|------|-------------|
+| `list_snapshots` | List all instance snapshots |
+| `create_snapshot` | Create a snapshot of an instance |
+| `delete_snapshot` | Delete a snapshot (irreversible) |
+
+### SSH Keys
+
+| Tool | Description |
+|------|-------------|
+| `list_ssh_keys` | List SSH keys in your organization |
+| `create_ssh_key` | Add an SSH public key to your organization |
+| `delete_ssh_key` | Delete an SSH key |
+| `add_ssh_key_to_instance` | Add an SSH public key to a running instance's authorized_keys |
+
+### Port Forwarding
+
+| Tool | Description |
+|------|-------------|
+| `list_ports` | List all instances with their forwarded ports |
+| `forward_port` | Forward HTTP ports on an instance |
+| `delete_port` | Remove forwarded ports from an instance |
+
+### Connectivity
+
+| Tool | Description |
+|------|-------------|
+| `get_ssh_command` | Get the SSH command to connect to an instance |
+| `get_scp_command` | Get the SCP command to copy files to/from an instance |
+
+### Billing & Usage
+
+| Tool | Description |
+|------|-------------|
+| `get_meter_data` | Get GPU usage metrics for a time period (hourly, daily, weekly, or monthly) |
+| `get_upcoming_invoice` | Get estimated charges for the current billing period |
+| `get_invoice_history` | Get historical invoices for your organization |
+| `get_subscription` | Get subscription details including plan, status, and payment info |
+
+### API Tokens
+
+| Tool | Description |
+|------|-------------|
+| `list_tokens` | List all named API tokens for your organization |
+| `create_token` | Create a new named API token |
+| `delete_token` | Delete a named API token |
+
+## Prompts
+
+The MCP server includes built-in prompts that guide your agent through common multi-step workflows:
+
+| Prompt | Description |
+|--------|-------------|
+| `create-dev-instance` | Set up a GPU development instance with sensible defaults |
+| `deploy-model` | Deploy an ML model (supports Ollama, vLLM, and Transformers) |
+| `check-costs` | Review current GPU usage and costs |
+| `snapshot-and-teardown` | Save instance state and clean up |
+| `setup-comfyui` | Spin up a GPU instance with ComfyUI for AI image generation |
+| `setup-jupyter` | Launch a Jupyter Lab environment on a GPU instance |
+| `fine-tune-model` | Set up a GPU instance for fine-tuning with LoRA or full fine-tuning |
+| `benchmark-gpu` | Run a quick GPU benchmark on an instance to verify performance |
+
+## Example Usage
+
+Once configured, you can ask your AI agent things like:
+
+- "Spin up an A100 instance with PyTorch"
+- "What GPU types are available and how much do they cost?"
+- "Which GPUs are available right now?"
+- "List my running instances"
+- "Run `nvidia-smi` on my instance"
+- "Delete instance inst-abc123"
+- "Forward port 8080 on my instance"
+- "Create a snapshot of my instance before I make changes"
+- "Deploy Llama 3 on a GPU"
+- "How much have I spent this month?"
+- "Show my invoice history"
+- "Create an API token for my CI pipeline"
+
+## Troubleshooting
+
+**Authentication fails or browser doesn't open**: Run `/mcp` in Claude Code to manually trigger authentication. Make sure you're logged in to your Thunder Compute account in the browser.
+
+**"Protected resource does not match" error**: The URL in your MCP config must match the server's configured resource URL exactly. Ensure you're using `https://www.thundercompute.com/mcp`.
+
+**"token has invalid issuer" error**: This is a server-side configuration issue. The MCP authentication client must be configured with the correct Stytch Connected Apps domain.
+
+**Tools not appearing**: Restart your AI agent after changing MCP configuration. Most agents only read MCP config on startup.
+
+## MCP Directories
+
+Thunder Compute is listed on major MCP directories for easy discovery:
+
+- [**Smithery**](https://smithery.ai/server/@thunder-compute/thunder-compute) — One-click install for supported clients
+- [**MCP Registry**](https://registry.modelcontextprotocol.io) — The official Model Context Protocol server registry
+- [**Glama**](https://glama.ai) — Auto-indexed from the MCP Registry
+- [**PulseMCP**](https://pulsemcp.com) — Auto-indexed from the MCP Registry
+
+If your MCP client supports browsing directories, search for "Thunder Compute" to find and install the server directly.

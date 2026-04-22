@@ -1,0 +1,111 @@
+---
+title: "Creating Instances"
+description: 'Create new GPU instances via the CLI. Execute terminal commands to select hardware profiles and initialize remote environments.'
+icon: "plus"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block', marginBottom: '0.75rem' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/creating-instances">
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/creating-instances" selected={true}>
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/creating-instances">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## Create an Instance
+
+### Interactive Mode
+
+Run the create command to launch an interactive menu:
+
+```bash
+tnr create
+```
+
+This walks you through selecting your instance configuration step by step.
+
+### One-Line Creation
+
+Specify all options in a single command:
+
+```bash
+tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-disk 100 --ephemeral-disk 200
+```
+
+## Configuration Options
+
+| Flag           | Description                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
+| `--mode`       | `prototyping` or `production`                                                                                |
+| `--gpu`        | GPU type. Available options depend on mode                                                                    |
+| `--num-gpus`   | Number of GPUs. Options depend on mode and GPU type                                                           |
+| `--vcpus`      | CPU cores (prototyping only). Options vary by GPU type and count                                              |
+| `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
+| `--primary-disk` | Primary disk storage in GB. Range varies by mode                                                             |
+| `--ephemeral-disk` | Fast temporary storage in GB, mounted at `/ephemeral` (`0` to disable, default: `0`). See [Ephemeral Storage](/guides/ephemeral-storage) |
+
+### Mode Selection
+
+Choose between optimized development pricing or full compatibility:
+
+- **Prototyping** (default): Lower cost with CUDA-level optimizations. Best for development.
+- **Production**: Standard VM with full compatibility. Best for long-running jobs and production workloads.
+
+See [Prototyping vs Production](/prototyping-vs-production) for details on each mode.
+
+### GPU, CPU, and RAM
+
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by mode. Use `tnr create` to see current options interactively, or check the [pricing page](https://www.thundercompute.com/pricing) for details.
+
+## Templates
+
+Templates pre-configure your instance for common AI workflows:
+
+| Template       | Description                           |
+|----------------|---------------------------------------|
+| `base`         | Ubuntu with PyTorch + CUDA            |
+| `ollama`       | Ollama server environment             |
+| `comfy-ui`     | ComfyUI for AI image generation       |
+
+After connecting to an instance with a template, start the server with:
+
+```bash
+start-ollama      # or start-comfy-ui, etc.
+```
+
+See [Using Instance Templates](/guides/using-instance-templates) for more details.
+
+## Restore from Snapshot
+
+Your snapshots appear alongside templates in the selection menu. Select a snapshot to create an instance with your previously saved state.
+
+```bash
+tnr create
+# Select your snapshot in the "Templates" step
+```

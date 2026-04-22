@@ -1,0 +1,94 @@
+---
+title: "Modifying Instances"
+description: 'Reconfigure compute instances using the CLI. Swap GPUs, add vCPUs and RAM, or increase storage space for your compute resources.'
+icon: "sliders"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block', marginBottom: '0.75rem' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={3}>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/modifying-instances">
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/operations/modifying-instances" selected={true}>
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/operations/modifying-instances">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+## Modify an Instance
+
+Use the modify command with the instance ID and new configuration:
+
+```bash
+tnr modify <instance_id> [options]
+```
+
+### Available Options
+
+| Option       | Description                              |
+|--------------|------------------------------------------|
+| `--gpu`      | GPU type. Options depend on mode         |
+| `--num-gpus` | Number of GPUs. Options depend on mode and GPU type |
+| `--vcpus`    | Number of virtual CPUs (prototyping mode; options vary by GPU type and count) |
+| `--primary-disk` | Primary disk size in GB (can only be increased)    |
+| `--ephemeral-disk` | Ephemeral storage in GB, mounted at `/ephemeral` (`0` to disable). See [Ephemeral Storage](/guides/ephemeral-storage) |
+| `--mode`     | Switch between `prototyping` and `production` |
+
+### Examples
+
+```bash
+# Switch to a different GPU
+tnr modify 0 --gpu a100
+
+# Scale up CPUs
+tnr modify 0 --vcpus 16
+
+# Increase disk size
+tnr modify 0 --primary-disk 300
+
+# Switch to production mode
+tnr modify 0 --mode production
+```
+
+<Note>
+  Disk size can only be increased, not decreased.
+</Note>
+
+## What Can Be Modified
+
+| Resource    | Can Modify? | Notes                                           |
+|-------------|-------------|-------------------------------------------------|
+| GPU Type    | Yes         |                                                 |
+| GPU Count   | Yes         |                                                 |
+| vCPUs       | Yes         | Prototyping mode only                           |
+| RAM         | Yes         | Scales with vCPUs (prototyping) or GPUs (production) |
+| Mode        | Yes         | Switch between prototyping and production       |
+| Primary Disk | Increase only | Cannot shrink disk                            |
+| Ephemeral Storage | Yes     | Data is lost when modified. See [Ephemeral Storage](/guides/ephemeral-storage) |
+
+<Note>
+  RAM is automatically determined based on your configuration. See the [pricing page](https://www.thundercompute.com/pricing) for details.
+</Note>

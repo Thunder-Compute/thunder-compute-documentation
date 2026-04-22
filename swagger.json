@@ -1,0 +1,1534 @@
+{
+    "components": {
+        "schemas": {
+            "thundertypes.CreateSnapshotRequest": {
+                "properties": {
+                    "instanceId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "instanceId",
+                    "name"
+                ],
+                "type": "object"
+            },
+            "thundertypes.CreateSnapshotResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "message"
+                ],
+                "type": "object"
+            },
+            "thundertypes.EnvironmentTemplate": {
+                "properties": {
+                    "automountFolders": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "cleanupCommands": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "default": {
+                        "type": "boolean"
+                    },
+                    "defaultSpecs": {
+                        "$ref": "#/components/schemas/thundertypes.TemplateDefaultSpecs"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "extendedDescription": {
+                        "type": "string"
+                    },
+                    "openPorts": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "startupCommands": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "startupMinutes": {
+                        "type": "integer"
+                    },
+                    "version": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.ErrorResponse": {
+                "properties": {
+                    "code": {
+                        "example": 400,
+                        "type": "integer"
+                    },
+                    "error": {
+                        "example": "invalid_request",
+                        "type": "string"
+                    },
+                    "message": {
+                        "example": "The request is malformed",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.GpuLimits": {
+                "properties": {
+                    "maxCPUPerGPU": {
+                        "type": "integer"
+                    },
+                    "maxMemoryGiBPerGPU": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.GpuSpecConfig": {
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "gpuCount": {
+                        "type": "integer"
+                    },
+                    "limits": {
+                        "$ref": "#/components/schemas/thundertypes.GpuLimits"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "ramPerVCPUGiB": {
+                        "type": "integer"
+                    },
+                    "storageGB": {
+                        "$ref": "#/components/schemas/thundertypes.StorageRange"
+                    },
+                    "vcpuOptions": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "vramGB": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.GpuSpecs": {
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/thundertypes.GpuSpecConfig"
+                },
+                "type": "object"
+            },
+            "thundertypes.GpuSpecsResponse": {
+                "properties": {
+                    "specs": {
+                        "$ref": "#/components/schemas/thundertypes.GpuSpecs"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceAddKeyRequest": {
+                "properties": {
+                    "public_key": {
+                        "description": "Optional: existing public key to add",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceAddKeyResponse": {
+                "properties": {
+                    "key": {
+                        "description": "Private key (only when generated)",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Status message",
+                        "type": "string"
+                    },
+                    "success": {
+                        "description": "Whether the key was successfully added",
+                        "type": "boolean"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "success",
+                    "uuid"
+                ],
+                "type": "object"
+            },
+            "thundertypes.InstanceCreateRequest": {
+                "properties": {
+                    "cpu_cores": {
+                        "example": 4,
+                        "type": "integer"
+                    },
+                    "disk_size_gb": {
+                        "example": 100,
+                        "type": "integer"
+                    },
+                    "gpu_type": {
+                        "example": "H100",
+                        "type": "string"
+                    },
+                    "mode": {
+                        "$ref": "#/components/schemas/thundertypes.InstanceMode"
+                    },
+                    "num_gpus": {
+                        "example": 1,
+                        "type": "integer"
+                    },
+                    "public_key": {
+                        "type": "string"
+                    },
+                    "template": {
+                        "example": "ubuntu-22.04",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "cpu_cores",
+                    "disk_size_gb",
+                    "gpu_type",
+                    "mode",
+                    "num_gpus",
+                    "template"
+                ],
+                "type": "object"
+            },
+            "thundertypes.InstanceCreateResponse": {
+                "properties": {
+                    "identifier": {
+                        "type": "integer"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "identifier",
+                    "key",
+                    "uuid"
+                ],
+                "type": "object"
+            },
+            "thundertypes.InstanceDeleteResponse": {
+                "properties": {
+                    "message": {
+                        "example": "Success",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceListItem": {
+                "properties": {
+                    "cpuCores": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "gpuType": {
+                        "type": "string"
+                    },
+                    "httpPorts": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "id": {
+                        "description": "Populated from map key by client",
+                        "type": "string"
+                    },
+                    "ip": {
+                        "type": "string"
+                    },
+                    "k8s": {
+                        "type": "boolean"
+                    },
+                    "memory": {
+                        "type": "string"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "numGpus": {
+                        "type": "string"
+                    },
+                    "port": {
+                        "type": "integer"
+                    },
+                    "promoted": {
+                        "type": "boolean"
+                    },
+                    "provisioningTime": {
+                        "type": "string"
+                    },
+                    "restoringTime": {
+                        "type": "string"
+                    },
+                    "snapshotSize": {
+                        "type": "integer"
+                    },
+                    "sshPublicKeys": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "storage": {
+                        "type": "integer"
+                    },
+                    "template": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceListResponse": {
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/thundertypes.InstanceListItem"
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceMode": {
+                "enum": [
+                    "prototyping",
+                    "production"
+                ],
+                "type": "string",
+                "x-enum-varnames": [
+                    "InstanceMode_Prototyping",
+                    "InstanceMode_Production"
+                ]
+            },
+            "thundertypes.InstanceModifyRequest": {
+                "properties": {
+                    "add_ports": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "cpu_cores": {
+                        "type": "integer"
+                    },
+                    "disk_size_gb": {
+                        "type": "integer"
+                    },
+                    "gpu_type": {
+                        "type": "string"
+                    },
+                    "mode": {
+                        "$ref": "#/components/schemas/thundertypes.InstanceMode"
+                    },
+                    "num_gpus": {
+                        "type": "integer"
+                    },
+                    "remove_ports": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.InstanceModifyResponse": {
+                "properties": {
+                    "gpu_type": {
+                        "type": "string"
+                    },
+                    "http_ports": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "identifier": {
+                        "type": "string"
+                    },
+                    "instance_name": {
+                        "type": "string"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "num_gpus": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "identifier",
+                    "instance_name"
+                ],
+                "type": "object"
+            },
+            "thundertypes.PricingMap": {
+                "additionalProperties": {
+                    "type": "number"
+                },
+                "type": "object"
+            },
+            "thundertypes.PricingResponse": {
+                "properties": {
+                    "pricing": {
+                        "$ref": "#/components/schemas/thundertypes.PricingMap"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.SSHKey": {
+                "properties": {
+                    "created_at": {
+                        "type": "integer"
+                    },
+                    "fingerprint": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "key_type": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "public_key": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "public_key"
+                ],
+                "type": "object"
+            },
+            "thundertypes.SSHKeyAddRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "public_key": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "public_key"
+                ],
+                "type": "object"
+            },
+            "thundertypes.SSHKeyAddResponse": {
+                "properties": {
+                    "key": {
+                        "$ref": "#/components/schemas/thundertypes.SSHKey"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.SSHKeyDeleteResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.Snapshot": {
+                "properties": {
+                    "createdAt": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "minimumDiskSizeGb": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "createdAt",
+                    "id",
+                    "minimumDiskSizeGb",
+                    "name",
+                    "status"
+                ],
+                "type": "object"
+            },
+            "thundertypes.SnapshotDeleteResponse": {
+                "properties": {
+                    "message": {
+                        "example": "Snapshot deleted successfully",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.StorageRange": {
+                "properties": {
+                    "max": {
+                        "type": "integer"
+                    },
+                    "min": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.TemplateDefaultSpecs": {
+                "properties": {
+                    "cores": {
+                        "type": "integer"
+                    },
+                    "gpu_type": {
+                        "type": "string"
+                    },
+                    "num_gpus": {
+                        "type": "integer"
+                    },
+                    "storage": {
+                        "type": "integer"
+                    },
+                    "template": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "thundertypes.ThunderTemplatesResponse": {
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/thundertypes.EnvironmentTemplate"
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "description": "Bearer token authentication. Provide your API token prefixed with \"Bearer \", e.g. \"Bearer your-api-token\".",
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "email": "support@thundercompute.com",
+            "name": "Thunder Compute API Support",
+            "url": "https://thundercompute.com/support"
+        },
+        "description": "This is the Thunder Compute API server for managing compute resources and GPU workloads.",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "termsOfService": "http://swagger.io/terms/",
+        "title": "Thunder Compute API",
+        "version": "1.0"
+    },
+    "externalDocs": {
+        "description": "",
+        "url": ""
+    },
+    "paths": {
+        "/instances/create": {
+            "post": {
+                "description": "Create a new compute instance",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/thundertypes.InstanceCreateRequest",
+                                        "summary": "request",
+                                        "description": "Instance creation parameters"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Instance creation parameters",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.InstanceCreateResponse"
+                                }
+                            }
+                        },
+                        "description": "Created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Create instance",
+                "tags": [
+                    "instances"
+                ]
+            }
+        },
+        "/instances/list": {
+            "get": {
+                "description": "Get a list of user's compute instances",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.InstanceListResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "List instances",
+                "tags": [
+                    "instances"
+                ]
+            }
+        },
+        "/instances/{id}/add_key": {
+            "post": {
+                "description": "Add an SSH key to an existing instance. If public_key is provided in the request body, it will be added to authorized_keys. If no public_key is provided, a new key pair will be generated and the private key returned.",
+                "parameters": [
+                    {
+                        "description": "Instance ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/thundertypes.InstanceAddKeyRequest",
+                                        "summary": "request",
+                                        "description": "Optional: provide an existing public key to add"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Optional: provide an existing public key to add"
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.InstanceAddKeyResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Add SSH key to instance",
+                "tags": [
+                    "instances"
+                ]
+            }
+        },
+        "/instances/{id}/delete": {
+            "post": {
+                "description": "Delete a compute instance by ID",
+                "parameters": [
+                    {
+                        "description": "Instance ID",
+                        "example": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.InstanceDeleteResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Delete instance",
+                "tags": [
+                    "instances"
+                ]
+            }
+        },
+        "/instances/{id}/modify": {
+            "post": {
+                "description": "Modify a running compute instance's resources",
+                "parameters": [
+                    {
+                        "description": "Instance ID (index)",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/thundertypes.InstanceModifyRequest",
+                                        "summary": "request",
+                                        "description": "Instance modification parameters"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Instance modification parameters",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.InstanceModifyResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Modify instance",
+                "tags": [
+                    "instances"
+                ]
+            }
+        },
+        "/keys/add": {
+            "post": {
+                "description": "Add a new SSH public key to the authenticated user's organization",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/thundertypes.SSHKeyAddRequest",
+                                        "summary": "body",
+                                        "description": "SSH key add request"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "SSH key add request",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.SSHKeyAddResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Add an SSH key",
+                "tags": [
+                    "ssh-keys"
+                ]
+            }
+        },
+        "/keys/list": {
+            "get": {
+                "description": "Get a list of all SSH keys for the authenticated user's organization",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/thundertypes.SSHKey"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "List SSH keys",
+                "tags": [
+                    "ssh-keys"
+                ]
+            }
+        },
+        "/keys/{id}": {
+            "delete": {
+                "description": "Delete an SSH key by ID",
+                "parameters": [
+                    {
+                        "description": "SSH Key ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.SSHKeyDeleteResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Delete an SSH key",
+                "tags": [
+                    "ssh-keys"
+                ]
+            }
+        },
+        "/pricing": {
+            "get": {
+                "description": "Retrieve current hourly pricing information for compute resources",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.PricingResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "summary": "Get current pricing",
+                "tags": [
+                    "utilities"
+                ]
+            }
+        },
+        "/snapshots/create": {
+            "post": {
+                "description": "Create a new snapshot from a running instance",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/thundertypes.CreateSnapshotRequest",
+                                        "summary": "body",
+                                        "description": "Snapshot creation request"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Snapshot creation request",
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.CreateSnapshotResponse"
+                                }
+                            }
+                        },
+                        "description": "Accepted"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Create a snapshot",
+                "tags": [
+                    "snapshots"
+                ]
+            }
+        },
+        "/snapshots/list": {
+            "get": {
+                "description": "Get a list of all snapshots for the authenticated user's organization",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/thundertypes.Snapshot"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "List snapshots",
+                "tags": [
+                    "snapshots"
+                ]
+            }
+        },
+        "/snapshots/{id}": {
+            "delete": {
+                "description": "Delete a snapshot by ID",
+                "parameters": [
+                    {
+                        "description": "Snapshot ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.SnapshotDeleteResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Delete a snapshot",
+                "tags": [
+                    "snapshots"
+                ]
+            }
+        },
+        "/specs": {
+            "get": {
+                "description": "Retrieve GPU spec configurations for all supported GPU types, counts, and modes",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.GpuSpecsResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "summary": "Get GPU specifications",
+                "tags": [
+                    "utilities"
+                ]
+            }
+        },
+        "/thunder-templates": {
+            "get": {
+                "description": "Get available thunder templates for instance creation",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ThunderTemplatesResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/thundertypes.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "summary": "Get thunder templates",
+                "tags": [
+                    "utilities"
+                ]
+            }
+        }
+    },
+    "openapi": "3.1.0",
+    "servers": [
+        {
+            "description": "Production server",
+            "url": "https://api.thundercompute.com:8443/v1"
+        }
+    ]
+}

@@ -1,0 +1,221 @@
+---
+title: "Quickstart"
+description: 'Connect AI tools to GPUs to develop faster'
+icon: "rocket"
+iconType: "solid"
+---
+
+export const QuickstartCard = ({ title, icon, href, children, selected }) => {
+  const enter = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#555'; el.querySelector('[data-title]').style.color = '#fff'; el.querySelector('[data-sub]').style.opacity = '0.7'; el.querySelector('[data-icon]').style.opacity = '0.7'; };
+  const leave = e => { if (selected) return; const el = e.currentTarget; el.style.borderColor = '#333'; el.querySelector('[data-title]').style.color = ''; el.querySelector('[data-sub]').style.opacity = '0.5'; el.querySelector('[data-icon]').style.opacity = '0.35'; };
+  return (
+  <a href={href} className="group" style={{ textDecoration: 'none', borderBottom: 'none', color: 'inherit', display: 'block', marginBottom: '0.75rem' }}>
+    <div className="border rounded-xl p-5 transition-all duration-150 border-zinc-200 dark:border-zinc-800" style={{
+      minHeight: '8rem',
+      height: '100%',
+      borderWidth: '1.5px',
+      borderColor: selected ? '#95c5ea' : '#333',
+    }} onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-icon style={{ marginBottom: '0.75rem', opacity: selected ? 1 : 0.35, transition: 'opacity 0.15s ease' }}>
+        <Icon icon={icon} size={24} color="#95c5ea" />
+      </div>
+      <div data-title style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.25rem', color: selected ? '#fff' : undefined, transition: 'color 0.15s ease' }}>{title}</div>
+      <div data-sub style={{ fontSize: '0.9rem', opacity: selected ? 0.7 : 0.5, transition: 'opacity 0.15s ease' }}>{children}</div>
+    </div>
+  </a>
+  );
+};
+
+<Columns cols={4}>
+  <QuickstartCard title="Agents" icon="robot" href="/agents/quickstart" selected={true}>
+    MCP server
+  </QuickstartCard>
+  <QuickstartCard title="VS Code" icon="window" href="/vscode/quickstart">
+    Editor extension
+  </QuickstartCard>
+  <QuickstartCard title="CLI" icon="terminal" href="/cli/quickstart">
+    Command line
+  </QuickstartCard>
+  <QuickstartCard title="Console" icon="browser" href="/console/quickstart">
+    Web interface
+  </QuickstartCard>
+</Columns>
+
+In just 60 seconds you can start developing on GPUs by connecting Cursor, Claude Code, etc. directly to our API. This allows your AI agent to help you set up and manage servers on your behalf.
+
+## Create an Account
+
+Sign up for a Thunder Compute account [here](https://console.thundercompute.com/signup).
+
+## Add a Payment Method
+
+Add a [payment method](https://console.thundercompute.com/settings/billing) to your account.
+
+## Connect Your Agent
+
+Use an AI agent that supports remote MCP servers (Claude Code, Cursor, Codex, etc.).
+
+<Tabs>
+  <Tab title="Claude Code">
+    Run this in your terminal:
+
+    ```bash
+    claude mcp add --transport http thunder-compute https://www.thundercompute.com/mcp
+    ```
+
+    Then start Claude Code and run `/mcp` to authenticate. A browser window will open for you to log in and authorize access.
+
+    <Accordion title="Manual setup">
+      Alternatively, add to `~/.claude.json` (global) or `.claude.json` in your project root:
+
+      ```json
+      {
+        "mcpServers": {
+          "thunder-compute": {
+            "url": "https://www.thundercompute.com/mcp"
+          }
+        }
+      }
+      ```
+    </Accordion>
+  </Tab>
+  <Tab title="Codex">
+    Run this in your terminal:
+
+    ```bash
+    codex mcp add thunder-compute --url https://www.thundercompute.com/mcp
+    ```
+
+    Codex will prompt you to authenticate via OAuth when you first use a Thunder Compute tool.
+  </Tab>
+  <Tab title="Cursor">
+    Add to `.cursor/mcp.json` in your project root (or `~/.cursor/mcp.json` for global access):
+
+    ```json
+    {
+      "mcpServers": {
+        "thunder-compute": {
+          "type": "http",
+          "url": "https://www.thundercompute.com/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Windsurf">
+    Add to your MCP configuration:
+
+    ```json
+    {
+      "mcpServers": {
+        "thunder-compute": {
+          "serverUrl": "https://www.thundercompute.com/mcp",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="OpenCode">
+    <Steps>
+      <Step title="Add the MCP server">
+        Run the interactive setup:
+
+        ```bash
+        opencode mcp add
+        ```
+
+        When prompted:
+        - **Server name:** `thunder-compute`
+        - **Server type:** `Remote`
+        - **URL:** `https://www.thundercompute.com/mcp`
+        - **Requires OAuth:** `Yes`
+        - **Pre-registered client ID:** `No`
+      </Step>
+
+      <Step title="Authenticate">
+        ```bash
+        opencode mcp auth thunder-compute
+        ```
+
+        A browser window will open for you to log in and authorize access.
+      </Step>
+
+      <Step title="Start coding">
+        ```bash
+        opencode
+        ```
+
+        The Thunder Compute tools are now available in your session.
+      </Step>
+    </Steps>
+
+    <Accordion title="Manual setup">
+      Alternatively, add to `~/.config/opencode/opencode.json`:
+
+      ```json
+      {
+        "$schema": "https://opencode.ai/config.json",
+        "mcp": {
+          "thunder-compute": {
+            "type": "remote",
+            "url": "https://www.thundercompute.com/mcp",
+            "oauth": {}
+          }
+        }
+      }
+      ```
+
+      Then run `opencode mcp auth thunder-compute` to authenticate.
+    </Accordion>
+  </Tab>
+  <Tab title="Smithery">
+    If you use an MCP client that supports [Smithery](https://smithery.ai), you can install directly:
+
+    ```bash
+    npx @smithery/cli install @thunder-compute/thunder-compute
+    ```
+
+    Or browse the [Thunder Compute listing on Smithery](https://smithery.ai/server/@thunder-compute/thunder-compute) and click **Install** for your client.
+  </Tab>
+  <Tab title="Direct HTTP">
+    For custom integrations, the MCP server uses [Streamable HTTP transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http) at a single endpoint. Authentication is via OAuth 2.0 with standard MCP discovery.
+
+    **Endpoint:** `https://www.thundercompute.com/mcp`
+
+    ```bash
+    curl -X POST https://www.thundercompute.com/mcp \
+      -H "Authorization: Bearer <access-token>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": { "name": "my-agent", "version": "1.0.0" }
+        },
+        "id": 1
+      }'
+    ```
+  </Tab>
+</Tabs>
+
+## Try It Out
+
+Once configured, ask your AI agent to:
+
+- "Spin up an A100 instance with PyTorch"
+- "List my running instances"
+- "Run `nvidia-smi` on my instance"
+- "How much have I spent this month?"
+
+The MCP server gives your agent access to everything you would want to do with a GPU.
+
+## Next Steps
+
+- Read the [full MCP Server guide](/guides/mcp-server) for the complete list of available tools, prompts, and troubleshooting
+- Learn about [Prototyping vs Production](/prototyping-vs-production) to choose the right mode for your workload
+- Explore [Technical Specifications](/technical-specs) for hardware, networking, and storage details

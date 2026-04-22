@@ -1,0 +1,97 @@
+---
+title: "Ephemeral Storage"
+description: "Fast, temporary local storage for model weights, caches, and scratch files. Mounted at /ephemeral."
+---
+
+## What is Ephemeral Storage?
+
+Ephemeral storage is fast, local disk space mounted at `/ephemeral` on your instance. It uses high-performance NVMe drives directly attached to the host machine, making it significantly faster than the persistent disk for I/O-heavy workloads.
+
+<Warning>
+  Ephemeral storage is temporary. Data on `/ephemeral` is lost when you modify, delete, or migrate your instance. It is also not included in snapshots.
+</Warning>
+
+## When to Use Ephemeral Storage
+
+Ephemeral storage is ideal for data that is large, frequently accessed, and easy to re-download:
+
+- **Model weights** downloaded from Hugging Face or other registries
+- **Pip/conda caches** to speed up environment rebuilds
+- **Training checkpoints** (back up important ones to persistent disk or cloud storage)
+- **Large datasets** that can be re-fetched
+- **Scratch files** from preprocessing or intermediate computation
+
+For data you need to keep, use the persistent disk (your home directory) or [snapshots](/cli/operations/snapshots).
+
+## Configuring Ephemeral Storage
+
+Ephemeral storage defaults to **0 GB** (disabled). You can add it when creating or modifying an instance.
+
+<Tabs>
+  <Tab title="CLI">
+    ```bash
+    # Create with ephemeral storage
+    tnr create --ephemeral-disk 200
+
+    # Add to an existing instance
+    tnr modify <instance_id> --ephemeral-disk 200
+
+    # Disable ephemeral storage
+    tnr modify <instance_id> --ephemeral-disk 0
+    ```
+  </Tab>
+  <Tab title="VS Code">
+    Set the **Ephemeral Storage** field in the create or modify instance dialog.
+  </Tab>
+  <Tab title="Console">
+    Set the **Ephemeral Storage** field in the create or modify instance dialog.
+  </Tab>
+</Tabs>
+
+### Size Limits
+
+See [thundercompute.com/pricing](https://www.thundercompute.com/pricing) for current ephemeral storage limits by instance mode.
+
+## Using Ephemeral Storage
+
+Once configured, the storage is available at `/ephemeral` inside your instance:
+
+```bash
+# Check available space
+df -h /ephemeral
+
+# Download model weights to ephemeral storage
+huggingface-cli download meta-llama/Llama-3-8B --local-dir /ephemeral/llama-3-8b
+
+# Use as pip cache
+pip install --cache-dir /ephemeral/pip-cache transformers
+```
+
+## What Happens to Ephemeral Data
+
+| Event                  | Ephemeral data  | Persistent disk  |
+|------------------------|-----------------|------------------|
+| Instance running       | Preserved       | Preserved        |
+| Modify instance        | Lost            | Preserved        |
+| Delete instance        | Lost            | Lost             |
+| Create snapshot         | Not included    | Included         |
+| Restore from snapshot  | Empty           | Restored         |
+
+## Best Practices
+
+1. **Store only re-downloadable data** on `/ephemeral`. Anything important should live on your persistent disk or be backed up to cloud storage.
+
+2. **Use symlinks** to redirect cache directories to ephemeral storage:
+   ```bash
+   mkdir -p /ephemeral/huggingface
+   ln -s /ephemeral/huggingface ~/.cache/huggingface
+   ```
+
+3. **Set environment variables** to point tools at ephemeral storage:
+   ```bash
+   export HF_HOME=/ephemeral/huggingface
+   export PIP_CACHE_DIR=/ephemeral/pip-cache
+   export TRANSFORMERS_CACHE=/ephemeral/huggingface/transformers
+   ```
+
+4. **Back up training checkpoints** periodically from `/ephemeral` to your home directory or cloud storage if you need to keep them.

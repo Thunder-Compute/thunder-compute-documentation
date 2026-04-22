@@ -1,0 +1,45 @@
+---
+title: "Technical Specifications"
+description: "Hardware specifications, networking details, and pre-installed software for Thunder Compute instances"
+icon: "server"
+iconType: "solid"
+---
+
+## Instance Infrastructure
+
+### Hardware Specifications
+- **GPU and CPU configs**: Check [pricing page](https://www.thundercompute.com/pricing) for latest availability
+- **Location**: North America
+
+### Pre-installed Software
+- **CUDA**: Version 13.0
+- **CUDA Driver**: Version 580
+- **PyTorch**: Version 2.9.0+cu128
+- **JupyterLab**: Pre-installed
+- Additional scientific Python libraries (NumPy, Pandas, etc.)
+
+<Warning>
+  Do not attempt to reinstall CUDA. If compatibility issues arise, use a venv and change the versions of your other dependencies (e.g., PyTorch) rather than modifying the CUDA libraries.
+</Warning>
+
+## Storage
+
+- **Persistent Disk**: Your home directory and OS. Preserved across modifications and included in snapshots. Can be expanded but not shrunk.
+- **Ephemeral Storage**: Optional fast local NVMe disk mounted at `/ephemeral`. Not included in snapshots and lost when the instance is modified or deleted. Ideal for model weights, caches, and scratch files. See [Ephemeral Storage](/guides/ephemeral-storage).
+
+| Storage Type | Prototyping Range | Production Range |
+|---|---|---|
+| Persistent Disk | 100 - 400 GB | 100 - 1000 GB |
+| Ephemeral Storage | 0 - 300 GB | 0 - 500 GB |
+
+## Networking
+
+- **Egress/Ingress**: 7 Gbps
+- **IP Address**: Dynamic
+
+### Port Access
+
+- **Public URLs (CLI)**: Use `tnr ports forward` to expose HTTP services at `https://<uuid>-<port>.thundercompute.net` with automatic HTTPS and DDoS protection. See [Port Forwarding](/cli/operations/port-forwarding) for details.
+- **Local tunneling (CLI)**: Use `tnr connect <instance_id> -t <port>` to tunnel ports to your local machine
+- **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature
+
