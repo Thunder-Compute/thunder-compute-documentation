@@ -27,9 +27,6 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
 };
 
 <Columns cols={4}>
-  <QuickstartCard title="Agents" icon="robot" href="/agents/operations/file-transfers" selected={true}>
-    MCP server
-  </QuickstartCard>
   <QuickstartCard title="VS Code" icon="window" href="/vscode/operations/file-transfers">
     Editor extension
   </QuickstartCard>
@@ -38,6 +35,9 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
   </QuickstartCard>
   <QuickstartCard title="Console" icon="browser" href="/console/operations/file-transfers">
     Web interface
+  </QuickstartCard>
+  <QuickstartCard title="Agents" icon="robot" href="/agents/operations/file-transfers" selected={true}>
+    MCP server
   </QuickstartCard>
 </Columns>
 
