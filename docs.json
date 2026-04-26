@@ -282,7 +282,7 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "claude", "chatgpt", "cursor"],
+    "options": ["copy", "view", "claude", "chatgpt"],
     "display": "header"
   },
   "redirects": [
