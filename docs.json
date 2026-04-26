@@ -302,7 +302,8 @@
       "source": "/guides/using-snapshots",
       "destination": "/cli/operations/snapshots"
     },
-    { "source": "/quickstart", "destination": "/agents/quickstart" },
+    { "source": "/", "destination": "/vscode/quickstart" },
+    { "source": "/quickstart", "destination": "/vscode/quickstart" },
     {
       "source": "/guides/ssh-on-thunder-compute",
       "destination": "/cli/operations/ssh"
