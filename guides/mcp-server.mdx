@@ -274,6 +274,8 @@ Once configured, you can ask your AI agent things like:
 
 **Authentication fails or browser doesn't open**: Run `/mcp` in Claude Code to manually trigger authentication. Make sure you're logged in to your Thunder Compute account in the browser.
 
+**Browser callback fails after clicking Allow** (common when running your AI agent inside a remote VM, container, or SSH session): if the browser shows a "can't connect" / "site can't be reached" page after consent, **copy the full URL from the browser's address bar** (it looks like `http://localhost:<port>/callback?code=...&state=...`) and paste it into your AI agent where it prompts you to finish authentication. The agent will extract the code from the URL and complete the token exchange itself.
+
 **"Protected resource does not match" error**: The URL in your MCP config must match the server's configured resource URL exactly. Ensure you're using `https://www.thundercompute.com/mcp`.
 
 **"token has invalid issuer" error**: This is a server-side configuration issue. The MCP authentication client must be configured with the correct Stytch Connected Apps domain.
