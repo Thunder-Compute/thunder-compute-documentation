@@ -11,12 +11,12 @@
   "navigation": {
     "versions": [
       {
-        "version": "Agents",
+        "version": "VS Code extension",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
-              "agents/quickstart",
+              "vscode/quickstart",
               "prototyping-vs-production",
               "technical-specs"
             ]
@@ -24,16 +24,16 @@
           {
             "group": "Operations",
             "pages": [
-              "agents/operations/authentication",
-              "agents/operations/creating-instances",
-              "agents/operations/connecting-to-instances",
-              "agents/operations/monitoring-instances",
-              "agents/operations/file-transfers",
-              "agents/operations/port-forwarding",
-              "agents/operations/modifying-instances",
-              "agents/operations/snapshots",
-              "agents/operations/deleting-instances",
-              "agents/operations/ssh"
+              "vscode/operations/authentication",
+              "vscode/operations/creating-instances",
+              "vscode/operations/connecting-to-instances",
+              "vscode/operations/monitoring-instances",
+              "vscode/operations/file-transfers",
+              "vscode/operations/port-forwarding",
+              "vscode/operations/modifying-instances",
+              "vscode/operations/snapshots",
+              "vscode/operations/deleting-instances",
+              "vscode/operations/ssh"
             ]
           },
           {
@@ -64,12 +64,12 @@
         ]
       },
       {
-        "version": "VS Code extension",
+        "version": "Agents",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
-              "vscode/quickstart",
+              "agents/quickstart",
               "prototyping-vs-production",
               "technical-specs"
             ]
@@ -77,16 +77,16 @@
           {
             "group": "Operations",
             "pages": [
-              "vscode/operations/authentication",
-              "vscode/operations/creating-instances",
-              "vscode/operations/connecting-to-instances",
-              "vscode/operations/monitoring-instances",
-              "vscode/operations/file-transfers",
-              "vscode/operations/port-forwarding",
-              "vscode/operations/modifying-instances",
-              "vscode/operations/snapshots",
-              "vscode/operations/deleting-instances",
-              "vscode/operations/ssh"
+              "agents/operations/authentication",
+              "agents/operations/creating-instances",
+              "agents/operations/connecting-to-instances",
+              "agents/operations/monitoring-instances",
+              "agents/operations/file-transfers",
+              "agents/operations/port-forwarding",
+              "agents/operations/modifying-instances",
+              "agents/operations/snapshots",
+              "agents/operations/deleting-instances",
+              "agents/operations/ssh"
             ]
           },
           {
