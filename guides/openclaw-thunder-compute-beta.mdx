@@ -74,9 +74,14 @@ Gateway >= 2026.3.24-beta.2
 
 ## Install The Plugin
 
-Download or clone the beta plugin bundle from the location provided by Thunder Compute.
+Clone the official [Thunder Compute OpenClaw plugin repository](https://github.com/Thunder-Compute/thunder-openclaw-plugin), then enter the plugin directory:
 
-The hosted bundle should contain:
+```bash
+git clone https://github.com/Thunder-Compute/thunder-openclaw-plugin.git
+cd thunder-openclaw-plugin
+```
+
+The repository contains:
 
 ```text
 openclaw.plugin.json
@@ -96,26 +101,19 @@ pending-auth.json
 .DS_Store
 ```
 
-After downloading the bundle, open a terminal in the plugin folder, the directory that contains `openclaw.plugin.json`, `package.json`, and `index.ts`.
+Install the package from the directory that contains `openclaw.plugin.json`, `package.json`, and `index.ts`.
 
 ```bash
-cd /path/to/openclaw-thunder-compute-beta
 npm install
 openclaw plugins install .
 ```
 
-If you received a zip file instead, unzip it and run the same commands from the unzipped folder:
+If you are upgrading an earlier beta copy, pull the latest repository copy, uninstall the old plugin, then reinstall:
 
 ```bash
-unzip openclaw-thunder-compute-beta.zip
-cd openclaw-thunder-compute-beta
+cd thunder-openclaw-plugin
+git pull
 npm install
-openclaw plugins install .
-```
-
-If you are upgrading an earlier beta copy, uninstall it first, then install the new copy from the updated folder:
-
-```bash
 openclaw plugins uninstall thunder-compute
 openclaw plugins install .
 ```
@@ -155,7 +153,7 @@ The installed skill should exist at:
 ~/.openclaw/workspace/skills/thunder-compute/SKILL.md
 ```
 
-For hosting, keep the skill inside the plugin repository at `skills/thunder-compute/SKILL.md`. That gives users one download that includes both the executable plugin and the behavior instructions.
+The hosted skill lives inside the same repository at `skills/thunder-compute/SKILL.md`. That gives users one clone that includes both the executable plugin and the behavior instructions.
 
 ---
 
