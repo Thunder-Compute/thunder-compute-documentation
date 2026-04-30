@@ -13,13 +13,13 @@ Docker. To get this to work, our instances come with a modified version of `dock
 certain situations when it might not work exactly like the official Docker (eg, advanced
 networking features).
 
-# Running Docker
+## Running Docker
 
 Start your container with the `--device nvidia.com/gpu=all` flag in order to expose GPUs. For example: `docker run -it --rm --device nvidia.com/gpu=all ubuntu:latest`.
 
 Some tutorials will tell you to use `--runtime=nvidia` or `--gpus=all`. These are outdated options and are not supported in Thunder Compute. `--device nvidia.com/gpu=all` is the only supported way to add a GPU to a docker container.
 
-# Known issues
+## Known issues
 
 + Docker Compose does not work.
 + The container network is not isolated. This means that even ports you don't list with `-p` will be available, and could potentially conflict with other processes or containers.
