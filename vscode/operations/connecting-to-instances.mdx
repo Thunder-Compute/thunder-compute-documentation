@@ -1,6 +1,6 @@
 ---
 title: "Connecting to Instances"
-description: 'Connect to Thunder Compute instances via VSCode. Configure SSH settings and manage remote development sessions for low-latency coding workflows.'
+description: 'Connect to Thunder Compute instances via VS Code. Configure SSH settings and manage remote development sessions for low-latency coding workflows.'
 icon: "plug"
 iconType: "solid"
 ---
@@ -38,16 +38,37 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
   </QuickstartCard>
 </Columns>
 
-## Connect to an Instance
+## Before You Connect
 
-1. Open the Thunder Compute sidebar panel
-2. Find your running instance in the list
-3. Click the **Connect** button (the icon with two arrows pointing toward each other)
+Make sure you have:
 
-A new VSCode window opens connected to your instance. You can browse files, edit code, and run terminals as if working locally.
+- Installed the Thunder Compute VS Code extension
+- Signed in to Thunder Compute from the extension
+- Installed the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
+- Created an instance and waited for it to show `RUNNING`
 
 <Note>
-  If connecting fails, make sure you have the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension installed.
+  If your instance does not appear, click the refresh button in the Thunder Compute sidebar.
+</Note>
+
+## Connect to an Instance
+
+1. Open VS Code
+2. Click the Thunder Compute lightning icon in the Activity Bar
+3. If prompted, click **Login** and complete the browser sign-in
+4. Under **Instances**, find the running instance
+5. Click the connect button on the instance row
+
+![Thunder Compute VS Code extension showing a running instance](/images/vscode/connect-instance-sidebar.png)
+
+VS Code opens a new Remote SSH window for the instance. The lower-left status bar shows the active SSH target, such as `SSH: tnr-0`.
+
+![VS Code connected to a Thunder Compute instance over Remote SSH](/images/vscode/remote-ssh-window.png)
+
+You can browse files, edit code, and open terminals in this window as if you were working locally. Commands run on the Thunder Compute instance.
+
+<Note>
+  On your first connection, VS Code may ask whether you trust the remote folder. Choose **Yes, I trust the authors** only for folders you expect to work in.
 </Note>
 
 ## Exposing Services

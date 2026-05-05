@@ -38,27 +38,55 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
   </QuickstartCard>
 </Columns>
 
-## Connect to an Instance
+## Before You Connect
 
-### Interactive
+Make sure you have:
 
-Run the connect command to see a list of your instances:
+- Signed in with `tnr login`
+- Created an instance
+- Waited for the instance status to show `RUNNING`
+
+Check your instances from the terminal:
 
 ```bash
-tnr connect
+tnr status --no-wait
 ```
 
-Select an instance from the menu to connect.
+Use the `ID` column from that table when you connect. For your first running instance, the ID is usually `0`.
 
-### Direct
+## Connect to an Instance
 
-Connect directly using the instance ID:
+### Direct Connection
+
+If you know the instance ID, pass it to `tnr connect`:
 
 ```bash
 tnr connect 0
 ```
 
-Use `tnr status` to see instance IDs. The default ID is `0`.
+Replace `0` with the ID from `tnr status`.
+
+The CLI will set up SSH access, open the connection, and drop you into a shell on the instance. When the connection is ready, you will see a prompt like `ubuntu@thunder-client:~$`.
+
+![Thunder Compute CLI connected to a running GPU instance](/images/cli/connect-to-instance.png)
+
+### Interactive Connection
+
+If you are not sure which instance to use, run:
+
+```bash
+tnr connect
+```
+
+Select the running instance from the menu.
+
+## End the Session
+
+When you are done, type `exit` in the remote shell to close the SSH session.
+
+<Note>
+  If no instance appears, run `tnr status --no-wait` and confirm the instance is `RUNNING`. If you are signed out, run `tnr login` and try again.
+</Note>
 
 ## Exposing Services
 

@@ -45,25 +45,59 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
 
 Navigate to the [Thunder Compute console](https://console.thundercompute.com/signup) and create an account with your email.
 
+After signing in, the console opens to **Active Instances**, where you can create and manage GPU instances.
+
+![Thunder Compute Console dashboard with no active instances](/images/console-quickstart/01-dashboard-empty.png)
+
 ## Add a Payment Method
 
 In the console, [add a payment method](https://console.thundercompute.com/settings/billing) to your account.
 
 ## Create an Instance
 
-1. Click **Create Instance** on the dashboard
-2. A dialog will open—select your mode, GPU, CPU, disk size, and template
-3. Click **Launch**
+1. Click **Create** on the dashboard
+2. Choose **Prototyping** or **Production**
+3. Select a GPU type, GPU count, CPU/RAM, and storage
+4. Under **Additional Configuration**, choose an SSH key. **Thunder-managed (default)** is the fastest way to get started
+5. Click **Create Instance**
+
+![Create Instance dialog with GPU, CPU, storage, and SSH key options](/images/console-quickstart/02-create-instance.png)
+
+Your instance appears in the **Active Instances** table. It may briefly show **Queued** or **Starting** before it becomes **Running**.
+
+![New instance created and queued in the Active Instances table](/images/console-quickstart/03-instance-created.png)
+
+When the instance is running, the table shows its GPU, template, and IP address.
+
+![Running Thunder Compute instance in the Active Instances table](/images/console-quickstart/04-instance-running.png)
+
+<Note>
+  The screenshot uses a documentation IP address. Your console will show the IP address assigned to your instance.
+</Note>
 
 ## Connect to Your Instance
 
-Use the CLI or VSCode extension for the best connection experience with automatic key management:
+Click **Connect to instances** and choose the connection method for your workflow.
+
+![Connect to your instances dialog with CLI, VS Code, and AI Agents options](/images/console-quickstart/05-connect-options.png)
+
+For terminal access, choose **Command Line**, then select your platform and architecture.
+
+![Command Line connection platform options](/images/console-quickstart/06-cli-platform-options.png)
+
+Use the CLI or VS Code extension for the best connection experience with automatic key management:
 
 <CardGroup cols={2}>
   <Card title="Connect via CLI" icon="terminal" href="/cli/operations/connecting-to-instances">
     Single command SSH access
   </Card>
-  <Card title="Connect via VSCode" icon="window" href="/vscode/operations/connecting-to-instances">
+  <Card title="Connect via VS Code" icon="window" href="/vscode/operations/connecting-to-instances">
     One-click remote development
   </Card>
 </CardGroup>
+
+## Clean Up
+
+When you are done, open the instance menu, click **Delete**, and confirm the deletion.
+
+![Delete instance confirmation dialog](/images/console-quickstart/07-delete-instance.png)
