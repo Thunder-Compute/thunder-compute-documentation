@@ -45,8 +45,16 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
               "guides/referral-program",
               "guides/data-processing-addendum",
               "guides/weights-and-biases",
@@ -99,8 +107,16 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
               "guides/referral-program",
               "guides/data-processing-addendum",
               "guides/weights-and-biases",
@@ -152,8 +168,16 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",
@@ -206,8 +230,16 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",

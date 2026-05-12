@@ -1,0 +1,42 @@
+---
+title: "Run Models"
+description: "Choose a Thunder Compute GPU, model format, and serving runtime for open model inference."
+mode: "wide"
+sidebarTitle: "Models"
+---
+
+Use these guides to launch open models on Thunder Compute, pick a model format that fits the GPU you selected, and expose the model through a local or public API endpoint.
+
+<Note>
+  GPU availability, supported GPU counts, vCPU choices, and pricing can change. Use `tnr create` or the [pricing page](https://www.thundercompute.com/pricing) to confirm the current options before launching a longer run.
+</Note>
+
+## Available Guides
+
+| Model guide | Best first GPU | Runtime | Use it when |
+| --- | --- | --- | --- |
+| [Qwen3.6 27B](/guides/models/qwen3-6-27b) | RTX A6000 | llama.cpp Docker | You want a tested dense-model path with a 32K context OpenAI-compatible endpoint. |
+| [GPT-OSS 120B](/guides/gpt-oss-running-locally-on-thunder-compute) | A100 80 GB | Ollama | You want to run the existing GPT-OSS guide from the Ollama template. |
+| [DeepSeek R1](/guides/deepseek-r1-running-locally-on-thunder-compute) | A100 80 GB | Ollama | You want to run the existing DeepSeek R1 guide from the Ollama template. |
+
+## How To Choose A Runtime
+
+| Runtime | Best fit | Notes |
+| --- | --- | --- |
+| llama.cpp | GGUF quantized models on A6000, A100, or H100 | Good for fast setup, lower VRAM use, and single-user endpoints. |
+| vLLM | FP8 or BF16 serving on H100-class GPUs | Good for higher throughput, OpenAI-compatible APIs, long-context serving, and multi-user workloads. |
+| Ollama | Models supported by the installed Ollama loader | Convenient when the model architecture is already supported by the template. |
+
+For Qwen3.6 27B, start with the dedicated guide below. It uses a configuration that was tested on a Thunder Compute RTX A6000 base instance: `UD-Q4_K_XL`, full GPU offload, 32K context, and a public OpenAI-compatible endpoint.
+
+<Card title="Run Qwen3.6 27B" icon="microchip" href="/guides/models/qwen3-6-27b">
+  Launch Qwen3.6 27B dense with the tested A6000 setup, then expose it through the `/v1/chat/completions` API.
+</Card>
+
+<Card title="Run GPT-OSS 120B" icon="brain" href="/guides/gpt-oss-running-locally-on-thunder-compute">
+  Use the existing GPT-OSS guide from the Models section.
+</Card>
+
+<Card title="Run DeepSeek R1" icon="sparkles" href="/guides/deepseek-r1-running-locally-on-thunder-compute">
+  Use the existing DeepSeek R1 guide from the Models section.
+</Card>
