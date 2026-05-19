@@ -45,6 +45,8 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
                 "root": "guides/models",
@@ -107,6 +109,8 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
                 "root": "guides/models",
@@ -168,6 +172,8 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
                 "root": "guides/models",
@@ -230,6 +236,8 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
                 "root": "guides/models",
