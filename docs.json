@@ -11,59 +11,6 @@
   "navigation": {
     "versions": [
       {
-        "version": "Agents",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "agents/quickstart",
-              "prototyping-vs-production",
-              "technical-specs"
-            ]
-          },
-          {
-            "group": "Operations",
-            "pages": [
-              "agents/operations/authentication",
-              "agents/operations/creating-instances",
-              "agents/operations/connecting-to-instances",
-              "agents/operations/monitoring-instances",
-              "agents/operations/file-transfers",
-              "agents/operations/port-forwarding",
-              "agents/operations/modifying-instances",
-              "agents/operations/snapshots",
-              "agents/operations/deleting-instances",
-              "agents/operations/ssh"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/using-instance-templates",
-              "guides/ephemeral-storage",
-              "guides/speeding-up-snapshots",
-              "guides/stopping-instances",
-              "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
-              "guides/referral-program",
-              "guides/data-processing-addendum",
-              "guides/weights-and-biases",
-              "guides/mcp-server"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
-          },
-          {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
-          }
-        ]
-      },
-      {
         "version": "VS Code extension",
         "groups": [
           {
@@ -98,8 +45,82 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
+              "guides/referral-program",
+              "guides/data-processing-addendum",
+              "guides/weights-and-biases",
+              "guides/mcp-server",
+              "guides/openclaw-thunder-compute-beta"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["troubleshooting", "billing", "restrictions"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "https://api.thundercompute.com:8443/openapi.json"
+          }
+        ]
+      },
+      {
+        "version": "Agents",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "agents/quickstart",
+              "prototyping-vs-production",
+              "technical-specs"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "agents/operations/authentication",
+              "agents/operations/creating-instances",
+              "agents/operations/connecting-to-instances",
+              "agents/operations/monitoring-instances",
+              "agents/operations/file-transfers",
+              "agents/operations/port-forwarding",
+              "agents/operations/modifying-instances",
+              "agents/operations/snapshots",
+              "agents/operations/deleting-instances",
+              "agents/operations/ssh"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-jupyter-notebooks-on-thunder-compute",
+              "guides/using-instance-templates",
+              "guides/ephemeral-storage",
+              "guides/speeding-up-snapshots",
+              "guides/stopping-instances",
+              "guides/using-docker-on-thundercompute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
               "guides/referral-program",
               "guides/data-processing-addendum",
               "guides/weights-and-biases",
@@ -151,8 +172,18 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",
@@ -205,8 +236,18 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",

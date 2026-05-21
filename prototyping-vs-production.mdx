@@ -9,34 +9,32 @@ Thunder Compute offers two modes for running instances.
 
 | Feature | Prototyping | Production |
 |---------|-------------|------------|
+| Use case | R&D, experimentation, short-lived development | Long-running inference, batch training, production workloads |
 | Cost | Lower | Higher |
-| Compatibility | Most ML workloads | Full CUDA compatibility |
-| GPUs | A6000, A100, H100 | A100, H100 |
-| Multi-GPU | A100, H100: up to 2 GPUs | Up to 8 GPUs |
-| Graphics (OpenGL, Vulkan) | No | Yes |
+| Compatibility | Most ML workloads | Full |
 
 ## Prototyping Mode
 
 <Note>
-  Prototyping mode is currently in beta and exclusively available on Thunder Compute.
+  Prototyping mode is optimized for R&D, experimentation, and short-lived development workloads. Use production mode for long-running inference services or batch training jobs.
 </Note>
 
 Prototyping mode applies CUDA-level optimizations to maximize GPU utilization, significantly reducing costs for AI/ML development workflows.
 
-### Supported Software
+### Supported Workloads
 
-- **PyTorch**: Fully supported (downgrading from the pre-installed version may cause issues)
-- **TensorFlow**
-- **JAX**
-- **Jupyter Notebooks**
-- **Model Serving**: ComfyUI, Ollama, VLLM, and others
-- **Fine Tuning**: Unsloth and others
+- **Research & Development**
+- **Fine-tuning**
+- **Training**
+- **Small-scale inference**
+- **Example software**: PyTorch (fully supported; downgrading from the pre-installed version may cause issues), TensorFlow, JAX, Jupyter Notebooks, ComfyUI, Ollama, VLLM, Unsloth
 
 ### Unsupported Workloads
 
-- Graphics workloads (OpenGL, Vulkan, FFMPEG)
-- Custom CUDA kernels (may exhibit unpredictable behavior)
-- Hardware-specific profiling tools
+- **Long-running production inference**: persistent inference servers, always-on APIs, or latency-sensitive serving
+- **Batch training**: unattended production training jobs, scheduled training pipelines, or other long-running training workloads
+- **Graphics workloads**: OpenGL, Vulkan, FFMPEG
+- **Hardware-specific profiling tools**: tools that require direct hardware metrics or low-level device access
 
 <Tip>
   If you encounter issues with an unsupported workload, switch to production mode with [modify](/vscode/operations/modifying-instances) for full compatibility.
@@ -52,7 +50,7 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 - Multi-GPU workloads (up to 8 GPUs)
 - Graphics workloads (OpenGL, Vulkan, FFMPEG)
 - Custom CUDA kernels
-- Workloads requiring accurate hardware metrics
+- Hardware profiling
 
 ## Switching Between Modes
 
@@ -60,4 +58,4 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 
 ## Learn More
 
-- [Technical Specifications](/technical-specs) - Hardware, networking, and storage details
+- [Technical Specifications](/technical-specs): Hardware, networking, and storage details
