@@ -1,4 +1,4 @@
-# Thunder Compute Documentation
+# Thunder Compute Documentation 
 
 This repository contains the official documentation for Thunder Compute, a Y Combinator-backed company building the cheapest GPU cloud. The documentation is hosted at [www.thundercompute.com/docs](https://www.thundercompute.com/docs).
 
