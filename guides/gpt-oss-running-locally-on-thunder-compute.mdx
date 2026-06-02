@@ -9,7 +9,7 @@ Looking for the **cheapest way to self‑host GPT‑OSS 120B** or just want to
 
 > **Prerequisite:** Ensure your Thunder Compute account is ready. If not, start with our [Quickstart Guide](/vscode/quickstart).
 
-## Step 1 — Create a Cost‑Effective Prototyping‑Mode GPU Instance
+## Step 1 — Create a Cost‑Effective Development‑Mode GPU Instance
 
 Launch an 80 GB A100 instance (large enough to host the full 120 B model):
 
@@ -17,18 +17,18 @@ Launch an 80 GB A100 instance (large enough to host the full 120 B model):
 tnr create \
   --gpu a100xl \
   --vcpus 4 \
-  --mode prototyping \
+  --mode development \
   --persistent-disk 200 \
   --template "ollama"
 ```
 
-This command starts a lower‑cost [prototyping‑mode](/prototyping-vs-production#prototyping-mode) instance with:
+This command starts a lower‑cost [development‑mode](/development-vs-production#development-mode) instance with:
 
 * **GPU:** A100 80 GB
 * **vCPUs:** 4
 * **Storage:** 200 GB (from the *Ollama* template)
 
-> The GPU, vCPU Count, and Mode ([Prototyping](/prototyping-vs-production#prototyping-mode) / [Production](/prototyping-vs-production#production-mode)), can be changed later if your requirements change, and the amount of storage can be increased if needed.
+> The GPU, vCPU Count, and Mode ([Development](/development-vs-production#development-mode) / [Production](/development-vs-production#production-mode)), can be changed later if your requirements change, and the amount of storage can be increased if needed.
 
 For details on templates, see the [Instance Templates guide](/guides/using-instance-templates).
 

@@ -28,10 +28,10 @@ iconType: "solid"
 
 The console provides the same configuration options as the CLI and extension:
 
-- **Mode**: Prototyping or Production
+- **Mode**: Development or Production
 - **GPU Type**: Available options depend on mode
 - **GPU Count**: Options depend on mode and GPU type
-- **vCPUs**: Options vary by GPU type and count (prototyping only)
+- **vCPUs**: Options vary by GPU type and count (development only)
 - **Primary Disk**: Range varies by mode
 - **Ephemeral Storage**: Fast temporary storage mounted at `/ephemeral`. See [Ephemeral Storage](/guides/ephemeral-storage)
 - **Template**: Base, Ollama, ComfyUI, and more
@@ -40,10 +40,10 @@ The console provides the same configuration options as the CLI and extension:
 
 Choose between optimized development pricing or full compatibility:
 
-- **Prototyping** (default): Lower cost with CUDA-level optimizations. Best for development.
+- **Development** (default): Lower cost with CUDA-level optimizations. Best for development.
 - **Production**: Standard VM with full compatibility. Best for long-running jobs and production workloads.
 
-See [Prototyping vs Production](/prototyping-vs-production) for details on each mode.
+See [Development vs Production](/development-vs-production) for details on each mode.
 
 ## GPU, CPU, and RAM
 

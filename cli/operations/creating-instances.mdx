@@ -34,17 +34,17 @@ This walks you through selecting your instance configuration step by step.
 Specify all options in a single command:
 
 ```bash
-tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-disk 100 --ephemeral-disk 200
+tnr create --mode development --gpu a6000 --vcpus 8 --template base --primary-disk 100 --ephemeral-disk 200
 ```
 
 ## Configuration Options
 
 | Flag           | Description                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--mode`       | `prototyping` or `production`                                                                                |
+| `--mode`       | `development` or `production`                                                                                |
 | `--gpu`        | GPU type. Available options depend on mode                                                                    |
 | `--num-gpus`   | Number of GPUs. Options depend on mode and GPU type                                                           |
-| `--vcpus`      | CPU cores (prototyping only). Options vary by GPU type and count                                              |
+| `--vcpus`      | CPU cores (development only). Options vary by GPU type and count                                              |
 | `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
 | `--primary-disk` | Primary disk storage in GB. Range varies by mode                                                             |
 | `--ephemeral-disk` | Fast temporary storage in GB, mounted at `/ephemeral` (`0` to disable, default: `0`). See [Ephemeral Storage](/guides/ephemeral-storage) |
@@ -53,10 +53,10 @@ tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-di
 
 Choose between optimized development pricing or full compatibility:
 
-- **Prototyping** (default): Lower cost with CUDA-level optimizations. Best for development.
+- **Development** (default): Lower cost with CUDA-level optimizations. Best for development.
 - **Production**: Standard VM with full compatibility. Best for long-running jobs and production workloads.
 
-See [Prototyping vs Production](/prototyping-vs-production) for details on each mode.
+See [Development vs Production](/development-vs-production) for details on each mode.
 
 ### GPU, CPU, and RAM
 
