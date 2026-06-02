@@ -1,25 +1,25 @@
 ---
-title: "Prototyping vs Production"
-description: 'Differentiate prototyping and production environments on Thunder Compute. Select hardware and configurations optimized for your project scale.'
+title: "Development vs Production"
+description: 'Differentiate development and production environments on Thunder Compute. Select hardware and configurations optimized for your project scale.'
 icon: "scale-balanced"
 iconType: "solid"
 ---
 
 Thunder Compute offers two modes for running instances.
 
-| Feature | Prototyping | Production |
+| Feature | Development | Production |
 |---------|-------------|------------|
 | Use case | R&D, experimentation, short-lived development | Long-running inference, batch training, production workloads |
 | Cost | Lower | Higher |
 | Compatibility | Most ML workloads | Full |
 
-## Prototyping Mode
+## Development Mode
 
 <Note>
-  Prototyping mode is optimized for R&D, experimentation, and short-lived development workloads. Use production mode for long-running inference services or batch training jobs.
+  Development mode is optimized for R&D, experimentation, and short-lived development workloads. Use production mode for long-running inference services or batch training jobs.
 </Note>
 
-Prototyping mode applies CUDA-level optimizations to maximize GPU utilization, significantly reducing costs for AI/ML development workflows.
+Development mode applies CUDA-level optimizations to maximize GPU utilization, significantly reducing costs for AI/ML development workflows.
 
 ### Supported Workloads
 
@@ -54,7 +54,7 @@ Production mode provisions a standard virtual machine with full CUDA compatibili
 
 ## Switching Between Modes
 
-[Modify existing instances](/vscode/operations/modifying-instances) to switch between prototyping and production mode. This also lets you change GPU type, vCPUs, and RAM. Storage can be expanded but not reduced.
+[Modify existing instances](/vscode/operations/modifying-instances) to switch between development and production mode. This also lets you change GPU type, vCPUs, and RAM. Storage can be expanded but not reduced.
 
 ## Learn More
 

@@ -17,7 +17,7 @@
             "group": "Getting Started",
             "pages": [
               "vscode/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -81,7 +81,7 @@
             "group": "Getting Started",
             "pages": [
               "agents/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -144,7 +144,7 @@
             "group": "Getting Started",
             "pages": [
               "cli/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -208,7 +208,7 @@
             "group": "Getting Started",
             "pages": [
               "console/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -333,11 +333,15 @@
     },
     {
       "source": "/prototyping-mode",
-      "destination": "/prototyping-vs-production"
+      "destination": "/development-vs-production"
     },
     {
       "source": "/production-mode",
-      "destination": "/prototyping-vs-production"
+      "destination": "/development-vs-production"
+    },
+    {
+      "source": "/prototyping-vs-production",
+      "destination": "/development-vs-production"
     },
     {
       "source": "/guides/using-snapshots",

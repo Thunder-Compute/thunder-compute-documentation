@@ -8,7 +8,7 @@ sidebarTitle: "Unsloth Studio"
 Unsloth Studio is a browser UI for running and training local models. This guide uses the official Linux installer on a Thunder Compute `base` instance, then exposes Studio through Thunder Compute port forwarding.
 
 <Info>
-  These commands were verified on a single A100 80 GB prototyping instance. The same setup path is suitable for other GPU instances with enough disk space for the models and datasets you plan to use.
+  These commands were verified on a single A100 80 GB development instance. The same setup path is suitable for other GPU instances with enough disk space for the models and datasets you plan to use.
 </Info>
 
 ## Create the instance
@@ -16,17 +16,17 @@ Unsloth Studio is a browser UI for running and training local models. This guide
 Create a GPU instance with the `base` template and enough primary disk for Studio, models, and datasets:
 
 ```bash
-tnr create --mode prototyping --gpu a100 --num-gpus 1 --vcpus 12 --template base --primary-disk 250
+tnr create --mode development --gpu a100 --num-gpus 1 --vcpus 12 --template base --primary-disk 250
 ```
 
 If A100 is unavailable, use the same shape with an available GPU:
 
 ```bash
 # RTX A6000
-tnr create --mode prototyping --gpu a6000 --num-gpus 1 --vcpus 6 --template base --primary-disk 250
+tnr create --mode development --gpu a6000 --num-gpus 1 --vcpus 6 --template base --primary-disk 250
 
 # H100 80 GB
-tnr create --mode prototyping --gpu h100 --num-gpus 1 --vcpus 16 --template base --primary-disk 250
+tnr create --mode development --gpu h100 --num-gpus 1 --vcpus 16 --template base --primary-disk 250
 ```
 
 Connect to the instance:
