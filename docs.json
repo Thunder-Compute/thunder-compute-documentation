@@ -75,12 +75,12 @@
         ]
       },
       {
-        "version": "Agents",
+        "version": "MCP Server",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
-              "agents/quickstart",
+              "mcp-server/quickstart",
               "development-vs-production",
               "technical-specs"
             ]
@@ -88,16 +88,16 @@
           {
             "group": "Operations",
             "pages": [
-              "agents/operations/authentication",
-              "agents/operations/creating-instances",
-              "agents/operations/connecting-to-instances",
-              "agents/operations/monitoring-instances",
-              "agents/operations/file-transfers",
-              "agents/operations/port-forwarding",
-              "agents/operations/modifying-instances",
-              "agents/operations/snapshots",
-              "agents/operations/deleting-instances",
-              "agents/operations/ssh"
+              "mcp-server/operations/authentication",
+              "mcp-server/operations/creating-instances",
+              "mcp-server/operations/connecting-to-instances",
+              "mcp-server/operations/monitoring-instances",
+              "mcp-server/operations/file-transfers",
+              "mcp-server/operations/port-forwarding",
+              "mcp-server/operations/modifying-instances",
+              "mcp-server/operations/snapshots",
+              "mcp-server/operations/deleting-instances",
+              "mcp-server/operations/ssh"
             ]
           },
           {
@@ -352,6 +352,10 @@
     {
       "source": "/guides/ssh-on-thunder-compute",
       "destination": "/cli/operations/ssh"
+    },
+    {
+      "source": "/agents/:slug*",
+      "destination": "/mcp-server/:slug*"
     }
   ]
 }
