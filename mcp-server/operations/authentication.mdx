@@ -1,0 +1,27 @@
+---
+title: "Authentication"
+description: "Use your AI agent to authenticate with Thunder Compute, or switch to another interface for direct control."
+icon: "key"
+iconType: "solid"
+---
+
+<Columns cols={4}>
+  <Card title="VS Code" icon="window" href="/vscode/operations/authentication" color="#95c5ea" className="platform-card">
+    Editor extension
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli/operations/authentication" color="#95c5ea" className="platform-card">
+    Command line
+  </Card>
+  <Card title="Console" icon="browser" href="/console/operations/authentication" color="#95c5ea" className="platform-card">
+    Web interface
+  </Card>
+  <Card title="MCP Server" icon="robot" color="#95c5ea" className="platform-card platform-current">
+    MCP server
+  </Card>
+</Columns>
+
+Ask your agent in natural language. For direct control, switch to another interface.
+
+Thunder Compute uses your agent's standard MCP authentication flow. For example, in Claude Code you can run `/mcp` to connect and complete the browser-based sign-in flow for the Thunder Compute server.
+
+If sign-in fails or the browser callback errors out (common in remote VMs and containers), see [MCP Server → Troubleshooting](/guides/mcp-server#troubleshooting).

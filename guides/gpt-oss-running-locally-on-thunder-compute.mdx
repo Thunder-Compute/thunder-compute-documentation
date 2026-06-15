@@ -5,13 +5,11 @@ mode: "wide"
 sidebarTitle: "GPT-OSS 120B"
 ---
 
-# Run GPT‑OSS 120B on Thunder Compute
-
 Looking for the **cheapest way to self‑host GPT‑OSS 120B** or just want to **try it out** without buying hardware? Thunder Compute lets you spin up pay‑per‑minute NVIDIA A100 GPUs, so you only pay for what you use. Follow the steps below to get the model running in minutes.
 
 > **Prerequisite:** Ensure your Thunder Compute account is ready. If not, start with our [Quickstart Guide](/vscode/quickstart).
 
-## Step 1 — Create a Cost‑Effective Prototyping‑Mode GPU Instance
+## Step 1 — Create a Cost‑Effective Development‑Mode GPU Instance
 
 Launch an 80 GB A100 instance (large enough to host the full 120 B model):
 
@@ -19,18 +17,18 @@ Launch an 80 GB A100 instance (large enough to host the full 120 B model):
 tnr create \
   --gpu a100xl \
   --vcpus 4 \
-  --mode prototyping \
+  --mode development \
   --persistent-disk 200 \
   --template "ollama"
 ```
 
-This command starts a lower‑cost [prototyping‑mode](/prototyping-vs-production#prototyping-mode) instance with:
+This command starts a lower‑cost [development‑mode](/development-vs-production#development-mode) instance with:
 
 * **GPU:** A100 80 GB
 * **vCPUs:** 4
 * **Storage:** 200 GB (from the *Ollama* template)
 
-> The GPU, vCPU Count, and Mode ([Prototyping](/prototyping-vs-production#prototyping-mode) / [Production](/prototyping-vs-production#production-mode)), can be changed later if your requirements change, and the amount of storage can be increased if needed.
+> The GPU, vCPU Count, and Mode ([Development](/development-vs-production#development-mode) / [Production](/development-vs-production#production-mode)), can be changed later if your requirements change, and the amount of storage can be increased if needed.
 
 For details on templates, see the [Instance Templates guide](/guides/using-instance-templates).
 
@@ -72,7 +70,7 @@ Give the UI about 60 seconds to finish loading.
 
 ## Step 4 — Access the Web UI and Select the Model
 
-1. Open `http://localhost:8080` in your browser.
+1. Open the Open WebUI URL that `start-ollama` prints. It looks like `https://<instance-id>-8080.thundercompute.net`.
 2. Choose **gpt-oss:120b** from the model dropdown.
 
 <img src="/images/OpenWebUI_ModelSelect.png" width="650" alt="OpenWebUI model selection" />

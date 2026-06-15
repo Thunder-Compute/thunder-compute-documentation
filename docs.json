@@ -17,7 +17,7 @@
             "group": "Getting Started",
             "pages": [
               "vscode/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -44,12 +44,23 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
               "guides/referral-program",
               "guides/data-processing-addendum",
               "guides/weights-and-biases",
-              "guides/mcp-server"
+              "guides/mcp-server",
+              "guides/openclaw-thunder-compute-beta"
             ]
           },
           {
@@ -63,29 +74,29 @@
         ]
       },
       {
-        "version": "Agents",
+        "version": "MCP Server",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
-              "agents/quickstart",
-              "prototyping-vs-production",
+              "mcp-server/quickstart",
+              "development-vs-production",
               "technical-specs"
             ]
           },
           {
             "group": "Operations",
             "pages": [
-              "agents/operations/authentication",
-              "agents/operations/creating-instances",
-              "agents/operations/connecting-to-instances",
-              "agents/operations/monitoring-instances",
-              "agents/operations/file-transfers",
-              "agents/operations/port-forwarding",
-              "agents/operations/modifying-instances",
-              "agents/operations/snapshots",
-              "agents/operations/deleting-instances",
-              "agents/operations/ssh"
+              "mcp-server/operations/authentication",
+              "mcp-server/operations/creating-instances",
+              "mcp-server/operations/connecting-to-instances",
+              "mcp-server/operations/monitoring-instances",
+              "mcp-server/operations/file-transfers",
+              "mcp-server/operations/port-forwarding",
+              "mcp-server/operations/modifying-instances",
+              "mcp-server/operations/snapshots",
+              "mcp-server/operations/deleting-instances",
+              "mcp-server/operations/ssh"
             ]
           },
           {
@@ -96,8 +107,18 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
               "guides/referral-program",
               "guides/data-processing-addendum",
               "guides/weights-and-biases",
@@ -121,7 +142,7 @@
             "group": "Getting Started",
             "pages": [
               "cli/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -148,8 +169,18 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",
@@ -174,7 +205,7 @@
             "group": "Getting Started",
             "pages": [
               "console/quickstart",
-              "prototyping-vs-production",
+              "development-vs-production",
               "technical-specs"
             ]
           },
@@ -201,8 +232,18 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/gpt-oss-running-locally-on-thunder-compute",
-              "guides/deepseek-r1-running-locally-on-thunder-compute",
+              "guides/unsloth-studio",
+              "guides/unsloth-studio-finetune",
+              {
+                "group": "Models",
+                "root": "guides/models",
+                "expanded": false,
+                "pages": [
+                  "guides/models/qwen3-6-27b",
+                  "guides/gpt-oss-running-locally-on-thunder-compute",
+                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                ]
+              },
 
               "guides/referral-program",
               "guides/data-processing-addendum",
@@ -288,11 +329,15 @@
     },
     {
       "source": "/prototyping-mode",
-      "destination": "/prototyping-vs-production"
+      "destination": "/development-vs-production"
     },
     {
       "source": "/production-mode",
-      "destination": "/prototyping-vs-production"
+      "destination": "/development-vs-production"
+    },
+    {
+      "source": "/prototyping-vs-production",
+      "destination": "/development-vs-production"
     },
     {
       "source": "/guides/using-snapshots",
@@ -303,6 +348,10 @@
     {
       "source": "/guides/ssh-on-thunder-compute",
       "destination": "/cli/operations/ssh"
+    },
+    {
+      "source": "/agents/:slug*",
+      "destination": "/mcp-server/:slug*"
     }
   ]
 }

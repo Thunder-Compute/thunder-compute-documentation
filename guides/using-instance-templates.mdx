@@ -13,6 +13,8 @@ We currently offer:
 
 - **Ollama** – launches an Ollama server for open-source large language models
 - **ComfyUI** – installs ComfyUI for fast AI-image generation workflows
+- **Forge Neo** - installs Forge Neo with a basic Stable Diffusion model
+- **Unsloth** - installs Unsloth Studio for LLM inference and fine-tuning
 
 ## Deploy a Template
 
@@ -24,6 +26,12 @@ tnr create --template ollama
 
 # Launch ComfyUI
 tnr create --template comfy-ui
+
+# Launch Forge Neo
+tnr create --template forge-neo
+
+# Launch Unsloth
+tnr create --template unsloth
 ```
 
 2. **Check the instance is ready**
@@ -52,6 +60,12 @@ start-ollama
 
 # ComfyUI
 start-comfyui
+
+# Forge Neo
+start-forgeneo
+
+# Unsloth
+start-unsloth
 ```
 
 Required ports forward to your local machine automatically.
@@ -70,6 +84,17 @@ Required ports forward to your local machine automatically.
 - Mounts the `ComfyUI` directory to your Mac or Linux host  
 - UI at `http://localhost:8188`  
 - Includes common nodes and extensions
+
+### Forge Neo Template
+
+- Forwards port **7860**   
+- UI at `http://localhost:7860`  
+- Ready for Stable Diffusion
+
+### Unsloth Template
+
+- Forwards port **8000**   
+- UI at `http://localhost:8000`  
 
 ## Need Help?
 
