@@ -13,20 +13,20 @@ Unsloth Studio is a browser UI for running and training local models. This guide
 
 ## Create the instance
 
-Create a GPU instance with the `base` template and enough primary disk for Studio, models, and datasets:
+Create a GPU instance with the `base` template and enough disk for Studio, models, and datasets:
 
 ```bash
-tnr create --mode development --gpu a100 --num-gpus 1 --vcpus 12 --template base --primary-disk 250
+tnr create --mode development --gpu a100 --num-gpus 1 --vcpus 12 --template base --disk 250
 ```
 
 If A100 is unavailable, use the same shape with an available GPU:
 
 ```bash
 # RTX A6000
-tnr create --mode development --gpu a6000 --num-gpus 1 --vcpus 6 --template base --primary-disk 250
+tnr create --mode development --gpu a6000 --num-gpus 1 --vcpus 6 --template base --disk 250
 
 # H100 80 GB
-tnr create --mode development --gpu h100 --num-gpus 1 --vcpus 16 --template base --primary-disk 250
+tnr create --mode development --gpu h100 --num-gpus 1 --vcpus 16 --template base --disk 250
 ```
 
 Connect to the instance:

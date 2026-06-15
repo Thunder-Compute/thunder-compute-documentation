@@ -34,7 +34,7 @@ This walks you through selecting your instance configuration step by step.
 Specify all options in a single command:
 
 ```bash
-tnr create --mode development --gpu a6000 --vcpus 8 --template base --primary-disk 100
+tnr create --mode development --gpu a6000 --vcpus 8 --template base --disk 100
 ```
 
 ## Configuration Options
@@ -46,7 +46,7 @@ tnr create --mode development --gpu a6000 --vcpus 8 --template base --primary-di
 | `--num-gpus`   | Number of GPUs. Options depend on mode and GPU type                                                           |
 | `--vcpus`      | CPU cores (development only). Options vary by GPU type and count                                              |
 | `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
-| `--primary-disk` | Primary disk storage in GB. Range varies by mode                                                             |
+| `--disk` | Disk storage in GB. Range varies by mode                                                             |
 
 ### Mode Selection
 
