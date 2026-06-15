@@ -41,7 +41,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/ephemeral-storage",
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
@@ -94,7 +93,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/ephemeral-storage",
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
@@ -147,7 +145,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/ephemeral-storage",
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
@@ -201,7 +198,6 @@
             "pages": [
               "guides/running-jupyter-notebooks-on-thunder-compute",
               "guides/using-instance-templates",
-              "guides/ephemeral-storage",
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",

@@ -54,7 +54,6 @@ tnr modify <instance_id> [options]
 | `--num-gpus` | Number of GPUs. Options depend on mode and GPU type |
 | `--vcpus`    | Number of virtual CPUs (prototyping mode; options vary by GPU type and count) |
 | `--primary-disk` | Primary disk size in GB (can only be increased)    |
-| `--ephemeral-disk` | Ephemeral storage in GB, mounted at `/ephemeral` (`0` to disable). See [Ephemeral Storage](/guides/ephemeral-storage) |
 | `--mode`     | Switch between `prototyping` and `production` |
 
 ### Examples
@@ -87,7 +86,6 @@ tnr modify 0 --mode production
 | RAM         | Yes         | Scales with vCPUs (prototyping) or GPUs (production) |
 | Mode        | Yes         | Switch between prototyping and production       |
 | Primary Disk | Increase only | Cannot shrink disk                            |
-| Ephemeral Storage | Yes     | Data is lost when modified. See [Ephemeral Storage](/guides/ephemeral-storage) |
 
 <Note>
   RAM is automatically determined based on your configuration. See the [pricing page](https://www.thundercompute.com/pricing) for details.

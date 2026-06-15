@@ -55,7 +55,7 @@ This walks you through selecting your instance configuration step by step.
 Specify all options in a single command:
 
 ```bash
-tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-disk 100 --ephemeral-disk 200
+tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-disk 100
 ```
 
 ## Configuration Options
@@ -68,7 +68,6 @@ tnr create --mode prototyping --gpu a6000 --vcpus 8 --template base --primary-di
 | `--vcpus`      | CPU cores (prototyping only). Options vary by GPU type and count                                              |
 | `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
 | `--primary-disk` | Primary disk storage in GB. Range varies by mode                                                             |
-| `--ephemeral-disk` | Fast temporary storage in GB, mounted at `/ephemeral` (`0` to disable, default: `0`). See [Ephemeral Storage](/guides/ephemeral-storage) |
 
 ### Mode Selection
 
