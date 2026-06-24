@@ -275,7 +275,7 @@
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://www.thundercompute.com"
+    "href": "https://www.thundercompute.com/cloud"
   },
   "appearance": {
     "default": "dark"

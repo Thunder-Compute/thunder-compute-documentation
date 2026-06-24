@@ -21,7 +21,7 @@ We welcome contributions to improve our documentation. Please feel free to:
 - [Getting Started Guide](./docs/quickstart.md)
 - [API Reference](./docs/api/reference.md)
 - [Integration Guides](./docs/guides/)
-- [Main Website](https://www.thundercompute.com)
+- [Main Website](https://www.thundercompute.com/cloud)
 - [Support](https://www.thundercompute.com/support)
 
 ## License
