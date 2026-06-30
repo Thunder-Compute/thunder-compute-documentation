@@ -34,32 +34,22 @@ This walks you through selecting your instance configuration step by step.
 Specify all options in a single command:
 
 ```bash
-tnr create --mode development --gpu a6000 --vcpus 8 --template base --disk 100
+tnr create --gpu a6000 --num-gpus 1 --vcpus 8 --template base --disk 100
 ```
 
 ## Configuration Options
 
 | Flag           | Description                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--mode`       | `development` or `production`                                                                                |
-| `--gpu`        | GPU type. Available options depend on mode                                                                    |
-| `--num-gpus`   | Number of GPUs. Options depend on mode and GPU type                                                           |
-| `--vcpus`      | CPU cores (development only). Options vary by GPU type and count                                              |
+| `--gpu`        | GPU type                                                                                                      |
+| `--num-gpus`   | Number of GPUs: 1, 2, 4, or 8 when available                                                                  |
+| `--vcpus`      | CPU cores. Options vary by GPU type and count                                                                 |
 | `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
-| `--disk` | Disk storage in GB. Range varies by mode                                                             |
-
-### Mode Selection
-
-Choose between optimized development pricing or full compatibility:
-
-- **Development** (default): Lower cost with CUDA-level optimizations. Best for development.
-- **Production**: Standard VM with full compatibility. Best for long-running jobs and production workloads.
-
-See [Development vs Production](/development-vs-production) for details on each mode.
+| `--disk` | Disk storage in GB. Range varies by GPU configuration                                                             |
 
 ### GPU, CPU, and RAM
 
-Available GPU types, GPU counts, vCPU options, and RAM configurations vary by mode. Use `tnr create` to see current options interactively, or check the [pricing page](https://www.thundercompute.com/pricing) for details.
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by configuration. Use `tnr create` to see current options interactively, or check the [pricing page](https://www.thundercompute.com/pricing) for details.
 
 ## Templates
 

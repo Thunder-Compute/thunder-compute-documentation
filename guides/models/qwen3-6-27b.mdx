@@ -46,10 +46,10 @@ For non-thinking prompts, include `/no_think` at the start of the user message a
 
 ## Create The Instance
 
-Create an A6000 development instance with enough disk space for the llama.cpp Docker image and the GGUF file:
+Create an A6000 instance with enough disk space for the llama.cpp Docker image and the GGUF file:
 
 ```bash
-tnr create --mode development --gpu a6000 --vcpus 8 --template base --disk 200
+tnr create --gpu a6000 --num-gpus 1 --vcpus 8 --template base --disk 200
 ```
 
 ![Create a Thunder Compute A6000 instance](/images/models/qwen3-6-27b/01-create-instance.png)
@@ -58,10 +58,10 @@ For an A100 or H100 run, keep the same shape but change the GPU. Available vCPU 
 
 ```bash
 # A100 80 GB
-tnr create --mode development --gpu a100 --num-gpus 1 --vcpus 12 --template base --disk 250
+tnr create --gpu a100 --num-gpus 1 --vcpus 12 --template base --disk 250
 
 # H100 80 GB
-tnr create --mode development --gpu h100 --num-gpus 1 --vcpus 16 --template base --disk 250
+tnr create --gpu h100 --num-gpus 1 --vcpus 16 --template base --disk 250
 ```
 
 Connect to the instance:

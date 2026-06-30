@@ -15,7 +15,7 @@ iconType: solid
 
 ### Function not implemented
 
-A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. Check our [Development vs Production](/development-vs-production) guide for supported features, and if you encounter this, please contact us.
+A common error you may encounter is some variant of "This function is not implemented." What this means is that your program touches a portion of the CUDA API that we do not currently support. If you encounter this, please contact us.
 
 ### MCP / AI agent issues
 
@@ -36,9 +36,9 @@ To help prevent common issues and get the most out of Thunder Compute, we recomm
 * [Using Docker](/guides/using-docker-on-thundercompute) - Learn about GPU-enabled containers and troubleshooting Docker issues
 * [Using Instance Templates](/guides/using-instance-templates) - Use pre-configured environments to minimize setup issues
 
-## Production mode as a last resort
+## If Compatibility Issues Persist
 
-If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, consider switching to production mode by modifying your instance ([VS Code](/vscode/operations/modifying-instances), [CLI](/cli/operations/modifying-instances), or [Console](/console/operations/modifying-instances)). Production mode provides maximum stability and reliability with all low-level optimizations disabled, ensuring complete compatibility for workloads that encounter persistent issues in the development tier.
+If you continue to experience compatibility issues or errors that cannot be resolved through the above methods, try resizing the instance or contact support with the failing command and logs.
 
 ## Support
 
