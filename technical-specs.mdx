@@ -24,19 +24,13 @@ iconType: "solid"
 
 ## Storage
 
-- **Persistent Disk**: Your home directory and OS. Preserved across modifications and included in snapshots. Can be expanded but not shrunk.
+- **Persistent Disk**: Your home directory and OS. Preserved across modifications and included in snapshots. Can be expanded but not shrunk. Each GPU includes 100 GB of persistent disk, so an 8 GPU instance includes the first 800 GB at no additional storage cost.
 
 | Storage Type | Range |
 |---|---|
-| Persistent Disk | 100 - 4000 GB, depending on GPU count |
+| Persistent Disk | 100 - 4000 GB, depending on GPU count. First 100 GB per GPU included. |
 
 ## Networking
 
 - **Egress/Ingress**: 7 Gbps
 - **IP Address**: Dynamic
-
-### Port Access
-
-- **Public URLs (CLI)**: Use `tnr ports forward` to expose HTTP services at `https://<uuid>-<port>.thundercompute.net` with automatic HTTPS and DDoS protection. See [Port Forwarding](/cli/operations/port-forwarding) for details.
-- **Local tunneling (CLI)**: Use `tnr connect <instance_id> -t <port>` to tunnel ports to your local machine
-- **VS Code**: Use the built-in [port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding) feature

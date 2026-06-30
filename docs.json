@@ -17,7 +17,8 @@
             "group": "Getting Started",
             "pages": [
               "vscode/quickstart",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -43,7 +44,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -79,7 +79,8 @@
             "group": "Getting Started",
             "pages": [
               "mcp-server/quickstart",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -105,7 +106,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -140,7 +140,8 @@
             "group": "Getting Started",
             "pages": [
               "cli/quickstart",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -166,7 +167,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -202,7 +202,8 @@
             "group": "Getting Started",
             "pages": [
               "console/quickstart",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -228,7 +229,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -331,7 +331,11 @@
     { "source": "/quickstart", "destination": "/vscode/quickstart" },
     {
       "source": "/guides/ssh-on-thunder-compute",
-      "destination": "/cli/operations/ssh"
+      "destination": "/console/operations/ssh"
+    },
+    {
+      "source": "/guides/unsloth-studio",
+      "destination": "/guides/unsloth-studio-finetune"
     },
     {
       "source": "/agents/:slug*",

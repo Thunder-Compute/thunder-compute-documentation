@@ -1,0 +1,18 @@
+---
+title: "Compatibility"
+description: "Review known Thunder Compute compatibility limitations, including managed memory, FFmpeg, and GPU profilers."
+icon: "puzzle-piece"
+iconType: "solid"
+---
+
+Thunder Compute supports common CUDA and GPU development workflows, but some workloads and tools are not currently compatible with the platform.
+
+## Known Incompatibilities
+
+- **Managed memory / UVM**: try a library or implementation that does not rely on managed memory, such as switching from TensorFlow to PyTorch.
+- **FFmpeg GPU acceleration**: run FFmpeg without GPU acceleration.
+- **GPU profilers**: use application-level logging, framework metrics, or benchmark scripts instead.
+
+## Support
+
+If you run into another compatibility issue, please message us in [our Discord](https://discord.com/invite/nwuETS9jJK) with the command you ran, the error output, and any relevant logs.
