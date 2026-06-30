@@ -62,7 +62,7 @@ Match the user's intent to the right action:
 
 1. If no GPU type specified, call `get_specs` and `get_pricing` to help choose
 2. If no template specified, call `list_templates` — suggest `ubuntu22.04-cuda12.4` as default
-3. Call `create_instance` with `gpu_type`, `template`, `mode` ("development" unless user said "production"), `num_gpus` (default 1), `disk_size_gb` (default 100)
+3. Call `create_instance` with `gpu_type`, `template`, `num_gpus` (default 1), `disk_size_gb` (default 100), and `vcpus` when needed
 4. Report the instance UUID; user can connect via `tnr connect` once running
 
 ### Delete
@@ -79,7 +79,6 @@ Match the user's intent to the right action:
 
 ## Defaults
 
-- Mode: `development` (auto-stops when idle, cheaper)
 - Disk: 100 GB
 - GPUs: 1
 - Template: `ubuntu22.04-cuda12.4`
@@ -87,7 +86,6 @@ Match the user's intent to the right action:
 ## Safety Rules
 
 - **Never delete without explicit user confirmation**
-- **Warn about production mode** — it runs 24/7 and bills continuously
 - If auth fails, tell the user to re-authenticate by running `/mcp` in Claude Code or reconnecting in their agent
 - If the requested GPU type isn't available, show alternatives from `get_specs`
 
@@ -95,7 +93,7 @@ Match the user's intent to the right action:
 
 ### Instance Management
 - `list_instances` — List all instances
-- `create_instance` — Create instance (gpu_type, template, mode, num_gpus, vcpus, disk_size_gb, ssh_key_name)
+- `create_instance` — Create instance (gpu_type, template, num_gpus, vcpus, disk_size_gb, ssh_key_name)
 - `delete_instance` — Delete instance (instance_id)
 - `modify_instance` — Modify instance (instance_id + optional fields)
 - `run_command` — Execute shell command on instance (instance_id, command, timeout)

@@ -30,7 +30,7 @@ This displays:
 - **Status**: `RUNNING`, `CREATING`, `RESTORING`, etc.
 - **IP Address**: The public IP for SSH access
 - **GPU Type**: A6000, A100, or H100
-- **GPU Count**: Number of GPUs (production only)
+- **GPU Count**: Number of GPUs
 - **vCPU Count**: Number of virtual CPUs
 - **RAM**: Total memory
 - **Disk**: Storage capacity
@@ -55,6 +55,4 @@ tnr status --no-wait
 
 ## Benchmarking Notes
 
-When measuring performance in **development mode**, note that hardware-level metrics (temperature, wattage, utilization) may not be accurate due to CUDA-level optimizations. Use application-level metrics like iterations per second for reliable comparisons.
-
-For accurate hardware metrics, use **production mode** instances.
+When measuring performance, use application-level metrics like iterations per second for workload comparisons. Hardware-level metrics such as temperature, wattage, and utilization may vary by GPU configuration.

@@ -29,11 +29,10 @@ tnr modify <instance_id> [options]
 
 | Option       | Description                              |
 |--------------|------------------------------------------|
-| `--gpu`      | GPU type. Options depend on mode         |
-| `--num-gpus` | Number of GPUs. Options depend on mode and GPU type |
-| `--vcpus`    | Number of virtual CPUs (development mode; options vary by GPU type and count) |
+| `--gpu`      | GPU type         |
+| `--num-gpus` | Number of GPUs: 1, 2, 4, or 8 when available |
+| `--vcpus`    | Number of virtual CPUs; options vary by GPU type and count |
 | `--disk` | Disk size in GB (can only be increased)    |
-| `--mode`     | Switch between `development` and `production` |
 
 ### Examples
 
@@ -47,8 +46,8 @@ tnr modify 0 --vcpus 16
 # Increase disk size
 tnr modify 0 --disk 300
 
-# Switch to production mode
-tnr modify 0 --mode production
+# Move to 4 GPUs
+tnr modify 0 --num-gpus 4
 ```
 
 <Note>
@@ -61,9 +60,8 @@ tnr modify 0 --mode production
 |-------------|-------------|-------------------------------------------------|
 | GPU Type    | Yes         |                                                 |
 | GPU Count   | Yes         |                                                 |
-| vCPUs       | Yes         | Development mode only                           |
-| RAM         | Yes         | Scales with vCPUs (development) or GPUs (production) |
-| Mode        | Yes         | Switch between development and production       |
+| vCPUs       | Yes         | Options vary by GPU configuration              |
+| RAM         | Yes         | Automatically determined from the selected CPU/GPU configuration |
 | Disk | Increase only | Cannot shrink disk                            |
 
 <Note>

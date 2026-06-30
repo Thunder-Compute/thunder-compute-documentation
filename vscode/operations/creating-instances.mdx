@@ -28,25 +28,15 @@ iconType: "solid"
 
 The extension provides the same options as the CLI:
 
-- **Mode**: Development or Production
-- **GPU Type**: Available options depend on mode
-- **GPU Count**: Options depend on mode and GPU type
-- **vCPUs**: Options vary by GPU type and count (development only)
-- **Disk**: Range varies by mode
+- **GPU Type**: Available GPU family
+- **GPU Count**: 1, 2, 4, or 8 when available for the selected GPU
+- **vCPUs**: Options vary by GPU type and count
+- **Disk**: Range varies by GPU configuration
 - **Template**: Base, Ollama, ComfyUI, and more
-
-## Mode Selection
-
-Choose between optimized development pricing or full compatibility:
-
-- **Development** (default): Lower cost with CUDA-level optimizations. Best for development.
-- **Production**: Standard VM with full compatibility. Best for long-running jobs and production workloads.
-
-See [Development vs Production](/development-vs-production) for details on each mode.
 
 ## GPU, CPU, and RAM
 
-Available GPU types, GPU counts, vCPU options, and RAM configurations vary by mode. Check the [pricing page](https://www.thundercompute.com/pricing) for current options.
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by configuration. Check the [pricing page](https://www.thundercompute.com/pricing) for current options.
 
 ## Templates
 
