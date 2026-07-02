@@ -1,6 +1,6 @@
 ---
 title: "Compatibility"
-description: "Review known Thunder Compute compatibility limitations, including managed memory, FFmpeg, and GPU profilers."
+description: "Review known Thunder Compute compatibility limitations, including managed memory, CUDA MPS, FFmpeg, and GPU profilers."
 icon: "puzzle-piece"
 iconType: "solid"
 ---
@@ -10,6 +10,7 @@ Thunder Compute supports common CUDA and GPU development workflows, but some wor
 ## Known Incompatibilities
 
 - **Managed memory / UVM**: try a library or implementation that does not rely on managed memory, such as switching from TensorFlow to PyTorch.
+- **CUDA Multi-Process Service (MPS)**: run workloads without MPS, or use a standard multi-GPU instance when you need process-level GPU sharing.
 - **FFmpeg GPU acceleration**: run FFmpeg without GPU acceleration.
 - **GPU profilers**: use application-level logging, framework metrics, or benchmark scripts instead.
 
