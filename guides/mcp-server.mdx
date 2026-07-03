@@ -175,9 +175,9 @@ No API tokens or environment variables needed. When you first connect, a browser
 | Tool | Description |
 |------|-------------|
 | `list_instances` | List all GPU instances with status, IP, and configuration |
-| `create_instance` | Create a new GPU instance (specify GPU type, template, mode, etc.) |
+| `create_instance` | Create a new GPU instance (specify GPU type, GPU count, template, etc.) |
 | `delete_instance` | Delete an instance (irreversible) |
-| `modify_instance` | Change instance config (GPU type, vCPUs, disk, mode) |
+| `modify_instance` | Change instance config (GPU type, GPU count, vCPUs, disk) |
 | `run_command` | Execute a shell command on a running instance and return stdout, stderr, and exit code |
 
 ### Information
@@ -244,7 +244,7 @@ The MCP server includes built-in prompts that guide your agent through common mu
 
 | Prompt | Description |
 |--------|-------------|
-| `create-dev-instance` | Set up a GPU development instance with sensible defaults |
+| `create-dev-instance` | Set up a GPU instance with sensible defaults |
 | `deploy-model` | Deploy an ML model (supports Ollama, vLLM, and Transformers) |
 | `check-costs` | Review current GPU usage and costs |
 | `snapshot-and-teardown` | Save instance state and clean up |

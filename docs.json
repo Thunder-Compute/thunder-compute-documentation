@@ -17,8 +17,8 @@
             "group": "Getting Started",
             "pages": [
               "mcp-server/quickstart",
-              "development-vs-production",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -44,7 +44,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -79,8 +78,8 @@
             "group": "Getting Started",
             "pages": [
               "vscode/quickstart",
-              "development-vs-production",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -106,7 +105,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -142,8 +140,8 @@
             "group": "Getting Started",
             "pages": [
               "cli/quickstart",
-              "development-vs-production",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -169,7 +167,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -205,8 +202,8 @@
             "group": "Getting Started",
             "pages": [
               "console/quickstart",
-              "development-vs-production",
-              "technical-specs"
+              "technical-specs",
+              "compatibility"
             ]
           },
           {
@@ -232,7 +229,6 @@
               "guides/speeding-up-snapshots",
               "guides/stopping-instances",
               "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio",
               "guides/unsloth-studio-finetune",
               {
                 "group": "Models",
@@ -328,18 +324,6 @@
       "destination": "/cli/operations/authentication"
     },
     {
-      "source": "/prototyping-mode",
-      "destination": "/development-vs-production"
-    },
-    {
-      "source": "/production-mode",
-      "destination": "/development-vs-production"
-    },
-    {
-      "source": "/prototyping-vs-production",
-      "destination": "/development-vs-production"
-    },
-    {
       "source": "/guides/using-snapshots",
       "destination": "/cli/operations/snapshots"
     },
@@ -347,7 +331,11 @@
     { "source": "/quickstart", "destination": "/vscode/quickstart" },
     {
       "source": "/guides/ssh-on-thunder-compute",
-      "destination": "/cli/operations/ssh"
+      "destination": "/console/operations/ssh"
+    },
+    {
+      "source": "/guides/unsloth-studio",
+      "destination": "/guides/unsloth-studio-finetune"
     },
     {
       "source": "/agents/:slug*",

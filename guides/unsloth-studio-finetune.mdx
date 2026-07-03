@@ -1,23 +1,129 @@
 ---
 title: "Fine-tune with Unsloth Studio"
-description: "Run a small Gemma 4 QLoRA fine-tune in Unsloth Studio on a Thunder Compute GPU instance."
+description: "Launch Unsloth Studio on a Thunder Compute GPU instance and run a small Gemma 4 QLoRA fine-tune."
 mode: "wide"
-sidebarTitle: "Fine-tune with Studio"
+sidebarTitle: "Unsloth Studio"
 ---
 
-This guide runs a short text fine-tune in Unsloth Studio with `unsloth/gemma-4-E2B-it`. It is meant to prove the setup, dataset format, training path, and adapter output before you move to a larger dataset.
+Unsloth Studio is a browser UI for running and training local models. This guide installs Studio on a Thunder Compute `base` instance, opens it through Thunder Compute port forwarding, then runs a short text fine-tune with `unsloth/gemma-4-E2B-it`.
 
 <Info>
   This setup path and Gemma 4 E2B QLoRA training profile were verified on a single Thunder Compute A100 80 GB instance with Unsloth Studio 2026.5.2. The sample dataset below is intentionally tiny so you can confirm the workflow before training on a real dataset.
 </Info>
 
-## Prerequisites
+## Create the instance
 
-Complete [Run Unsloth Studio](/guides/unsloth-studio) first. You should have:
+Create a GPU instance with the `base` template and enough disk for Studio, models, and datasets:
 
-- A Thunder Compute GPU instance running Unsloth Studio
-- Port `8888` forwarded to a public Thunder Compute URL
-- Browser access to the Unsloth Studio `Train` page
+```bash
+tnr create --gpu a100 --num-gpus 1 --vcpus 12 --template base --disk 250
+```
+
+If A100 is unavailable, use the same shape with an available GPU:
+
+```bash
+# RTX A6000
+tnr create --gpu a6000 --num-gpus 1 --vcpus 6 --template base --disk 250
+
+# H100 80 GB
+tnr create --gpu h100 --num-gpus 1 --vcpus 16 --template base --disk 250
+```
+
+Connect to the instance:
+
+```bash
+tnr status
+tnr connect <instance-id>
+```
+
+Check that the GPU is visible:
+
+```bash
+nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader
+```
+
+![Create an A100 instance and verify the GPU](/images/unsloth-studio/01-create-instance.png)
+
+## Install Unsloth Studio
+
+Install the system packages that Unsloth Studio needs to build and run its local inference components:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y cmake libcurl4-openssl-dev
+```
+
+Run the official Unsloth Studio installer:
+
+```bash
+curl -fsSL https://unsloth.ai/install.sh | sh
+```
+
+The installer creates a Python environment under `~/.unsloth/studio` and writes an `unsloth` launcher into `~/.local/bin`.
+
+For the current SSH session, add the launcher directory to your path:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+![Install Unsloth Studio on a Thunder Compute instance](/images/unsloth-studio/02-install-studio.png)
+
+## Start Studio
+
+Start Unsloth Studio on port `8888` and listen on all interfaces:
+
+```bash
+nohup unsloth studio -H 0.0.0.0 -p 8888 > ~/unsloth-studio.log 2>&1 &
+```
+
+Check that Studio is running:
+
+```bash
+tail -n 40 ~/unsloth-studio.log
+curl -s http://127.0.0.1:8888/api/health | python3 -m json.tool
+```
+
+The health endpoint should return a JSON response with `"status":"healthy"`.
+
+![Start Unsloth Studio and check the health endpoint](/images/unsloth-studio/03-start-health.png)
+
+<Note>
+  `curl -I http://127.0.0.1:8888` may return `405 Method Not Allowed` because Studio does not accept `HEAD` requests on `/`. Use `curl http://127.0.0.1:8888` or `/api/health` instead.
+</Note>
+
+## Open Studio
+
+On first launch, Studio creates a default admin user named `unsloth`.
+
+Read the generated bootstrap password from the instance:
+
+```bash
+cat ~/.unsloth/studio/auth/.bootstrap_password
+```
+
+From a second terminal on your local machine, forward port `8888`:
+
+```bash
+tnr ports forward <instance-id> --add 8888
+```
+
+Your Studio URL uses this format:
+
+```text
+https://<instance-uuid>-8888.thundercompute.net
+```
+
+Open the URL in your browser and sign in with:
+
+| Field | Value |
+| --- | --- |
+| Username | `unsloth` |
+| Password | The value from `~/.unsloth/studio/auth/.bootstrap_password` |
+
+After the bootstrap login, Studio prompts you to choose a new password for future sessions.
+
+![Unsloth Studio first-run account setup screen](/images/unsloth-studio/04-studio-login.png)
 
 ## Choose a model
 
@@ -151,6 +257,6 @@ Billing stops when the instance is deleted.
 
 ## References
 
-- [Run Unsloth Studio](/guides/unsloth-studio)
 - [Unsloth Gemma 4 fine-tuning](https://unsloth.ai/docs/models/gemma-4/train)
 - [Unsloth Studio installation](https://unsloth.ai/docs/get-started/install)
+- [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)
