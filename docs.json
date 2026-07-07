@@ -262,8 +262,8 @@
       "anchors": [
         {
           "anchor": "Support",
-          "href": "https://discord.com/invite/nwuETS9jJK",
-          "icon": "discord"
+          "href": "https://www.thundercompute.com/contact",
+          "icon": "message"
         }
       ]
     }
@@ -280,7 +280,7 @@
     "links": [
       {
         "label": "Contact Us",
-        "href": "https://discord.com/invite/nwuETS9jJK"
+        "href": "https://www.thundercompute.com/contact"
       }
     ],
     "primary": {
