@@ -1,6 +1,6 @@
 ---
 title: "Run Qwen3.6 27B"
-description: "Launch Qwen3.6 27B dense on Thunder Compute with a GPU-fitting quantization, tested llama.cpp commands, and OpenAI-compatible access."
+description: "Launch Qwen3.6 27B dense on Thunder with a GPU-fitting quantization, tested llama.cpp commands, and OpenAI-compatible access."
 mode: "wide"
 sidebarTitle: "Qwen3.6 27B"
 ---
@@ -17,7 +17,7 @@ The tested path uses [Unsloth's Qwen3.6 27B GGUF files](https://huggingface.co/u
 
 The following configuration was used for the screenshots and command output in this guide.
 
-| Thunder Compute GPU | Model file | Context | Runtime | Result |
+| Thunder GPU | Model file | Context | Runtime | Result |
 | --- | --- | --- | --- | --- |
 | RTX A6000 48 GB | `Qwen3.6-27B-UD-Q4_K_XL.gguf` (16.4 GiB) | `32768` | llama.cpp Docker | Runs successfully on the `base` template and serves `/v1/chat/completions`. |
 
@@ -27,7 +27,7 @@ With these settings, Qwen3.6 27B runs cleanly on a single A6000 as a 32K-context
 
 Use the A6000 path above when you want the exact configuration tested in this guide. Move to a larger GPU when you want to validate a higher-quality quantization, more simultaneous requests, or vLLM serving.
 
-| Thunder Compute GPU | Model format to try next | Runtime | Why move up |
+| Thunder GPU | Model format to try next | Runtime | Why move up |
 | --- | --- | --- | --- |
 | A100 80 GB | `Qwen3.6-27B-UD-Q6_K_XL.gguf` or `Qwen3.6-27B-Q8_0.gguf` | llama.cpp | Higher-quality GGUF files and more context or batching headroom. |
 | H100 80 GB | `Qwen/Qwen3.6-27B-FP8` | vLLM | Higher-throughput OpenAI-compatible serving with the official FP8 checkpoint. |
@@ -52,7 +52,7 @@ Create an A6000 instance with enough disk space for the llama.cpp Docker image a
 tnr create --gpu a6000 --num-gpus 1 --vcpus 8 --template base --disk 200
 ```
 
-![Create a Thunder Compute A6000 instance](/images/models/qwen3-6-27b/01-create-instance.png)
+![Create a Thunder A6000 instance](/images/models/qwen3-6-27b/01-create-instance.png)
 
 For an A100 or H100 run, keep the same shape but change the GPU. Available vCPU choices vary by current inventory, so use `tnr create` interactively if a one-line command needs adjustment.
 
@@ -100,7 +100,7 @@ Qwen3.6-27B-Q8_0.gguf
 Set a short prompt for a direct model-load smoke test:
 
 ```bash
-PROMPT=$'<|im_start|>user\n/no_think\nIn one sentence, explain what a Thunder Compute GPU instance is.\n<|im_end|>\n<|im_start|>assistant\n'
+PROMPT=$'<|im_start|>user\n/no_think\nIn one sentence, explain what a Thunder GPU instance is.\n<|im_end|>\n<|im_start|>assistant\n'
 ```
 
 Run the model with full GPU offload and the tested 32K context:
@@ -163,7 +163,7 @@ The server is ready when `/health` returns `{"status":"ok"}`. You can use `/v1/m
 
 ![Start an OpenAI-compatible llama.cpp server](/images/models/qwen3-6-27b/04-start-server.png)
 
-Expose the endpoint through Thunder Compute port forwarding:
+Expose the endpoint through Thunder port forwarding:
 
 ```bash
 tnr ports forward <instance-id> --add 8000
@@ -185,7 +185,7 @@ curl https://<instance-uuid>-8000.thundercompute.net/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "/no_think\nIn one sentence, explain what a Thunder Compute GPU instance is."
+        "content": "/no_think\nIn one sentence, explain what a Thunder GPU instance is."
       }
     ],
     "temperature": 0.7,
@@ -196,7 +196,7 @@ curl https://<instance-uuid>-8000.thundercompute.net/v1/chat/completions \
   }'
 ```
 
-![Call Qwen3.6 through the public Thunder Compute URL](/images/models/qwen3-6-27b/05-public-api.png)
+![Call Qwen3.6 through the public Thunder URL](/images/models/qwen3-6-27b/05-public-api.png)
 
 You can also point an OpenAI-compatible client at the same URL:
 
@@ -303,5 +303,5 @@ Billing stops when the instance is deleted.
 - [Qwen3.6 27B FP8 model card](https://huggingface.co/Qwen/Qwen3.6-27B-FP8)
 - [Unsloth Qwen3.6 27B GGUF files](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF)
 - [Ollama Qwen3.6 27B](https://ollama.com/library/qwen3.6:27b)
-- [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)
+- [Using Docker on Thunder](/guides/using-docker-on-thundercompute)
 - [Port Forwarding](/cli/operations/port-forwarding)

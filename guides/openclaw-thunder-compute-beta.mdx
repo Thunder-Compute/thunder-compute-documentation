@@ -1,14 +1,14 @@
 ---
 title: "Thunder Compute Skill for OpenClaw"
-description: "Use Thunder Compute from your own OpenClaw instance to see available GPUs, launch and stop instances, create snapshots, and report cost from chat."
+description: "Use Thunder from your own OpenClaw instance to see available GPUs, launch and stop instances, create snapshots, and report cost from chat."
 sidebarTitle: "OpenClaw Beta"
 ---
 
 
-Use Thunder Compute from your own OpenClaw instance to discover GPUs, launch GPU instances, run commands, create snapshots, tear instances down, and report cost from chat.
+Use Thunder from your own OpenClaw instance to discover GPUs, launch GPU instances, run commands, create snapshots, tear instances down, and report cost from chat.
 
 > **Public beta**
-> This integration creates real Thunder Compute resources. Start with the smoke test below, confirm teardown, and check cost reporting before using it for longer workloads.
+> This integration creates real Thunder resources. Start with the smoke test below, confirm teardown, and check cost reporting before using it for longer workloads.
 
 ---
 
@@ -16,8 +16,8 @@ Use Thunder Compute from your own OpenClaw instance to discover GPUs, launch GPU
 
 The beta integration has two parts:
 
-- **Thunder Compute skill**: teaches the agent how to work with Thunder Compute safely.
-- **Thunder Compute plugin bridge**: exposes native OpenClaw `tc_*` tools that call the Thunder Compute MCP server.
+- **Thunder skill**: teaches the agent how to work with Thunder safely.
+- **Thunder plugin bridge**: exposes native OpenClaw `tc_*` tools that call the Thunder MCP server.
 
 The plugin handles execution and OAuth. The skill handles behavior: discovery first when needed, wait for readiness, run the requested command, tear down by default, and report cost.
 
@@ -51,11 +51,11 @@ Before you begin, make sure you have:
 - OpenClaw installed and working
 - a model provider configured in OpenClaw
 - Node.js and npm available
-- a Thunder Compute account
-- browser access for Thunder Compute OAuth
-- the Thunder Compute OpenClaw beta plugin bundle
+- a Thunder account
+- browser access for Thunder OAuth
+- the Thunder OpenClaw beta plugin bundle
 
-Thunder Compute's own docs describe the same underlying instance concepts used by this OpenClaw integration: GPU type, GPU count, vCPU count, disk size, and template. The OpenClaw plugin exposes those concepts through chat tools instead of the VS Code extension or `tnr` CLI.
+Thunder's own docs describe the same underlying instance concepts used by this OpenClaw integration: GPU type, GPU count, vCPU count, disk size, and template. The OpenClaw plugin exposes those concepts through chat tools instead of the VS Code extension or `tnr` CLI.
 
 Recommended OpenClaw version:
 
@@ -74,7 +74,7 @@ Gateway >= 2026.3.24-beta.2
 
 ## Install The Plugin
 
-Clone the official [Thunder Compute OpenClaw plugin repository](https://github.com/Thunder-Compute/thunder-openclaw-plugin), then enter the plugin directory:
+Clone the official [Thunder OpenClaw plugin repository](https://github.com/Thunder-Compute/thunder-openclaw-plugin), then enter the plugin directory:
 
 ```bash
 git clone https://github.com/Thunder-Compute/thunder-openclaw-plugin.git
@@ -118,7 +118,7 @@ openclaw plugins uninstall thunder-compute
 openclaw plugins install .
 ```
 
-Enable the plugin and point it at the Thunder Compute MCP endpoint:
+Enable the plugin and point it at the Thunder MCP endpoint:
 
 ```bash
 openclaw config set plugins.entries.thunder-compute.enabled true --strict-json
@@ -128,13 +128,13 @@ openclaw gateway restart
 ```
 
 > **Important**
-> Use `tools.alsoAllow`, not `tools.allow`. `tools.alsoAllow` adds Thunder Compute tools without replacing your existing tool configuration.
+> Use `tools.alsoAllow`, not `tools.allow`. `tools.alsoAllow` adds Thunder tools without replacing your existing tool configuration.
 
 ---
 
 ## Install Or Verify The Skill
 
-The beta plugin bundle includes the Thunder Compute skill under:
+The beta plugin bundle includes the Thunder skill under:
 
 ```text
 skills/thunder-compute/SKILL.md
@@ -165,7 +165,7 @@ Run:
 openclaw plugins inspect thunder-compute
 ```
 
-You should see the plugin loaded with Thunder Compute tools such as:
+You should see the plugin loaded with Thunder tools such as:
 
 - `tc_auth_status`
 - `tc_auth_begin`
@@ -195,15 +195,15 @@ Inside the session, run:
 /tools verbose
 ```
 
-You should see the Thunder Compute tools listed.
+You should see the Thunder tools listed.
 
-![OpenClaw tools verbose showing Thunder Compute tools](/images/openclaw-thunder-compute-beta/01-openclaw-tools-verbose.png)
+![OpenClaw tools verbose showing Thunder tools](/images/openclaw-thunder-compute-beta/01-openclaw-tools-verbose.png)
 
 ---
 
 ## Authenticate With Thunder Compute
 
-Thunder Compute uses browser-based OAuth. You do not need to paste a static API key into the skill.
+Thunder uses browser-based OAuth. You do not need to paste a static API key into the skill.
 
 In OpenClaw, ask:
 
@@ -213,11 +213,11 @@ Use tc_auth_begin and give me only the authentication URL and next instruction.
 
 Open the returned URL in your browser.
 
-![Thunder Compute OAuth URL returned by tc_auth_begin](/images/openclaw-thunder-compute-beta/02-tc-auth-begin-url.png)
+![Thunder OAuth URL returned by tc_auth_begin](/images/openclaw-thunder-compute-beta/02-tc-auth-begin-url.png)
 
 Approve access in the browser.
 
-![Thunder Compute browser approval screen](/images/openclaw-thunder-compute-beta/03-browser-approval-screen.png)
+![Thunder browser approval screen](/images/openclaw-thunder-compute-beta/03-browser-approval-screen.png)
 
 After approval, copy the full redirected callback URL from the browser address bar and send it back to OpenClaw:
 
@@ -231,11 +231,11 @@ Expected result:
 Thunder Compute OAuth completed successfully.
 ```
 
-![Thunder Compute OAuth completion success](/images/openclaw-thunder-compute-beta/04-tc-auth-complete-success.png)
+![Thunder OAuth completion success](/images/openclaw-thunder-compute-beta/04-tc-auth-complete-success.png)
 
 > The redirected callback URL contains a short-lived authorization code. Treat it as sensitive until authentication is complete.
 
-Thunder Compute access tokens are short-lived. The plugin stores the refresh token from OAuth and refreshes access automatically when possible. To check the current auth state, ask:
+Thunder access tokens are short-lived. The plugin stores the refresh token from OAuth and refreshes access automatically when possible. To check the current auth state, ask:
 
 ```text
 Use tc_auth_status
@@ -250,18 +250,18 @@ If refresh fails, rerun `tc_auth_begin` and `tc_auth_complete`.
 Ask OpenClaw to list the live MCP tool surface:
 
 ```text
-Use the Thunder Compute tool that lists available tool names and tell me the result only.
+Use the Thunder tool that lists available tool names and tell me the result only.
 ```
 
-![Live Thunder Compute MCP tool enumeration](/images/openclaw-thunder-compute-beta/05-live-mcp-tool-enumeration.png)
+![Live Thunder MCP tool enumeration](/images/openclaw-thunder-compute-beta/05-live-mcp-tool-enumeration.png)
 
 Then run safe discovery. This does not create an instance:
 
 ```text
-Use only safe Thunder Compute discovery tools. Tell me the live results for available GPUs, pricing, and templates. Do not create anything.
+Use only safe Thunder discovery tools. Tell me the live results for available GPUs, pricing, and templates. Do not create anything.
 ```
 
-![Thunder Compute availability pricing and template discovery](/images/openclaw-thunder-compute-beta/06-discovery-availability-pricing-templates.png)
+![Thunder availability pricing and template discovery](/images/openclaw-thunder-compute-beta/06-discovery-availability-pricing-templates.png)
 
 ---
 
@@ -275,7 +275,7 @@ Spin up an A100, wait until it is ready, run `nvidia-smi`, then tear it down and
 
 The agent should:
 
-1. Create a Thunder Compute A100 instance.
+1. Create a Thunder A100 instance.
 2. Wait until it is command-ready.
 3. Run `nvidia-smi`.
 4. Delete the instance.
@@ -283,13 +283,13 @@ The agent should:
 
 Successful `nvidia-smi` output should show an NVIDIA GPU, driver version, CUDA version, and exit code `0`.
 
-Thunder Compute instances may take a minute to become ready. This is expected; the agent should wait until the instance is running before retrying the command.
+Thunder instances may take a minute to become ready. This is expected; the agent should wait until the instance is running before retrying the command.
 
 ![Successful A100 nvidia-smi run](/images/openclaw-thunder-compute-beta/07-successful-instance-create-nvidia-smi.png)
 
 After teardown, confirm the agent reports deletion and cost.
 
-![Successful Thunder Compute teardown and cost report](/images/openclaw-thunder-compute-beta/08-successful-teardown-cost-report.png)
+![Successful Thunder teardown and cost report](/images/openclaw-thunder-compute-beta/08-successful-teardown-cost-report.png)
 
 ---
 
@@ -313,7 +313,7 @@ Use a template:
 Spin up an A100 with the CUDA 12.9 template, run `nvcc --version`, then tear it down and tell me the cost.
 ```
 
-Thunder Compute templates are preconfigured environments for common AI workflows. The current public docs call out `base`, `ollama`, and `comfy-ui` as common templates, and template services may require a start command such as `start-ollama` or `start-comfyui`.
+Thunder templates are preconfigured environments for common AI workflows. The current public docs call out `base`, `ollama`, and `comfy-ui` as common templates, and template services may require a start command such as `start-ollama` or `start-comfyui`.
 
 Create a snapshot only when you want to preserve state:
 
@@ -331,7 +331,7 @@ Spin up an A100 and leave it running. Tell me the instance ID and current hourly
 
 ## How The Agent Should Behave
 
-The Thunder Compute skill instructs the agent to:
+The Thunder skill instructs the agent to:
 
 - use live discovery when the request is open-ended
 - create the instance the user asked for when the request is specific
@@ -350,7 +350,7 @@ If the user explicitly says to leave an instance running, it remains billable un
 
 ### Skill And Plugin Are Both Required
 
-The skill alone does not create GPU instances. It only teaches behavior. Real Thunder Compute operations happen through the `thunder-compute` plugin tools.
+The skill alone does not create GPU instances. It only teaches behavior. Real Thunder operations happen through the `thunder-compute` plugin tools.
 
 ### New Instances May Not Be Command-Ready Immediately
 
@@ -380,15 +380,15 @@ ss -tulpn | grep -E ':(8000|8888)\b' || true
 
 ## Related Thunder Compute Docs
 
-These Thunder Compute docs explain the underlying concepts used by this OpenClaw beta:
+These Thunder docs explain the underlying concepts used by this OpenClaw beta:
 
 - [Creating Instances](https://www.thundercompute.com/docs/vscode/operations/creating-instances)
 - [Instance Templates](https://www.thundercompute.com/docs/guides/using-instance-templates)
 - [Technical Specifications](https://www.thundercompute.com/docs/technical-specs)
-- [GPT-OSS 120B on Thunder Compute](https://www.thundercompute.com/docs/guides/gpt-oss-running-locally-on-thunder-compute)
+- [GPT-OSS 120B on Thunder](https://www.thundercompute.com/docs/guides/gpt-oss-running-locally-on-thunder-compute)
 - [Docs MCP Server](https://www.thundercompute.com/docs/guides/mcp-server#mcp-server)
 
-The docs MCP server page is for hosting Thunder Compute documentation locally for AI tools. Users do not need to install that docs MCP server to use this OpenClaw beta; the OpenClaw plugin connects to the Thunder Compute MCP endpoint internally.
+The docs MCP server page is for hosting Thunder documentation locally for AI tools. Users do not need to install that docs MCP server to use this OpenClaw beta; the OpenClaw plugin connects to the Thunder MCP endpoint internally.
 
 ---
 
@@ -432,7 +432,7 @@ Then approve in the browser and pass the redirected callback URL to:
 Use tc_auth_complete with this redirected URL: <FULL_REDIRECTED_URL>
 ```
 
-To reset stored Thunder Compute OAuth state:
+To reset stored Thunder OAuth state:
 
 ```text
 Use tc_auth_clear
@@ -445,7 +445,7 @@ Then authenticate again.
 Ask for live options:
 
 ```text
-Use only safe Thunder Compute discovery tools. Tell me the live availability, pricing, and templates. Do not create anything.
+Use only safe Thunder discovery tools. Tell me the live availability, pricing, and templates. Do not create anything.
 ```
 
 Then retry with a currently available GPU and valid template.
@@ -463,23 +463,23 @@ Poll tc_list_instances until the instance is RUNNING, then retry the command.
 Ask:
 
 ```text
-List my Thunder Compute instances and tell me whether anything is still running or billing.
+List my Thunder instances and tell me whether anything is still running or billing.
 ```
 
 If anything should be stopped:
 
 ```text
-Delete the Thunder Compute instance you created and report the result and cost.
+Delete the Thunder instance you created and report the result and cost.
 ```
 
 ---
 
 ## Summary
 
-Thunder Compute for OpenClaw beta gives your agent a real GPU lifecycle:
+Thunder for OpenClaw beta gives your agent a real GPU lifecycle:
 
 - discover live GPU options
-- authenticate with Thunder Compute
+- authenticate with Thunder
 - create a GPU instance
 - run commands
 - tear down by default

@@ -1,6 +1,6 @@
 ---
 title: "Connecting to Instances"
-description: 'Connect to Thunder Compute instances using the CLI. Establish secure remote connections and manage terminal sessions for cloud GPU development.'
+description: 'Connect to Thunder instances using the CLI. Establish secure remote connections and manage terminal sessions for cloud GPU development.'
 icon: "plug"
 iconType: "solid"
 ---
@@ -68,7 +68,7 @@ Replace `0` with the ID from `tnr status`.
 
 The CLI will set up SSH access, open the connection, and drop you into a shell on the instance. When the connection is ready, you will see a prompt like `ubuntu@thunder-client:~$`.
 
-![Thunder Compute CLI connected to a running GPU instance](/images/cli/connect-to-instance.png)
+![Thunder CLI connected to a running GPU instance](/images/cli/connect-to-instance.png)
 
 ### Interactive Connection
 
@@ -94,6 +94,6 @@ To expose web servers, Jupyter notebooks, or other services running on your inst
 
 ## Using Standard SSH
 
-If you prefer using your own SSH client, Thunder Compute is compatible with standard SSH tools. The CLI configures your `~/.ssh/config` automatically when you first connect.
+If you prefer using your own SSH client, Thunder is compatible with standard SSH tools. The CLI configures your `~/.ssh/config` automatically when you first connect.
 
 Need to attach your own keys or copy an IP for manual access? Use the [console SSH workflow](/console/operations/ssh).

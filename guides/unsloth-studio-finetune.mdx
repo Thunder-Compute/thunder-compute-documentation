@@ -1,14 +1,14 @@
 ---
 title: "Fine-tune with Unsloth Studio"
-description: "Launch Unsloth Studio on a Thunder Compute GPU instance and run a small Gemma 4 QLoRA fine-tune."
+description: "Launch Unsloth Studio on a Thunder GPU instance and run a small Gemma 4 QLoRA fine-tune."
 mode: "wide"
 sidebarTitle: "Unsloth Studio"
 ---
 
-Unsloth Studio is a browser UI for running and training local models. This guide installs Studio on a Thunder Compute `base` instance, opens it through Thunder Compute port forwarding, then runs a short text fine-tune with `unsloth/gemma-4-E2B-it`.
+Unsloth Studio is a browser UI for running and training local models. This guide installs Studio on a Thunder `base` instance, opens it through Thunder port forwarding, then runs a short text fine-tune with `unsloth/gemma-4-E2B-it`.
 
 <Info>
-  This setup path and Gemma 4 E2B QLoRA training profile were verified on a single Thunder Compute A100 80 GB instance with Unsloth Studio 2026.5.2. The sample dataset below is intentionally tiny so you can confirm the workflow before training on a real dataset.
+  This setup path and Gemma 4 E2B QLoRA training profile were verified on a single Thunder A100 80 GB instance with Unsloth Studio 2026.5.2. The sample dataset below is intentionally tiny so you can confirm the workflow before training on a real dataset.
 </Info>
 
 ## Create the instance
@@ -67,7 +67,7 @@ For the current SSH session, add the launcher directory to your path:
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-![Install Unsloth Studio on a Thunder Compute instance](/images/unsloth-studio/02-install-studio.png)
+![Install Unsloth Studio on a Thunder instance](/images/unsloth-studio/02-install-studio.png)
 
 ## Start Studio
 
@@ -259,4 +259,4 @@ Billing stops when the instance is deleted.
 
 - [Unsloth Gemma 4 fine-tuning](https://unsloth.ai/docs/models/gemma-4/train)
 - [Unsloth Studio installation](https://unsloth.ai/docs/get-started/install)
-- [Using Docker on Thunder Compute](/guides/using-docker-on-thundercompute)
+- [Using Docker on Thunder](/guides/using-docker-on-thundercompute)

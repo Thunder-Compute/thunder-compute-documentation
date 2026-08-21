@@ -1,6 +1,6 @@
 ---
-title: "Quickstart"
-description: 'Launch your first instance using the Thunder Compute Console. A web interface to provision cloud GPU resources and initialize environments.'
+title: "Thunder GPU Cloud Quickstart"
+description: 'Launch your first on-demand cloud GPU instance with Thunder.'
 icon: "rocket"
 iconType: "solid"
 ---
@@ -26,6 +26,10 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
   );
 };
 
+Thunder is an on-demand GPU cloud service for launching and managing GPU
+instances. This quickstart walks through creating an account, adding a payment
+method, launching an instance, and connecting to it.
+
 <Columns cols={4}>
   <QuickstartCard title="VS Code" icon="window" href="/vscode/quickstart">
     Editor extension
@@ -43,11 +47,11 @@ export const QuickstartCard = ({ title, icon, href, children, selected }) => {
 
 ## Sign Up
 
-Navigate to the [Thunder Compute console](https://console.thundercompute.com/signup) and create an account with your email.
+Navigate to the [Thunder console](https://console.thundercompute.com/signup) and create an account with your email.
 
 After signing in, the console opens to **Active Instances**, where you can create and manage GPU instances.
 
-![Thunder Compute Console dashboard with no active instances](/images/console-quickstart/01-dashboard-empty.png)
+![Thunder Console dashboard with no active instances](/images/console-quickstart/01-dashboard-empty.png)
 
 ## Add a Payment Method
 
@@ -68,7 +72,7 @@ Your instance appears in the **Active Instances** table. It may briefly show **Q
 
 When the instance is running, the table shows its GPU, template, and IP address.
 
-![Running Thunder Compute instance in the Active Instances table](/images/console-quickstart/04-instance-running.png)
+![Running Thunder instance in the Active Instances table](/images/console-quickstart/04-instance-running.png)
 
 <Note>
   The screenshot uses a documentation IP address. Your console will show the IP address assigned to your instance.

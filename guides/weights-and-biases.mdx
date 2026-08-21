@@ -1,6 +1,6 @@
 ---
 title: "Weights & Biases"
-description: "Track, debug, and optimize GPU-heavy workloads on Thunder Compute instances using Weights & Biases (wandb)."
+description: "Track, debug, and optimize GPU-heavy workloads on Thunder instances using Weights & Biases (wandb)."
 sidebarTitle: "Weights & Biases"
 ---
 
@@ -11,13 +11,13 @@ Weights & Biases (wandb) is an experiment tracking and model management platform
 - Version datasets and model checkpoints
 - Run large-scale hyperparameter sweeps across many GPU instances
 
-On Thunder Compute, wandb helps you monitor GPU utilization, identify bottlenecks, and track training metrics.
+On Thunder, wandb helps you monitor GPU utilization, identify bottlenecks, and track training metrics.
 
 ---
 
 ## Prerequisites
 
-- A Thunder Compute GPU instance created and connected
+- A Thunder GPU instance created and connected
 - Python environment set up on your instance
 - A Weights & Biases account (https://wandb.ai/site)
 
@@ -25,7 +25,7 @@ On Thunder Compute, wandb helps you monitor GPU utilization, identify bottleneck
 
 ## Installation
 
-Install wandb on your Thunder Compute instance:
+Install wandb on your Thunder instance:
 
 ```bash
 pip install wandb
@@ -80,7 +80,7 @@ wandb: Currently logged in as: username (entity-name) to https://api.wandb.ai. U
 
 ## Getting Started
 
-Follow these steps to run your first wandb experiment on your Thunder Compute instance.
+Follow these steps to run your first wandb experiment on your Thunder instance.
 
 ### Step 1 — Create a Training File
 
@@ -270,7 +270,7 @@ Use these graphs to diagnose:
 
 ## Model Checkpointing with Weights & Biases Artifacts
 
-When you train on Thunder Compute GPU instances, it's important that your model checkpoints are **not** tied to a single machine. Weights & Biases Artifacts provide a simple way to:
+When you train on Thunder GPU instances, it's important that your model checkpoints are **not** tied to a single machine. Weights & Biases Artifacts provide a simple way to:
 
 - Persist checkpoints even if the instance is deleted
 - Move checkpoints between different Thunder instances (or GPU types)
@@ -483,7 +483,7 @@ wandb.log_artifact(dataset)
 
 ## Hyperparameter Sweeps (Multi‑GPU, Multi‑Instance)
 
-Sweeps allow large-scale hyperparameter search across many Thunder Compute instances.
+Sweeps allow large-scale hyperparameter search across many Thunder instances.
 
 ### Step 1 — Create `sweep.yaml`
 
@@ -662,5 +662,5 @@ wandb login --relogin
 ## Need Help?
 
 - W&B Docs: https://docs.wandb.ai
-- Thunder Compute Discord: https://discord.com/invite/nwuETS9jJK
+- Thunder Discord: https://discord.com/invite/nwuETS9jJK
 - Email support: `support@thundercompute.com`

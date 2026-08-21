@@ -1,14 +1,14 @@
 ---
 title: "Using Docker"
-description: 'Containerize applications using Docker on Thunder Compute. Manage images, deploy containers, and optimize Docker environments on cloud GPU instances.'
+description: 'Containerize applications using Docker on Thunder. Manage images, deploy containers, and optimize Docker environments on cloud GPU instances.'
 mode: wide
 sidebarTitle: "Docker"
 ---
 
 ## Disclaimer: Docker support is experimental
 
-Docker has experimental support inside Thunder Compute instances. Because Thunder Compute instances
-are themselves containers, running Docker on Thunder Compute is like running Docker inside of
+Docker has experimental support inside Thunder instances. Because Thunder instances
+are themselves containers, running Docker on Thunder is like running Docker inside of
 Docker. To get this to work, our instances come with a modified version of `dockerd`, and there are
 certain situations when it might not work exactly like the official Docker (eg, advanced
 networking features).
@@ -17,7 +17,7 @@ networking features).
 
 Start your container with the `--device nvidia.com/gpu=all` flag in order to expose GPUs. For example: `docker run -it --rm --device nvidia.com/gpu=all ubuntu:latest`.
 
-Some tutorials will tell you to use `--runtime=nvidia` or `--gpus=all`. These are outdated options and are not supported in Thunder Compute. `--device nvidia.com/gpu=all` is the only supported way to add a GPU to a docker container.
+Some tutorials will tell you to use `--runtime=nvidia` or `--gpus=all`. These are outdated options and are not supported in Thunder. `--device nvidia.com/gpu=all` is the only supported way to add a GPU to a docker container.
 
 ## Known issues
 
