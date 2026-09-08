@@ -15,7 +15,7 @@
     "name": "Thunder Compute",
     "url": "https://www.thundercompute.com",
     "logo": "https://framerusercontent.com/images/CXKLnN81r2hTkom6MFekpYr7qs.png",
-    "description": "Thunder Compute is the most affordable GPU cloud platform for researchers and indie devs.",
+    "description": "Thunder Compute is a low-cost GPU cloud platform built for developers, researchers, and indie teams.",
     "foundingDate": "2024-02-23",
     "founder": [
       { "@type": "Person", "name": "Carl Peterson" },
