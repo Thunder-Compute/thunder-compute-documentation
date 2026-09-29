@@ -1,0 +1,52 @@
+---
+title: "Sandbox pricing"
+sidebarTitle: "Pricing"
+description: "Simple, per-second pricing for Thunder sandboxes."
+---
+
+You pay only for the resources you use, billed per second.
+
+| Resource | Hourly rate | Per-second rate |
+| --- | ---: | ---: |
+| H100 | $2.95 / GPU | $0.000819 / GPU |
+| A100 | $1.95 / GPU | $0.000542 / GPU |
+| vCPU | $0.051 / vCPU | $0.0000142 / vCPU |
+| Memory | $0.016 / GiB | $0.00000444 / GiB |
+| Storage | $0.00012 / GiB | $0.0000000333 / GiB |
+
+Rates are in USD. Per-second rates are rounded for display. To fetch current rates from code, use `Client.get_pricing()` in the [Python SDK](/sandboxes/python-sdk).
+
+## Cost comparison
+
+The rates below compare each provider's published pay-as-you-go sandbox pricing as of August 27, 2026.
+
+| Resource | Thunder | Modal\* | Daytona |
+| --- | ---: | ---: | ---: |
+| H100 GPU (per GPU-hour) | **$2.95** | $3.95 | $3.95 |
+| vCPU (per vCPU-hour) | $0.051 | $0.0710 | **$0.0504** |
+| Memory (per GiB-hour) | **$0.016** | $0.0240 | $0.0162 |
+| Sandbox storage (per GiB-hour) | $0.00012 | **Included** | $0.000108 after 5 GiB |
+
+See the published [Modal pricing](https://modal.com/pricing) and [Daytona pricing](https://www.daytona.io/pricing) for current rates.
+
+<Info>
+  Modal sandboxes use gVisor containers, while Daytona sandboxes use standard Docker containers. Thunder uses Firecracker microVMs to provide strong isolation between workloads and full compatibility with Linux features.
+</Info>
+
+### Representative monthly costs
+
+Each scenario assumes one H100 GPU per sandbox and that every sandbox runs for the listed number of hours during the month. For example, 100 sandboxes running for 200 hours each equals 20,000 total sandbox-hours.
+
+| Scenario, sandbox specification, and monthly usage | Thunder | Modal\* | Daytona |
+| --- | ---: | ---: | ---: |
+| **Development**<br />1 H100, 4 vCPU, 16 GiB RAM, 50 GiB storage<br />100 sandboxes × 200 hours | **$68.3K** | $92.4K | $88.3K |
+| **Team**<br />1 H100, 8 vCPU, 32 GiB RAM, 200 GiB storage<br />300 sandboxes × 400 hours | **$467K** | $634K | $587K |
+| **Production**<br />1 H100, 16 vCPU, 64 GiB RAM, 200 GiB storage<br />1,000 sandboxes × 600 hours | **$2.89M** | $3.97M | $3.49M |
+
+<Accordion title="How the estimates are calculated">
+  For Thunder and Daytona, monthly cost is `sandbox count × hours × (H100 rate + vCPU × vCPU rate + RAM × memory rate + billable storage × storage rate)`.
+
+  For Modal, monthly cost is `sandbox count × hours × (H100 rate + vCPU × vCPU rate + RAM × memory rate)` because Sandbox storage is included.
+</Accordion>
+
+\* Modal sandboxes are preemptible by default. Non-preemptible sandboxes cost 3× more than Modal's published rates. All Thunder sandboxes are non-preemptible.
