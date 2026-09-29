@@ -1,0 +1,65 @@
+---
+title: "Sandbox quickstart"
+sidebarTitle: "Quickstart"
+description: "Create a sandbox and run your first command with the Python SDK."
+---
+
+Create a sandbox, run a command, and clean it up.
+
+<Note>
+  Sandbox access must be enabled for your organization. [Contact us](https://www.thundercompute.com/contact) if you receive `sandbox_access_denied`.
+</Note>
+
+## 1. Install and authenticate the Python SDK
+
+You need Python 3.10 or newer. Create an API token in the [Thunder console](https://console.thundercompute.com/settings/tokens), then install the SDK and export the token in your shell:
+
+```bash
+pip install thunder-sandbox
+export TNR_API_TOKEN="<your_api_token>"
+```
+
+## 2. Run some code
+
+Create a file named `get_started.py` with the following code:
+
+```python get_started.py
+import thunder_sandbox as thunder
+
+sandbox = thunder.Sandbox.create(
+    cpu=4,
+    memory=32,
+    storage=50,
+    gpu_type=thunder.GPUType.H100,
+    gpu_count=1,
+    timeout=900,
+)
+
+try:
+    sandbox.wait_until_ready()
+
+    process = sandbox.exec("nvidia-smi")
+    exit_code = process.wait()
+    stdout = process.stdout.read()
+    if exit_code != 0:
+        raise RuntimeError(process.stderr.read())
+    print(stdout)
+finally:
+    sandbox.terminate()
+```
+
+Run the script with Python:
+
+```bash
+python get_started.py
+```
+
+`cpu` is measured in vCPUs; `memory` and `storage` are measured in GiB. This example requests one H100 GPU and expires after 900 seconds (15 minutes). Terminating it destroys its filesystem, so always download anything you need to keep.
+
+On the first SSH operation, the SDK creates one local Ed25519 key and requests a short-lived organization certificate. The same credential works with every sandbox in your organization and is renewed automatically.
+
+Next, see the [Python SDK reference](/sandboxes/python-sdk) for GPUs, images, files, networking, SSH, and existing sandboxes. To call the API directly, see the [Sandboxes API reference](/api-reference/sandboxes/start-a-sandbox).
+
+<Info>
+  Thunder sandboxes are isolated Ubuntu microVMs powered by Firecracker, not gVisor containers. The VM boundary provides stronger isolation and broader Linux compatibility, so you can run workloads that container sandboxes cannot, including Dockerized workloads.
+</Info>

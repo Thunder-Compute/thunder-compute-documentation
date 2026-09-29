@@ -1,0 +1,535 @@
+---
+title: "Sandbox Python SDK"
+sidebarTitle: "Python SDK"
+description: "Concise reference for the Thunder Sandbox Python SDK."
+---
+
+Install `thunder-sandbox`, then import it under the short `thunder` alias.
+
+```python
+import thunder_sandbox as thunder
+```
+
+The same `Client`, `Sandbox`, and `Process` classes support synchronous and asynchronous applications. Every blocking operation has an awaitable `_async` twin, such as `Sandbox.create_async()`, `sandbox.exec_async()`, and `process.wait_async()`. Properties such as `id`, `status`, and `returncode` remain synchronous.
+
+## `Sandbox.create`
+
+Starts a sandbox and returns immediately. If an `image` is supplied, it is built or imported first. If command arguments are supplied, it waits for the sandbox and starts that command before returning.
+
+```python Signature
+thunder.Sandbox.create(
+    *args,
+    name=None,
+    env=None,
+    timeout=300,
+    cpu=None,
+    memory=None,
+    storage=None,
+    gpu_type=None,
+    gpu_count=None,
+    image=None,
+    block_network=False,
+    outbound_cidr_allowlist=None,
+    outbound_domain_allowlist=None,
+    client=None,
+)
+```
+
+<ParamField body="*args" type="string">
+  Optional command and arguments to start once the sandbox is running.
+</ParamField>
+
+<ParamField body="name" type="string">
+  Optional label, unique among live sandboxes. Use the returned `id` to address the sandbox.
+</ParamField>
+
+<ParamField body="env" type="Mapping[str, str | None]">
+  Environment variables set for SSH sessions. Entries whose value is `None` are omitted. Names must match `[A-Za-z_][A-Za-z0-9_]*`.
+</ParamField>
+
+<ParamField body="timeout" type="int | None" default="300">
+  Sandbox lifetime in seconds, measured from creation. Use `None` to disable automatic expiry.
+</ParamField>
+
+<ParamField body="cpu" type="integer" default="4">
+  Number of vCPUs.
+</ParamField>
+
+<ParamField body="memory" type="integer" default="32">
+  Memory in GiB.
+</ParamField>
+
+<ParamField body="storage" type="integer" default="50">
+  Ephemeral disk size in GiB.
+</ParamField>
+
+<ParamField body="gpu_type" type="GPUType">
+  GPU type, such as `thunder.GPUType.H100`. Supply it together with `gpu_count`.
+</ParamField>
+
+<ParamField body="gpu_count" type="integer">
+  Number of GPUs. Currently, sandboxes support one GPU. Supply it together with `gpu_type`. [Contact us](https://www.thundercompute.com/contact) if you are interested in larger configurations.
+</ParamField>
+
+<ParamField body="image" type="Image">
+  Optional container image to run commands in. See [Images](#images).
+</ParamField>
+
+<ParamField body="block_network" type="boolean" default="false">
+  Blocks outbound internet access. Choose either this option or an allowlist.
+</ParamField>
+
+<ParamField body="outbound_cidr_allowlist" type="Sequence[str]">
+  IPv4 CIDRs the sandbox may reach.
+</ParamField>
+
+<ParamField body="outbound_domain_allowlist" type="Sequence[str]">
+  DNS names the sandbox may resolve. Use `*.example.com` for subdomains.
+</ParamField>
+
+<ParamField body="client" type="Client">
+  Reuse an existing authenticated client.
+</ParamField>
+
+SSH authentication uses an organization certificate as described in [SSH authentication](#ssh-authentication).
+
+Public internet access is allowed by default. Private, metadata, and other sandbox networks remain blocked, and inbound access is limited to SSH.
+
+```python
+# Block outbound internet access.
+closed = thunder.Sandbox.create(block_network=True)
+
+# Restrict both destination addresses and DNS names.
+restricted = thunder.Sandbox.create(
+    outbound_cidr_allowlist=["203.0.113.0/24"],
+    outbound_domain_allowlist=["example.com", "*.example.com"],
+)
+```
+
+CIDR and domain rules are independent: when both are restricted, a connection must pass both controls. A bare domain matches exactly; use `*.` for its subdomains.
+
+## Images
+
+By default, commands run directly in the sandbox's Ubuntu VM. Pass an `Image` to run them inside a container instead. The image is built or imported by Thunder before the sandbox is allocated.
+
+```python Signature
+thunder.Image.from_registry(url, username=None, password=None, display_name=None)
+thunder.Image.from_dockerfile(directory_path, display_name=None)
+```
+
+```python
+# A public or private registry image.
+sandbox = thunder.Sandbox.create(image=thunder.Image.from_registry("ubuntu:24.04"))
+
+# A local directory containing a Dockerfile.
+sandbox = thunder.Sandbox.create(image=thunder.Image.from_dockerfile("./env"))
+```
+
+Supply `username` and `password` together for a private registry. `from_dockerfile` uploads the directory as the build context, honoring `.dockerignore`, up to 5 GiB.
+
+An image-backed sandbox ignores the image's `ENTRYPOINT` and `CMD` and keeps the container running for the sandbox's lifetime. `exec`, `upload`, and `download` operate inside that container. `sandbox.image_id` reports the managed image in use.
+
+To prepare an image ahead of time, call `client.resolve_image(image, timeout=7200)`. It returns a `ResolvedImage` once the image is ready and raises `SandboxFailedError` if the build or import fails.
+
+## `Sandbox.update_network_policy`
+
+Replaces the complete outbound policy of a running sandbox. It accepts the same network options as `Sandbox.create`.
+
+```python Signature
+sandbox.update_network_policy(
+    *,
+    block_network=False,
+    outbound_cidr_allowlist=None,
+    outbound_domain_allowlist=None,
+)
+```
+
+```python
+# Permit only package downloads.
+sandbox.update_network_policy(
+    outbound_domain_allowlist=["pypi.org", "files.pythonhosted.org"],
+)
+
+# Restore unrestricted public internet access.
+sandbox.update_network_policy()
+```
+
+`None` leaves that policy dimension unrestricted, while an empty sequence blocks it. The call returns after Thunder accepts the new policy; enforcement on the sandbox node converges asynchronously. Established connections may remain open after a policy is tightened.
+
+## `Sandbox.from_id`
+
+Retrieves a sandbox by its permanent API ID.
+
+```python Signature
+thunder.Sandbox.from_id(sandbox_id, *, client=None)
+```
+
+```python
+sandbox = thunder.Sandbox.from_id("sbx-0123456789abcdef")
+```
+
+Use IDs when storing or reconnecting to a sandbox. Names are reusable labels.
+
+## `Sandbox.from_name`
+
+Finds the live sandbox with the given name. It raises `NotFoundError` when no live sandbox has that name and `ConflictError` if the name is ambiguous.
+
+```python Signature
+thunder.Sandbox.from_name(name, *, client=None)
+```
+
+```python
+sandbox = thunder.Sandbox.from_name("training-run")
+```
+
+Names are unique only while a sandbox is live and may be reused after it stops. Prefer `Sandbox.from_id` when you know the ID.
+
+Sandbox handles expose these properties:
+
+```python
+sandbox.id       # Permanent API ID
+sandbox.name     # Reusable display label
+sandbox.status   # SandboxStatus enum
+sandbox.info     # Resources, policy, timestamps, SSH, and failure details
+sandbox.ssh      # SSHConnection; available when the sandbox is ready
+sandbox.ssh_command
+```
+
+## SSH authentication
+
+The SDK authenticates your machine with one Ed25519 key and a short-lived SSH certificate scoped to your organization. The private key remains on your machine. The API signs its public half, and every sandbox in the organization trusts that authority, so you can reconnect to existing sandboxes from any authenticated machine.
+
+The credential is created lazily on the first SSH operation, reused across sandboxes, and renewed automatically before expiry. The SDK caches it under `~/.thunder/sandbox_keys/` by default:
+
+```text
+id_ed25519
+id_ed25519-cert.pub
+id_ed25519-cert.json
+```
+
+Set `TNR_HOME` to move the cache. When the cache directory is unwritable, the SDK holds the key and certificate in memory for command execution and file transfers.
+
+`sandbox.ssh` exposes the host, port, user, and cached credential paths. `sandbox.ssh_command` returns a tuple suitable for `subprocess` or shell display, including the private key, certificate, and options required for short-lived hosts:
+
+```python
+print(" ".join(sandbox.ssh_command))
+```
+
+The command uses the cached files, so run at least one SDK SSH operation such as `exec`, `upload`, or `download` before shelling out. Manual SSH requires a writable cache directory. Because nodes reuse forwarded ports, the generated command sends host-key records to `/dev/null`; the SDK pins a sandbox's host key in memory for the life of the process.
+
+## `Sandbox.wait_until_ready`
+
+Waits until the sandbox reports `ready`. Thunder holds each request open until the sandbox is ready, so it returns moments after startup finishes. Transient connection, service, and rate-limit errors are retried for a short grace period. It raises `SandboxFailedError` for a terminal sandbox and `SandboxTimeoutError` at the deadline.
+
+```python
+sandbox.wait_until_ready(timeout=300)
+```
+
+## `Sandbox.refresh`
+
+Fetches the current sandbox state and updates the handle in place.
+
+```python
+sandbox.refresh()
+print(sandbox.status.value)
+```
+
+## `Sandbox.poll`
+
+Checks whether the sandbox or its main command has finished without blocking. It returns `None` while running, `0` when stopped successfully, or `1` when the sandbox failed.
+
+```python
+exit_code = sandbox.poll()
+```
+
+## `Sandbox.wait`
+
+Waits for the command passed to `Sandbox.create(*args)` or, when no command was provided, for the sandbox to stop.
+
+```python Signature
+sandbox.wait(*, timeout=None)
+```
+
+A deadline raises `SandboxTimeoutError`.
+
+## `Sandbox.exec`
+
+Starts a command over SSH. Pass the executable and each argument separately.
+
+```python Signature
+sandbox.exec(
+    *args,
+    timeout=None,
+    workdir=None,
+    env=None,
+    text=True,
+    pty=False,
+    stdout="capture",
+    stderr="capture",
+    retain=False,
+)
+```
+
+<ParamField body="*args" type="string" required>
+  Command followed by its arguments.
+</ParamField>
+
+<ParamField body="timeout" type="float | None">
+  Default timeout used by `process.wait()`.
+</ParamField>
+
+<ParamField body="workdir" type="string">
+  Remote working directory.
+</ParamField>
+
+<ParamField body="env" type="Mapping[str, str | None]">
+  Variables for this command. A `None` value unsets a variable.
+</ParamField>
+
+<ParamField body="text" type="boolean" default="true">
+  Returns text streams when true and byte streams when false.
+</ParamField>
+
+<ParamField body="pty" type="boolean" default="false">
+  Requests a pseudo-terminal for interactive commands. PTY commands stay attached to their SSH connection and are not durable.
+</ParamField>
+
+<ParamField body="stdout" type='"capture" | "discard"' default="capture">
+  Captures standard output, or sends it to `/dev/null`.
+</ParamField>
+
+<ParamField body="stderr" type='"capture" | "discard"' default="capture">
+  Captures standard error, or sends it to `/dev/null`.
+</ParamField>
+
+<ParamField body="retain" type="boolean" default="false">
+  Keeps the command's output on the sandbox after it has been read, so it can be recovered later with `get_process`. Call `process.cleanup()` when finished.
+</ParamField>
+
+```python
+process = sandbox.exec(
+    "python3", "train.py",
+    workdir="/home/ubuntu/project",
+    env={"RUN_ID": "42"},
+    timeout=600,
+)
+
+exit_code = process.wait()
+stdout = process.stdout.read()
+stderr = process.stderr.read()
+```
+
+The returned `Process` exposes `id`, `stdin`, `stdout`, `stderr`, `returncode`, `is_durable`, `poll()`, `wait()`, `cleanup()`, and `terminate()`. stdout and stderr remain readable after the process finishes. A process wait deadline raises `asyncio.TimeoutError`; `Sandbox.wait()` converts a timeout from the command passed to `Sandbox.create(*args)` into `SandboxTimeoutError`.
+
+By default, commands run as durable jobs that do not depend on the SSH connection that started them. If the connection drops, the SDK reconnects and keeps reading the same job's output without gaps or duplicates, rather than starting the command again. Once the job has finished and its captured output has been read, the SDK removes the job's files from the sandbox unless `retain=True`.
+
+Durable commands do not accept stdin: `stdin.write()` raises `io.UnsupportedOperation`. Pass input through arguments, environment variables, or uploaded files. Set `pty=True` for programs that need interactive input or terminal behavior; a PTY command whose SSH connection drops raises `ConnectionError` and its final state is unknown, so use the default mode for unattended or long-running work.
+
+```python
+process = sandbox.exec("python3", "-c", "print(input().upper())", pty=True)
+process.stdin.write("hello\n")
+process.stdin.close()
+process.wait()
+print(process.stdout.read())
+```
+
+With `text=True`, streams read and write strings. With `text=False`, they use bytes. `terminate()` stops the remote command while the sandbox continues running. For a durable command, it sends `SIGTERM` to the whole process group and then `SIGKILL` after five seconds, so `wait()` returns `143` or `137`.
+
+## `Sandbox.get_process`
+
+Recovers a durable command by its `process.id`, for example from another Python process or after a restart.
+
+```python Signature
+sandbox.get_process(process_id, *, text=True)
+```
+
+```python
+process = sandbox.exec("python3", "train.py", retain=True)
+process_id = process.id
+
+# Later:
+recovered = sandbox.get_process(process_id)
+exit_code = recovered.wait()
+print(recovered.stdout.read())
+recovered.cleanup()
+```
+
+Pass `retain=True` to `exec` when you plan to recover a command after its output has already been read. PTY commands cannot be recovered.
+
+## `Sandbox.upload`
+
+Uploads a local file or directory over the sandbox's authenticated SSH connection. Files are written to a staging path and renamed into place when complete, so partial data never appears at the destination. If the connection drops, the SDK reconnects and repeats the transfer.
+
+```python Signature
+sandbox.upload(local_path, remote_path, *, recursive=False)
+```
+
+```python
+sandbox.upload("model.py", "/home/ubuntu/model.py")
+sandbox.upload("dataset", "/home/ubuntu/dataset", recursive=True)
+```
+
+Set `recursive=True` when uploading a directory.
+
+## `Sandbox.download`
+
+Downloads a remote file or directory over the sandbox's authenticated SSH connection. Like `upload`, it writes to a staging path first and repeats the transfer after a dropped connection.
+
+```python Signature
+sandbox.download(remote_path, local_path, *, recursive=False)
+```
+
+```python
+sandbox.download("/home/ubuntu/results.json", "results.json")
+sandbox.download("/home/ubuntu/checkpoints", "checkpoints", recursive=True)
+```
+
+Set `recursive=True` when downloading a directory.
+
+## `Sandbox.terminate`
+
+Stops the sandbox and destroys its filesystem. If the sandbox is still being created, `timeout` controls how long to wait for it to become stoppable. Use `None` to wait indefinitely.
+
+```python Signature
+sandbox.terminate(*, timeout=300)
+```
+
+## `Client.from_cli`
+
+Creates an authenticated client from the Thunder CLI configuration.
+
+```python
+client = thunder.Client.from_cli()
+```
+
+For headless use, set `TNR_API_TOKEN`. `TNR_API_URL` overrides the API endpoint, and `TNR_HOME` overrides the directory containing CLI state and the shared sandbox SSH credential.
+
+Use the client as a context manager to close it automatically:
+
+```python
+with thunder.Client.from_cli() as client:
+    ...
+```
+
+## `Client.create_sandbox`
+
+Creates a sandbox using this client's authentication and configuration. It accepts the same arguments as `Sandbox.create`.
+
+```python
+sandbox = client.create_sandbox(
+    gpu_type=thunder.GPUType.H100,
+    gpu_count=1,
+)
+```
+
+## `Client.get_sandbox`
+
+Retrieves a sandbox by its permanent API ID.
+
+```python
+sandbox = client.get_sandbox("sbx-0123456789abcdef")
+```
+
+## `Client.get_sandbox_by_name`
+
+Finds a live sandbox by its reusable name. Prefer `Client.get_sandbox` when you know the ID.
+
+```python
+sandbox = client.get_sandbox_by_name("training-run")
+```
+
+## `Client.list_sandboxes`
+
+Iterates over active sandboxes by default. Results are newest first, and pagination is automatic. Pass `"all"` for complete history or one of `"created"`, `"ready"`, `"finished"`, or `"failed"` for a single lifecycle status.
+
+```python Signature
+client.list_sandboxes(*, status="active")
+```
+
+```python
+for sandbox in client.list_sandboxes(status="active"):
+    print(sandbox.id, sandbox.status.value)
+```
+
+## `Client.get_pricing`
+
+Fetches the current USD per-hour rates as a `Pricing` object. `memory_gb` and `storage_gb` are per GiB, and `gpu` is keyed by `GPUType`.
+
+```python
+pricing = client.get_pricing()
+print(pricing.vcpu, pricing.memory_gb, pricing.storage_gb)
+print(pricing.gpu[thunder.GPUType.H100])
+```
+
+`sandbox.get_hourly_price()` returns a sandbox's total hourly rate for all of its configured resources. It is a rate, not accrued charges.
+
+```python
+print(sandbox.get_hourly_price())
+```
+
+## `Client.close`
+
+Closes the client. Later API calls through that client raise `ConnectionError`.
+
+```python
+client.close()
+```
+
+Async methods have the same behavior and options as their synchronous twins and return the same public object types. Stream operations also use the `_async` suffix.
+
+```python
+sandbox = await thunder.Sandbox.create_async(
+    gpu_type=thunder.GPUType.H100,
+    gpu_count=1,
+)
+try:
+    await sandbox.wait_until_ready_async()
+    process = await sandbox.exec_async("nvidia-smi")
+    exit_code = await process.wait_async()
+    stdout = await process.stdout.read_async()
+    stderr = await process.stderr.read_async()
+    if exit_code != 0:
+        raise RuntimeError(stderr)
+    print(stdout)
+finally:
+    await sandbox.terminate_async()
+```
+
+Async stdin follows the same pattern:
+
+```python
+process = await sandbox.exec_async(
+    "python3", "-c", "print(input().upper())"
+)
+await process.stdin.write_async("hello\n")
+await process.stdin.close_async()
+await process.wait_async()
+print(await process.stdout.read_async())
+```
+
+Clients support both synchronous and asynchronous context managers. Async sandbox listings are async iterators:
+
+```python
+async with thunder.Client.from_cli() as client:
+    async for sandbox in client.list_sandboxes_async(status="active"):
+        print(sandbox.id, sandbox.status.value)
+```
+
+<Accordion title="Errors">
+  All SDK errors inherit from `ThunderError`. `CapacityError`, `RateLimitError`, and `ServiceUnavailableError` also inherit from `RetryableError`, so you can catch every transient condition at once.
+
+  | Exception | Meaning |
+  | --- | --- |
+  | `AuthenticationError` | Token is missing, invalid, or sandbox access is disabled. |
+  | `ConnectionError` | Thunder or the sandbox could not be reached, or an SSH session could not be opened. |
+  | `InvalidRequestError` | A resource, name, network, configuration, or timeout value is invalid. |
+  | `CapacityError` | Requested GPU capacity is temporarily unavailable. |
+  | `RateLimitError` | Retry after `error.retry_after` seconds when present. |
+  | `ServiceUnavailableError` | Thunder was unable to apply the request. |
+  | `UnsupportedFeatureError` | The requested feature is not supported by sandboxes. |
+  | `NotFoundError` / `ConflictError` | The ID is unknown or the requested state conflicts. |
+  | `SandboxFailedError` | The sandbox reached a terminal state, an image build or import failed, SSH details were missing or invalid, or a file transfer failed. |
+  | `SandboxTimeoutError` | A readiness, main-command, or stop wait expired. |
+
+  API-backed errors expose the HTTP `status`, machine-readable `code`, and optional `retry_after` value.
+</Accordion>
