@@ -1,0 +1,99 @@
+---
+title: "Deleting Instances"
+description: "Delete instances to release their resources and stop billing."
+icon: "trash"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Delete an Instance
+
+<Warning>
+  Deleting an instance permanently removes it and all associated data. This action cannot be undone. Consider [creating a snapshot](/instances/snapshots#vscode) first to back up your environment.
+</Warning>
+
+1. Open the Thunder sidebar panel
+2. Find the instance you want to delete
+3. Click the delete button (trash icon) next to the instance
+4. Confirm the deletion in the dialog
+
+## Before Deleting
+
+Before deleting an instance, make sure to:
+
+1. **Download important files**: Use the VSCode file explorer to save any outputs, models, or data you need
+2. **Create a snapshot**: If you want to restore your environment later, [create a snapshot](/instances/snapshots#vscode) first
+3. **Push code to GitHub**: Commit and push any code changes to a remote repository
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Delete an Instance
+
+<Warning>
+  Deleting an instance permanently removes it and all associated data. This action cannot be undone. Consider [creating a snapshot](/instances/snapshots#cli) first to back up your environment.
+</Warning>
+
+### Interactive
+
+Run the delete command to see a list of your instances:
+
+```bash
+tnr delete
+```
+
+Select an instance and confirm the deletion.
+
+### Direct
+
+Delete an instance directly by ID:
+
+```bash
+tnr delete 0
+```
+
+This skips the interactive menu but still requires confirmation.
+
+## Before Deleting
+
+Before deleting an instance, make sure to:
+
+1. **Download important files**: Use `tnr scp` to save any outputs, models, or data you need
+2. **Create a snapshot**: If you want to restore your environment later, [create a snapshot](/instances/snapshots#cli) first
+3. **Push code to GitHub**: Commit and push any code changes to a remote repository
+
+</Tab>
+<Tab title="Console" id="console" icon="browser">
+
+## Delete an Instance
+
+<Warning>
+  Deleting an instance permanently removes it and all associated data. This action cannot be undone. Consider [creating a snapshot](/instances/snapshots#console) first to back up your environment.
+</Warning>
+
+1. Select your instance using the checkbox
+2. Click **Delete** in the actions bar
+3. Confirm the deletion
+
+## Before Deleting
+
+Before deleting an instance, make sure to:
+
+1. **Download important files**: Use the CLI or VSCode extension to save any outputs, models, or data you need
+2. **Create a snapshot**: If you want to restore your environment later, [create a snapshot](/instances/snapshots#console) first
+3. **Push code to GitHub**: Commit and push any code changes to a remote repository
+
+</Tab>
+</Tabs>
+
+## Billing
+
+Billing stops immediately when an instance is deleted. You are charged only for the time the instance was running.
+
+Check your usage and billing details in the [console billing settings](https://console.thundercompute.com/settings/billing).
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to delete instances.
+</Tip>

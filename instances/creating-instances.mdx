@@ -1,0 +1,157 @@
+---
+title: "Creating Instances"
+description: "Create a GPU instance and choose its hardware, template, or snapshot."
+icon: "plus"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Create an Instance
+
+1. Open the Thunder sidebar panel
+2. Click the **Create Instance** button (or the `+` icon)
+3. A configuration window will open—select your options from the dropdown menus
+4. Click **Create**
+
+## Configuration Options
+
+The extension provides the same options as the CLI:
+
+- **GPU Type**: Available GPU family
+- **GPU Count**: 1, 2, 4, or 8 when available for the selected GPU
+- **vCPUs**: Options vary by GPU type and count
+- **Disk**: Range varies by GPU configuration
+- **Template**: Base, Ollama, ComfyUI, and more
+
+## GPU, CPU, and RAM
+
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by configuration. Check the [pricing page](https://www.thundercompute.com/pricing) for current options.
+
+## Templates
+
+Templates pre-configure your instance for common AI workflows:
+
+| Template       | Description                           |
+|----------------|---------------------------------------|
+| `base`         | Ubuntu with PyTorch + CUDA            |
+| `ollama`       | Ollama server environment             |
+| `comfy-ui`     | ComfyUI for AI image generation       |
+
+See [Using Instance Templates](/guides/using-instance-templates) for more details.
+
+## Restore from Snapshot
+
+When creating a new instance, select your snapshot from the template dropdown instead of a template.
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Create an Instance
+
+### Interactive Mode
+
+Run the create command to launch an interactive menu:
+
+```bash
+tnr create
+```
+
+This walks you through selecting your instance configuration step by step.
+
+### One-Line Creation
+
+Specify all options in a single command:
+
+```bash
+tnr create --gpu a6000 --num-gpus 1 --vcpus 8 --template base --disk 100
+```
+
+## Configuration Options
+
+| Flag           | Description                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
+| `--gpu`        | GPU type                                                                                                      |
+| `--num-gpus`   | Number of GPUs: 1, 2, 4, or 8 when available                                                                  |
+| `--vcpus`      | CPU cores. Options vary by GPU type and count                                                                 |
+| `--template`   | `base`, `comfy-ui`, `ollama`, or a snapshot name                                                             |
+| `--disk` | Disk storage in GB. Range varies by GPU configuration                                                             |
+
+## GPU, CPU, and RAM
+
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by configuration. Use `tnr create` to see current options interactively, or check the [pricing page](https://www.thundercompute.com/pricing) for details.
+
+## Templates
+
+Templates pre-configure your instance for common AI workflows:
+
+| Template       | Description                           |
+|----------------|---------------------------------------|
+| `base`         | Ubuntu with PyTorch + CUDA            |
+| `ollama`       | Ollama server environment             |
+| `comfy-ui`     | ComfyUI for AI image generation       |
+
+After connecting to an instance with a template, start the server with:
+
+```bash
+start-ollama      # or start-comfy-ui, etc.
+```
+
+See [Using Instance Templates](/guides/using-instance-templates) for more details.
+
+## Restore from Snapshot
+
+Your snapshots appear alongside templates in the selection menu. Select a snapshot to create an instance with your previously saved state.
+
+```bash
+tnr create
+# Select your snapshot in the "Templates" step
+```
+
+</Tab>
+<Tab title="Console" id="console" icon="browser">
+
+## Create an Instance
+
+1. Log in to the [console](https://console.thundercompute.com)
+2. Click **Create Instance**
+3. A dialog will open—select your GPU type, GPU count, CPU, disk size, and template
+4. Click **Launch**
+
+## Configuration Options
+
+The console provides the same configuration options as the CLI and extension:
+
+- **GPU Type**: Available GPU family
+- **GPU Count**: 1, 2, 4, or 8 when available for the selected GPU
+- **vCPUs**: Options vary by GPU type and count
+- **Disk**: Range varies by GPU configuration
+- **Template**: Base, Ollama, ComfyUI, and more
+
+## GPU, CPU, and RAM
+
+Available GPU types, GPU counts, vCPU options, and RAM configurations vary by configuration. Check the [pricing page](https://www.thundercompute.com/pricing) for current options.
+
+## Templates
+
+Templates pre-configure your instance for common AI workflows:
+
+| Template       | Description                           |
+|----------------|---------------------------------------|
+| `base`         | Ubuntu with PyTorch + CUDA            |
+| `ollama`       | Ollama server environment             |
+| `comfy-ui`     | ComfyUI for AI image generation       |
+
+See [Using Instance Templates](/guides/using-instance-templates) for more details.
+
+## Restore from Snapshot
+
+When creating a new instance, select your snapshot from the template options.
+
+</Tab>
+</Tabs>
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to create instances for you.
+</Tip>

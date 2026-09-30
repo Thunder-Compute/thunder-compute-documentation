@@ -1,7 +1,9 @@
 ---
-title: "Sandbox pricing"
+title: "Sandbox Pricing"
 sidebarTitle: "Pricing"
 description: "Simple, per-second pricing for Thunder sandboxes."
+icon: "tag"
+iconType: "solid"
 ---
 
 You pay only for the resources you use, billed per second.
@@ -16,7 +18,7 @@ You pay only for the resources you use, billed per second.
 
 Rates are in USD. Per-second rates are rounded for display. To fetch current rates from code, use `Client.get_pricing()` in the [Python SDK](/sandboxes/python-sdk).
 
-## Cost comparison
+## Cost Comparison
 
 The rates below compare each provider's published pay-as-you-go sandbox pricing as of August 27, 2026.
 
@@ -33,7 +35,7 @@ See the published [Modal pricing](https://modal.com/pricing) and [Daytona pricin
   Modal sandboxes use gVisor containers, while Daytona sandboxes use standard Docker containers. Thunder uses Firecracker microVMs to provide strong isolation between workloads and full compatibility with Linux features.
 </Info>
 
-### Representative monthly costs
+### Representative Monthly Costs
 
 Each scenario assumes one H100 GPU per sandbox and that every sandbox runs for the listed number of hours during the month. For example, 100 sandboxes running for 200 hours each equals 20,000 total sandbox-hours.
 

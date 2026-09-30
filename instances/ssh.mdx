@@ -1,27 +1,28 @@
 ---
 title: "SSH on Thunder Compute"
-description: "Use saved SSH keys to sign in to Thunder instances when you need manual SSH access."
-mode: "wide"
-sidebarTitle: "SSH manually"
+sidebarTitle: "Manual SSH"
+description: "Save SSH keys and copy the manual SSH command for an instance in the Thunder Console."
+icon: "key"
+iconType: "solid"
 ---
 
 <Warning>
   You do not need manual SSH for normal Thunder workflows. We highly recommend using the [VS Code extension](/instances/connecting-to-instances#vscode), [CLI](/instances/connecting-to-instances#cli), or [MCP server](/mcp-server/quickstart), which handle connection setup for you. Use the manual SSH command only when existing tooling requires raw SSH.
 </Warning>
 
-## Save an SSH key
+## Save an SSH Key
 
 Open [Authentication → SSH Keys (Advanced)](https://console.thundercompute.com/settings/ssh) in the console to add or remove organization keys.
 
 Saved keys live at the org level, so everyone on your team can reuse them when creating instances.
 
-## Attach a key when creating an instance
+## Attach a Key When Creating an Instance
 
 When launching an instance from the console, choose a saved key during creation.
 
 Instances include the selected public key in `authorized_keys` at boot. You can add keys later via the [Add SSH key to instance](/api-reference/instances/add-ssh-key-to-instance) API endpoint.
 
-## SSH manually
+## SSH Manually
 
 1. Click the instance row in the console to open instance details, then copy the command from **Manual SSH**.
 
@@ -33,9 +34,9 @@ Instances include the selected public key in `authorized_keys` at boot. You can 
 
    The console command already includes the instance IP, port, and `ubuntu` user.
 
-## Quick troubleshooting
+## Quick Troubleshooting
 
 - **Permission denied:** make sure you are connecting as `ubuntu`, using the `-p <port>` from instance details, and that the matching private key exists locally.
 - **Password requested:** re-check the IP, port, username, and private key. SSH asking for a password usually means key-based auth did not match the instance.
 - **Host verification failed:** remove the old entry from `~/.ssh/known_hosts` and retry. New IPs will change fingerprints.
-- **Still stuck?** Double-check the IP, port, and key, or send a message in [Discord](https://discord.com/invite/nwuETS9jJK) with the SSH output.
+- **Still stuck?** Double-check the IP, port, and key, or send a message in [Discord](https://discord.com/invite/thundercompute) with the SSH output.

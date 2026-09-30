@@ -1,0 +1,69 @@
+---
+title: "File Transfers"
+description: "Move files between your machine and a Thunder instance from VS Code or the CLI."
+icon: "file-import"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Upload Files
+
+1. Connect to your instance using the Connect button
+2. In the new window, open the file explorer (sidebar)
+3. Drag and drop files from your local machine into the explorer
+
+## Download Files
+
+1. Right-click on a file in the remote file explorer
+2. Select **Download** to save it locally
+
+## Alternative: Integrated Terminal
+
+You can also use `scp` directly in the integrated terminal if you have the CLI installed locally.
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance
+- **Back up important outputs**: Always download critical results before deleting an instance
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Transfer Files
+
+```bash
+tnr scp <source> <destination>
+```
+
+Prefix a path with `instance_id:` to indicate it's remote.
+
+```bash
+# Upload: local → remote
+tnr scp ./data.csv 0:/home/user/
+
+# Download: remote → local
+tnr scp 0:/home/user/results.csv ./
+```
+
+<Info>
+  Directories are transferred recursively. SSH keys and `~/` expansion are handled automatically.
+</Info>
+
+<Note>
+  Uses `rsync` on Linux and macOS for better performance and progress display. Falls back to `scp` if rsync is unavailable. On Windows/WSL, uses `scp`.
+</Note>
+
+## Best Practices
+
+- **Compress large transfers**: Zip files before transferring to reduce time
+- **Use cloud storage for big files**: For datasets over a few GB, upload to cloud storage and download directly to your instance
+
+</Tab>
+</Tabs>
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to move files to and from your instances.
+</Tip>

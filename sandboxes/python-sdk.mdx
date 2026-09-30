@@ -2,6 +2,7 @@
 title: "Sandbox Python SDK"
 sidebarTitle: "Python SDK"
 description: "Concise reference for the Thunder Sandbox Python SDK."
+icon: "python"
 ---
 
 Install `thunder-sandbox`, then import it under the short `thunder` alias.
@@ -195,7 +196,7 @@ sandbox.ssh      # SSHConnection; available when the sandbox is ready
 sandbox.ssh_command
 ```
 
-## SSH authentication
+## SSH Authentication
 
 The SDK authenticates your machine with one Ed25519 key and a short-lived SSH certificate scoped to your organization. The private key remains on your machine. The API signs its public half, and every sandbox in the organization trusts that authority, so you can reconnect to existing sandboxes from any authenticated machine.
 
