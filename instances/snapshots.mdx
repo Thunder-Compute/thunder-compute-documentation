@@ -1,0 +1,177 @@
+---
+title: "Snapshots"
+description: "Create, restore, and delete instance snapshots."
+icon: "camera"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Create a Snapshot
+
+1. Open the Thunder sidebar panel.
+2. Right click the running instance.
+3. Select **Create Snapshot**.
+4. Name the new snapshot.
+
+![Step by step on creating a snapshot](/images/VSCode_Create_Snapshot.png "Create a snapshot of a Thunder instance using VSCode")
+
+Snapshotting happens in the background—you can continue using your instance immediately. The snapshot captures the exact state of the persistent disk at the moment you initiated it.
+
+<Note>
+  There is a limit of 50 snapshots.
+</Note>
+
+## View Snapshots
+
+Your snapshots appear in the Thunder panel below your instances.
+
+## Restore from a Snapshot
+
+1. Create a new instance.
+2. Open the template menu.
+3. Select your snapshot.
+
+
+![Step by step on restoring a snapshot](/images/VSCode_Restore_Snapshot_New_Instance.png "Create a Thunder instance using a saved Snapshot using VSCode")
+
+
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data.
+</Note>
+
+## Delete a Snapshot
+
+1. Open the Thunder sidebar panel.
+2. Right click the snapshot.
+3. Select **Delete Snapshot**.
+
+![Step by step on deleting a snapshot](/images/VSCode_Delete_Snapshot.png "Delete a saved Snapshot using VSCode")
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Create a Snapshot
+
+Use the interactive menu:
+
+```bash
+tnr snapshot create
+```
+
+Or specify the instance and name directly:
+
+```bash
+tnr snapshot create --instance-id 0 --name my-environment
+```
+
+Snapshotting happens in the background—you can continue using your instance immediately. The snapshot captures the exact state of the persistent disk at the moment you initiated it.
+
+<Note>
+  There is a limit of 50 snapshots.
+</Note>
+
+<Note>
+  Snapshots can only be created from instances in `RUNNING` state.
+</Note>
+
+## View Snapshots
+
+View all your snapshots with their status, size, and creation date:
+
+```bash
+tnr snapshot list
+```
+
+Status values:
+- **READY**: Snapshot is complete and can be used
+- **CREATING**: Snapshot is still being created
+- **FAILED**: Snapshot creation failed
+
+## Restore from a Snapshot
+
+When creating a new instance, your snapshots appear alongside templates:
+
+```bash
+tnr create
+# Select your snapshot in the "Templates" step
+```
+
+The new instance's disk size must be at least as large as the snapshot. The CLI enforces this automatically.
+
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data. The instance shows as `RESTORING` during this time.
+</Note>
+
+## Delete a Snapshot
+
+Remove snapshots you no longer need:
+
+```bash
+# Interactive selection
+tnr snapshot delete
+
+# Delete by name
+tnr snapshot delete my-environment
+```
+
+<Warning>
+  Deleting a snapshot is permanent and cannot be undone.
+</Warning>
+
+</Tab>
+<Tab title="Console" id="console" icon="browser">
+
+## Create a Snapshot
+
+On the main [Instances page](https://console.thundercompute.com):
+
+1. Select your running instance using the checkbox
+2. Click **Snapshot** in the actions bar
+3. Enter a name for your snapshot
+
+Snapshotting happens in the background, so you can continue using your instance immediately. The snapshot captures the exact state of the persistent disk at the moment you initiated it.
+
+<Note>
+  There is a limit of 50 snapshots.
+</Note>
+
+## View Snapshots
+
+Navigate to the Snapshots section to see all your saved snapshots with their status, size, and creation date.
+
+## Restore from a Snapshot
+
+When creating a new instance, select your snapshot from the template options.
+
+<Note>
+  Restoring from a snapshot can take up to 8 minutes per 100GB of data.
+</Note>
+
+## Delete a Snapshot
+
+Navigate to the [Snapshots page](https://console.thundercompute.com/snapshots) to view all your snapshots and their status. Select a snapshot using the checkbox and click **Delete** in the actions bar to remove it.
+
+</Tab>
+</Tabs>
+
+## Best Practices
+
+1. **Name snapshots descriptively**: Include the project, date, or purpose (e.g., `llama-finetuned-jan2026`)
+
+2. **Clean up unused snapshots**: To minimize your bill, remove snapshots you no longer need.
+
+## Snapshots vs External Backups
+
+Snapshots are great for quickly restoring your environment, but they’re meant for convenience rather than long-term data security. We do not provide explicit guarantees about snapshot durability. For long-term data preservation, consider using:
+
+- **GitHub** for code and configuration
+- **Local downloads** for important outputs
+- **Cloud storage** (R2, Google Drive) for large files
+
+To learn about optimizing the a snapshot for faster creation and restoration, refer to our [Speeding Up Snapshots](/guides/speeding-up-snapshots) guide.
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to create, restore, or delete snapshots.
+</Tip>

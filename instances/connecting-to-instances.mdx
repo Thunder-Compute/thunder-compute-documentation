@@ -1,0 +1,122 @@
+---
+title: "Connecting to Instances"
+description: "Connect to a running instance from VS Code or the CLI and expose its services."
+icon: "plug"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Before You Connect
+
+Make sure you have:
+
+- Installed the Thunder VS Code extension
+- Signed in to Thunder from the extension
+- Installed the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
+- Created an instance and waited for it to show `RUNNING`
+
+<Note>
+  If your instance does not appear, click the refresh button in the Thunder sidebar.
+</Note>
+
+## Connect to an Instance
+
+1. Open VS Code
+2. Click the Thunder lightning icon in the Activity Bar
+3. If prompted, click **Login** and complete the browser sign-in
+4. Under **Instances**, find the running instance
+5. Click the connect button on the instance row
+
+![Thunder VS Code extension showing a running instance](/images/vscode/connect-instance-sidebar.png)
+
+VS Code opens a new Remote SSH window for the instance. The lower-left status bar shows the active SSH target, such as `SSH: tnr-0`.
+
+![VS Code connected to a Thunder instance over Remote SSH](/images/vscode/remote-ssh-window.png)
+
+You can browse files, edit code, and open terminals in this window as if you were working locally. Commands run on the Thunder instance.
+
+<Note>
+  On your first connection, VS Code may ask whether you trust the remote folder. Choose **Yes, I trust the authors** only for folders you expect to work in.
+</Note>
+
+## Exposing Services
+
+To expose web servers, Jupyter notebooks, or other services running on your instance, use a [Cloudflare Tunnel](/technical-specs#port-access).
+
+## Using Standard SSH
+
+If you prefer using your own SSH client, Thunder is compatible with standard SSH tools.
+
+Need to manage saved keys or copy a raw SSH command? Use the [console SSH workflow](/instances/ssh).
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Before You Connect
+
+Make sure you have:
+
+- Signed in with `tnr login`
+- Created an instance
+- Waited for the instance status to show `RUNNING`
+
+Check your instances from the terminal:
+
+```bash
+tnr status --no-wait
+```
+
+Use the `ID` column from that table when you connect. For your first running instance, the ID is usually `0`.
+
+## Connect to an Instance
+
+### Direct Connection
+
+If you know the instance ID, pass it to `tnr connect`:
+
+```bash
+tnr connect 0
+```
+
+Replace `0` with the ID from `tnr status`.
+
+The CLI will set up SSH access, open the connection, and drop you into a shell on the instance. When the connection is ready, you will see a prompt like `ubuntu@thunder-client:~$`.
+
+![Thunder CLI connected to a running GPU instance](/images/cli/connect-to-instance.png)
+
+### Interactive Connection
+
+If you are not sure which instance to use, run:
+
+```bash
+tnr connect
+```
+
+Select the running instance from the menu.
+
+## End the Session
+
+When you are done, type `exit` in the remote shell to close the SSH session.
+
+<Note>
+  If no instance appears, run `tnr status --no-wait` and confirm the instance is `RUNNING`. If you are signed out, run `tnr login` and try again.
+</Note>
+
+## Exposing Services
+
+To expose web servers, Jupyter notebooks, or other services running on your instance, use a [Cloudflare Tunnel](/technical-specs#port-access).
+
+## Using Standard SSH
+
+If you prefer using your own SSH client, Thunder is compatible with standard SSH tools. The CLI configures your `~/.ssh/config` automatically when you first connect.
+
+Need to attach your own keys or copy an IP for manual access? Use the [console SSH workflow](/instances/ssh).
+
+</Tab>
+</Tabs>
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to connect to instances and run commands.
+</Tip>

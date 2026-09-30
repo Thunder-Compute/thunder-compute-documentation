@@ -3,290 +3,200 @@
   "theme": "palm",
   "name": "Thunder Compute",
   "colors": {
-    "primary": "#4476a8",
-    "light": "#95c5ea",
-    "dark": "#4476a8"
+    "primary": "#0f6bbf",
+    "light": "#8cc8ff",
+    "dark": "#0f6bbf"
+  },
+  "background": {
+    "color": {
+      "light": "#ffffff",
+      "dark": "#0a0a0a"
+    }
   },
   "favicon": "/thunder_favicon.png",
   "navigation": {
-    "versions": [
+    "pages": [
       {
-        "version": "MCP Server",
-        "groups": [
+        "group": "Thunder Compute",
+        "pages": [
           {
-            "group": "Getting Started",
+            "group": "Instances",
+            "icon": "server",
             "pages": [
-              "mcp-server/quickstart",
+              "instances/quickstart",
+              "instances/authentication",
+              "instances/creating-instances",
+              "instances/connecting-to-instances",
+              "instances/monitoring-instances",
+              "instances/file-transfers",
+              "instances/port-forwarding",
+              "instances/modifying-instances",
+              "instances/snapshots",
+              "instances/deleting-instances",
+              "instances/ssh",
               "technical-specs",
-              "compatibility"
-            ]
-          },
-          {
-            "group": "Operations",
-            "pages": [
-              "mcp-server/operations/authentication",
-              "mcp-server/operations/creating-instances",
-              "mcp-server/operations/connecting-to-instances",
-              "mcp-server/operations/monitoring-instances",
-              "mcp-server/operations/file-transfers",
-              "mcp-server/operations/port-forwarding",
-              "mcp-server/operations/modifying-instances",
-              "mcp-server/operations/snapshots",
-              "mcp-server/operations/deleting-instances",
-              "mcp-server/operations/ssh"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/using-instance-templates",
-              "guides/speeding-up-snapshots",
-              "guides/stopping-instances",
-              "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio-finetune",
+              "compatibility",
               {
-                "group": "Models",
-                "root": "guides/models",
-                "expanded": false,
+                "group": "Guides",
+                "icon": "book",
                 "pages": [
-                  "guides/models/qwen3-6-27b",
-                  "guides/gpt-oss-running-locally-on-thunder-compute",
-                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                  "guides/running-jupyter-notebooks-on-thunder-compute",
+                  "guides/using-instance-templates",
+                  "guides/speeding-up-snapshots",
+                  "guides/stopping-instances",
+                  "guides/using-docker-on-thundercompute",
+                  "guides/unsloth-studio-finetune",
+                  {
+                    "group": "Models",
+                    "root": "guides/models",
+                    "expanded": false,
+                    "pages": [
+                      "guides/models/qwen3-6-27b",
+                      "guides/gpt-oss-running-locally-on-thunder-compute",
+                      "guides/deepseek-r1-running-locally-on-thunder-compute"
+                    ]
+                  }
                 ]
               },
-              "guides/referral-program",
-              "guides/data-processing-addendum",
-              "guides/weights-and-biases",
-              "guides/mcp-server"
+              "troubleshooting",
+              {
+                "group": "API Reference",
+                "icon": "code",
+                "openapi": "https://api.thundercompute.com:8443/openapi.json",
+                "pages": [
+                  {
+                    "group": "Instances",
+                    "pages": [
+                      "GET /instances/list",
+                      "POST /instances/create",
+                      "POST /instances/{id}/modify",
+                      "PATCH /instances/{id}/ports",
+                      "POST /instances/{id}/add_key",
+                      "POST /instances/{id}/delete"
+                    ]
+                  },
+                  {
+                    "group": "Snapshots",
+                    "pages": [
+                      "GET /snapshots/list",
+                      "POST /snapshots/create",
+                      "DELETE /snapshots/{id}"
+                    ]
+                  },
+                  {
+                    "group": "SSH Keys",
+                    "pages": [
+                      "GET /keys/list",
+                      "POST /keys/add",
+                      "PUT /keys/default",
+                      "DELETE /keys/default",
+                      "DELETE /keys/{id}"
+                    ]
+                  },
+                  {
+                    "group": "Catalog",
+                    "pages": [
+                      "GET /v2/specs",
+                      "GET /v2/pricing",
+                      "GET /v2/status",
+                      "GET /thunder-templates",
+                      "GET /specs",
+                      "GET /pricing"
+                    ]
+                  }
+                ]
+              }
             ]
           },
           {
             "group": "Sandboxes",
+            "icon": "box",
             "pages": [
               "sandboxes/quickstart",
+              "sandboxes/pricing",
               "sandboxes/python-sdk",
-              "sandboxes/pricing"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
-          },
-          {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
-          }
-        ]
-      },
-      {
-        "version": "VS Code extension",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "vscode/quickstart",
-              "technical-specs",
-              "compatibility"
-            ]
-          },
-          {
-            "group": "Operations",
-            "pages": [
-              "vscode/operations/authentication",
-              "vscode/operations/creating-instances",
-              "vscode/operations/connecting-to-instances",
-              "vscode/operations/monitoring-instances",
-              "vscode/operations/file-transfers",
-              "vscode/operations/port-forwarding",
-              "vscode/operations/modifying-instances",
-              "vscode/operations/snapshots",
-              "vscode/operations/deleting-instances",
-              "vscode/operations/ssh"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/using-instance-templates",
-              "guides/speeding-up-snapshots",
-              "guides/stopping-instances",
-              "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio-finetune",
               {
-                "group": "Models",
-                "root": "guides/models",
-                "expanded": false,
+                "group": "API Reference",
+                "icon": "code",
+                "openapi": "https://api.thundercompute.com:8443/openapi.json",
                 "pages": [
-                  "guides/models/qwen3-6-27b",
-                  "guides/gpt-oss-running-locally-on-thunder-compute",
-                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                  {
+                    "group": "Sandboxes",
+                    "pages": [
+                      "POST /sandboxes/start",
+                      "GET /sandboxes",
+                      "GET /sandboxes/{id}",
+                      "GET /sandboxes/{id}/wait",
+                      "PATCH /sandboxes/{id}/network-policy",
+                      "POST /sandboxes/{id}/stop",
+                      "GET /sandboxes/{id}/logs",
+                      "GET /sandboxes/logs",
+                      "POST /sandboxes/ssh-certificate",
+                      "GET /sandboxes/daily-counts"
+                    ]
+                  },
+                  {
+                    "group": "Images",
+                    "pages": [
+                      "GET /sandbox-images",
+                      "POST /sandbox-images/from-dockerfile",
+                      "POST /sandbox-images/from-registry",
+                      "GET /sandbox-images/{imageId}"
+                    ]
+                  }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "group": "Account & Billing",
+            "icon": "wallet",
+            "pages": [
+              "billing",
+              "restrictions",
               "guides/referral-program",
               "guides/data-processing-addendum",
-              "guides/weights-and-biases",
-              "guides/mcp-server",
-              "guides/openclaw-thunder-compute-beta"
-            ]
-          },
-          {
-            "group": "Sandboxes",
-            "pages": [
-              "sandboxes/quickstart",
-              "sandboxes/python-sdk",
-              "sandboxes/pricing"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
-          },
-          {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
-          }
-        ]
-      },
-      {
-        "version": "CLI",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "cli/quickstart",
-              "technical-specs",
-              "compatibility"
-            ]
-          },
-          {
-            "group": "Operations",
-            "pages": [
-              "cli/operations/authentication",
-              "cli/operations/creating-instances",
-              "cli/operations/connecting-to-instances",
-              "cli/operations/monitoring-instances",
-              "cli/operations/file-transfers",
-              "cli/operations/port-forwarding",
-              "cli/operations/modifying-instances",
-              "cli/operations/snapshots",
-              "cli/operations/deleting-instances",
-              "cli/operations/ssh"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/using-instance-templates",
-              "guides/speeding-up-snapshots",
-              "guides/stopping-instances",
-              "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio-finetune",
               {
-                "group": "Models",
-                "root": "guides/models",
-                "expanded": false,
+                "group": "API Reference",
+                "icon": "code",
+                "openapi": "https://api.thundercompute.com:8443/openapi.json",
                 "pages": [
-                  "guides/models/qwen3-6-27b",
-                  "guides/gpt-oss-running-locally-on-thunder-compute",
-                  "guides/deepseek-r1-running-locally-on-thunder-compute"
+                  {
+                    "group": "Credit Alerts",
+                    "pages": [
+                      "GET /credit-alert",
+                      "PUT /credit-alert",
+                      "DELETE /credit-alert"
+                    ]
+                  },
+                  {
+                    "group": "Account",
+                    "pages": [
+                      "GET /tokens",
+                      "GET /user-data"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Integrations",
+            "icon": "puzzle-piece",
+            "pages": [
+              {
+                "group": "MCP Server",
+                "icon": "robot",
+                "pages": [
+                  "mcp-server/quickstart",
+                  "guides/mcp-server"
                 ]
               },
-
-              "guides/referral-program",
-              "guides/data-processing-addendum",
-              "guides/weights-and-biases",
-              "guides/mcp-server"
+              "guides/openclaw-thunder-compute-beta",
+              "guides/weights-and-biases"
             ]
           },
-          {
-            "group": "Sandboxes",
-            "pages": [
-              "sandboxes/quickstart",
-              "sandboxes/python-sdk",
-              "sandboxes/pricing"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
-          },
-          {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
-          }
-        ]
-      },
-      {
-        "version": "Console",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "console/quickstart",
-              "technical-specs",
-              "compatibility"
-            ]
-          },
-          {
-            "group": "Operations",
-            "pages": [
-              "console/operations/authentication",
-              "console/operations/creating-instances",
-              "console/operations/connecting-to-instances",
-              "console/operations/monitoring-instances",
-              "console/operations/file-transfers",
-              "console/operations/port-forwarding",
-              "console/operations/modifying-instances",
-              "console/operations/snapshots",
-              "console/operations/deleting-instances",
-              "console/operations/ssh"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/running-jupyter-notebooks-on-thunder-compute",
-              "guides/using-instance-templates",
-              "guides/speeding-up-snapshots",
-              "guides/stopping-instances",
-              "guides/using-docker-on-thundercompute",
-              "guides/unsloth-studio-finetune",
-              {
-                "group": "Models",
-                "root": "guides/models",
-                "expanded": false,
-                "pages": [
-                  "guides/models/qwen3-6-27b",
-                  "guides/gpt-oss-running-locally-on-thunder-compute",
-                  "guides/deepseek-r1-running-locally-on-thunder-compute"
-                ]
-              },
-
-              "guides/referral-program",
-              "guides/data-processing-addendum",
-              "guides/weights-and-biases",
-              "guides/mcp-server"
-            ]
-          },
-          {
-            "group": "Sandboxes",
-            "pages": [
-              "sandboxes/quickstart",
-              "sandboxes/python-sdk",
-              "sandboxes/pricing"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
-          },
-          {
-            "group": "API Reference",
-            "openapi": "https://api.thundercompute.com:8443/openapi.json"
-          }
+          "api-reference/overview"
         ]
       }
     ],
@@ -347,23 +257,34 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "claude", "chatgpt"],
+    "options": [
+      "copy",
+      "view",
+      "claude",
+      "chatgpt"
+    ],
     "display": "header"
   },
   "redirects": [
     {
       "source": "/cli-reference",
-      "destination": "/cli/operations/authentication"
+      "destination": "/instances/authentication#cli"
     },
     {
       "source": "/guides/using-snapshots",
-      "destination": "/cli/operations/snapshots"
+      "destination": "/instances/snapshots#cli"
     },
-    { "source": "/", "destination": "/vscode/quickstart" },
-    { "source": "/quickstart", "destination": "/vscode/quickstart" },
+    {
+      "source": "/",
+      "destination": "/instances/quickstart"
+    },
+    {
+      "source": "/quickstart",
+      "destination": "/instances/quickstart"
+    },
     {
       "source": "/guides/ssh-on-thunder-compute",
-      "destination": "/console/operations/ssh"
+      "destination": "/instances/ssh"
     },
     {
       "source": "/guides/unsloth-studio",
@@ -373,10 +294,61 @@
       "source": "/agents/:slug*",
       "destination": "/mcp-server/:slug*"
     },
-    { "source": "/sandboxes", "destination": "/sandboxes/quickstart" },
+    {
+      "source": "/sandboxes",
+      "destination": "/sandboxes/quickstart"
+    },
+    {
+      "source": "/api-reference",
+      "destination": "/api-reference/overview"
+    },
     {
       "source": "/api-reference/auth/:slug*",
       "destination": "/api-reference/authentication/:slug*"
+    },
+    {
+      "source": "/vscode/quickstart",
+      "destination": "/instances/quickstart#vscode"
+    },
+    {
+      "source": "/vscode/operations/ssh",
+      "destination": "/instances/ssh"
+    },
+    {
+      "source": "/vscode/operations/:slug*",
+      "destination": "/instances/:slug*#vscode"
+    },
+    {
+      "source": "/cli/quickstart",
+      "destination": "/instances/quickstart#cli"
+    },
+    {
+      "source": "/cli/operations/ssh",
+      "destination": "/instances/ssh"
+    },
+    {
+      "source": "/cli/operations/:slug*",
+      "destination": "/instances/:slug*#cli"
+    },
+    {
+      "source": "/console/quickstart",
+      "destination": "/instances/quickstart#console"
+    },
+    {
+      "source": "/console/operations/ssh",
+      "destination": "/instances/ssh"
+    },
+    {
+      "source": "/console/operations/:slug*",
+      "destination": "/instances/:slug*#console"
+    },
+    {
+      "source": "/mcp-server/operations/authentication",
+      "destination": "/guides/mcp-server#authentication"
+    },
+    {
+      "source": "/mcp-server/operations/:slug*",
+      "destination": "/mcp-server/quickstart"
     }
   ]
 }

@@ -1,7 +1,9 @@
 ---
-title: "Sandbox quickstart"
+title: "Sandbox Quickstart"
 sidebarTitle: "Quickstart"
 description: "Create a sandbox and run your first command with the Python SDK."
+icon: "rocket"
+iconType: "solid"
 ---
 
 Create a sandbox, run a command, and clean it up.
@@ -10,7 +12,7 @@ Create a sandbox, run a command, and clean it up.
   Sandbox access must be enabled for your organization. [Contact us](https://www.thundercompute.com/contact) if you receive `sandbox_access_denied`.
 </Note>
 
-## 1. Install and authenticate the Python SDK
+## Install the Python SDK
 
 You need Python 3.10 or newer. Create an API token in the [Thunder console](https://console.thundercompute.com/settings/tokens), then install the SDK and export the token in your shell:
 
@@ -19,7 +21,7 @@ pip install thunder-sandbox
 export TNR_API_TOKEN="<your_api_token>"
 ```
 
-## 2. Run some code
+## Run Your First Sandbox
 
 Create a file named `get_started.py` with the following code:
 
@@ -58,8 +60,12 @@ python get_started.py
 
 On the first SSH operation, the SDK creates one local Ed25519 key and requests a short-lived organization certificate. The same credential works with every sandbox in your organization and is renewed automatically.
 
-Next, see the [Python SDK reference](/sandboxes/python-sdk) for GPUs, images, files, networking, SSH, and existing sandboxes. To call the API directly, see the [Sandboxes API reference](/api-reference/sandboxes/start-a-sandbox).
-
 <Info>
   Thunder sandboxes are isolated Ubuntu microVMs powered by Firecracker, not gVisor containers. The VM boundary provides stronger isolation and broader Linux compatibility, so you can run workloads that container sandboxes cannot, including Dockerized workloads.
 </Info>
+
+## Next Steps
+
+- See the [Python SDK reference](/sandboxes/python-sdk) for GPUs, images, files, networking, SSH, and existing sandboxes
+- Call the API directly with the [Sandboxes API reference](/api-reference/sandboxes/start-a-sandbox)
+- Check [sandbox pricing](/sandboxes/pricing) for per-second rates
