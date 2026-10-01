@@ -329,6 +329,10 @@
     }
   },
   "integrations": {
+    "cookies": {
+      "key": "tc_analytics_consent",
+      "value": "granted"
+    },
     "gtm": {
       "tagId": "G-KCY026LJ4T"
     },

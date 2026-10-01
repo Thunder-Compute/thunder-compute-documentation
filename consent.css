@@ -1,0 +1,6 @@
+/* Termly floats the consent banner (loaded by consent.js) 1.667em above the bottom edge; sit it
+   flush instead, matching www. !important beats the inline styles Termly sets. */
+#termly-code-snippet-support .t-consentPrompt {
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+}
