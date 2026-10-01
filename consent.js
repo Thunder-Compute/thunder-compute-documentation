@@ -9,9 +9,9 @@
   const ANALYTICS_CONSENT_KEY = "tc_analytics_consent";
 
   function syncAnalyticsConsent() {
-    const state = window.Termly?.getConsentState?.();
-    if (!state) return;
     try {
+      const state = window.Termly?.getConsentState?.();
+      if (!state) return;
       if (state.analytics) localStorage.setItem(ANALYTICS_CONSENT_KEY, "granted");
       else localStorage.removeItem(ANALYTICS_CONSENT_KEY);
     } catch {}
@@ -23,8 +23,9 @@
   script.src = TERMLY_SCRIPT_SRC;
   script.async = true;
   script.addEventListener("load", () => {
-    syncAnalyticsConsent();
+    window.Termly?.on?.("initialized", syncAnalyticsConsent);
     window.Termly?.on?.("consent", syncAnalyticsConsent);
+    syncAnalyticsConsent();
   });
   document.head.appendChild(script);
 })();
