@@ -1,0 +1,88 @@
+---
+title: "Modifying Instances"
+description: "Change an instance's GPU type, GPU count, vCPUs, or disk size."
+icon: "sliders"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+## Modify an Instance
+
+1. Open the Thunder sidebar panel
+2. Right-click on a running instance
+3. Select **Modify Instance**
+4. A configuration window will open—adjust the resources
+5. Click **Save**
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## Modify an Instance
+
+Use the modify command with the instance ID and new configuration:
+
+```bash
+tnr modify <instance_id> [options]
+```
+
+### Available Options
+
+| Option       | Description                              |
+|--------------|------------------------------------------|
+| `--gpu`      | GPU type         |
+| `--num-gpus` | Number of GPUs: 1, 2, 4, or 8 when available |
+| `--vcpus`    | Number of virtual CPUs; options vary by GPU type and count |
+| `--disk` | Disk size in GB (can only be increased)    |
+
+### Examples
+
+```bash
+# Switch to a different GPU
+tnr modify 0 --gpu a100
+
+# Scale up CPUs
+tnr modify 0 --vcpus 16
+
+# Increase disk size
+tnr modify 0 --disk 300
+
+# Move to 4 GPUs
+tnr modify 0 --num-gpus 4
+```
+
+<Note>
+  Disk size can only be increased, not decreased.
+</Note>
+
+</Tab>
+<Tab title="Console" id="console" icon="browser">
+
+## Modify an Instance
+
+1. Select your running instance using the checkbox
+2. Click **Modify** in the actions bar
+3. Adjust the configuration in the dialog
+4. Click **Save Changes**
+
+</Tab>
+</Tabs>
+
+## What Can Be Modified
+
+| Resource    | Can Modify? | Notes                                           |
+|-------------|-------------|-------------------------------------------------|
+| GPU Type    | Yes         |                                                 |
+| GPU Count   | Yes         |                                                 |
+| vCPUs       | Yes         | Options vary by GPU configuration              |
+| RAM         | Yes         | Automatically determined from the selected CPU/GPU configuration |
+| Disk | Increase only | Cannot shrink disk                            |
+
+<Note>
+  RAM is automatically determined based on your configuration. See the [pricing page](https://www.thundercompute.com/pricing) for details.
+</Note>
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to change an instance's configuration.
+</Tip>

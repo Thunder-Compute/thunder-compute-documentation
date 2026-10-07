@@ -1,0 +1,144 @@
+---
+title: "Port Forwarding"
+description: "Expose HTTP services on an instance at public HTTPS URLs."
+icon: "globe"
+iconType: "solid"
+---
+
+<Tabs>
+<Tab title="VS Code" id="vscode" icon="window">
+
+Forward ports directly from the Thunder sidebar in VS Code. Your service gets a public HTTPS URL with automatic DDoS protection.
+
+## Forward a Port
+
+1. In the **Thunder** sidebar, find your running instance
+2. Right-click the instance and select **Forward Port**
+3. Enter the port number(s) to forward
+
+Your service becomes available at:
+
+```
+https://<instance-uuid>-<port>.thundercompute.net
+```
+
+## Manage Forwarded Ports
+
+Forwarded ports appear as child items under your instance in the sidebar. For each port you can:
+
+- **Open in Browser** - click the globe icon next to the port
+- **Copy URL** - click the copy icon to copy the public HTTPS URL
+- **Remove** - click the trash icon to stop forwarding
+
+## Limitations
+
+- **Port 22 is reserved** for SSH and cannot be forwarded
+- **Valid port range**: 1-65535
+- **HTTP only**: Your service must speak HTTP or gRPC. Other protocols like raw TCP or UDP are not currently supported.
+
+</Tab>
+<Tab title="CLI" id="cli" icon="terminal">
+
+## How It Works
+
+When you forward a port, your HTTP service becomes available at:
+
+```
+https://<instance-uuid>-<port>.thundercompute.net
+```
+
+For example, if your instance UUID is `abc123` and you forward port `8080`, your service is accessible at:
+
+```
+https://abc123-8080.thundercompute.net
+```
+
+All traffic is automatically secured with HTTPS and protected against DDoS attacks
+
+## Forward a Port
+
+### Interactive Mode
+
+Run the command without arguments to use the interactive interface:
+
+```bash
+tnr ports forward
+```
+
+This guides you through selecting an instance and entering the ports you want to forward.
+
+### Using Flags
+
+Add or remove ports directly with flags:
+
+```bash
+# Forward a single port
+tnr ports forward <instance_id> --add 8080
+
+# Forward multiple ports
+tnr ports forward <instance_id> --add 8080,3000,5000
+
+# Remove a forwarded port
+tnr ports forward <instance_id> --remove 8080
+
+# Add and remove in one command
+tnr ports forward <instance_id> --add 3000 --remove 8080
+```
+
+## List Forwarded Ports
+
+See all forwarded ports across your instances:
+
+```bash
+tnr ports list
+```
+
+## Limitations
+
+- **Port 22 is reserved** for SSH and cannot be forwarded
+- **Valid port range**: 1-65535
+- **HTTP only**: Your service must speak HTTP or gRPC, Other protocols like raw TCP or UDP are not currently supported.
+
+## Example: Exposing a Web Server
+
+1. Start a web server on your instance (e.g., on port 8080)
+2. Forward the port:
+   ```bash
+   tnr ports forward <instance_id> --add 8080
+   ```
+3. Access your service at `https://<instance-uuid>-8080.thundercompute.net`
+
+</Tab>
+<Tab title="Console" id="console" icon="browser">
+
+Forward ports to make HTTP services on your instance publicly accessible with automatic HTTPS and DDoS protection.
+
+## Forward a Port
+
+1. Select your running instance using the checkbox
+2. Click **Forward Ports** in the actions bar (or use the instance's row action menu)
+3. Enter the port number(s) to forward
+4. Click **Forward Ports** to confirm
+
+Your service becomes available at:
+
+```
+https://<instance-uuid>-<port>.thundercompute.net
+```
+
+## Manage Forwarded Ports
+
+Open the Forward Ports dialog on a running instance to see all currently forwarded ports. From there you can remove individual ports to stop forwarding them.
+
+## Limitations
+
+- **Port 22 is reserved** for SSH and cannot be forwarded
+- **Valid port range**: 1-65535
+- **HTTP only**: Your service must speak HTTP or gRPC. Other protocols like raw TCP or UDP are not currently supported.
+
+</Tab>
+</Tabs>
+
+<Tip>
+  Using an AI agent? Connect the [Thunder MCP server](/mcp-server/quickstart) and ask it to set up or inspect port forwarding.
+</Tip>

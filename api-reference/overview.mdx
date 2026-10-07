@@ -1,0 +1,47 @@
+---
+title: "API Overview"
+description: "Base URL, authentication, and error format for the Thunder Compute REST API."
+icon: "code"
+iconType: "solid"
+---
+
+## Base URL
+
+The API is served from `https://api.thundercompute.com:8443`. Most endpoints live under `/v1`, for example `https://api.thundercompute.com:8443/v1/instances/list`. The v2 catalog endpoints (`/v2/specs`, `/v2/pricing`, and `/v2/status`) sit at the root, without the `/v1` prefix.
+
+## Authentication
+
+Create an API token in the [Thunder console](https://console.thundercompute.com/settings/tokens), then send it as a bearer token in the `Authorization` header:
+
+```bash
+curl https://api.thundercompute.com:8443/v1/instances/list \
+  -H "Authorization: Bearer $TNR_API_TOKEN"
+```
+
+The catalog endpoints for GPU specs, pricing, availability, and templates are public and work without a token.
+
+## Errors
+
+Failed requests return a JSON body with the HTTP status code, a machine-readable error, and a human-readable message:
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Authentication required",
+  "code": 401
+}
+```
+
+## Endpoints by Product
+
+<CardGroup cols={3}>
+  <Card title="Instances" icon="server" href="/api-reference/instances/list-instances">
+    Instances, snapshots, SSH keys, and the GPU catalog
+  </Card>
+  <Card title="Sandboxes" icon="box" href="/api-reference/sandboxes/start-a-sandbox">
+    Sandboxes and sandbox images
+  </Card>
+  <Card title="Account & Billing" icon="wallet" href="/api-reference/billing/get-credit-alert">
+    Credit alerts, API tokens, and user data
+  </Card>
+</CardGroup>

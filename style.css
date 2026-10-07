@@ -1,0 +1,5 @@
+/* The sidebar is one wrapper group so the product sections render as collapsible
+ * accordions (Mintlify only collapses nested groups). Its own header adds nothing, so hide it. */
+.sidebar-group-header {
+  display: none;
+}
