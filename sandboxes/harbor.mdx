@@ -1,0 +1,102 @@
+---
+title: "Run Harbor evals on Thunder sandboxes"
+sidebarTitle: "Harbor"
+description: "Run Terminal-Bench and other Harbor agent evaluations in Thunder sandboxes, with GPUs, Docker Compose, and network policies."
+---
+
+[Harbor](https://harborframework.com) is the framework from the creators of Terminal-Bench for evaluating agents and generating RL rollouts. Thunder maintains a [fork of Harbor](https://github.com/Thunder-Compute/harbor) that adds `thunder` as an environment, so every trial runs in its own Thunder sandbox.
+
+<Note>
+  Sandbox access must be enabled for your organization. [Contact us](https://www.thundercompute.com/contact) if you receive `sandbox_access_denied`.
+</Note>
+
+## 1. Install Harbor with Thunder support
+
+You need Python 3.12 or newer. Install Harbor from the Thunder fork with the `thunder` extra:
+
+<CodeGroup>
+
+```bash uv
+uv tool install "harbor[thunder] @ git+https://github.com/Thunder-Compute/harbor.git"
+```
+
+```bash pip
+pip install "harbor[thunder] @ git+https://github.com/Thunder-Compute/harbor.git"
+```
+
+</CodeGroup>
+
+## 2. Authenticate
+
+Create an API token in the [Thunder console](https://console.thundercompute.com/settings/tokens) and export it, or run `tnr login` if you already use the [Thunder CLI](/cli/quickstart).
+
+```bash
+export TNR_API_TOKEN="<your_api_token>"
+```
+
+## 3. Run an evaluation
+
+Pass `--env thunder` to any `harbor run` command. This runs Terminal-Bench 2.0 with Claude Code, 32 trials at a time:
+
+```bash
+export ANTHROPIC_API_KEY="<your_anthropic_key>"
+
+harbor run \
+  --dataset terminal-bench@2.0 \
+  --agent claude-code \
+  --model anthropic/claude-opus-5-5 \
+  --env thunder \
+  --n-concurrent 32
+```
+
+Harbor creates a sandbox for each trial, runs the agent and verifier inside it, and terminates the sandbox when the trial finishes. Run `harbor run --help` for every agent and option, and `harbor datasets list` for other benchmarks such as SWE-Bench.
+
+## How tasks map to sandboxes
+
+- **Dockerfile or image tasks** run directly in an image-backed sandbox. Thunder builds the Dockerfile or imports the registry image for you. The image's `ENTRYPOINT` and `CMD` are not run, so use a Compose task if startup depends on them.
+- **Docker Compose tasks** run Docker Compose inside a Thunder VM, including sidecar services. Sandboxes are Firecracker microVMs, so Docker works without privileged-container workarounds.
+- **Network policies** from the task (no network, or domain, IP, and CIDR allowlists) are enforced at the sandbox's egress, and Harbor can change them between the agent and verifier phases.
+- **CPU, memory, and storage** come from the task's `[environment]` resources.
+
+## GPU tasks
+
+Request a GPU in the task's `task.toml`:
+
+```toml task.toml
+[environment]
+gpus = 1
+gpu_types = ["H100"]
+```
+
+Or choose the GPU type for the whole run with `--ek gpu_type=H100`. Supported types are `H100` and `A100` (80 GB). See [sandbox pricing](/sandboxes/pricing) for rates.
+
+## Options
+
+Pass Thunder options with `--ek key=value` (repeatable) or under `environment.kwargs` in a job config.
+
+| Option | Description |
+| --- | --- |
+| `gpu_type` | GPU type for GPU tasks: `H100` or `A100`. Overrides the task's `gpu_types`. |
+| `vm_cpus`, `vm_memory_mb`, `vm_storage_mb` | Size the VM independently of the task's container limits, mainly for Compose tasks. Requires an even vCPU count of at least 4, at least 16 GiB of memory, and at least 18 GiB of storage. |
+| `sandbox_timeout_sec` | Maximum sandbox lifetime in seconds. No limit by default; Harbor terminates sandboxes when trials finish. |
+| `sandbox_name` | Label for newly created sandboxes. |
+| `sandbox_id`, `existing_sandbox_name` | Run in an existing sandbox instead of creating one. Harbor never terminates a sandbox it did not create. |
+| `registry_username`, `registry_password`, `registry_server` | Credentials for private registry images. |
+
+For example, to give Compose tasks a larger VM:
+
+```bash
+harbor run --dataset <dataset@version> --agent <agent> --model <model> \
+  --env thunder \
+  --ek vm_cpus=8 \
+  --ek vm_memory_mb=32768
+```
+
+<Warning>
+  `--no-delete` keeps sandboxes running after each trial so you can inspect them. They are billed until they are terminated or reach `sandbox_timeout_sec`, so set a timeout when using it.
+</Warning>
+
+## Next steps
+
+- Use the [Python SDK](/sandboxes/python-sdk) to work with sandboxes directly. Inside Harbor, `environment.client` and `environment.sandbox` expose the SDK handles for the current trial.
+- See the [Harbor documentation](https://harborframework.com/docs) for writing tasks, adapters, and datasets.
