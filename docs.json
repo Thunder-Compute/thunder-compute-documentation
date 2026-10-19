@@ -330,15 +330,33 @@
       "discord": "https://discord.com/invite/nwuETS9jJK",
       "x": "https://twitter.com/thundercompute",
       "linkedin": "https://www.linkedin.com/company/thundercompute/"
-    }
+    },
+    "links": [
+      {
+        "header": "Privacy",
+        "items": [
+          {
+            "label": "Do Not Sell or Share My Personal Information",
+            "href": "https://app.termly.io/notify/98b5d1bc-07be-47ff-9c9d-79e014c8f2ee"
+          },
+          {
+            "label": "Limit the Use of My Sensitive Personal Information",
+            "href": "https://app.termly.io/notify/98b5d1bc-07be-47ff-9c9d-79e014c8f2ee"
+          }
+        ]
+      }
+    ]
   },
   "integrations": {
+    "cookies": {
+      "key": "tc_analytics_consent",
+      "value": "granted"
+    },
     "gtm": {
       "tagId": "G-KCY026LJ4T"
     },
-    "posthog": {
-      "apiKey": "phc_vxiWTRGpeP8lSlmUU2qU2HTYBO9mM7yd8xXeJDcRTAz",
-      "apiHost": "https://us.i.posthog.com"
+    "telemetry": {
+      "enabled": false
     }
   },
   "fonts": {
