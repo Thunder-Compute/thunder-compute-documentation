@@ -1,0 +1,22 @@
+---
+title: "Prototyping and production modes (legacy)"
+description: "An explanation of Thunder Compute's legacy prototyping and production instance modes."
+hidden: true
+noindex: true
+---
+
+<Warning>
+  This page describes a deprecated Thunder Compute instance model.
+  For current setup instructions, see the 
+  [Quickstart](/docs/vscode/quickstart) guide.
+</Warning>
+
+Thunder Compute previously offered two instance modes: **prototyping** (later
+called **development**) and **production**. The choice affected the intended
+workload, price, and compatibility of an instance.
+
+* Prototyping (or development) was meant for research, experimentation, and short-lived development.
+* Production was better suited for long-running inference, batch training, and production workloads.
+
+Eventually, the proprietary GPU virtualization used for Prototyping instances became stable and reliable. At this point it was applied to all Thunder Compute instances, and the distinction
+became meaningless.
