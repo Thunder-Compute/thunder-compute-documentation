@@ -1,0 +1,97 @@
+---
+title: "Sandbox SDK changelog"
+sidebarTitle: "Changelog"
+description: "Changes to the thunder-sandbox Python SDK."
+---
+
+thunder-sandbox SDK releases, newest first. Entries marked **Breaking** may need a code change.
+
+To stay on a known version, pin the SDK:
+
+```bash
+pip install "thunder-sandbox==0.8.2"
+```
+
+<Update label="November 10, 2026" description="SDK 0.8.2" tags={["SDK", "Breaking"]}>
+  **Per-second pricing and lifecycle timestamps**
+
+  - `sandbox.get_price_per_second()` returns the sandbox's current USD per second for all of its configured resources. It is a rate, not accrued charges. Async: `await sandbox.get_price_per_second()`, or `get_price_per_second_async()` on blocking objects.
+  - `sandbox.info.ready_at` is now read straight from the API, as `sandbox.info.stopped_at` already was. Sandboxes from `list_sandboxes`, `get_sandbox`, and `create` all carry both, so reading them never makes a request. Call `sandbox.refresh()` to see transitions since the last fetch.
+
+  ```python
+  import thunder_sandbox as thunder
+
+  with thunder.Client.from_cli() as client:
+      sandbox = client.get_sandbox("sbx-...")
+      print(sandbox.get_price_per_second())
+      print(sandbox.info.ready_at, sandbox.info.stopped_at)
+  ```
+
+  **Breaking:**
+
+  - `get_hourly_price()` (available since 0.7.2) is renamed to `get_price_per_second()` and now returns USD per second, the hourly rate divided by 3600. `client.get_pricing()` still returns hourly rates.
+  - The cost helpers added in 0.8.1 are removed: `get_billed_seconds()`, `get_cost()`, `info.billed_seconds()`, `info.scheduled_at`, and `info.started_at`.
+</Update>
+
+<Update label="November 10, 2026" description="SDK 0.8.1" tags={["SDK"]}>
+  - `client.resolve_image(..., workspace=)` (a name or ID) builds or imports the image in that workspace. Without it, `TNR_WORKSPACE` applies, then the main workspace. `Sandbox.create(image=...)` uses the sandbox's workspace. `ResolvedImage.workspace_id` shows which workspace lists the image.
+  - An organization builds each recipe once. A Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
+  - Building or importing images in a workspace takes the developer role there.
+  - Added `info.ready_at` and `info.stopped_at`. Also added cost helpers and the `info.scheduled_at` and `info.started_at` timestamps, which 0.8.2 removed.
+</Update>
+
+<Update label="November 7, 2026" description="SDK 0.8.0" tags={["SDK", "Breaking"]}>
+  **Workspaces**
+
+  - Pass `workspace=` (a name or ID) to `Sandbox.create`, `client.list_sandboxes`, and `get_sandbox_by_name`, or set `TNR_WORKSPACE`. Leave both out to use the main workspace.
+  - `client.list_workspaces()` lists the workspaces your credential can reach. `sandbox.workspace_id` shows a sandbox's workspace.
+  - Each workspace has its own SSH certificate, which the SDK manages for you.
+
+  **exec**
+
+  - Arguments up to Linux's 128 KiB limit now work; previously they failed above about 64 KiB with "Argument list too long". Larger arguments fail immediately with `InvalidRequestError` instead of hanging. Upload large inputs as files.
+  - Reading command output is faster: about 0.6 s instead of 3.5 s for a trivial command.
+  - **Breaking:** in image sandboxes, bare command names such as `sh`, `ls`, and `setsid` now run the image's own program from `PATH`, like `docker exec`. BusyBox is used only when the image doesn't have that program. This fixes `setsid -f` and `sh -c` waiting on background jobs, but `sh` is now whatever the image ships (dash on Ubuntu and Debian). Bash-only syntax under `sh -c`, like `set -o pipefail`, `source`, `[[ ]]`, or `${x:0:2}`, now fails. Call `bash -c` instead.
+  - The SDK's internal shell variables are now prefixed, so they no longer overwrite your environment variables (for example, one named `job`).
+
+  **Files and retries**
+
+  - `download("dir/.")` works (Harbor's `download_dir` uses this form). Previously it retried until the TTL.
+  - `upload()` and `download()` accept `timeout=`.
+  - **Breaking:** retries are bounded. An operation that keeps failing for 10 minutes raises `ConnectionError` instead of retrying forever, so a stuck transfer can't keep a GPU billing. The job keeps running, and `get_process()` can reattach to it.
+  - SFTP errors on a live connection are no longer retried.
+
+  **Network policies**
+
+  - **Breaking:** naming only one allowlist restricts egress to that list. The list you leave out now allows nothing. Before, it allowed everything, which undid the restriction. Pass neither list for open egress, or pass the open value (`["0.0.0.0/0"]` or `["*"]`) for the list you want open. The two lists add together, so `["0.0.0.0/0"]` opens all public egress whatever the domain list says.
+  - Domain allowlists match TLS (HTTPS) traffic only. Plain HTTP to an allowed domain gets an empty reply. To reach a plain-HTTP host (for example an apt mirror), allow its IP range with `outbound_cidr_allowlist`.
+
+</Update>
+
+<Update label="November 4, 2026" description="SDK 0.7.11" tags={["SDK"]}>
+  **Queueing and CPU-only sandboxes**
+
+  - `queue=True` on `Sandbox.create` waits for capacity instead of failing with a capacity error. On `client.resolve_image`, it admits the image build without a capacity check. With no positional command, `create` returns right away. `sandbox.queued` tells you whether it's still waiting, and `wait_until_ready(timeout=None)` waits with no limit.
+  - CPU-only sandboxes: leave out the GPU options, or pass `gpu_type=thunder.GPUType.NONE` and `gpu_count=0`. The API's resource catalog sets which CPU, memory, and storage sizes are allowed.
+  - `terminate()` stops a queued sandbox immediately.
+
+</Update>
+
+<Update label="November 3, 2026" description="SDK 0.7.10" tags={["SDK"]}>
+  - `client.resolve_image(spec=...)` checks capacity for the resources you plan to use before building. It doesn't reserve them. `Sandbox.create` passes its resources through automatically.
+  - Docs: an image's initial command runs once, and the sandbox stays available for commands and file transfers after it exits.
+</Update>
+
+<Update label="October 30, 2026" description="SDK 0.7.8 and 0.7.9" tags={["SDK", "Breaking"]}>
+  - **Breaking:** image sandboxes now run the image's `ENTRYPOINT` / `CMD` once at startup. Before, they were skipped. This is a platform change that applies to every SDK version, so pinning an older SDK doesn't avoid it. Images that start a server will start it. The `vllm/vllm-openai` image, for example, runs `vllm serve` and takes most of the GPU's memory before your own job starts. Commands passed to `Sandbox.create` or `exec` run alongside the image's command and don't replace it. To skip it, build from the image and clear the entrypoint:
+
+    ```dockerfile
+    FROM vllm/vllm-openai:latest
+    ENTRYPOINT []
+    CMD []
+    ```
+
+  - `exec` accepts `user=` in image sandboxes to run a command as a specific user.
+  - `update_network_policy()` now waits until the new policy is enforced. It takes `timeout=` (default 300 s) and raises `SandboxTimeoutError` if enforcement isn't confirmed in time.
+  - Fixed a race where a job terminated just as it started could still begin running.
+</Update>
