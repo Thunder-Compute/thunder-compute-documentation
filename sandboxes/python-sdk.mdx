@@ -50,7 +50,7 @@ thunder.Sandbox.create(
 </ParamField>
 
 <ParamField body="timeout" type="int | None" default="300">
-  Sandbox lifetime in seconds, measured from creation. Use `None` to disable automatic expiry. For a queued sandbox, the lifetime starts when it becomes ready.
+  Sandbox lifetime in seconds, measured from when the sandbox becomes ready. Time spent queued or starting doesn't count. Use `None` to disable automatic expiry.
 </ParamField>
 
 <ParamField body="queue" type="boolean" default="false">
@@ -118,7 +118,7 @@ restricted = thunder.Sandbox.create(
 )
 ```
 
-Passing either allowlist restricts outbound traffic to what you list, and an allowlist you leave out allows nothing. Supply both when a workload needs direct IP and domain access. To leave one dimension open, pass its open value explicitly: `outbound_cidr_allowlist=["0.0.0.0/0"]` or `outbound_domain_allowlist=["*"]`. Passing neither leaves the sandbox open.
+Passing either allowlist restricts outbound traffic to what you list, and an allowlist you leave out allows nothing. The two lists add together: a connection is allowed when either list permits it. Supply both when a workload needs direct IP and domain access. To leave one dimension open, pass its open value explicitly. `outbound_domain_allowlist=["*"]` allows TLS to any domain. `outbound_cidr_allowlist=["0.0.0.0/0"]` allows every public address, so a domain allowlist beside it restricts nothing. Passing neither leaves the sandbox open.
 
 Domain allowlists match TLS connections on the server name, so plain HTTP to an allowed domain fails. For a plain-HTTP host, such as an `apt` mirror, allow its address range with `outbound_cidr_allowlist`. A bare domain matches exactly; use `*.` for its subdomains.
 
@@ -209,7 +209,7 @@ To prepare an image ahead of time, call `client.resolve_image`. It returns a `Re
 client.resolve_image(image, *, timeout=7200, spec=None, queue=False, workspace=None)
 ```
 
-Pass the planned resources as `spec` to check capacity for them before building. The check doesn't reserve anything; `Sandbox.create` passes its resources automatically. The image is built or imported in `workspace`, and `ResolvedImage.workspace_id` reports which workspace lists it. An organization builds each recipe once, so a Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
+Pass the planned resources as `spec` to check capacity for them before building. The check doesn't reserve anything. `Sandbox.create` passes its resources automatically. The image is built or imported in `workspace`, and `ResolvedImage.workspace_id` reports which workspace lists it. An organization builds each recipe once, so a Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
 
 ## `Sandbox.update_network_policy`
 
@@ -293,6 +293,8 @@ id_ed25519
 id_ed25519-cert.pub
 id_ed25519-cert.json
 ```
+
+These are the files for the `main` workspace. Each other workspace adds its own certificate beside the shared key, as `id_ed25519-<hash>-cert.pub` and `id_ed25519-<hash>-cert.json`.
 
 Set `TNR_HOME` to move the cache. When the cache directory is unwritable, the SDK holds the key and certificate in memory for command execution and file transfers.
 
@@ -415,7 +417,7 @@ stderr = process.stderr.read()
 
 The returned `Process` exposes `id`, `stdin`, `stdout`, `stderr`, `returncode`, `is_durable`, `poll()`, `wait()`, `cleanup()`, and `terminate()`. stdout and stderr remain readable after the process finishes. A process wait deadline raises `asyncio.TimeoutError`; `Sandbox.wait()` converts a timeout from the command passed to `Sandbox.create(*args)` into `SandboxTimeoutError`.
 
-By default, commands run as durable jobs that do not depend on the SSH connection that started them. If the connection drops, the SDK reconnects and keeps reading the same job's output without gaps or duplicates, rather than starting the command again. An operation that keeps failing for ten minutes raises `ConnectionError`; the job keeps running, and `get_process` can recover it. Once the job has finished and its captured output has been read, the SDK removes the job's files from the sandbox unless `retain=True`.
+By default, commands run as durable jobs that do not depend on the SSH connection that started them. If the connection drops, the SDK reconnects and keeps reading the same job's output without gaps or duplicates, rather than starting the command again. An operation that keeps failing for 10 minutes raises `ConnectionError`; the job keeps running, and `get_process` can recover it. Once the job has finished and its captured output has been read, the SDK removes the job's files from the sandbox unless `retain=True`.
 
 In an image-backed sandbox, a command given by bare name runs the image's own program, as under `docker exec`. So `sh` is the image's shell, which is dash on Ubuntu and Debian and doesn't support `[[ ]]`, `set -o pipefail`, or `source`; call `bash -c` for scripts that need them. If the image has no such program, the sandbox's BusyBox provides it when it can.
 
@@ -568,7 +570,7 @@ print(pricing.vcpu, pricing.memory_gb, pricing.storage_gb)
 print(pricing.gpu[thunder.GPUType.H100])
 ```
 
-`sandbox.get_price_per_second()` returns a sandbox's total USD per second for all of its configured resources: the hourly rates divided by 3600. It is a rate, not accrued charges. Billing runs from `sandbox.info.ready_at` to `sandbox.info.stopped_at`.
+`sandbox.get_price_per_second()` returns a sandbox's total USD per second for all of its configured resources: the hourly rates divided by 3600. It is a rate, not accrued charges. Billing runs from `sandbox.info.ready_at` to `sandbox.info.stopped_at` or the end of the sandbox's lifetime, whichever comes first. Time spent queued or starting isn't billed.
 
 ```python
 print(sandbox.get_price_per_second())
