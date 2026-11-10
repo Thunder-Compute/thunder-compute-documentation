@@ -56,7 +56,7 @@ python get_started.py
 
 `cpu` is measured in vCPUs; `memory` and `storage` are measured in GiB. This example requests one H100 GPU and expires after 900 seconds (15 minutes). Terminating it destroys its filesystem, so always download anything you need to keep.
 
-On the first SSH operation, the SDK creates one local Ed25519 key and requests a short-lived organization certificate. The same credential works with every sandbox in your organization and is renewed automatically.
+On the first SSH operation, the SDK creates one local Ed25519 key and requests a short-lived certificate for the sandbox's workspace. The same credential works with every sandbox in that workspace and is renewed automatically.
 
 Next, see the [Python SDK reference](/sandboxes/python-sdk) for GPUs, images, files, networking, SSH, and existing sandboxes. To call the API directly, see the [Sandboxes API reference](/api-reference/sandboxes/start-a-sandbox).
 
