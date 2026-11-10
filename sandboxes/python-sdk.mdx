@@ -22,6 +22,7 @@ thunder.Sandbox.create(
     name=None,
     env=None,
     timeout=300,
+    queue=False,
     cpu=None,
     memory=None,
     storage=None,
@@ -31,6 +32,7 @@ thunder.Sandbox.create(
     block_network=False,
     outbound_cidr_allowlist=None,
     outbound_domain_allowlist=None,
+    workspace=None,
     client=None,
 )
 ```
@@ -48,7 +50,11 @@ thunder.Sandbox.create(
 </ParamField>
 
 <ParamField body="timeout" type="int | None" default="300">
-  Sandbox lifetime in seconds, measured from creation. Use `None` to disable automatic expiry.
+  Sandbox lifetime in seconds, measured from creation. Use `None` to disable automatic expiry. For a queued sandbox, the lifetime starts when it becomes ready.
+</ParamField>
+
+<ParamField body="queue" type="boolean" default="false">
+  Waits for capacity instead of failing with `CapacityError`. Without command arguments, `create` returns right away while the sandbox waits. See [Queueing](#queueing).
 </ParamField>
 
 <ParamField body="cpu" type="integer" default="4">
@@ -64,7 +70,7 @@ thunder.Sandbox.create(
 </ParamField>
 
 <ParamField body="gpu_type" type="GPUType">
-  GPU type, such as `thunder.GPUType.H100`. Supply it together with `gpu_count`.
+  GPU type, such as `thunder.GPUType.H100`. Supply it together with `gpu_count`. For a CPU-only sandbox, leave out both GPU options or pass `thunder.GPUType.NONE` with `gpu_count=0`.
 </ParamField>
 
 <ParamField body="gpu_count" type="integer">
@@ -84,14 +90,20 @@ thunder.Sandbox.create(
 </ParamField>
 
 <ParamField body="outbound_domain_allowlist" type="Sequence[str]">
-  DNS names the sandbox may resolve. Use `*.example.com` for subdomains.
+  Domains the sandbox may reach over TLS. Use `*.example.com` for subdomains.
+</ParamField>
+
+<ParamField body="workspace" type="string">
+  Workspace name or `ws-` ID to create the sandbox in. Defaults to `TNR_WORKSPACE`, then the main workspace. See [Workspaces](#workspaces).
 </ParamField>
 
 <ParamField body="client" type="Client">
   Reuse an existing authenticated client.
 </ParamField>
 
-SSH authentication uses an organization certificate as described in [SSH authentication](#ssh-authentication).
+CPU, memory, and storage are whole numbers. The API's resource catalog sets the allowed range for each and rejects a value outside it with `InvalidRequestError`.
+
+SSH authentication uses a workspace certificate as described in [SSH authentication](#ssh-authentication).
 
 Public internet access is allowed by default. Private, metadata, and other sandbox networks remain blocked, and inbound access is limited to SSH.
 
@@ -106,7 +118,59 @@ restricted = thunder.Sandbox.create(
 )
 ```
 
-CIDR and domain rules are independent: when both are restricted, a connection must pass both controls. A bare domain matches exactly; use `*.` for its subdomains.
+Passing either allowlist restricts outbound traffic to what you list, and an allowlist you leave out allows nothing. Supply both when a workload needs direct IP and domain access. To leave one dimension open, pass its open value explicitly: `outbound_cidr_allowlist=["0.0.0.0/0"]` or `outbound_domain_allowlist=["*"]`. Passing neither leaves the sandbox open.
+
+Domain allowlists match TLS connections on the server name, so plain HTTP to an allowed domain fails. For a plain-HTTP host, such as an `apt` mirror, allow its address range with `outbound_cidr_allowlist`. A bare domain matches exactly; use `*.` for its subdomains.
+
+To make creation safe to retry, give the sandbox a unique `name`. If a create request is interrupted and you can't tell whether it succeeded, `Sandbox.from_name` finds the sandbox if it exists:
+
+```python
+try:
+    sandbox = thunder.Sandbox.create(name=run_name, timeout=900)
+except thunder.ConnectionError:
+    sandbox = thunder.Sandbox.from_name(run_name)
+```
+
+## Queueing
+
+With `queue=True`, a sandbox waits for capacity instead of failing with `CapacityError`. When creating with `image=...`, the image build or import is admitted without a capacity check too.
+
+```python
+sandbox = thunder.Sandbox.create(
+    gpu_type=thunder.GPUType.H100,
+    gpu_count=1,
+    queue=True,
+    timeout=900,
+)
+try:
+    print(sandbox.queued)  # Waiting for capacity, as of the last fetch.
+    sandbox.wait_until_ready(timeout=None)
+finally:
+    sandbox.terminate()
+```
+
+Without command arguments, `create` returns once any image is ready, while the sandbox is still queued. Call `sandbox.refresh()` to update `sandbox.queued`. `terminate()` cancels a queued sandbox. With command arguments, `create` still waits for readiness within its `timeout`, so for long queue waits create a handle and call `wait_until_ready(timeout=None)`.
+
+## Workspaces
+
+Workspaces divide an organization's sandboxes and images, and each member has a role in each workspace. Calls that create, list, or find sandboxes by name take a `workspace` name or `ws-` ID and use the first of:
+
+1. The `workspace` argument.
+2. The `TNR_WORKSPACE` environment variable.
+3. `main`, which every organization has.
+
+```python
+with thunder.Client.from_cli() as client:
+    for workspace in client.list_workspaces():
+        print(workspace.id, workspace.name, workspace.role)
+
+    sandbox = client.create_sandbox(workspace="research", cpu=4, memory=16)
+    print(sandbox.workspace_id)
+```
+
+A sandbox ID needs no workspace: `client.get_sandbox(id)` finds a sandbox in any workspace you can access, and everything you then do with it follows that sandbox. Viewers can read a workspace's sandboxes. Starting, stopping, and connecting to them, and building or importing images there, takes the developer role.
+
+`list_sandboxes` covers one workspace. Names can change, so long-lived code such as a cleanup job should store workspace IDs.
 
 ## Images
 
@@ -127,9 +191,25 @@ sandbox = thunder.Sandbox.create(image=thunder.Image.from_dockerfile("./env"))
 
 Supply `username` and `password` together for a private registry. `from_dockerfile` uploads the directory as the build context, honoring `.dockerignore`, up to 5 GiB.
 
-An image-backed sandbox ignores the image's `ENTRYPOINT` and `CMD` and keeps the container running for the sandbox's lifetime. `exec`, `upload`, and `download` operate inside that container. `sandbox.image_id` reports the managed image in use.
+An image-backed sandbox runs the image's `ENTRYPOINT` followed by its `CMD` once at startup. After that command exits or fails, the sandbox stays available for `exec` and file transfers until you terminate it or its lifetime expires. `exec`, `upload`, and `download` operate inside the container. `sandbox.image_id` reports the managed image in use.
 
-To prepare an image ahead of time, call `client.resolve_image(image, timeout=7200)`. It returns a `ResolvedImage` once the image is ready and raises `SandboxFailedError` if the build or import fails.
+Images that start a server will start it, and inherited defaults count too. To keep an inherited command from running, clear both defaults:
+
+```dockerfile
+FROM vllm/vllm-openai:latest
+ENTRYPOINT []
+CMD []
+```
+
+Command arguments passed to `Sandbox.create` run as a separate `exec` command after the sandbox is ready. They don't replace the image's command, which may still be running or may already have exited. `sandbox.wait()` and `sandbox.poll()` don't track the image's command, and the SDK doesn't expose its output or exit status.
+
+To prepare an image ahead of time, call `client.resolve_image`. It returns a `ResolvedImage` once the image is ready and raises `SandboxFailedError` if the build or import fails.
+
+```python Signature
+client.resolve_image(image, *, timeout=7200, spec=None, queue=False, workspace=None)
+```
+
+Pass the planned resources as `spec` to check capacity for them before building. The check doesn't reserve anything; `Sandbox.create` passes its resources automatically. The image is built or imported in `workspace`, and `ResolvedImage.workspace_id` reports which workspace lists it. An organization builds each recipe once, so a Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
 
 ## `Sandbox.update_network_policy`
 
@@ -141,6 +221,7 @@ sandbox.update_network_policy(
     block_network=False,
     outbound_cidr_allowlist=None,
     outbound_domain_allowlist=None,
+    timeout=300,
 )
 ```
 
@@ -154,7 +235,9 @@ sandbox.update_network_policy(
 sandbox.update_network_policy()
 ```
 
-`None` leaves that policy dimension unrestricted, while an empty sequence blocks it. The call returns after Thunder accepts the new policy; enforcement on the sandbox node converges asynchronously. Established connections may remain open after a policy is tightened.
+Allowlists follow the same rules as at creation: an allowlist you leave out allows nothing, unless you pass neither. Each call replaces the complete policy rather than merging with the previous one.
+
+The call waits until Thunder confirms the new policy is enforced. `timeout` defaults to 300 seconds; pass `None` to wait indefinitely. A timeout raises `SandboxTimeoutError` but doesn't undo an accepted update. A superseded policy raises `ConflictError`. Existing user connections are revoked during a policy change; SSH stays available.
 
 ## `Sandbox.from_id`
 
@@ -175,7 +258,7 @@ Use IDs when storing or reconnecting to a sandbox. Names are reusable labels.
 Finds the live sandbox with the given name. It raises `NotFoundError` when no live sandbox has that name and `ConflictError` if the name is ambiguous.
 
 ```python Signature
-thunder.Sandbox.from_name(name, *, client=None)
+thunder.Sandbox.from_name(name, *, workspace=None, client=None)
 ```
 
 ```python
@@ -187,17 +270,21 @@ Names are unique only while a sandbox is live and may be reused after it stops. 
 Sandbox handles expose these properties:
 
 ```python
-sandbox.id       # Permanent API ID
-sandbox.name     # Reusable display label
-sandbox.status   # SandboxStatus enum
-sandbox.info     # Resources, policy, timestamps, SSH, and failure details
-sandbox.ssh      # SSHConnection; available when the sandbox is ready
+sandbox.id            # Permanent API ID
+sandbox.name          # Reusable display label
+sandbox.status        # SandboxStatus enum
+sandbox.queued        # Waiting for capacity, as of the last fetch
+sandbox.workspace_id  # Workspace the sandbox belongs to
+sandbox.info          # Resources, policy, timestamps, SSH, and failure details
+sandbox.ssh           # SSHConnection; available when the sandbox is ready
 sandbox.ssh_command
 ```
 
+`sandbox.info` carries timezone-aware lifecycle timestamps: `created_at`, `ready_at`, `stopped_at` (finished or failed), and `expires_at`. A timestamp is `None` until its transition happens. Values are as of the last fetch; call `sandbox.refresh()` to see newer transitions.
+
 ## SSH authentication
 
-The SDK authenticates your machine with one Ed25519 key and a short-lived SSH certificate scoped to your organization. The private key remains on your machine. The API signs its public half, and every sandbox in the organization trusts that authority, so you can reconnect to existing sandboxes from any authenticated machine.
+The SDK authenticates your machine with one Ed25519 key and a short-lived SSH certificate for each workspace. The private key remains on your machine. The API signs its public half, and every sandbox in the workspace trusts that authority, so you can reconnect to existing sandboxes from any authenticated machine.
 
 The credential is created lazily on the first SSH operation, reused across sandboxes, and renewed automatically before expiry. The SDK caches it under `~/.thunder/sandbox_keys/` by default:
 
@@ -224,6 +311,8 @@ Waits until the sandbox reports `ready`. Thunder holds each request open until t
 ```python
 sandbox.wait_until_ready(timeout=300)
 ```
+
+Pass `timeout=None` to wait indefinitely, for example for a [queued](#queueing) sandbox.
 
 ## `Sandbox.refresh`
 
@@ -260,6 +349,7 @@ Starts a command over SSH. Pass the executable and each argument separately.
 sandbox.exec(
     *args,
     timeout=None,
+    user=None,
     workdir=None,
     env=None,
     text=True,
@@ -276,6 +366,10 @@ sandbox.exec(
 
 <ParamField body="timeout" type="float | None">
   Default timeout used by `process.wait()`.
+</ParamField>
+
+<ParamField body="user" type="string">
+  Account to run the command as in an image-backed sandbox: a username or UID, optionally followed by a group or GID, such as `"root"`, `"1000"`, or `"1000:1000"`. Commands run as root by default, regardless of the image's `USER`. Passing `user` without an image raises `InvalidRequestError`.
 </ParamField>
 
 <ParamField body="workdir" type="string">
@@ -321,7 +415,11 @@ stderr = process.stderr.read()
 
 The returned `Process` exposes `id`, `stdin`, `stdout`, `stderr`, `returncode`, `is_durable`, `poll()`, `wait()`, `cleanup()`, and `terminate()`. stdout and stderr remain readable after the process finishes. A process wait deadline raises `asyncio.TimeoutError`; `Sandbox.wait()` converts a timeout from the command passed to `Sandbox.create(*args)` into `SandboxTimeoutError`.
 
-By default, commands run as durable jobs that do not depend on the SSH connection that started them. If the connection drops, the SDK reconnects and keeps reading the same job's output without gaps or duplicates, rather than starting the command again. Once the job has finished and its captured output has been read, the SDK removes the job's files from the sandbox unless `retain=True`.
+By default, commands run as durable jobs that do not depend on the SSH connection that started them. If the connection drops, the SDK reconnects and keeps reading the same job's output without gaps or duplicates, rather than starting the command again. An operation that keeps failing for ten minutes raises `ConnectionError`; the job keeps running, and `get_process` can recover it. Once the job has finished and its captured output has been read, the SDK removes the job's files from the sandbox unless `retain=True`.
+
+In an image-backed sandbox, a command given by bare name runs the image's own program, as under `docker exec`. So `sh` is the image's shell, which is dash on Ubuntu and Debian and doesn't support `[[ ]]`, `set -o pipefail`, or `source`; call `bash -c` for scripts that need them. If the image has no such program, the sandbox's BusyBox provides it when it can.
+
+Each argument or environment value must be under 128 KiB, the Linux limit; `exec` raises `InvalidRequestError` above that. Upload larger input as a file.
 
 Durable commands do not accept stdin: `stdin.write()` raises `io.UnsupportedOperation`. Pass input through arguments, environment variables, or uploaded files. Set `pty=True` for programs that need interactive input or terminal behavior; a PTY command whose SSH connection drops raises `ConnectionError` and its final state is unknown, so use the default mode for unattended or long-running work.
 
@@ -361,7 +459,7 @@ Pass `retain=True` to `exec` when you plan to recover a command after its output
 Uploads a local file or directory over the sandbox's authenticated SSH connection. Files are written to a staging path and renamed into place when complete, so partial data never appears at the destination. If the connection drops, the SDK reconnects and repeats the transfer.
 
 ```python Signature
-sandbox.upload(local_path, remote_path, *, recursive=False)
+sandbox.upload(local_path, remote_path, *, recursive=False, timeout=None)
 ```
 
 ```python
@@ -369,14 +467,14 @@ sandbox.upload("model.py", "/home/ubuntu/model.py")
 sandbox.upload("dataset", "/home/ubuntu/dataset", recursive=True)
 ```
 
-Set `recursive=True` when uploading a directory.
+Set `recursive=True` when uploading a directory. Pass `timeout=` in seconds to bound the transfer; it raises `SandboxTimeoutError` when it expires.
 
 ## `Sandbox.download`
 
 Downloads a remote file or directory over the sandbox's authenticated SSH connection. Like `upload`, it writes to a staging path first and repeats the transfer after a dropped connection.
 
 ```python Signature
-sandbox.download(remote_path, local_path, *, recursive=False)
+sandbox.download(remote_path, local_path, *, recursive=False, timeout=None)
 ```
 
 ```python
@@ -384,11 +482,11 @@ sandbox.download("/home/ubuntu/results.json", "results.json")
 sandbox.download("/home/ubuntu/checkpoints", "checkpoints", recursive=True)
 ```
 
-Set `recursive=True` when downloading a directory.
+Set `recursive=True` when downloading a directory. `timeout=` works as it does for `upload`.
 
 ## `Sandbox.terminate`
 
-Stops the sandbox and destroys its filesystem. If the sandbox is still being created, `timeout` controls how long to wait for it to become stoppable. Use `None` to wait indefinitely.
+Stops the sandbox and destroys its filesystem. A queued sandbox is cancelled immediately. If the sandbox is still starting, `timeout` controls how long to wait for it to become stoppable. Use `None` to wait indefinitely.
 
 ```python Signature
 sandbox.terminate(*, timeout=300)
@@ -402,7 +500,7 @@ Creates an authenticated client from the Thunder CLI configuration.
 client = thunder.Client.from_cli()
 ```
 
-For headless use, set `TNR_API_TOKEN`. `TNR_API_URL` overrides the API endpoint, and `TNR_HOME` overrides the directory containing CLI state and the shared sandbox SSH credential.
+For headless use, set `TNR_API_TOKEN`. `TNR_API_URL` overrides the API endpoint, `TNR_HOME` overrides the directory containing CLI state and the shared sandbox SSH credential, and `TNR_WORKSPACE` sets the workspace for calls that don't name one.
 
 Use the client as a context manager to close it automatically:
 
@@ -435,20 +533,29 @@ sandbox = client.get_sandbox("sbx-0123456789abcdef")
 Finds a live sandbox by its reusable name. Prefer `Client.get_sandbox` when you know the ID.
 
 ```python
-sandbox = client.get_sandbox_by_name("training-run")
+sandbox = client.get_sandbox_by_name("training-run", workspace="research")
 ```
 
 ## `Client.list_sandboxes`
 
-Iterates over active sandboxes by default. Results are newest first, and pagination is automatic. Pass `"all"` for complete history or one of `"created"`, `"ready"`, `"finished"`, or `"failed"` for a single lifecycle status.
+Iterates over one workspace's active sandboxes by default. Results are newest first, and pagination is automatic. Pass `"all"` for complete history or one of `"created"`, `"ready"`, `"finished"`, or `"failed"` for a single lifecycle status.
 
 ```python Signature
-client.list_sandboxes(*, status="active")
+client.list_sandboxes(*, status="active", workspace=None)
 ```
 
 ```python
 for sandbox in client.list_sandboxes(status="active"):
     print(sandbox.id, sandbox.status.value)
+```
+
+## `Client.list_workspaces`
+
+Returns the workspaces your credential can reach, each with its `id`, `name`, and your `role` (`"viewer"` or `"developer"`).
+
+```python
+for workspace in client.list_workspaces():
+    print(workspace.id, workspace.name, workspace.role)
 ```
 
 ## `Client.get_pricing`
@@ -461,10 +568,10 @@ print(pricing.vcpu, pricing.memory_gb, pricing.storage_gb)
 print(pricing.gpu[thunder.GPUType.H100])
 ```
 
-`sandbox.get_hourly_price()` returns a sandbox's total hourly rate for all of its configured resources. It is a rate, not accrued charges.
+`sandbox.get_price_per_second()` returns a sandbox's total USD per second for all of its configured resources: the hourly rates divided by 3600. It is a rate, not accrued charges. Billing runs from `sandbox.info.ready_at` to `sandbox.info.stopped_at`.
 
 ```python
-print(sandbox.get_hourly_price())
+print(sandbox.get_price_per_second())
 ```
 
 ## `Client.close`
@@ -529,7 +636,7 @@ async with thunder.Client.from_cli() as client:
   | `UnsupportedFeatureError` | The requested feature is not supported by sandboxes. |
   | `NotFoundError` / `ConflictError` | The ID is unknown or the requested state conflicts. |
   | `SandboxFailedError` | The sandbox reached a terminal state, an image build or import failed, SSH details were missing or invalid, or a file transfer failed. |
-  | `SandboxTimeoutError` | A readiness, main-command, or stop wait expired. |
+  | `SandboxTimeoutError` | A readiness, main-command, stop, network-policy, or file-transfer wait expired. |
 
   API-backed errors expose the HTTP `status`, machine-readable `code`, and optional `retry_after` value.
 </Accordion>
