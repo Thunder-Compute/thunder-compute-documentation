@@ -1,0 +1,104 @@
+---
+title: "Sandbox changelog"
+sidebarTitle: "Changelog"
+description: "Changes to Thunder sandboxes, the thunder-sandbox Python SDK, and the sandbox platform."
+---
+
+New SDK releases and platform changes that affect sandboxes, newest first. Entries marked **Breaking** may need a code change.
+
+To stay on a known version, pin the SDK:
+
+```bash
+pip install "thunder-sandbox==0.8.2"
+```
+
+Platform changes roll out to every sandbox, whatever SDK version you run. We list them here when they change behavior you can see.
+
+<Update label="November 10, 2026" description="SDK 0.8.2" tags={["SDK", "Platform"]}>
+  **Pricing helpers, final form**
+
+  - `sandbox.get_price_per_second()` returns the sandbox's current USD per second for its configured resources.
+  - `sandbox.info.ready_at` and `sandbox.info.stopped_at` come straight from the API, so `ready_at` to `stopped_at` is the billed duration. The API now returns `ready_at` on every sandbox.
+
+  ```python
+  import thunder_sandbox as thunder
+
+  with thunder.Client.from_cli() as client:
+      sandbox = client.get_sandbox("sbx-...")
+      rate = sandbox.get_price_per_second()
+      info = sandbox.info
+  ```
+
+  **Breaking:** 0.8.2 removes the helpers that 0.8.1 added: `get_hourly_price()`, `get_billed_seconds()`, `get_cost()`, `info.billed_seconds()`, `info.scheduled_at` and `info.started_at`. Use `get_price_per_second()` and the `ready_at` / `stopped_at` timestamps instead.
+</Update>
+
+<Update label="November 9, 2026" description="SDK 0.8.1" tags={["SDK", "Platform"]}>
+  - **Workspace-scoped images.** Images built or imported with `workspace=` (a name or ID) are listed in that workspace. Without it, `TNR_WORKSPACE` applies, then the main workspace. `Image.workspace_id` shows where an image lives.
+  - Sandbox lifecycle timestamps and billing helpers were added. They were replaced in 0.8.2.
+  - **Platform:** large pinned host-memory allocations, such as optimizer offload or vLLM sleep mode, no longer crash the sandbox with "GPU is unresponsive".
+</Update>
+
+<Update label="November 6, 2026" description="SDK 0.8.0" tags={["SDK", "Platform", "Breaking"]}>
+  **Workspaces**
+
+  - Pass `workspace=` (a name or ID) to `Sandbox.create`, `client.list_sandboxes`, and `get_sandbox_by_name`, or set `TNR_WORKSPACE`. Leave both out to use the main workspace.
+  - `client.list_workspaces()` lists the workspaces your credential can reach. `sandbox.workspace_id` shows a sandbox's workspace.
+  - Each workspace has its own SSH certificate, which the SDK manages for you.
+
+  **exec**
+
+  - Arguments up to Linux's 128 KiB limit now work; previously they failed above about 64 KiB with "Argument list too long". Larger arguments fail immediately with `InvalidRequestError` instead of hanging. Upload large inputs as files.
+  - Reading command output is much faster (about 0.6 s instead of 3.5 s for a trivial command).
+  - **Breaking:** in image sandboxes, bare command names such as `sh`, `ls`, and `setsid` now run the image's own program from `PATH`, like `docker exec`. BusyBox is used only when the image doesn't have that program. This fixes `setsid -f` and `sh -c` waiting on background jobs, but `sh` is now whatever the image ships (dash on Ubuntu and Debian). Bash-only syntax under `sh -c`, like `set -o pipefail`, `source`, `[[ ]]`, or `${x:0:2}`, now fails. Call `bash -c` instead.
+  - The SDK's internal shell variables are now prefixed, so they no longer overwrite your environment variables (for example, one named `job`).
+
+  **Files and retries**
+
+  - `download("dir/.")` works (Harbor's `download_dir` uses this form). Previously it retried until the TTL.
+  - `upload()` and `download()` accept `timeout=`.
+  - **Breaking:** retries are bounded. An operation that keeps failing for 10 minutes raises `ConnectionError` instead of retrying forever, so a stuck transfer can't keep a GPU billing. The job keeps running, and `get_process()` can reattach to it.
+  - SFTP errors on a live connection are no longer retried.
+
+  **Network policies**
+
+  - **Breaking:** naming only one allowlist restricts egress to that list. The list you leave out now allows nothing. Before, it allowed everything, which silently undid the restriction. Pass neither list for open egress, or pass the open value (`["0.0.0.0/0"]` or `["*"]`) for the list you want open.
+  - Domain allowlists match TLS (HTTPS) traffic only. Plain HTTP to an allowed domain gets an empty reply. To reach a plain-HTTP host (for example an apt mirror), allow its IP range with `outbound_cidr_allowlist`.
+
+  **Platform**
+
+  - Sandboxes can now reach outside services on TCP ports 20000-28191 (for example MongoDB on 27017 or CockroachDB on 26257). Before, those connections hung until they timed out.
+  - Image builds that can't start now return a clear error instead of a bare HTTP 504.
+</Update>
+
+<Update label="November 4, 2026" description="SDK 0.7.11" tags={["SDK", "Platform"]}>
+  **Queueing and CPU-only sandboxes**
+
+  - `queue=True` on `Sandbox.create` and `client.resolve_image` waits for capacity instead of failing with a capacity error. With no positional command, `create` returns right away. `sandbox.queued` tells you whether it's still waiting, and `wait_until_ready(timeout=None)` waits with no limit.
+  - CPU-only sandboxes: leave out the GPU options, or pass `gpu_type=thunder.GPUType.NONE` and `gpu_count=0`. `cpu=1` and `cpu=2` are supported.
+  - `terminate()` stops a queued sandbox immediately.
+
+  **Platform**
+
+  - A sandbox's TTL and billing now start when it becomes ready, not when it's created. Queue and startup time are not billed, and a 60-minute TTL gives 60 minutes of runtime.
+  - Images with no `ENTRYPOINT` or `CMD` now run an init process as PID 1 that reaps orphaned processes. Before, zombies built up toward the PID limit and later jobs could hang. These sandboxes also stop cleanly on `SIGTERM`.
+  - Image builds now get 45 minutes to upload their build context (up from 5), so contexts near the 5 GiB limit upload on slower links.
+</Update>
+
+<Update label="November 2, 2026" description="SDK 0.7.10" tags={["SDK"]}>
+  - `client.resolve_image(spec=...)` checks capacity for the resources you plan to use before building. It doesn't reserve them. `Sandbox.create` passes its resources through automatically.
+  - Docs: an image's initial command runs once, and the sandbox stays available for commands and file transfers after it exits.
+</Update>
+
+<Update label="October 30, 2026" description="SDK 0.7.8 and 0.7.9" tags={["SDK", "Platform", "Breaking"]}>
+  - **Breaking (platform, fully rolled out Nov 1):** image sandboxes now run the image's `ENTRYPOINT` / `CMD` once at startup. Before, they were skipped. Images that start a server will start it. The `vllm/vllm-openai` image, for example, runs `vllm serve` and takes most of the GPU's memory before your own job starts. Commands passed to `Sandbox.create` or `exec` run alongside the image's command and don't replace it. To skip it, build from the image and clear the entrypoint:
+
+    ```dockerfile
+    FROM vllm/vllm-openai:latest
+    ENTRYPOINT []
+    CMD []
+    ```
+
+  - `exec` accepts `user=` in image sandboxes to run a command as a specific user.
+  - `update_network_policy()` now waits until the new policy is actually enforced. It takes `timeout=` (default 300 s) and raises `SandboxTimeoutError` if enforcement isn't confirmed in time.
+  - Fixed a race where a job terminated just as it started could still begin running.
+</Update>
