@@ -12,30 +12,35 @@ To stay on a known version, pin the SDK:
 pip install "thunder-sandbox==0.8.2"
 ```
 
-<Update label="November 10, 2026" description="SDK 0.8.2" tags={["SDK"]}>
-  **Pricing helpers, final form**
+<Update label="November 10, 2026" description="SDK 0.8.2" tags={["SDK", "Breaking"]}>
+  **Per-second pricing and lifecycle timestamps**
 
-  - `sandbox.get_price_per_second()` returns the sandbox's current USD per second for its configured resources.
-  - `sandbox.info.ready_at` and `sandbox.info.stopped_at` come straight from the API, so `ready_at` to `stopped_at` is the billed duration. The API now returns `ready_at` on every sandbox.
+  - `sandbox.get_price_per_second()` returns the sandbox's current USD per second for all of its configured resources. It is a rate, not accrued charges. Async: `await sandbox.get_price_per_second()`, or `get_price_per_second_async()` on blocking objects.
+  - `sandbox.info.ready_at` and `sandbox.info.stopped_at` are read straight from the API. Sandboxes from `list_sandboxes`, `get_sandbox` and `create` all carry them, so reading them never makes a request. Call `sandbox.refresh()` to see transitions since the last fetch.
 
   ```python
   import thunder_sandbox as thunder
 
   with thunder.Client.from_cli() as client:
       sandbox = client.get_sandbox("sbx-...")
-      rate = sandbox.get_price_per_second()
-      info = sandbox.info
+      print(sandbox.get_price_per_second())
+      print(sandbox.info.ready_at, sandbox.info.stopped_at)
   ```
 
-  **Breaking:** 0.8.2 removes the helpers that 0.8.1 added: `get_hourly_price()`, `get_billed_seconds()`, `get_cost()`, `info.billed_seconds()`, `info.scheduled_at` and `info.started_at`. Use `get_price_per_second()` and the `ready_at` / `stopped_at` timestamps instead.
+  **Breaking:**
+
+  - `get_hourly_price()` (available since 0.7.2) is renamed to `get_price_per_second()` and now returns USD per second, the hourly rate divided by 3600. `client.get_pricing()` still returns hourly rates.
+  - The cost helpers added in 0.8.1 are removed: `get_billed_seconds()`, `get_cost()`, `info.billed_seconds()`, `info.scheduled_at` and `info.started_at`.
 </Update>
 
-<Update label="November 9, 2026" description="SDK 0.8.1" tags={["SDK"]}>
-  - **Workspace-scoped images.** Images built or imported with `workspace=` (a name or ID) are listed in that workspace. Without it, `TNR_WORKSPACE` applies, then the main workspace. `Image.workspace_id` shows where an image lives.
-  - Sandbox lifecycle timestamps and billing helpers were added. They were replaced in 0.8.2.
+<Update label="November 10, 2026" description="SDK 0.8.1" tags={["SDK"]}>
+  - **Workspace-scoped images.** `client.resolve_image(..., workspace=)` (a name or ID) builds or imports the image in that workspace. Without it, `TNR_WORKSPACE` applies, then the main workspace. `Sandbox.create(image=...)` uses the sandbox's workspace. `ResolvedImage.workspace_id` shows which workspace lists the image.
+  - An organization builds each recipe once. A Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
+  - Building or importing images in a workspace takes the developer role there.
+  - Added cost helpers and more lifecycle timestamps. 0.8.2 removed them.
 </Update>
 
-<Update label="November 6, 2026" description="SDK 0.8.0" tags={["SDK", "Breaking"]}>
+<Update label="November 7, 2026" description="SDK 0.8.0" tags={["SDK", "Breaking"]}>
   **Workspaces**
 
   - Pass `workspace=` (a name or ID) to `Sandbox.create`, `client.list_sandboxes`, and `get_sandbox_by_name`, or set `TNR_WORKSPACE`. Leave both out to use the main workspace.
@@ -67,12 +72,12 @@ pip install "thunder-sandbox==0.8.2"
   **Queueing and CPU-only sandboxes**
 
   - `queue=True` on `Sandbox.create` and `client.resolve_image` waits for capacity instead of failing with a capacity error. With no positional command, `create` returns right away. `sandbox.queued` tells you whether it's still waiting, and `wait_until_ready(timeout=None)` waits with no limit.
-  - CPU-only sandboxes: leave out the GPU options, or pass `gpu_type=thunder.GPUType.NONE` and `gpu_count=0`. `cpu=1` and `cpu=2` are supported.
+  - CPU-only sandboxes: leave out the GPU options, or pass `gpu_type=thunder.GPUType.NONE` and `gpu_count=0`. The API's resource catalog sets which CPU, memory and storage sizes are allowed.
   - `terminate()` stops a queued sandbox immediately.
 
 </Update>
 
-<Update label="November 2, 2026" description="SDK 0.7.10" tags={["SDK"]}>
+<Update label="November 3, 2026" description="SDK 0.7.10" tags={["SDK"]}>
   - `client.resolve_image(spec=...)` checks capacity for the resources you plan to use before building. It doesn't reserve them. `Sandbox.create` passes its resources through automatically.
   - Docs: an image's initial command runs once, and the sandbox stays available for commands and file transfers after it exits.
 </Update>
