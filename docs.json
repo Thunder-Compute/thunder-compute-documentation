@@ -67,7 +67,8 @@
               "sandboxes/quickstart",
               "sandboxes/python-sdk",
               "sandboxes/harbor",
-              "sandboxes/pricing"
+              "sandboxes/pricing",
+              "sandboxes/changelog"
             ]
           },
           {
@@ -138,7 +139,8 @@
               "sandboxes/quickstart",
               "sandboxes/python-sdk",
               "sandboxes/harbor",
-              "sandboxes/pricing"
+              "sandboxes/pricing",
+              "sandboxes/changelog"
             ]
           },
           {
@@ -209,7 +211,8 @@
               "sandboxes/quickstart",
               "sandboxes/python-sdk",
               "sandboxes/harbor",
-              "sandboxes/pricing"
+              "sandboxes/pricing",
+              "sandboxes/changelog"
             ]
           },
           {
@@ -280,7 +283,8 @@
               "sandboxes/quickstart",
               "sandboxes/python-sdk",
               "sandboxes/harbor",
-              "sandboxes/pricing"
+              "sandboxes/pricing",
+              "sandboxes/changelog"
             ]
           },
           {
