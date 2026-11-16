@@ -73,7 +73,7 @@
           },
           {
             "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
+            "pages": ["troubleshooting", "billing", "quotas", "restrictions"]
           },
           {
             "group": "API Reference",
@@ -145,7 +145,7 @@
           },
           {
             "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
+            "pages": ["troubleshooting", "billing", "quotas", "restrictions"]
           },
           {
             "group": "API Reference",
@@ -217,7 +217,7 @@
           },
           {
             "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
+            "pages": ["troubleshooting", "billing", "quotas", "restrictions"]
           },
           {
             "group": "API Reference",
@@ -289,7 +289,7 @@
           },
           {
             "group": "Reference",
-            "pages": ["troubleshooting", "billing", "restrictions"]
+            "pages": ["troubleshooting", "billing", "quotas", "restrictions"]
           },
           {
             "group": "API Reference",

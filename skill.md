@@ -42,6 +42,7 @@ Match the user's intent to the right action:
 | What GPUs are available / specs | Call `get_specs` |
 | Which GPUs are available right now | Call `get_availability` |
 | How much does it cost / pricing | Call `get_pricing` |
+| What are my limits / quotas / how many more GPUs or instances can I run | Call `get_quotas` |
 | Templates / what OS options | Call `list_templates` |
 | Snapshot / backup | **Snapshot workflow** below |
 | SSH keys (org-level) | Call `list_ssh_keys`, `create_ssh_key`, or `delete_ssh_key` |
@@ -103,6 +104,7 @@ Match the user's intent to the right action:
 - `get_availability` — Current GPU availability per spec
 - `get_pricing` — Per-hour GPU pricing
 - `list_templates` — OS templates
+- `get_quotas` — Organization quota limits and current usage (GPUs, instances, sandboxes)
 
 ### Snapshots
 - `list_snapshots` — List snapshots

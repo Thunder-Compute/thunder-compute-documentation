@@ -1,0 +1,86 @@
+---
+title: "Quotas"
+description: "See how many GPUs, instances, and sandboxes your Thunder organization can run at once, check current usage from the console, API, or MCP server, and learn how to raise a limit."
+sidebarTitle: "Quotas"
+icon: "gauge"
+iconType: "solid"
+---
+
+Every Thunder organization has quotas: limits on how much it can run at the same time. Quotas belong to the organization, so every member, API token, and AI agent draws from the same pool.
+
+## What is limited
+
+| Quota | API key | What counts toward it |
+|-------|---------|-----------------------|
+| Standard GPUs | `standard_gpus` | GPUs on running instances and sandboxes, for the GPU types listed in `standard_gpu_types`. Queued and starting resources count. |
+| Premium GPUs | `premium_gpus` | GPUs of every other type on running instances and sandboxes. Queued and starting resources count. |
+| Instances | `instances` | Every instance that has not been deleted, whether or not it is running. |
+| Sandboxes | `sandboxes` | Running sandboxes. |
+| Sandbox memory | `sandbox_memory_gib` | Total memory of running sandboxes, in GiB. |
+| GPUs per instance | `max_gpus_per_instance` | The largest GPU count one instance can have. It caps each instance on its own, so it has a limit and no usage. |
+
+The two GPU quotas are shared between instances and sandboxes. Your organization has [Sandbox](/sandboxes/quickstart) access when its `sandboxes` limit is above 0.
+
+## Check your quotas
+
+<Tabs>
+  <Tab title="Console">
+    Open **Organization → Quotas** in the [console](https://console.thundercompute.com/org/quotas). Each quota shows how much is in use, how much is available, and its limit.
+  </Tab>
+  <Tab title="API">
+    Call `GET /quotas` with an [API token](https://console.thundercompute.com/settings/tokens):
+
+    ```bash
+    curl https://api.thundercompute.com:8443/v1/quotas \
+      -H "Authorization: Bearer $THUNDER_API_TOKEN"
+    ```
+
+    The response pairs each quota's limit with its current usage, counted when the request is made:
+
+    ```json
+    {
+      "tier": "verified",
+      "quotas": {
+        "standard_gpus": { "limit": 24, "usage": 3 },
+        "premium_gpus": { "limit": 16, "usage": 0 },
+        "instances": { "limit": 10, "usage": 2 },
+        "sandboxes": { "limit": 32, "usage": 5 },
+        "sandbox_memory_gib": { "limit": 1024, "usage": 40 },
+        "max_gpus_per_instance": { "limit": 8 }
+      },
+      "standard_gpu_types": ["a100", "a100xl", "a6000", "l40", "l40s", "t4"],
+      "overrides": []
+    }
+    ```
+
+    The numbers above are examples. Add `?usage=false` to get the limits alone, which skips counting usage and leaves `usage` out of every quota. Every field is described in the [API reference](/api-reference/utilities/get-quotas).
+  </Tab>
+  <Tab title="MCP Server">
+    Ask your agent something like "What are my Thunder quotas?" or "How many more GPUs can I run?". It calls the `get_quotas` tool, which returns the same limits and usage as the API. See the [MCP Server guide](/guides/mcp-server) to connect an agent.
+  </Tab>
+</Tabs>
+
+## When a request exceeds a quota
+
+Creating an instance, modifying an instance, or starting a sandbox is refused when it would take your organization past a limit. Nothing is created, and the API answers with HTTP `409` and the error `quota_exceeded`, naming the quota that was hit:
+
+```json
+{
+  "error": "quota_exceeded",
+  "message": "This would exceed your organization's instance quota of 10: 10 in use, 1 requested. Free up usage or contact support@thundercompute.com to raise it.",
+  "code": 409,
+  "quota": {
+    "key": "instances",
+    "limit": 10,
+    "usage": 10,
+    "requested": 1
+  }
+}
+```
+
+The console, CLI, and MCP server show the same message. To free up usage, delete instances you no longer need or stop running sandboxes, then try again.
+
+## Raise a limit
+
+- **Make your first payment.** A new organization starts with lower limits, and they rise automatically after its first successful payment. When adding credit would raise the limit you hit, the error message says so and links to [billing settings](https://console.thundercompute.com/settings/billing).
+- **Contact support.** For anything higher, email [support@thundercompute.com](mailto:support@thundercompute.com) or ask in [Discord](https://discord.com/invite/nwuETS9jJK) with the quota you need raised and the amount you need.
