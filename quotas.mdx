@@ -35,32 +35,25 @@ The two GPU quotas are shared between instances and sandboxes. Your organization
       -H "Authorization: Bearer $THUNDER_API_TOKEN"
     ```
 
-    The response holds each limit and its current usage, counted when the request is made:
+    The response pairs each quota's limit with its current usage, counted when the request is made:
 
     ```json
     {
       "tier": "verified",
-      "limits": {
-        "standard_gpus": 24,
-        "premium_gpus": 16,
-        "instances": 10,
-        "max_gpus_per_instance": 8,
-        "sandboxes": 32,
-        "sandbox_memory_gib": 1024
-      },
-      "usage": {
-        "standard_gpus": 3,
-        "premium_gpus": 0,
-        "instances": 2,
-        "sandboxes": 5,
-        "sandbox_memory_gib": 40
+      "quotas": {
+        "standard_gpus": { "limit": 24, "usage": 3 },
+        "premium_gpus": { "limit": 16, "usage": 0 },
+        "instances": { "limit": 10, "usage": 2 },
+        "sandboxes": { "limit": 32, "usage": 5 },
+        "sandbox_memory_gib": { "limit": 1024, "usage": 40 },
+        "max_gpus_per_instance": { "limit": 8 }
       },
       "standard_gpu_types": ["a100", "a100xl", "a6000", "l40", "l40s", "t4"],
       "overrides": []
     }
     ```
 
-    The numbers above are examples. Add `?usage=false` to get the limits alone, which skips counting usage. Every field is described in the [API reference](/api-reference/utilities/get-quotas).
+    The numbers above are examples. Add `?usage=false` to get the limits alone, which skips counting usage and leaves `usage` out of every quota. Every field is described in the [API reference](/api-reference/utilities/get-quotas).
   </Tab>
   <Tab title="MCP Server">
     Ask your agent something like "What are my Thunder quotas?" or "How many more GPUs can I run?". It calls the `get_quotas` tool, which returns the same limits and usage as the API. See the [MCP Server guide](/guides/mcp-server) to connect an agent.
