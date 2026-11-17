@@ -13,8 +13,8 @@ Every Thunder organization has quotas: limits on how much it can run at the same
 | Quota | API key | What counts toward it |
 |-------|---------|-----------------------|
 | Standard GPUs | `standard_gpus` | GPUs on running instances and sandboxes, for the GPU types listed in `standard_gpu_types`. Queued and starting resources count. |
-| Premium GPUs | `premium_gpus` | GPUs of every other type on running instances and sandboxes. Queued and starting resources count. |
-| Instances | `instances` | Every instance that has not been deleted, whether or not it is running. |
+| Premium GPUs | `premium_gpus` | GPUs of every other type, such as H100, on running instances and sandboxes. Queued and starting resources count. |
+| Instances | `instances` | Every instance that has not been deleted. |
 | Sandboxes | `sandboxes` | Running sandboxes. |
 | Sandbox memory | `sandbox_memory_gib` | Total memory of running sandboxes, in GiB. |
 | GPUs per instance | `max_gpus_per_instance` | The largest GPU count one instance can have. It caps each instance on its own, so it has a limit and no usage. |
@@ -48,7 +48,7 @@ The two GPU quotas are shared between instances and sandboxes. Your organization
         "sandbox_memory_gib": { "limit": 1024, "usage": 40 },
         "max_gpus_per_instance": { "limit": 8 }
       },
-      "standard_gpu_types": ["a100", "a100xl", "a6000", "l40", "l40s", "t4"],
+      "standard_gpu_types": ["a100xl", "a6000", "l40"],
       "overrides": []
     }
     ```
