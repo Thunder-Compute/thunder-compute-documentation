@@ -83,7 +83,7 @@ thunder.Sandbox.create(
 </ParamField>
 
 <ParamField body="timing_sensitive" type="boolean" default="false">
-  Runs the sandbox in precise timings mode, on dedicated hardware. Requires `image`. All resources are billed at 1.5x the standard rates. See [Precise timings](#precise-timings).
+  Runs the sandbox in timing-sensitive mode, on dedicated hardware. Requires `image`. All resources are billed at 1.5x the standard rates. See [Timing-sensitive mode](#timing-sensitive-mode).
 </ParamField>
 
 <ParamField body="block_network" type="boolean" default="false">
@@ -216,9 +216,9 @@ client.resolve_image(image, *, timeout=7200, spec=None, queue=False, workspace=N
 
 Pass the planned resources as `spec` to check capacity for them before building. The check doesn't reserve anything. `Sandbox.create` passes its resources automatically. The image is built or imported in `workspace`, and `ResolvedImage.workspace_id` reports which workspace lists it. An organization builds each recipe once, so a Dockerfile or registry digest already built in another workspace comes back as the same image, ready at once.
 
-## Precise timings
+## Timing-sensitive mode
 
-Precise timings mode pins a sandbox's resources to dedicated hardware, so kernel timings stay consistent from run to run. Use it when the timing itself is the result, such as benchmarking small GPU kernels. Turn it on with `timing_sensitive=True`:
+Timing-sensitive mode pins a sandbox's resources to dedicated hardware, so kernel timings stay consistent from run to run. Use it when the timing itself is the result, such as benchmarking small GPU kernels. Turn it on with `timing_sensitive=True`:
 
 ```python
 sandbox = thunder.Sandbox.create(
@@ -231,7 +231,7 @@ sandbox = thunder.Sandbox.create(
 
 The mode requires an `image` and thunder-sandbox 0.8.8 or later. Commands, file transfers, network policies, lifetimes, and queueing work as they do in other image-backed sandboxes. Pass `queue=True` to wait for dedicated hardware to free up instead of failing with `CapacityError`. See [Queueing](#queueing).
 
-Every resource of a precise timings sandbox (GPU, vCPU, memory, and storage) is billed at 1.5x the standard [sandbox rates](https://www.thundercompute.com/pricing#sandboxes). `client.get_pricing()` and `sandbox.get_price_per_second()` report the standard rates, so multiply by 1.5 to estimate the cost of one.
+Every resource of a timing-sensitive sandbox (GPU, vCPU, memory, and storage) is billed at 1.5x the standard [sandbox rates](https://www.thundercompute.com/pricing#sandboxes). `client.get_pricing()` and `sandbox.get_price_per_second()` report the standard rates, so multiply by 1.5 to estimate the cost of one.
 
 ## `Sandbox.update_network_policy`
 
