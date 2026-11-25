@@ -218,7 +218,7 @@ Pass the planned resources as `spec` to check capacity for them before building.
 
 ## Timing-sensitive mode
 
-Timing-sensitive mode pins a sandbox's resources to dedicated hardware, so kernel timings stay consistent from run to run. Use it when the timing itself is the result, such as benchmarking small GPU kernels. Turn it on with `timing_sensitive=True`:
+Timing-sensitive mode pins a sandbox's resources to dedicated hardware, so kernel timings stay consistent from run to run. Use it when measuring the timing at the CUDA call level, such as benchmarking small GPU kernels. This mode is niche, and most use cases don't require it. Turn it on with `timing_sensitive=True`:
 
 ```python
 sandbox = thunder.Sandbox.create(
